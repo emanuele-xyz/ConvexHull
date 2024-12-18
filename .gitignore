@@ -5,3 +5,6 @@
 # build folders
 .bin
 .tmp
+
+# data files
+*.bin
