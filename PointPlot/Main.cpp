@@ -12,7 +12,7 @@
 #if defined(_DEBUG)
 #define Check(p) do { if (!(p)) { __debugbreak(); } } while (false)
 #else
-#define Check(p) do { if (!(p)) { throw std::runtime_error{std::format("{}({}): '{}' failed", __FILE__, __LINE__, #p)} } } while (false)
+#define Check(p) do { if (!(p)) { throw std::runtime_error{std::format("{}({}): check '{}' failed", __FILE__, __LINE__, #p)}; } } while (false)
 #endif
 
 #define WINDOW_CLASS_NAME "point_plot_window_class"
