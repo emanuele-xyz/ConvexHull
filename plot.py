@@ -20,13 +20,14 @@ def parse(filename):
 
     # The line after that is the number of hull points.
     hull_index = 1 + num_points
-    num_hull = int(lines[hull_index])
     hull = []
+    if len(lines) > hull_index:
+        num_hull = int(lines[hull_index])
 
-    # Next [num_hull] lines contain the coordinates for each point of the hull.
-    for i in range(hull_index + 1, hull_index + 1 + num_hull):
-        x, y = lines[i].split()
-        hull.append((float(x), float(y)))
+        # Next [num_hull] lines contain the coordinates for each point of the hull.
+        for i in range(hull_index + 1, hull_index + 1 + num_hull):
+            x, y = lines[i].split()
+            hull.append((float(x), float(y)))
 
     return points, hull
 
@@ -58,5 +59,6 @@ def plot(points, hull):
 
 
 if __name__ == "__main__":
-    points, hull = parse("input.txt")
+    # points, hull = parse("input.txt")
+    points, hull = parse("test.txt")
     plot(points, hull)
