@@ -3,6 +3,8 @@
 #include <random>
 #include <vector>
 
+#include <ConvexHull.h>
+
 int main()
 {
     std::string out_path{ "test.txt" };
@@ -13,13 +15,32 @@ int main()
         std::mt19937 generator{ random_device() };
         std::uniform_real_distribution<> distribution{ 0.0, 100.0 };
 
-        const int points_count{ 10 };
-        out_file << points_count << std::endl;
-        for (int i{}; i < points_count; i++)
+        int points_count{ 10 };
+        std::vector<ch::v2> points(points_count);
+        std::vector<ch::v2> hull(points_count);
+        std::vector<int> edge_table(points_count);
+
+        // generate points
+        for (size_t i{}; i < points.size(); i++)
         {
-            const double x{ distribution(generator) };
-            const double y{ distribution(generator) };
-            out_file << x << " " << y << std::endl;
+            double x{ distribution(generator) };
+            double y{ distribution(generator) };
+            points[i] = ch::v2{ x, y };
+        }
+
+        int hull_count{ ch::naive(points_count, points.data(), hull.data(), edge_table.data()) };
+
+        // output points
+        out_file << points_count << std::endl;
+        for (const auto& p : points)
+        {
+            out_file << p.x << " " << p.y << std::endl;
+        }
+        // ouput hull
+        out_file << hull_count << std::endl;
+        for (const auto& p : hull)
+        {
+            out_file << p.x << " " << p.y << std::endl;
         }
     }
     else
