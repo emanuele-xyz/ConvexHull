@@ -1,16 +1,19 @@
 #include <ConvexHull.h>
 
+#include <iostream> // TODO: remove
+
 namespace ch
 {
-    int naive(int points_count, const v2* points, v2* hull, int* edge_table)
+    int naive(int points_count, const v2* points, v2* hull, int* adj_matrix)
     {
-        assert(points_count > 0); assert(points); assert(hull); assert(edge_table);
+        assert(points_count > 0); assert(points); assert(hull); assert(adj_matrix);
+
+        memset(adj_matrix, 0, points_count * points_count * sizeof(*adj_matrix));
 
         // find hull edges
-        int first_edge{ -1 };
         for (int i{}; i < points_count; i++)
         {
-            for (int j{}; j < points_count; j++)
+            for (int j{ /*i + 1*/ }; j < points_count; j++)
             {
                 if (i == j) continue;
 
@@ -54,28 +57,80 @@ namespace ch
                 // update edge list
                 if (positive_halfplane == 0 || negative_halfplane == 0)
                 {
-                    if (first_edge == -1) first_edge = i;
-                    edge_table[i] = j;
-                }
-                else
-                {
-                    edge_table[i] = -1;
+                    adj_matrix[i * points_count + j] = 1;
+                    adj_matrix[j * points_count + i] = 1;
+                    //std::cout << "(" << i << ", " << j << ")\n";
+                    //break;
                 }
             }
         }
 
+        #if 0
+        for (int i{}; i < points_count; i++)
+        {
+            for (int j{}; j < points_count; j++)
+            {
+                int e{ adj_matrix[i * points_count + j] };
+                if (e) std::cout << "(" << i << ", " << j << ")\n";
+            }
+        }
+        for (int i{}; i < points_count; i++)
+        {
+            for (int j{ /*i + 1*/ }; j < points_count; j++)
+            {
+                int e{ adj_matrix[i * points_count + j] };
+                std::cout << e << " ";
+            }
+            std::cout << "\n";
+        }
+        #endif
+
         // build hull
         int hull_i{};
         {
-            assert(first_edge != -1);
-            
-            int e{ first_edge };
+            // find first hull point, with edge
+            int first_idx{};
+            int next_idx{};
+            for (int k{}; k < points_count * points_count; k++)
+            {
+                if (adj_matrix[k] == 1)
+                {
+                    first_idx = k / points_count;
+                    next_idx = k % points_count;
+                    break;
+                }
+            }
+
+            // append first point to the hull
+            hull[hull_i++] = points[first_idx];
+
+            // build the rest of the hull
+            int prev_idx{ first_idx };
             do
             {
-                int j{ edge_table[e] };
+                // append next point to the hull
+                hull[hull_i++] = points[next_idx];
+
+                // look for the next edge to follow
+                for (int k{}; k < points_count; k++)
+                {
+                    if (adj_matrix[next_idx * points_count + k] == 1 && k != prev_idx)
+                    {
+                        prev_idx = next_idx;
+                        next_idx = k;
+                        break;
+                    }
+                }
+            } while (next_idx != first_idx);
+
+            /*
+            do
+            {
+                int j{ adj_matrix[e] };
                 hull[hull_i++] = points[j];
                 e = j;
             } while (e != first_edge);
+            */
         }
 
         return hull_i;

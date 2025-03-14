@@ -15,10 +15,10 @@ int main()
         std::mt19937 generator{ random_device() };
         std::uniform_real_distribution<> distribution{ 0.0, 100.0 };
 
-        int points_count{ 10 };
+        int points_count{ 1000 };
         std::vector<ch::v2> points(points_count);
         std::vector<ch::v2> hull(points_count);
-        std::vector<int> edge_table(points_count);
+        std::vector<int> adj_matrix(points_count * points_count);
 
         // generate points
         for (size_t i{}; i < points.size(); i++)
@@ -28,7 +28,8 @@ int main()
             points[i] = ch::v2{ x, y };
         }
 
-        int hull_count{ ch::naive(points_count, points.data(), hull.data(), edge_table.data()) };
+        // TODO: ???
+        int hull_count{ ch::naive(points_count, points.data(), hull.data(), adj_matrix.data()) };
 
         // output points
         out_file << points_count << std::endl;

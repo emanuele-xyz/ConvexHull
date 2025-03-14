@@ -24,5 +24,5 @@ namespace ch
         }
     };
 
-    int naive(int points_count, const v2* points, v2* hull, int* aux);
+    int naive(int points_count, const v2* points, v2* hull, int* adj_matrix);
 }
