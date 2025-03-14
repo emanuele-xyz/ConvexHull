@@ -15,7 +15,7 @@ int main()
         std::mt19937 generator{ random_device() };
         std::uniform_real_distribution<> distribution{ 0.0, 100.0 };
 
-        int points_count{ 1000 };
+        int points_count{ 10 };
         std::vector<ch::v2> points(points_count);
         std::vector<ch::v2> hull(points_count);
         std::vector<int> adj_matrix(points_count * points_count);
