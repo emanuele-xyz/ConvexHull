@@ -8,12 +8,13 @@ namespace ch
     {
         assert(points_count > 0); assert(points); assert(hull); assert(adj_matrix);
 
+        // initialize adjacency matrix to zero
         memset(adj_matrix, 0, points_count * points_count * sizeof(*adj_matrix));
 
         // find hull edges
         for (int i{}; i < points_count; i++)
         {
-            for (int j{ /*i + 1*/ }; j < points_count; j++)
+            for (int j{}; j < points_count; j++)
             {
                 if (i == j) continue;
 
@@ -41,7 +42,7 @@ namespace ch
                     double dot{ v2::dot(normal, u_to_p) };
                     /*
                         It is not possible for dot to be zero.
-                        This is because, by precondition, we assume that our set does not contain colinear points.
+                        This is because, by precondition, we assume that our set does not contain collinear points.
                     */
                     assert(dot != 0);
                     if (dot > 0)
@@ -59,31 +60,9 @@ namespace ch
                 {
                     adj_matrix[i * points_count + j] = 1;
                     adj_matrix[j * points_count + i] = 1;
-                    //std::cout << "(" << i << ", " << j << ")\n";
-                    //break;
                 }
             }
         }
-
-        #if 0
-        for (int i{}; i < points_count; i++)
-        {
-            for (int j{}; j < points_count; j++)
-            {
-                int e{ adj_matrix[i * points_count + j] };
-                if (e) std::cout << "(" << i << ", " << j << ")\n";
-            }
-        }
-        for (int i{}; i < points_count; i++)
-        {
-            for (int j{ /*i + 1*/ }; j < points_count; j++)
-            {
-                int e{ adj_matrix[i * points_count + j] };
-                std::cout << e << " ";
-            }
-            std::cout << "\n";
-        }
-        #endif
 
         // build hull
         int hull_i{};
@@ -122,15 +101,6 @@ namespace ch
                     }
                 }
             } while (next_idx != first_idx);
-
-            /*
-            do
-            {
-                int j{ adj_matrix[e] };
-                hull[hull_i++] = points[j];
-                e = j;
-            } while (e != first_edge);
-            */
         }
 
         return hull_i;
