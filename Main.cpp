@@ -15,7 +15,7 @@ int main()
         std::mt19937 generator{ random_device() };
         std::uniform_real_distribution<> distribution{ 0.0, 100.0 };
 
-        int points_count{ 1000 };
+        int points_count{ 100 };
         std::vector<ch::v2> points(points_count);
         std::vector<ch::v2> hull(points_count);
         std::vector<int> adj_matrix(points_count * points_count);
@@ -28,7 +28,6 @@ int main()
             points[i] = ch::v2{ x, y };
         }
 
-        // TODO: ???
         int hull_count{ ch::naive(points_count, points.data(), hull.data(), adj_matrix.data()) };
 
         // output points
@@ -39,8 +38,9 @@ int main()
         }
         // ouput hull
         out_file << hull_count << std::endl;
-        for (const auto& p : hull)
+        for (int i{}; i < hull_count; i++)
         {
+            ch::v2 p{ hull[i] };
             out_file << p.x << " " << p.y << std::endl;
         }
     }
