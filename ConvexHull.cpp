@@ -1,12 +1,13 @@
 #include <ConvexHull.h>
 
 #include <iostream> // TODO: remove
+#include <algorithm>
 
 namespace ch
 {
     int naive(int points_count, const v2* points, v2* hull, int* adj_matrix)
     {
-        assert(points_count > 0); assert(points); assert(hull); assert(adj_matrix);
+        assert(points_count >= 3); assert(points); assert(hull); assert(adj_matrix);
 
         // initialize adjacency matrix to zero
         memset(adj_matrix, 0, points_count * points_count * sizeof(*adj_matrix));
@@ -104,5 +105,52 @@ namespace ch
         }
 
         return hull_i;
+    }
+
+    static int divide_and_conquer_merge(v2* hull, int half_plus_one, int a_size, int b_size, v2* aux)
+    {
+        assert(hull); assert(half_plus_one >= 1); assert(a_size > 0); assert(b_size > 0);
+
+        int hull_size{};
+
+        // TODO: build hull into aux
+        {
+
+        }
+
+        memcpy(hull, aux, hull_size * sizeof(*hull)); // copy hull built using aux into hull
+
+        return hull_size;
+    }
+
+    static int divide_and_conquer_impl(int points_count, v2* sorted_points, v2* hull, v2* aux)
+    {
+        assert(points_count >= 2); assert(sorted_points); assert(hull);
+        
+        if (points_count <= 3) // base case: the hull is just a sequence of the input points
+        {
+            memcpy(hull, sorted_points, points_count * sizeof(*sorted_points));
+            return points_count;
+        }
+        else // induction: (points_count > 3)
+        {
+            int half{ points_count / 2 }; // half >= 1
+            int a_size = divide_and_conquer_impl(half + 1, sorted_points, hull, aux);
+            int b_size = divide_and_conquer_impl(points_count - (half + 1), sorted_points + half + 1, hull + half + 1, aux + half + 1);
+            int hull_size{ divide_and_conquer_merge(hull, half + 1, a_size, b_size, aux) };
+            #if defined(_DEBUG)
+            memset(aux, 0, points_count * sizeof(*aux));
+            #endif
+            return hull_size;
+        }
+    }
+
+    int divide_and_conquer(int points_count, const v2* points, v2* hull, v2* aux0, v2* aux1)
+    {
+        assert(points_count >= 3); assert(points); assert(hull); assert(aux0);
+        
+        memcpy(aux0, points, points_count * sizeof(*points)); // copy point data into aux
+        std::sort(aux0, aux0 + points_count, [](v2 a, v2 b) { return a.y <= b.y; }); // sort aux
+        return divide_and_conquer_impl(points_count, aux0, hull, aux1);
     }
 }

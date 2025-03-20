@@ -25,4 +25,6 @@ namespace ch
     };
 
     int naive(int points_count, const v2* points, v2* hull, int* adj_matrix);
+    int divide_and_conquer(int points_count, const v2* points, v2* hull, v2* aux0, v2* aux1);
+
 }

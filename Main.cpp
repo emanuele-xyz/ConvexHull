@@ -61,12 +61,19 @@ int main()
     if (out_file)
     {
         // generate points
-        int points_count{ 100 };
+        int points_count{ 10 };
         std::vector<ch::v2> points{ generate_points(points_count) };
         std::vector<ch::v2> hull(points_count);
         std::vector<int> adj_matrix(points_count * points_count);
 
         int hull_count{ ch::naive(points_count, points.data(), hull.data(), adj_matrix.data()) };
+
+        {
+            std::vector<ch::v2> hull(points_count);
+            std::vector<ch::v2> aux0(points_count);
+            std::vector<ch::v2> aux1(points_count);
+            int dc_hull_count{ ch::divide_and_conquer(points_count, points.data(), hull.data(), aux0.data(), aux1.data()) };
+        }
 
         // output points
         out_file << points_count << std::endl;
