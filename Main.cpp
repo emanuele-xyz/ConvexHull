@@ -69,10 +69,10 @@ int main()
         int hull_count{ ch::naive(points_count, points.data(), hull.data(), adj_matrix.data()) };
 
         {
-            std::vector<ch::v2> hull(points_count);
+            std::vector<ch::v2> dc_hull(points_count);
             std::vector<ch::v2> aux0(points_count);
             std::vector<ch::v2> aux1(points_count);
-            int dc_hull_count{ ch::divide_and_conquer(points_count, points.data(), hull.data(), aux0.data(), aux1.data()) };
+            ch::divide_and_conquer(points_count, points.data(), dc_hull.data(), aux0.data(), aux1.data());
         }
 
         // output points
