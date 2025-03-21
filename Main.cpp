@@ -1,3 +1,4 @@
+#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <fstream>
@@ -21,34 +22,33 @@ static bool are_collinear(ch::v2 u, ch::v2 v, ch::v2 w, double threshold = 1.0)
 
 static std::vector<ch::v2> generate_points(int points_count)
 {
+    assert(points_count >= 3);
+
     std::random_device random_device{};
     std::mt19937 generator{ random_device() };
-    std::uniform_real_distribution<> distribution{ 0.0, 100.0 };
+    std::uniform_real_distribution<> distribution{ 0.0, static_cast<double>(points_count) * 10.0 };
 
-    std::vector<ch::v2> points(points_count);
-
-    for (int i{}; i < points_count; i++)
+    std::vector<ch::v2> points{};
+    while (points.size() < points_count)
     {
         double x{ distribution(generator) };
         double y{ distribution(generator) };
         ch::v2 p{ x, y };
 
-        bool any_collinear{ false };
-        for (int j{}; j < i && !any_collinear; j++)
+        // check whether or not we should discard p (if p is clollinear to any other two previously generated points, trash it)
+        bool discard{ false };
+        for (int i{}; i < static_cast<int>(points.size()) && !discard; i++)
         {
-            for (int k{}; k < i && !any_collinear; k++)
+            for (int j{ i + 1 }; j < static_cast<int>(points.size()) && !discard; j++)
             {
-                if (j == k) continue;
-
-                if (are_collinear(p, points[j], points[k], 3))
-                {
-                    i--;
-                    any_collinear = true;
-                }
+                discard = are_collinear(p, points[i], points[j], 1.0);
             }
         }
 
-        points[i] = p;
+        if (!discard)
+        {
+            points.emplace_back(p);
+        }
     }
 
     return points;
@@ -61,19 +61,18 @@ int main()
     if (out_file)
     {
         // generate points
-        int points_count{ 10 };
+        int points_count{ 1000 };
         std::vector<ch::v2> points{ generate_points(points_count) };
-        std::vector<ch::v2> hull(points_count);
-        std::vector<int> adj_matrix(points_count * points_count);
+        std::vector<ch::v2> hull{ ch::naive(points) };
 
-        int hull_count{ ch::naive(points_count, points.data(), hull.data(), adj_matrix.data()) };
-
+        #if 0
         {
             std::vector<ch::v2> dc_hull(points_count);
             std::vector<ch::v2> aux0(points_count);
             std::vector<ch::v2> aux1(points_count);
             ch::divide_and_conquer(points_count, points.data(), dc_hull.data(), aux0.data(), aux1.data());
         }
+        #endif
 
         // output points
         out_file << points_count << std::endl;
@@ -82,10 +81,9 @@ int main()
             out_file << p.x << " " << p.y << std::endl;
         }
         // ouput hull
-        out_file << hull_count << std::endl;
-        for (int i{}; i < hull_count; i++)
+        out_file << hull.size() << std::endl;
+        for (ch::v2 p : hull)
         {
-            ch::v2 p{ hull[i] };
             out_file << p.x << " " << p.y << std::endl;
         }
     }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <cassert>
 
 namespace ch
 {
@@ -24,7 +23,15 @@ namespace ch
         }
     };
 
-    int naive(int points_count, const v2* points, v2* hull, int* adj_matrix);
-    int divide_and_conquer(int points_count, const v2* points, v2* hull, v2* aux0, v2* aux1);
+    inline bool operator==(const v2& lhs, const v2& rhs)
+    {
+        return lhs.x == rhs.x && lhs.y == rhs.y;
+    }
+    inline bool operator!=(const v2& lhs, const v2& rhs)
+    {
+        return !(lhs == rhs);
+    }
 
+    std::vector<v2> naive(const std::vector<v2>& points);
+    int divide_and_conquer(int points_count, const v2* points, v2* hull, v2* aux0, v2* aux1);
 }

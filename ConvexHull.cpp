@@ -1,24 +1,34 @@
 #include <ConvexHull.h>
 
+#include <cassert>
 #include <iostream> // TODO: remove
 #include <algorithm>
+#include <unordered_map>
+
+template<>
+struct std::hash<ch::v2>
+{
+    std::size_t operator()(const ch::v2& s) const noexcept
+    {
+        std::size_t h1{ std::hash<double>{}(s.x) };
+        std::size_t h2{ std::hash<double>{}(s.y) };
+        return h1 ^ (h2 << 1);
+    }
+};
 
 namespace ch
 {
-    int naive(int points_count, const v2* points, v2* hull, int* adj_matrix)
+    std::vector<v2> naive(const std::vector<v2>& points)
     {
-        assert(points_count >= 3); assert(points); assert(hull); assert(adj_matrix);
+        assert(points.size() >= 3);
 
-        // initialize adjacency matrix to zero
-        memset(adj_matrix, 0, points_count * points_count * sizeof(*adj_matrix));
+        std::unordered_map<v2, std::vector<v2>> graph{};
 
         // find hull edges
-        for (int i{}; i < points_count; i++)
+        for (int i{}; i < static_cast<int>(points.size()); i++)
         {
-            for (int j{}; j < points_count; j++)
+            for (int j{ i + 1 }; j < static_cast<int>(points.size()); j++)
             {
-                if (i == j) continue;
-
                 v2 u{ points[i] };
                 v2 v{ points[j] };
                 v2 u_to_v{ v - u };
@@ -34,7 +44,7 @@ namespace ch
 
                 int positive_halfplane{};
                 int negative_halfplane{};
-                for (int k{}; k < points_count; k++)
+                for (int k{}; k < static_cast<int>(points.size()); k++)
                 {
                     if (k == i || k == j) continue;
 
@@ -59,52 +69,32 @@ namespace ch
                 // update edge list
                 if (positive_halfplane == 0 || negative_halfplane == 0)
                 {
-                    adj_matrix[i * points_count + j] = 1;
-                    adj_matrix[j * points_count + i] = 1;
+                    graph[points[i]].emplace_back(points[j]);
+                    graph[points[j]].emplace_back(points[i]);
                 }
             }
         }
 
         // build hull
-        int hull_i{};
+        std::vector<v2> hull{};
         {
-            // find first hull point, with edge
-            int first_idx{};
-            int next_idx{};
-            for (int k{}; k < points_count * points_count; k++)
-            {
-                if (adj_matrix[k] == 1)
-                {
-                    first_idx = k / points_count;
-                    next_idx = k % points_count;
-                    break;
-                }
-            }
+            assert(graph.begin() != graph.end());
+            v2 first_hull_point{ graph.begin()->first };
 
-            // append first point to the hull
-            hull[hull_i++] = points[first_idx];
-
-            // build the rest of the hull
-            int prev_idx{ first_idx };
+            v2 previous_hull_point{ first_hull_point };
+            v2 current_hull_point{ first_hull_point };
             do
             {
-                // append next point to the hull
-                hull[hull_i++] = points[next_idx];
+                hull.emplace_back(current_hull_point);
 
-                // look for the next edge to follow
-                for (int k{}; k < points_count; k++)
-                {
-                    if (adj_matrix[next_idx * points_count + k] == 1 && k != prev_idx)
-                    {
-                        prev_idx = next_idx;
-                        next_idx = k;
-                        break;
-                    }
-                }
-            } while (next_idx != first_idx);
+                auto next{ std::find_if(graph[current_hull_point].begin(), graph[current_hull_point].end(), [=](v2 p) { return p != previous_hull_point; }) };
+                assert(next != graph[current_hull_point].end());
+                previous_hull_point = current_hull_point;
+                current_hull_point = *next;
+            } while (current_hull_point != first_hull_point);
         }
 
-        return hull_i;
+        return hull;
     }
 
     static int divide_and_conquer_merge(v2* hull, int half_plus_one, int a_size, int b_size, v2* aux)
@@ -126,7 +116,7 @@ namespace ch
     static int divide_and_conquer_impl(int points_count, v2* sorted_points, v2* hull, v2* aux)
     {
         assert(points_count >= 2); assert(sorted_points); assert(hull);
-        
+
         if (points_count <= 3) // base case: the hull is just a sequence of the input points
         {
             memcpy(hull, sorted_points, points_count * sizeof(*sorted_points));
@@ -148,7 +138,7 @@ namespace ch
     int divide_and_conquer(int points_count, const v2* points, v2* hull, v2* aux0, v2* aux1)
     {
         assert(points_count >= 3); assert(points); assert(hull); assert(aux0);
-        
+
         memcpy(aux0, points, points_count * sizeof(*points)); // copy point data into aux
         std::sort(aux0, aux0 + points_count, [](v2 a, v2 b) { return a.y <= b.y; }); // sort aux
         return divide_and_conquer_impl(points_count, aux0, hull, aux1);
