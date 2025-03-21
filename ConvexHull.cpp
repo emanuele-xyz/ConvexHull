@@ -97,50 +97,40 @@ namespace ch
         return hull;
     }
 
-    static int divide_and_conquer_merge(v2* hull, int half_plus_one, int a_size, int b_size, v2* aux)
+    static std::vector<v2> divide_and_conquer_merge(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b)
     {
-        assert(hull); assert(half_plus_one >= 1); assert(a_size > 0); assert(b_size > 0);
+        assert(hull_a.size() > 0); assert(hull_b.size() > 0);
 
-        int hull_size{};
+        std::vector<v2> hull{};
 
-        // TODO: build hull into aux
-        {
+        // TODO: to be implemented
 
-        }
-
-        memcpy(hull, aux, hull_size * sizeof(*hull)); // copy hull built using aux into hull
-
-        return hull_size;
+        return hull;
     }
 
-    static int divide_and_conquer_impl(int points_count, v2* sorted_points, v2* hull, v2* aux)
+    static std::vector<v2> divide_and_conquer_impl(const std::vector<v2>& sorted_points)
     {
-        assert(points_count >= 2); assert(sorted_points); assert(hull);
+        assert(sorted_points.size() >= 2);
 
-        if (points_count <= 3) // base case: the hull is just a sequence of the input points
+        if (sorted_points.size() <= 3) // base case: the hull is just a sequence of the input points
         {
-            memcpy(hull, sorted_points, points_count * sizeof(*sorted_points));
-            return points_count;
+            return sorted_points;
         }
-        else // induction: (points_count > 3)
+        else // induction: (sorted_points.size() > 3)
         {
-            int half{ points_count / 2 }; // half >= 1
-            int a_size = divide_and_conquer_impl(half + 1, sorted_points, hull, aux);
-            int b_size = divide_and_conquer_impl(points_count - (half + 1), sorted_points + half + 1, hull + half + 1, aux + half + 1);
-            int hull_size{ divide_and_conquer_merge(hull, half + 1, a_size, b_size, aux) };
-            #if defined(_DEBUG)
-            memset(aux, 0, points_count * sizeof(*aux));
-            #endif
-            return hull_size;
+            int half{ static_cast<int>(sorted_points.size()) / 2 }; // half >= 1
+            std::vector<v2> hull_a{ divide_and_conquer_impl({sorted_points.begin(), sorted_points.begin() + half}) };
+            std::vector<v2> hull_b{ divide_and_conquer_impl({sorted_points.begin() + half, sorted_points.end()}) };
+            return divide_and_conquer_merge(hull_a, hull_b);
         }
     }
 
-    int divide_and_conquer(int points_count, const v2* points, v2* hull, v2* aux0, v2* aux1)
+    std::vector<v2> divide_and_conquer(const std::vector<v2>& points)
     {
-        assert(points_count >= 3); assert(points); assert(hull); assert(aux0);
+        assert(points.size() >= 3);
 
-        memcpy(aux0, points, points_count * sizeof(*points)); // copy point data into aux
-        std::sort(aux0, aux0 + points_count, [](v2 a, v2 b) { return a.y <= b.y; }); // sort aux
-        return divide_and_conquer_impl(points_count, aux0, hull, aux1);
+        std::vector<v2> copy{ points };
+        std::sort(copy.begin(), copy.end(), [](v2 a, v2 b) { return a.y <= b.y; }); // sort local copy of points
+        return divide_and_conquer_impl(copy);
     }
 }

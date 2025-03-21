@@ -33,5 +33,5 @@ namespace ch
     }
 
     std::vector<v2> naive(const std::vector<v2>& points);
-    int divide_and_conquer(int points_count, const v2* points, v2* hull, v2* aux0, v2* aux1);
+    std::vector<v2> divide_and_conquer(const std::vector<v2>& points);
 }

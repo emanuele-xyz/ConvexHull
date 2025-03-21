@@ -54,42 +54,78 @@ static std::vector<ch::v2> generate_points(int points_count)
     return points;
 }
 
-int main()
+static bool validate_hull(const std::vector<ch::v2>& truth, const std::vector<ch::v2>& hull)
+{
+    if (truth.size() != hull.size())
+    {
+        return false;
+    }
+
+    ch::v2 first{ truth.front() };
+    if (auto it{ std::find(hull.begin(), hull.end(), first) }; it != hull.end())
+    {
+        bool are_equal{ true };
+        int hull_start_idx{ static_cast<int>(std::distance(hull.begin(), it)) };
+        for (int i{}; i < static_cast<int>(truth.size()) && are_equal; i++)
+        {
+            ch::v2 a{ truth[i] };
+            ch::v2 b{ hull[(hull_start_idx + i) % static_cast<int>(hull.size())] };
+            are_equal = a == b;
+        }
+        return are_equal;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+static void dump_points_and_hull(const std::vector<ch::v2>& points, const std::vector<ch::v2>& hull)
 {
     std::string out_path{ "test.txt" };
     std::ofstream out_file{ out_path };
     if (out_file)
     {
-        // generate points
-        int points_count{ 1000 };
-        std::vector<ch::v2> points{ generate_points(points_count) };
-        std::vector<ch::v2> hull{ ch::naive(points) };
-
-        #if 0
-        {
-            std::vector<ch::v2> dc_hull(points_count);
-            std::vector<ch::v2> aux0(points_count);
-            std::vector<ch::v2> aux1(points_count);
-            ch::divide_and_conquer(points_count, points.data(), dc_hull.data(), aux0.data(), aux1.data());
-        }
-        #endif
-
-        // output points
-        out_file << points_count << std::endl;
+        // dump points
+        out_file << points.size() << std::endl;
         for (const auto& p : points)
         {
             out_file << p.x << " " << p.y << std::endl;
         }
-        // ouput hull
-        out_file << hull.size() << std::endl;
-        for (ch::v2 p : hull)
+        // dump hull
+        if (hull.size() > 0)
         {
-            out_file << p.x << " " << p.y << std::endl;
+            out_file << hull.size() << std::endl;
+            for (ch::v2 p : hull)
+            {
+                out_file << p.x << " " << p.y << std::endl;
+            }
         }
     }
     else
     {
-        std::cerr << "Oops, could not open file: " << out_path;
+        std::cerr << "points & hull dump failed: " << out_path << std::endl;
+    }
+}
+
+int main()
+{
+    // generate points
+    int points_count{ 10 };
+    std::vector<ch::v2> points{ generate_points(points_count) };
+    assert(points.size() == points_count); // sanity check
+
+    // generate hull and test against oracle
+    std::vector<ch::v2> naive_hull{ ch::naive(points) };
+    std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
+
+    if (validate_hull(naive_hull, dc_hull))
+    {
+        dump_points_and_hull(points, dc_hull);
+    }
+    else
+    {
+        std::cerr << "hull validation failed" << std::endl;
     }
 
     return 0;
