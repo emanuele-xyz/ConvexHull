@@ -35,7 +35,7 @@ static std::vector<ch::v2> generate_points(int points_count)
         double y{ distribution(generator) };
         ch::v2 p{ x, y };
 
-        // check whether or not we should discard p (if p is clollinear to any other two previously generated points, trash it)
+        // check whether or not we should discard p (if p is collinear to any other two previously generated points, trash it)
         bool discard{ false };
         for (int i{}; i < static_cast<int>(points.size()) && !discard; i++)
         {
