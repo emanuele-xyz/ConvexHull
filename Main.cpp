@@ -111,7 +111,7 @@ static void dump_points_and_hull(const std::vector<ch::v2>& points, const std::v
 int main()
 {
     // generate points
-    int points_count{ 10 };
+    int points_count{ 12 };
     std::vector<ch::v2> points{ generate_points(points_count) };
     assert(points.size() == points_count); // sanity check
 

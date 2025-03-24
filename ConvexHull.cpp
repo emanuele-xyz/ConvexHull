@@ -195,6 +195,8 @@ namespace ch
 			std::tie(rt_idx_a, rt_idx_b) = find_tan_case_b(hull_a, hull_b, ra, rb);
 			std::tie(lt_idx_a, lt_idx_b) = find_tan_case_b(hull_a, hull_b, la, lb);
 		}
+		assert(rt_idx_a != lt_idx_a);
+		assert(rt_idx_b != lt_idx_b);
 
 		for (int i = rt_idx_a; i != lt_idx_a; i = get_next_idx_cw(hull_a.size(), i))
 		{
