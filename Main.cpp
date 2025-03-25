@@ -7,17 +7,11 @@
 
 #include <ConvexHull.h>
 
-// returns the determinant of the matrix [u | v]
-static double determinant(ch::v2 u, ch::v2 v)
-{
-    return u.x * v.y - u.y * v.x;
-}
-
 static bool are_collinear(ch::v2 u, ch::v2 v, ch::v2 w, double threshold = 1.0)
 {
     ch::v2 u_to_v{ v - u };
     ch::v2 u_to_w{ w - u };
-    return std::abs(determinant(u_to_v, u_to_w)) < threshold;
+    return std::abs(ch::determinant(u_to_v, u_to_w)) < threshold;
 }
 
 static std::vector<ch::v2> generate_points(int points_count)
@@ -25,7 +19,7 @@ static std::vector<ch::v2> generate_points(int points_count)
     assert(points_count >= 3);
 
     std::random_device random_device{};
-    std::mt19937 generator{ random_device() };
+    std::mt19937 generator{ 0 };
     std::uniform_real_distribution<> distribution{ 0.0, static_cast<double>(points_count) * 10.0 };
 
     std::vector<ch::v2> points{};

@@ -22,6 +22,12 @@ namespace ch
             return { x - rhs.x, y - rhs.y };
         }
     };
+    
+    // returns the determinant of the matrix [u | v]
+    inline double determinant(v2 u, v2 v)
+    {
+        return u.x * v.y - u.y * v.x;
+    }
 
     inline bool operator==(const v2& lhs, const v2& rhs)
     {
