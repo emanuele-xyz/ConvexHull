@@ -17,11 +17,6 @@ struct std::hash<ch::v2>
 
 namespace ch
 {
-    enum class Direction {  
-        CLOCKWISE,
-        COUNTER_CLOCKWISE,
-    };
-
     static bool is_hull_clockwise(const std::vector<v2> hull)
     {
         assert(hull.size() >= 3);
@@ -133,19 +128,6 @@ namespace ch
         return (((i - 1) % isize) + isize) % isize;
     }
 
-    // TODO: if we are gonna keep this function we should refactor it
-    static int get_next_idx(size_t size, int i, Direction d)
-    {
-        if (d == Direction::CLOCKWISE)
-        {
-            return get_next_idx_cw(size, i);
-        }
-        else
-        {
-            return get_next_idx_ccw(size, i);
-        }
-    }
-
     static std::pair<int, int> find_lr(const std::vector<v2>& hull)
     {
         auto minmax = std::minmax_element(hull.begin(), hull.end(),
@@ -158,49 +140,169 @@ namespace ch
         return { static_cast<int>(l), static_cast<int>(r) };
     }
 
-    static std::pair<int, int> find_tangent(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b, int start_a, int start_b, Direction d)
+    static std::pair<int, int> find_rt_case_a(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b, int start_a, int start_b)
     {
         int i = start_a, j = start_b;
     loop:
         double gamma = (hull_a[i].y - hull_b[j].y) / (hull_a[i].x - hull_b[j].x);
 
-        int next_i = get_next_idx(hull_a.size(), i, d);
+        int next_i = get_next_idx_cw(hull_a.size(), i);
         double alpha = (hull_a[i].y - hull_a[next_i].y) / (hull_a[i].x - hull_a[next_i].x);
 
-        int next_j = get_next_idx(hull_b.size(), j, d);
+        int next_j = get_next_idx_cw(hull_b.size(), j);
         double beta = (hull_b[j].y - hull_b[next_j].y) / (hull_b[j].x - hull_b[next_j].x);
 
-        if (d == Direction::CLOCKWISE)
+        if (alpha >= gamma)
         {
-            if (alpha >= gamma)
-            {
-                i = get_next_idx(hull_a.size(), i, d);
-                goto loop;
-            }
-
-            if (beta > gamma)
-            {
-                j = get_next_idx(hull_b.size(), j, d);
-                goto loop;
-            }
-        }
-        else
-        {
-            if (beta <= gamma)
-            {
-                j = get_next_idx(hull_b.size(), j, d);
-                goto loop;
-            }
-
-            if (alpha < gamma)
-            {
-                i = get_next_idx(hull_a.size(), i, d);
-                goto loop;
-            }
+            i = get_next_idx_cw(hull_a.size(), i);
+            goto loop;
         }
 
-        return { i, j };        
+        if (beta > gamma)
+        {
+            j = get_next_idx_cw(hull_b.size(), j);
+            goto loop;
+        }
+
+        return { i, j };
     }
+
+    static std::pair<int, int> find_rt_case_b(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b, int start_a, int start_b)
+    {
+        int i = start_a, j = start_b;
+    loop:
+        double gamma = (hull_a[i].y - hull_b[j].y) / (hull_a[i].x - hull_b[j].x);
+
+        int next_i = get_next_idx_ccw(hull_a.size(), i);
+        double alpha = (hull_a[i].y - hull_a[next_i].y) / (hull_a[i].x - hull_a[next_i].x);
+
+        int next_j = get_next_idx_ccw(hull_b.size(), j);
+        double beta = (hull_b[j].y - hull_b[next_j].y) / (hull_b[j].x - hull_b[next_j].x);
+
+        if (beta <= gamma)
+        {
+            j = get_next_idx_ccw(hull_b.size(), j);
+            goto loop;
+        }
+
+        if (alpha < gamma)
+        {
+            i = get_next_idx_ccw(hull_a.size(), i);
+            goto loop;
+        }
+
+        return { i, j };
+    }
+
+    static std::pair<int, int> find_lt_case_a(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b, int start_a, int start_b)
+    {
+        int i = start_a, j = start_b;
+    loop:
+        double gamma = (hull_a[i].y - hull_b[j].y) / (hull_a[i].x - hull_b[j].x);
+
+        int next_i = get_next_idx_cw(hull_a.size(), i);
+        double alpha = (hull_a[i].y - hull_a[next_i].y) / (hull_a[i].x - hull_a[next_i].x);
+
+        int next_j = get_next_idx_cw(hull_b.size(), j);
+        double beta = (hull_b[j].y - hull_b[next_j].y) / (hull_b[j].x - hull_b[next_j].x);
+
+        if (alpha >= gamma)
+        {
+            i = get_next_idx_cw(hull_a.size(), i);
+            goto loop;
+        }
+
+        if (beta > gamma)
+        {
+            j = get_next_idx_cw(hull_b.size(), j);
+            goto loop;
+        }
+
+        return { i, j };
+    }
+
+    static std::pair<int, int> find_lt_case_b(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b, int start_a, int start_b)
+    {
+        int i = start_a, j = start_b;
+    loop:
+        double gamma = (hull_a[i].y - hull_b[j].y) / (hull_a[i].x - hull_b[j].x);
+
+        int next_i = get_next_idx_ccw(hull_a.size(), i);
+        double alpha = (hull_a[i].y - hull_a[next_i].y) / (hull_a[i].x - hull_a[next_i].x);
+
+        int next_j = get_next_idx_ccw(hull_b.size(), j);
+        double beta = (hull_b[j].y - hull_b[next_j].y) / (hull_b[j].x - hull_b[next_j].x);
+
+        if (alpha < gamma)
+        {
+            i = get_next_idx_ccw(hull_a.size(), i);
+            goto loop;
+        }
+
+        if (beta <= gamma)
+        {
+            j = get_next_idx_ccw(hull_b.size(), j);
+            goto loop;
+        }
+
+        return { i, j };
+    }
+
+    #if 0
+    static std::pair<int, int> find_tan_case_a(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b, int start_a, int start_b)
+    {
+        int i = start_a, j = start_b;
+    loop:
+        double gamma = (hull_a[i].y - hull_b[j].y) / (hull_a[i].x - hull_b[j].x);
+
+        int next_i = get_next_idx_cw(hull_a.size(), i);
+        double alpha = (hull_a[i].y - hull_a[next_i].y) / (hull_a[i].x - hull_a[next_i].x);
+
+        int next_j = get_next_idx_cw(hull_b.size(), j);
+        double beta = (hull_b[j].y - hull_b[next_j].y) / (hull_b[j].x - hull_b[next_j].x);
+
+        if (alpha >= gamma)
+        {
+            i = get_next_idx_cw(hull_a.size(), i);
+            goto loop;
+        }
+
+        if (beta > gamma)
+        {
+            j = get_next_idx_cw(hull_b.size(), j);
+            goto loop;
+        }
+
+        return { i, j };
+    }
+
+    static std::pair<int, int> find_tan_case_b(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b, int start_a, int start_b)
+    {
+        int i = start_a, j = start_b;
+    loop:
+        double gamma = (hull_a[i].y - hull_b[j].y) / (hull_a[i].x - hull_b[j].x);
+
+        int next_i = get_next_idx_ccw(hull_a.size(), i);
+        double alpha = (hull_a[i].y - hull_a[next_i].y) / (hull_a[i].x - hull_a[next_i].x);
+
+        int next_j = get_next_idx_ccw(hull_b.size(), j);
+        double beta = (hull_b[j].y - hull_b[next_j].y) / (hull_b[j].x - hull_b[next_j].x);
+
+        if (beta <= gamma)
+        {
+            j = get_next_idx_ccw(hull_b.size(), j);
+            goto loop;
+        }
+
+        if (alpha < gamma)
+        {
+            i = get_next_idx_ccw(hull_a.size(), i);
+            goto loop;
+        }
+
+        return { i, j };
+    }
+    #endif
 
     static std::vector<v2> divide_and_conquer_merge(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b)
     {
@@ -212,29 +314,24 @@ namespace ch
         int rt_idx_a{}, lt_idx_a{};
         int rt_idx_b{}, lt_idx_b{};
 
-        if (hull_a[ra].x < hull_b[rb].x && hull_a[la].x < hull_b[lb].x)
+        // find right tangent
+        if (hull_a[ra].x < hull_b[rb].x) // rt - case a
         {
-            std::tie(rt_idx_a, rt_idx_b) = find_tangent(hull_a, hull_b, ra, rb, Direction::CLOCKWISE);
-            std::tie(lt_idx_a, lt_idx_b) = find_tangent(hull_a, hull_b, la, lb, Direction::CLOCKWISE);
+            std::tie(rt_idx_a, rt_idx_b) = find_rt_case_a(hull_a, hull_b, ra, rb);
         }
-        else if (hull_a[ra].x > hull_b[rb].x && hull_a[la].x > hull_b[lb].x)
+        else // rt - case b
         {
-            std::tie(rt_idx_a, rt_idx_b) = find_tangent(hull_a, hull_b, ra, rb, Direction::COUNTER_CLOCKWISE);
-            std::tie(lt_idx_a, lt_idx_b) = find_tangent(hull_a, hull_b, la, lb, Direction::COUNTER_CLOCKWISE);
+            std::tie(rt_idx_a, rt_idx_b) = find_rt_case_b(hull_a, hull_b, ra, rb);
         }
-        else if (hull_a[ra].x < hull_b[rb].x && hull_a[la].x > hull_b[lb].x)
+
+        // find left tangent
+        if (hull_a[la].x < hull_b[lb].x) // lt - case a
         {
-            std::tie(rt_idx_a, rt_idx_b) = find_tangent(hull_a, hull_b, ra, rb, Direction::CLOCKWISE);
-            std::tie(lt_idx_a, lt_idx_b) = find_tangent(hull_a, hull_b, la, lb, Direction::COUNTER_CLOCKWISE);
+            std::tie(lt_idx_a, lt_idx_b) = find_lt_case_a(hull_a, hull_b, la, lb);
         }
-        else if (hull_a[ra].x > hull_b[rb].x && hull_a[la].x < hull_b[lb].x)
+        else // lt - case b
         {
-            std::tie(rt_idx_a, rt_idx_b) = find_tangent(hull_a, hull_b, ra, rb, Direction::COUNTER_CLOCKWISE);
-            std::tie(lt_idx_a, lt_idx_b) = find_tangent(hull_a, hull_b, la, lb, Direction::CLOCKWISE);
-        }
-        else
-        {
-            assert(0); // Ureachable
+            std::tie(lt_idx_a, lt_idx_b) = find_lt_case_b(hull_a, hull_b, la, lb);
         }
 
         assert(rt_idx_a != lt_idx_a); // sanity check
