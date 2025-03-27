@@ -17,7 +17,8 @@ struct std::hash<ch::v2>
 
 namespace ch
 {
-    enum class Direction {  
+    enum class Direction
+    {
         CLOCKWISE,
         COUNTER_CLOCKWISE,
     };
@@ -199,7 +200,7 @@ namespace ch
             }
         }
 
-        return { i, j };        
+        return { i, j };
     }
 
     static std::vector<v2> divide_and_conquer_merge(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b)
@@ -209,36 +210,37 @@ namespace ch
         auto [la, ra] = find_lr(hull_a);
         auto [lb, rb] = find_lr(hull_b);
 
-        int rt_idx_a{}, lt_idx_a{};
-        int rt_idx_b{}, lt_idx_b{};
+        int rt_idx_a{}, rt_idx_b{};
+        int lt_idx_a{}, lt_idx_b{};
 
         if (hull_a[ra].x < hull_b[rb].x && hull_a[la].x < hull_b[lb].x)
         {
+            // probably works
             std::tie(rt_idx_a, rt_idx_b) = find_tangent(hull_a, hull_b, ra, rb, Direction::CLOCKWISE);
             std::tie(lt_idx_a, lt_idx_b) = find_tangent(hull_a, hull_b, la, lb, Direction::CLOCKWISE);
         }
         else if (hull_a[ra].x > hull_b[rb].x && hull_a[la].x > hull_b[lb].x)
         {
+            // probably works
             std::tie(rt_idx_a, rt_idx_b) = find_tangent(hull_a, hull_b, ra, rb, Direction::COUNTER_CLOCKWISE);
             std::tie(lt_idx_a, lt_idx_b) = find_tangent(hull_a, hull_b, la, lb, Direction::COUNTER_CLOCKWISE);
         }
         else if (hull_a[ra].x < hull_b[rb].x && hull_a[la].x > hull_b[lb].x)
         {
+            // probably works
             std::tie(rt_idx_a, rt_idx_b) = find_tangent(hull_a, hull_b, ra, rb, Direction::CLOCKWISE);
             std::tie(lt_idx_a, lt_idx_b) = find_tangent(hull_a, hull_b, la, lb, Direction::COUNTER_CLOCKWISE);
         }
         else if (hull_a[ra].x > hull_b[rb].x && hull_a[la].x < hull_b[lb].x)
         {
+            // probably works
             std::tie(rt_idx_a, rt_idx_b) = find_tangent(hull_a, hull_b, ra, rb, Direction::COUNTER_CLOCKWISE);
             std::tie(lt_idx_a, lt_idx_b) = find_tangent(hull_a, hull_b, la, lb, Direction::CLOCKWISE);
         }
         else
         {
-            assert(0); // Ureachable
+            assert(false); // Ureachable
         }
-
-        assert(rt_idx_a != lt_idx_a); // sanity check
-        assert(rt_idx_b != lt_idx_b); // sanity check
 
         std::vector<v2> hull{};
         for (int i = rt_idx_a; i != lt_idx_a; i = get_next_idx_cw(hull_a.size(), i))
@@ -264,7 +266,7 @@ namespace ch
         {
             return naive(sorted_points);
         }
-        else // induction: (sorted_points.size() > 3)
+        else
         {
             int half{ static_cast<int>(sorted_points.size()) / 2 }; // half >= 1
             std::vector<v2> hull_a{ divide_and_conquer_impl({sorted_points.begin(), sorted_points.begin() + half}) };
