@@ -17,7 +17,7 @@ namespace ch
         v2(double x, double y) : x{ x }, y{ y } {}
         v2() : v2{ 0.0, 0.0 } {}
 
-        v2 operator-(const v2& rhs) const
+        inline v2 operator-(const v2& rhs) const
         {
             return { x - rhs.x, y - rhs.y };
         }

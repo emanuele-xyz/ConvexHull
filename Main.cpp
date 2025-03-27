@@ -30,8 +30,22 @@ static std::vector<ch::v2> generate_points(int points_count)
         double y{ distribution(generator) };
         ch::v2 p{ x, y };
 
-        // check whether or not we should discard p (if p is collinear to any other two previously generated points, trash it)
         bool discard{ false };
+
+        // check that two points don't have the same (or close) x or y coordinates
+        for (int i{}; i < static_cast<int>(points.size()) && !discard; i++)
+        {
+            ch::v2 q{ points[i] };
+            double dx{ std::abs(p.x - q.x) };
+            double dy{ std::abs(p.y - q.y) };
+
+            if (dx < 1.0 || dy < 1.0) // TODO: 1.0 should change based on points count?
+            {
+                discard = true;
+            }
+        }
+
+        // check whether or not we should discard p (if p is collinear to any other two previously generated points, trash it)
         for (int i{}; i < static_cast<int>(points.size()) && !discard; i++)
         {
             for (int j{ i + 1 }; j < static_cast<int>(points.size()) && !discard; j++)
