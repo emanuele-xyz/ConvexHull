@@ -123,6 +123,7 @@ namespace ch
         return hull;
     }
 
+    #if 0
     static int get_next_idx_cw(size_t size, int i)
     {
         return (i + 1) % static_cast<int>(size);
@@ -281,6 +282,140 @@ namespace ch
 
         std::vector<v2> copy{ points };
         std::sort(copy.begin(), copy.end(), [](v2 a, v2 b) { return a.y <= b.y; }); // sort local copy of points
+        return divide_and_conquer_impl(copy);
+    }
+    #endif
+
+    static int get_next_idx_cw(int i, size_t size)
+    {
+        return (i + 1) % static_cast<int>(size);
+    }
+
+    static int get_next_idx_ccw(int i, size_t size)
+    {
+        int isize = static_cast<int>(size);
+        return (((i - 1) % isize) + isize) % isize;
+    }
+
+    static double get_intersect_y(double middle_x, v2 p, v2 q)
+    {
+        double m{ (p.y - q.y) / (p.x - q.x) };
+        double b{ p.y - m * p.x }; // b = y - mx
+        double intersect_y{ m * middle_x + b }; // y = mx + b
+        return intersect_y;
+    }
+
+    static std::vector<v2> divide_and_conquer_merge(const std::vector<v2>& hull_a, const std::vector<v2>& hull_b)
+    {
+        assert(hull_a.size() > 0);
+        assert(hull_b.size() > 0);
+
+        // find rightmost point of a and leftmost point of b
+        int leftmost_idx{}, rightmost_idx{};
+        {
+            auto leftmost_iterator{ std::min_element(hull_b.begin(), hull_b.end(), [](const v2& a, const v2& b) { return a.x < b.x; }) };
+            auto rightmost_iterator{ std::max_element(hull_a.begin(), hull_a.end(), [](const v2& a, const v2& b) { return a.x < b.x; }) };
+            leftmost_idx = static_cast<int>(std::distance(hull_b.begin(), leftmost_iterator));
+            rightmost_idx = static_cast<int>(std::distance(hull_a.begin(), rightmost_iterator));
+        }
+
+        double middle_line{ (hull_a[rightmost_idx].x + hull_b[leftmost_idx].x) / 2.0 }; // middle vertical line (the x value) separating the two hulls
+
+        // find upper tangent
+        int upper_tangent_a_idx{}, upper_tangent_b_idx{};
+        {
+            int i{ rightmost_idx };
+            int j{ leftmost_idx };
+
+            while (true)
+            {
+                int next_i{ get_next_idx_ccw(i, hull_a.size()) };
+                int next_j{ get_next_idx_cw(j, hull_b.size()) };
+
+                if (get_intersect_y(middle_line, hull_a[next_i], hull_b[j]) > get_intersect_y(middle_line, hull_a[i], hull_b[j]))
+                {
+                    i = next_i;
+                }
+                else if (get_intersect_y(middle_line, hull_a[i], hull_b[next_j]) > get_intersect_y(middle_line, hull_a[i], hull_b[j]))
+                {
+                    j = next_j;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            upper_tangent_a_idx = i;
+            upper_tangent_b_idx = j;
+        }
+
+        // find lower tangent
+        int lower_tangent_a_idx{}, lower_tangent_b_idx{};
+        {
+            int i{ rightmost_idx };
+            int j{ leftmost_idx };
+
+            while (true)
+            {
+                int next_i{ get_next_idx_cw(i, hull_a.size()) };
+                int next_j{ get_next_idx_ccw(j, hull_b.size()) };
+
+                if (get_intersect_y(middle_line, hull_a[next_i], hull_b[j]) < get_intersect_y(middle_line, hull_a[i], hull_b[j]))
+                {
+                    i = next_i;
+                }
+                else if (get_intersect_y(middle_line, hull_a[i], hull_b[next_j]) < get_intersect_y(middle_line, hull_a[i], hull_b[j]))
+                {
+                    j = next_j;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            lower_tangent_a_idx = i;
+            lower_tangent_b_idx = j;
+        }
+
+        // clockwise merge the two hulls using the found tangents
+        std::vector<v2> hull{};
+        for (int i{ lower_tangent_a_idx }; i != upper_tangent_a_idx; i = get_next_idx_cw(i, hull_a.size()))
+        {
+            hull.emplace_back(hull_a[i]);
+        }
+        hull.emplace_back(hull_a[upper_tangent_a_idx]);
+        for (int j{ upper_tangent_b_idx }; j != lower_tangent_b_idx; j = get_next_idx_cw(j, hull_b.size()))
+        {
+            hull.emplace_back(hull_b[j]);
+        }
+        hull.emplace_back(hull_b[lower_tangent_b_idx]);
+
+        return hull;
+    }
+
+    static std::vector<v2> divide_and_conquer_impl(const std::vector<v2>& sorted_points)
+    {
+        if (sorted_points.size() <= 1)
+        {
+            return sorted_points;
+        }
+        else
+        {
+            int half{ static_cast<int>(sorted_points.size()) / 2 }; // half >= 1
+            std::vector<v2> hull_a{ divide_and_conquer_impl({sorted_points.begin(), sorted_points.begin() + half}) };
+            std::vector<v2> hull_b{ divide_and_conquer_impl({sorted_points.begin() + half, sorted_points.end()}) };
+            return divide_and_conquer_merge(hull_a, hull_b);
+        }
+    }
+
+    std::vector<v2> divide_and_conquer(const std::vector<v2>& points)
+    {
+        assert(points.size() >= 3);
+
+        std::vector<v2> copy{ points };
+        std::sort(copy.begin(), copy.end(), [](v2 a, v2 b) { return a.x <= b.x; }); // sort local copy of points
         return divide_and_conquer_impl(copy);
     }
 }

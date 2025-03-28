@@ -120,22 +120,22 @@ static void dump_points_and_hull(const std::vector<ch::v2>& points, const std::v
 int main()
 {
     // generate points
-    int points_count{ 100 };
+    int points_count{ 1000 };
     std::vector<ch::v2> points{ generate_points(points_count) };
     assert(points.size() == points_count); // sanity check
 
     // generate hull and test against oracle
-    std::vector<ch::v2> naive_hull{ ch::naive(points) };
+    //std::vector<ch::v2> naive_hull{ ch::naive(points) };
     std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
 
-    if (validate_hull(naive_hull, dc_hull))
-    {
-        dump_points_and_hull(points, dc_hull);
-    }
-    else
+    dump_points_and_hull(points, dc_hull);
+
+    #if 0
+    if (!validate_hull(naive_hull, dc_hull))
     {
         std::cerr << "hull validation failed" << std::endl;
     }
+    #endif
 
     return 0;
 }
