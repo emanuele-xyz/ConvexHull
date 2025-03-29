@@ -255,4 +255,62 @@ namespace ch
         std::sort(copy.begin(), copy.end(), [](v2 a, v2 b) { return a.x <= b.x; }); // sort local copy of points
         return divide_and_conquer_impl(copy);
     }
+
+    std::vector<v2> akl_toussaint_heuristic(const std::vector<v2>& points)
+    {
+        int x_min_idx{};
+        int x_max_idx{};
+        int y_min_idx{};
+        int y_max_idx{};
+        {
+            {
+                auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.x < b.x; }) };
+                assert(it.first != points.end());
+                assert(it.second != points.end());
+                x_min_idx = static_cast<int>(std::distance(points.begin(), it.first));
+                x_max_idx = static_cast<int>(std::distance(points.begin(), it.second));
+            }
+            {
+                auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.y < b.y; }) };
+                assert(it.first != points.end());
+                assert(it.second != points.end());
+                y_min_idx = static_cast<int>(std::distance(points.begin(), it.first));
+                y_max_idx = static_cast<int>(std::distance(points.begin(), it.second));
+            }
+        }
+        assert(x_min_idx != x_max_idx);
+        assert(y_min_idx != y_max_idx);
+
+        // TODO: it may happen to find just 3 or 2 different points
+
+        std::vector<v2> hull{};
+
+        // TODO: just for testing, throw it away later
+        hull.emplace_back(points[x_min_idx]);
+        hull.emplace_back(points[y_max_idx]);
+        hull.emplace_back(points[x_max_idx]);
+        hull.emplace_back(points[y_min_idx]);
+
+        return hull;
+    }
+
+    std::vector<v2> akl_toussaint(const std::vector<v2>& points)
+    {
+        assert(points.size() >= 3);
+
+        std::vector<v2> copy{ points };
+
+        if (points.size() == 3)
+        {
+            if (!is_hull_clockwise(points))
+            {
+                std::reverse(copy.begin(), copy.end());
+            }
+            return copy;
+        }
+
+        copy = akl_toussaint_heuristic(copy);
+
+        return copy;
+    }
 }

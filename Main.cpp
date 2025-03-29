@@ -126,9 +126,10 @@ int main()
 
     // generate hull and test against oracle
     //std::vector<ch::v2> naive_hull{ ch::naive(points) };
-    std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
+    //std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
+    std::vector<ch::v2> akl_toussaint_hull{ ch::akl_toussaint(points) };
 
-    dump_points_and_hull(points, dc_hull);
+    dump_points_and_hull(points, akl_toussaint_hull);
 
     #if 0
     if (!validate_hull(naive_hull, dc_hull))
