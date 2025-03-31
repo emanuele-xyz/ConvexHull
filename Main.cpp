@@ -117,6 +117,7 @@ static void dump_points_and_hull(const std::vector<ch::v2>& points, const std::v
     }
 }
 
+#if 1
 int main()
 {
     // generate points
@@ -140,3 +141,59 @@ int main()
 
     return 0;
 }
+#else
+int main()
+{
+    std::random_device rd{};
+    std::mt19937 gen{ rd() };
+    std::uniform_int_distribution<> distrib{ 5, 100 };
+    std::ofstream log{ "log.txt" };
+    int points_count{ distrib(gen) };
+    while (true)
+    {
+        std::cout << "--------------------------------------------------------------------------------\n";
+        log << "--------------------------------------------------------------------------------\n";
+        log.flush();
+        std::cout << "points count: " << points_count << "\n";
+        log << "points count: " << points_count << "\n";
+        log.flush();
+        std::cout << "generating points ... ";
+        log << "generating points ... ";
+        log.flush();
+        std::vector<ch::v2> points{ generate_points(points_count) };
+        std::cout << "DONE\n";
+        log << "DONE\n";
+        log.flush();
+        std::cout << "naive hull ... ";
+        log << "naive hull ... ";
+        log.flush();
+        std::vector<ch::v2> naive_hull{ ch::naive(points) };
+        std::cout << "DONE\n";
+        log << "DONE\n";
+        log.flush();
+        std::cout << "divide and conquer ... ";
+        log << "divide and conquer ... ";
+        log.flush();
+        std::vector<ch::v2> found_hull{ ch::divide_and_conquer(points) };
+        std::cout << "DONE\n";
+        log << "DONE\n";
+        log.flush();
+        if (validate_hull(naive_hull, found_hull))
+        {
+            std::cout << "hulls MATCH\n";
+            log << "hulls MATCH\n";
+            log.flush();
+        }
+        else
+        {
+            std::cout << "hulls DON'T MATCH\n";
+            log << "hulls DON'T MATCH\n";
+            log.flush();
+        }
+
+        points_count += distrib(gen);
+    }
+
+    return 0;
+}
+#endif

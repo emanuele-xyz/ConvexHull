@@ -1,0 +1,664 @@
+--------------------------------------------------------------------------------
+points count: 36
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 41
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 59
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 113
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 183
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 276
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 349
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 392
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 476
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 539
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 595
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 689
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 694
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 783
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 793
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 885
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 904
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 941
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 962
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 992
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1017
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1116
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1160
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1240
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1290
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1347
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1356
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1423
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1516
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1594
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1631
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1658
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1729
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1758
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1815
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1831
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1930
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2016
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2093
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2172
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2269
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2326
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2424
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2432
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2447
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2478
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2520
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2599
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2610
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2649
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2684
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2706
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2732
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2811
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2846
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2945
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3031
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3063
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3085
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3158
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3243
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3250
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3304
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3360
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3436
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3442
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3447
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3453
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3461
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3476
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3564
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3635
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3677
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3712
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3762
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3815
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3844
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3873
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3967
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4019
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4084
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4095
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4177
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4242
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4262
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4281
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4357
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4430
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4513
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4613
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4633
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4662
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4685
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4758
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4826
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4884
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4936
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5005
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5091
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5180
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5186
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5192
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5254
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5300
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5366
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5427
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5483
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5547
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5591
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5604
+generating points ... DONE
+naive hull ... DONE
+divide and conquer ... DONE
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5686
+generating points ... DONE
+naive hull ...

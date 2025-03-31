@@ -256,6 +256,21 @@ namespace ch
         return divide_and_conquer_impl(copy);
     }
 
+    static std::vector<int> build_killzone(int x_min_idx, int x_max_idx, int y_min_idx, int y_max_idx)
+    {
+        std::vector<int> kill_zone{};
+        int points[4]{ x_min_idx, y_max_idx, x_max_idx, y_min_idx };
+        for (int i{}; i < 4; i++)
+        {
+            int point{ points[i] };
+            if (auto it{ std::find(kill_zone.begin(), kill_zone.end(), point) }; it == kill_zone.end())
+            {
+                kill_zone.emplace_back(point);
+            }
+        }
+        return kill_zone;
+    }
+
     std::vector<v2> akl_toussaint_heuristic(const std::vector<v2>& points)
     {
         int x_min_idx{};
@@ -281,15 +296,13 @@ namespace ch
         assert(x_min_idx != x_max_idx);
         assert(y_min_idx != y_max_idx);
 
-        // TODO: it may happen to find just 3 or 2 different points
+        std::vector<int> kill_zone{ build_killzone(x_min_idx, x_max_idx, y_min_idx, y_max_idx) };
 
         std::vector<v2> hull{};
-
-        // TODO: just for testing, throw it away later
-        hull.emplace_back(points[x_min_idx]);
-        hull.emplace_back(points[y_max_idx]);
-        hull.emplace_back(points[x_max_idx]);
-        hull.emplace_back(points[y_min_idx]);
+        for (int i : kill_zone)
+        {
+            hull.emplace_back(points[i]);
+        }
 
         return hull;
     }
