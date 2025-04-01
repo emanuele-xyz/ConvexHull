@@ -1,0 +1,30 @@
+Guida
+=====
+
+Ogni progetto va presentato in una sola cartella (con tutti i rinvii in minuscolo) in cui c’è un file index.html che contiene il titolo, brevi informazioni, nome autori, a.a., corso, ecc.
+e TRE rinvii a tre files separati:
+
+1. teoria, in cui si descrivono gli aspetti teorici inerenti al corso usati all’interno del progetto
+2. manuale utente, in cui si descrive il funzionamento dei comandi presenti nell’applet
+3. applet.
+
+Potete prendere esempio dai progetti già presenti sul sito.
+Appena avrete qualcosa da mostrarmi fisseremo un incontro via Skype per parlarne.
+Interpellatemi pure prima di fare qualcosa che rischi di essere inutilizzabile.
+
+Link utili
+==========
+
+https://latexeditor.lagrida.com
+https://tug.ctan.org/info/undergradmath/undergradmath.pdf
+https://pages.uoregon.edu/torrence/391/labs/LaTeX-cheat-sheet.pdf
+
+https://www.overleaf.com/learn/latex/Spacing_in_math_mode
+
+https://www.mathjax.org
+
+https://github.com/jgm/pandoc/issues/1847
+https://pandoc.org/chunkedhtml-demo/3.6-math-rendering-in-html.html
+https://stackoverflow.com/questions/37533412/md-with-latex-to-html-with-mathjax-with-pandoc
+
+https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions
