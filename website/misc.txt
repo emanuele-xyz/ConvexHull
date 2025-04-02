@@ -1,5 +1,15 @@
-Guida
-=====
+Linee guida
+===========
+
+Trattandosi di un progetto di carattere didattico bisognerà scrivere bene la parte di teoria.
+
+Dovrete descrivere a sommi capi i vari algoritmi che proponete, vantaggi/svantaggi rispetto agli altri, ecc.
+Piuttosto che un vasto elenco è meglio approfondire bene gli algoritmi che prenderete in considerazione nel progetto.
+
+Buona idea quella di applicare gli algoritmi a stessi gruppo di punti per valutare l’efficienza a confronto.
+Se non è troppo difficile farlo (vedere) in contemporanea, come vorreste fare, OK, ma se è troppo complicato basta anche applicarli uno per volta. Sarà il tempo finale a fare la differenza.
+
+---
 
 Ogni progetto va presentato in una sola cartella (con tutti i rinvii in minuscolo) in cui c’è un file index.html che contiene il titolo, brevi informazioni, nome autori, a.a., corso, ecc.
 e TRE rinvii a tre files separati:
@@ -11,6 +21,11 @@ e TRE rinvii a tre files separati:
 Potete prendere esempio dai progetti già presenti sul sito.
 Appena avrete qualcosa da mostrarmi fisseremo un incontro via Skype per parlarne.
 Interpellatemi pure prima di fare qualcosa che rischi di essere inutilizzabile.
+
+---
+
+Ok, tenete presente che il progetto ha finalità didattiche, quindi basta illustrare i vari metodi, pazienza se la versione che darete non sarà molto robusta.
+Piuttosto, ricordate che nella parte di teoria dovrete spiegare brevemente l’idea che sta alla base di ognuno dei metodi illustrati.
 
 Link utili
 ==========
