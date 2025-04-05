@@ -22,27 +22,27 @@ def pandoc(f):
             f"--include-in-header markdown/common/header.html "
             f"--include-before-body markdown/common/body.html "
             f"--css style.css "
-            f"--output ../docs/{relative_filepath}.html {f}"
+            f"--output serve/{relative_filepath}.html {f}"
         )
     )
 
 
 def main():
-    # Create a new "docs" directory from scratch
-    if os.path.isdir("../docs"):
-        shutil.rmtree(f"../docs")
-    shutil.copytree(f"static", f"../docs")
+    # Create a new "serve" directory from scratch
+    if os.path.isdir("serve"):
+        shutil.rmtree(f"serve")
+    shutil.copytree(f"static", f"serve")
 
-    # Create .nojekyll in docs/
-    with open("../docs/.nojekyll", "w"):
+    # Create .nojekyll in serve/
+    with open("serve/.nojekyll", "w"):
         pass
 
-    # Copy HTML files from html/ to docs/.
+    # Copy HTML files from html/ to serve/.
     html_files = glob.glob(f"html/*.html", recursive=True)
     for f in html_files:
-        shutil.copy(f, f"../docs/{os.path.basename(f)}")
+        shutil.copy(f, f"serve/{os.path.basename(f)}")
 
-    # Convert MD files to HTML and copy them to docs/
+    # Convert MD files to HTML and copy them to serve/
     markdown_files = glob.glob(f"markdown/*.md", recursive=True)
     for f in markdown_files:
         pandoc(f)

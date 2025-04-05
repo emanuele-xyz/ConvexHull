@@ -4,7 +4,7 @@ site:
 	python makesite.py
 
 serve: site
-	python -m http.server --directory docs
+	python -m http.server --directory serve
 
 clean:
-	rm -rf docs
+	rm -rf serve
