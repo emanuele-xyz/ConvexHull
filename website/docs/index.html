@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Noto%20Serif"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=JetBrains+Mono"
+    />
+  </head>
+  <body>
+    <nav>
+      <a href="/index.html">home</a>
+      <a href="/teoria.html">teoria</a>
+      <a href="/benchmark.html">benchmark</a>
+      <a href="/manuale.html">manuale</a>
+      <a href="/applicazione.html">applicazione</a>
+    </nav>
+
+    <header style="text-align: center">
+      <h1>Involucri convessi 2D e come trovarli</h1>
+      <div style="margin: 2em auto">
+        <img src="convex_hull.png" alt="Convex hull" height="256px" />
+      </div>
+    </header>
+
+    <main style="font-size: 18px">
+      <p>
+        Il progetto consiste nell'analisi e implementazione di cinque algoritmi
+        per il calcolo dell'involucro convesso in 2D.
+      </p>
+
+      <p>In particolare, sono state sviluppate due applicazioni:</p>
+
+      <ul>
+        <li>
+          La prima in C++, utilizzata per eseguire benchmark e per analizzare
+          l'impatto dell'euristica di Akl e Toussaint sulle prestazioni degli
+          algoritmi che non la impiegano.
+        </li>
+        <li>
+          La seconda in JavaScript, realizzata per visualizzare l'esecuzione
+          degli algoritmi.
+        </li>
+      </ul>
+
+      <p>
+        Segue l'elenco degli articoli che descrivono gli algoritmi trattati:
+      </p>
+
+      <ul>
+        <li>
+          <a href="https://doi.org/10.1145/359423.359430"
+            >Convex hulls of finite sets of points in two and three dimensions
+            (Preparata & Hong, 1977)</a
+          >
+          <ul>
+            <li>
+              <a href="https://www.petertoth.de/articles/convex-hull"
+                >Convex hull implementation with a Divide and Conquer
+                algorithm</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://doi.org/10.1016/0020-0190(78)90003-0"
+            >A fast convex hull algorithm (Akl & Toussaint, 1978)</a
+          >
+        </li>
+        <li>
+          <a href="https://doi.org/10.1145/358315.358392"
+            >Approximation algorithms for convex hulls (Bentley, Faust &
+            Preparata, 1982)</a
+          >
+        </li>
+        <li>
+          <a href="https://doi.org/10.1007/BF02712873"
+            >Optimal output-sensitive convex hull algorithms in two and three
+            dimensions (Chan, 1996)</a
+          >
+        </li>
+        <li>
+          <a href="https://doi.org/10.1016/j.cad.2015.07.013"
+            >A Total Order Heuristic-Based Convex Hull Algorithm for Points in
+            the Plane (Gomes, 2016)</a
+          >
+        </li>
+      </ul>
+    </main>
+
+    <footer
+      style="
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 2em;
+      "
+    >
+      <div>
+        <img src="logo_unimi.png" alt="Logo UNIMI" width="350px" />
+      </div>
+      <div style="font-size: 18px">
+        Geometria Computazionale
+        <br />
+        A.A. 2024/2025
+        <br />
+        <a href="mailto:emanuele.franchi1@studenti.unimi.it"
+          >Emanuele Franchi</a
+        >
+        <br />
+        <a href="mailto:lorenzo.ferrante1@studenti.unimi.it"
+          >Lorenzo Ferrante</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
