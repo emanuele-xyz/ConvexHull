@@ -52,15 +52,7 @@ namespace ch
                 v2 u{ points[i] };
                 v2 v{ points[j] };
                 v2 u_to_v{ v - u };
-                /*
-                    Given a column vector [a, b] we want to find one column vector [x, y] perpendicular to it.
-                    We know that, for such vector, dot([a, b], [x, y]) = 0.
-                    Thus, ax + by = 0.
-                    Hence, x = (-b/a) * y
-                    It is easy to see that one of the infinite solutions to this equation is [-b, a].
-                    This solution is one of the vectors we were looking for.
-                */
-                v2 normal{ -u_to_v.y, u_to_v.x };
+                v2 normal{ v2::normal(u_to_v) };
 
                 int positive_halfplane{};
                 int negative_halfplane{};
@@ -271,6 +263,27 @@ namespace ch
         return kill_zone;
     }
 
+    static bool falls_within_killzone(int p_idx, const std::vector<int>& kill_zone, const std::vector<v2>& points)
+    {
+        if (auto it{ std::find(kill_zone.begin(), kill_zone.end(), p_idx) }; it != kill_zone.end())
+        {
+            return false;
+        }
+
+        bool falls_within{ true };
+        for (int i{}; i < static_cast<int>(kill_zone.size()) && falls_within; i++)
+        {
+            // TODO: theory comment
+            int from{ kill_zone[i] };
+            int to{ kill_zone[(i + 1) % static_cast<int>(kill_zone.size())] };
+            v2 from_to{ points[to] - points[from] };
+            v2 normal{ v2::normal(from_to) };
+            v2 from_p{ points[p_idx] - points[from] };
+            falls_within = v2::dot(normal, from_p) < 0;
+        }
+        return falls_within;
+    }
+
     std::vector<v2> akl_toussaint_heuristic(const std::vector<v2>& points)
     {
         int x_min_idx{};
@@ -297,14 +310,23 @@ namespace ch
         assert(y_min_idx != y_max_idx);
 
         std::vector<int> kill_zone{ build_killzone(x_min_idx, x_max_idx, y_min_idx, y_max_idx) };
-
-        std::vector<v2> hull{};
+        std::vector<v2> akl_toussaint_points{};
+        #if 0
         for (int i : kill_zone)
         {
-            hull.emplace_back(points[i]);
+            akl_toussaint_points.emplace_back(points[i]);
         }
+        #else
+        for (int i{}; i < static_cast<int>(points.size()); i++)
+        {
+            if (!falls_within_killzone(i, kill_zone, points))
+            {
+                akl_toussaint_points.emplace_back(points[i]);
+            }
+        }
+        #endif
 
-        return hull;
+        return akl_toussaint_points;
     }
 
     std::vector<v2> akl_toussaint(const std::vector<v2>& points)
