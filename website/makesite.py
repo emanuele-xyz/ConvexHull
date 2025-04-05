@@ -33,10 +33,6 @@ def main():
         shutil.rmtree(f"serve")
     shutil.copytree(f"static", f"serve")
 
-    # Create .nojekyll in serve/
-    with open("serve/.nojekyll", "w"):
-        pass
-
     # Copy HTML files from html/ to serve/.
     html_files = glob.glob(f"html/*.html", recursive=True)
     for f in html_files:
