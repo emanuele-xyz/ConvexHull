@@ -19,8 +19,8 @@ static std::vector<ch::v2> generate_points(int points_count)
     assert(points_count >= 3);
 
     std::random_device random_device{};
-    std::mt19937 generator{ random_device() };
-    //std::mt19937 generator{ 0 };
+    //std::mt19937 generator{ random_device() };
+    std::mt19937 generator{ 1 };
     std::uniform_real_distribution<> distribution{ 0.0, static_cast<double>(points_count) * 10.0 };
 
     std::vector<ch::v2> points{};

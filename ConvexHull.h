@@ -6,6 +6,19 @@ namespace ch
 {
     struct v2
     {
+        static v2 normal(v2 p)
+        {
+            /*
+                Given a column vector [a, b] we want to find one column vector [x, y] perpendicular to it.
+                We know that, for such vector, dot([a, b], [x, y]) = 0.
+                Thus, ax + by = 0.
+                Hence, x = (-b/a) * y
+                It is easy to see that one of the infinite solutions to this equation is [-b, a].
+                This solution is one of the vectors we were looking for.
+            */
+            return { -p.y, p.x };
+        }
+
         static double dot(v2 u, v2 v)
         {
             return u.x * v.x + u.y * v.y;
@@ -22,7 +35,7 @@ namespace ch
             return { x - rhs.x, y - rhs.y };
         }
     };
-    
+
     // returns the determinant of the matrix [u | v]
     inline double determinant(v2 u, v2 v)
     {
