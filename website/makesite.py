@@ -29,18 +29,18 @@ def pandoc(f):
 
 def main():
     # Create a new "docs" directory from scratch
-    if os.path.isdir("docs"):
-        shutil.rmtree(f"docs")
-    shutil.copytree(f"static", f"docs")
+    if os.path.isdir("../docs"):
+        shutil.rmtree(f"../docs")
+    shutil.copytree(f"static", f"../docs")
 
     # Create .nojekyll in docs/
-    with open("docs/.nojekyll", "w"):
+    with open("../docs/.nojekyll", "w"):
         pass
 
     # Copy HTML files from html/ to docs/.
     html_files = glob.glob(f"html/*.html", recursive=True)
     for f in html_files:
-        shutil.copy(f, f"docs/{os.path.basename(f)}")
+        shutil.copy(f, f"../docs/{os.path.basename(f)}")
 
     # Convert MD files to HTML and copy them to docs/
     markdown_files = glob.glob(f"markdown/*.md", recursive=True)
