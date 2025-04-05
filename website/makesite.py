@@ -22,7 +22,7 @@ def pandoc(f):
             f"--include-in-header markdown/common/header.html "
             f"--include-before-body markdown/common/body.html "
             f"--css style.css "
-            f"--output docs/{relative_filepath}.html {f}"
+            f"--output ../docs/{relative_filepath}.html {f}"
         )
     )
 
