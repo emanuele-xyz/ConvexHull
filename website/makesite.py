@@ -18,7 +18,9 @@ def pandoc(f):
 
     subprocess.run(
         shlex.split(
-            f"pandoc --standalone --mathjax --from markdown --to html5 "
+            f"pandoc --from markdown --to html5 "
+            f"--standalone --mathjax "
+            f"--reference-location=section "
             f"--include-in-header markdown/common/header.html "
             f"--include-before-body markdown/common/body.html "
             f"--css style.css "
