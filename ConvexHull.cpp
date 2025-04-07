@@ -284,49 +284,147 @@ namespace ch
         return falls_within;
     }
 
+    static bool falls_within_region(v2 p, v2 from, v2 to)
+    {
+        if (p == from || p == to)
+        {
+            return false;
+        }
+
+        v2 from_to{ to - from };
+        v2 normal{ v2::normal(from_to) };
+        v2 from_p{ p - from };
+        return v2::dot(normal, from_p) > 0;
+    }
+
     std::vector<v2> akl_toussaint_heuristic(const std::vector<v2>& points)
     {
-        int x_min_idx{};
-        int x_max_idx{};
-        int y_min_idx{};
-        int y_max_idx{};
+        // build kill zone
+        std::vector<int> kill_zone{};
         {
+            int x_min_idx{};
+            int x_max_idx{};
+            int y_min_idx{};
+            int y_max_idx{};
             {
-                auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.x < b.x; }) };
-                assert(it.first != points.end());
-                assert(it.second != points.end());
-                x_min_idx = static_cast<int>(std::distance(points.begin(), it.first));
-                x_max_idx = static_cast<int>(std::distance(points.begin(), it.second));
+                {
+                    auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.x < b.x; }) };
+                    assert(it.first != points.end());
+                    assert(it.second != points.end());
+                    x_min_idx = static_cast<int>(std::distance(points.begin(), it.first));
+                    x_max_idx = static_cast<int>(std::distance(points.begin(), it.second));
+                }
+                {
+                    auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.y < b.y; }) };
+                    assert(it.first != points.end());
+                    assert(it.second != points.end());
+                    y_min_idx = static_cast<int>(std::distance(points.begin(), it.first));
+                    y_max_idx = static_cast<int>(std::distance(points.begin(), it.second));
+                }
             }
-            {
-                auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.y < b.y; }) };
-                assert(it.first != points.end());
-                assert(it.second != points.end());
-                y_min_idx = static_cast<int>(std::distance(points.begin(), it.first));
-                y_max_idx = static_cast<int>(std::distance(points.begin(), it.second));
-            }
-        }
-        assert(x_min_idx != x_max_idx);
-        assert(y_min_idx != y_max_idx);
+            assert(x_min_idx != x_max_idx);
+            assert(y_min_idx != y_max_idx);
 
-        std::vector<int> kill_zone{ build_killzone(x_min_idx, x_max_idx, y_min_idx, y_max_idx) };
+            kill_zone = build_killzone(x_min_idx, x_max_idx, y_min_idx, y_max_idx);
+        }
+
+        // apply heuristic, i.e. filter points that fall within the kill zone
         std::vector<v2> akl_toussaint_points{};
-        #if 0
-        for (int i : kill_zone)
         {
-            akl_toussaint_points.emplace_back(points[i]);
-        }
-        #else
-        for (int i{}; i < static_cast<int>(points.size()); i++)
-        {
-            if (!falls_within_killzone(i, kill_zone, points))
+            for (int i{}; i < static_cast<int>(points.size()); i++)
             {
-                akl_toussaint_points.emplace_back(points[i]);
+                if (!falls_within_killzone(i, kill_zone, points))
+                {
+                    akl_toussaint_points.emplace_back(points[i]);
+                }
             }
         }
-        #endif
 
-        return akl_toussaint_points;
+        // build hull
+        std::vector<v2> hull{};
+        {
+            for (int i{}; i < static_cast<int>(kill_zone.size()); i++)
+            {
+                int from{ kill_zone[i] };
+                int to{ kill_zone[(i + 1) % static_cast<int>(kill_zone.size())] };
+
+                // find points belonging to the region (including "from" and "to")
+                std::vector<v2> region_points{};
+                region_points.emplace_back(points[from]);
+                region_points.emplace_back(points[to]);
+                for (v2 p : akl_toussaint_points)
+                {
+                    if (falls_within_region(p, points[from], points[to]))
+                    {
+                        region_points.emplace_back(p);
+                    }
+                }
+
+                // sort points
+                {
+                    v2 from_to{ points[to] - points[from] };
+                    assert(from_to.x != 0); // no two points can have the same x
+                    if (from_to.x > 0)
+                    {
+                        // we either are in region 1 or 2
+                        std::sort(region_points.begin(), region_points.end(), [](v2 a, v2 b) { return a.x <= b.x; });
+                    }
+                    else if (from_to.x < 0)
+                    {
+                        // we either are in region 3 or 4
+                        std::sort(region_points.begin(), region_points.end(), [](v2 a, v2 b) { return a.x >= b.x; });
+                    }
+                }
+
+                // find convex path that goes from "from" to "to"
+                {
+                    while (true)
+                    {
+                        assert(region_points.size() >= 2);
+
+                        bool was_there_any_deletion{ false };
+                        int k{};
+                        while (0 <= k && k < (static_cast<int>(region_points.size()) - 2))
+                        {
+                            v2 p{ region_points[k] };
+                            v2 pn{ region_points[k + 1] };
+                            v2 pnn{ region_points[k + 2] };
+                            double s{ determinant(pnn - pn, pn - p) };
+                            if (s >= 0)
+                            {
+                                k++;
+                            }
+                            else
+                            {
+                                region_points.erase(region_points.begin() + k + 1);
+                                was_there_any_deletion = true;
+                                k--;
+                            }
+                        }
+
+                        if (!was_there_any_deletion)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                // append convex path to hull
+                for (v2 p : region_points)
+                {
+                    // we built region_points inserting the extreme points related to the region.
+                    // the problem is that extreme points are shared between neighboring regions.
+                    // thus, before inserting any point in the hull, we check for duplicates.
+                    // for such diplicate points, we simply don't insert them in the hull.
+                    if (auto it{ std::find(hull.begin(), hull.end(), p) }; it == hull.end())
+                    {
+                        hull.emplace_back(p);
+                    }
+                }
+            }
+        }
+
+        return hull;
     }
 
     std::vector<v2> akl_toussaint(const std::vector<v2>& points)
