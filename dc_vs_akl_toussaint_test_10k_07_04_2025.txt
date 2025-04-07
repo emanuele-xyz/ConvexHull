@@ -1,0 +1,933 @@
+--------------------------------------------------------------------------------
+dataset capacity: 10000
+generating points ... DONE ... 128 s
+--------------------------------------------------------------------------------
+points count: 78
+divide_and_conquer ... DONE ... 41 us
+akl_toussaint ... DONE ... 10 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 165
+divide_and_conquer ... DONE ... 57 us
+akl_toussaint ... DONE ... 13 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 208
+divide_and_conquer ... DONE ... 66 us
+akl_toussaint ... DONE ... 23 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 298
+divide_and_conquer ... DONE ... 94 us
+akl_toussaint ... DONE ... 18 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 392
+divide_and_conquer ... DONE ... 154 us
+akl_toussaint ... DONE ... 30 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 488
+divide_and_conquer ... DONE ... 146 us
+akl_toussaint ... DONE ... 32 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 495
+divide_and_conquer ... DONE ... 146 us
+akl_toussaint ... DONE ... 29 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 564
+divide_and_conquer ... DONE ... 167 us
+akl_toussaint ... DONE ... 33 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 652
+divide_and_conquer ... DONE ... 193 us
+akl_toussaint ... DONE ... 52 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 681
+divide_and_conquer ... DONE ... 214 us
+akl_toussaint ... DONE ... 41 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 778
+divide_and_conquer ... DONE ... 248 us
+akl_toussaint ... DONE ... 62 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 813
+divide_and_conquer ... DONE ... 256 us
+akl_toussaint ... DONE ... 68 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 910
+divide_and_conquer ... DONE ... 281 us
+akl_toussaint ... DONE ... 62 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 984
+divide_and_conquer ... DONE ... 312 us
+akl_toussaint ... DONE ... 84 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1051
+divide_and_conquer ... DONE ... 331 us
+akl_toussaint ... DONE ... 90 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1070
+divide_and_conquer ... DONE ... 335 us
+akl_toussaint ... DONE ... 91 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1130
+divide_and_conquer ... DONE ... 365 us
+akl_toussaint ... DONE ... 101 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1171
+divide_and_conquer ... DONE ... 370 us
+akl_toussaint ... DONE ... 104 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1240
+divide_and_conquer ... DONE ... 386 us
+akl_toussaint ... DONE ... 110 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1284
+divide_and_conquer ... DONE ... 398 us
+akl_toussaint ... DONE ... 84 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1355
+divide_and_conquer ... DONE ... 419 us
+akl_toussaint ... DONE ... 87 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1417
+divide_and_conquer ... DONE ... 446 us
+akl_toussaint ... DONE ... 89 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1499
+divide_and_conquer ... DONE ... 473 us
+akl_toussaint ... DONE ... 91 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1562
+divide_and_conquer ... DONE ... 491 us
+akl_toussaint ... DONE ... 94 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1601
+divide_and_conquer ... DONE ... 502 us
+akl_toussaint ... DONE ... 96 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1696
+divide_and_conquer ... DONE ... 533 us
+akl_toussaint ... DONE ... 102 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1712
+divide_and_conquer ... DONE ... 574 us
+akl_toussaint ... DONE ... 106 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1726
+divide_and_conquer ... DONE ... 542 us
+akl_toussaint ... DONE ... 101 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1771
+divide_and_conquer ... DONE ... 556 us
+akl_toussaint ... DONE ... 107 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1827
+divide_and_conquer ... DONE ... 577 us
+akl_toussaint ... DONE ... 111 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1859
+divide_and_conquer ... DONE ... 591 us
+akl_toussaint ... DONE ... 154 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1889
+divide_and_conquer ... DONE ... 599 us
+akl_toussaint ... DONE ... 123 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1951
+divide_and_conquer ... DONE ... 621 us
+akl_toussaint ... DONE ... 127 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1981
+divide_and_conquer ... DONE ... 628 us
+akl_toussaint ... DONE ... 126 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2011
+divide_and_conquer ... DONE ... 632 us
+akl_toussaint ... DONE ... 126 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2024
+divide_and_conquer ... DONE ... 648 us
+akl_toussaint ... DONE ... 127 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2087
+divide_and_conquer ... DONE ... 659 us
+akl_toussaint ... DONE ... 142 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2162
+divide_and_conquer ... DONE ... 686 us
+akl_toussaint ... DONE ... 146 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2176
+divide_and_conquer ... DONE ... 688 us
+akl_toussaint ... DONE ... 145 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2266
+divide_and_conquer ... DONE ... 719 us
+akl_toussaint ... DONE ... 149 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2307
+divide_and_conquer ... DONE ... 728 us
+akl_toussaint ... DONE ... 153 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2394
+divide_and_conquer ... DONE ... 748 us
+akl_toussaint ... DONE ... 158 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2435
+divide_and_conquer ... DONE ... 760 us
+akl_toussaint ... DONE ... 164 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2510
+divide_and_conquer ... DONE ... 781 us
+akl_toussaint ... DONE ... 214 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2521
+divide_and_conquer ... DONE ... 781 us
+akl_toussaint ... DONE ... 165 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2580
+divide_and_conquer ... DONE ... 806 us
+akl_toussaint ... DONE ... 180 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2664
+divide_and_conquer ... DONE ... 835 us
+akl_toussaint ... DONE ... 236 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2722
+divide_and_conquer ... DONE ... 856 us
+akl_toussaint ... DONE ... 195 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2820
+divide_and_conquer ... DONE ... 894 us
+akl_toussaint ... DONE ... 205 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2900
+divide_and_conquer ... DONE ... 920 us
+akl_toussaint ... DONE ... 216 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2966
+divide_and_conquer ... DONE ... 935 us
+akl_toussaint ... DONE ... 281 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2993
+divide_and_conquer ... DONE ... 952 us
+akl_toussaint ... DONE ... 229 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3016
+divide_and_conquer ... DONE ... 954 us
+akl_toussaint ... DONE ... 229 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3066
+divide_and_conquer ... DONE ... 996 us
+akl_toussaint ... DONE ... 228 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3078
+divide_and_conquer ... DONE ... 979 us
+akl_toussaint ... DONE ... 228 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3178
+divide_and_conquer ... DONE ... 1032 us
+akl_toussaint ... DONE ... 237 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3231
+divide_and_conquer ... DONE ... 1137 us
+akl_toussaint ... DONE ... 250 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3249
+divide_and_conquer ... DONE ... 1068 us
+akl_toussaint ... DONE ... 249 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3306
+divide_and_conquer ... DONE ... 1084 us
+akl_toussaint ... DONE ... 248 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3372
+divide_and_conquer ... DONE ... 1098 us
+akl_toussaint ... DONE ... 257 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3466
+divide_and_conquer ... DONE ... 1125 us
+akl_toussaint ... DONE ... 267 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3484
+divide_and_conquer ... DONE ... 1135 us
+akl_toussaint ... DONE ... 272 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3554
+divide_and_conquer ... DONE ... 1169 us
+akl_toussaint ... DONE ... 358 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3606
+divide_and_conquer ... DONE ... 1239 us
+akl_toussaint ... DONE ... 277 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3668
+divide_and_conquer ... DONE ... 1199 us
+akl_toussaint ... DONE ... 300 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3743
+divide_and_conquer ... DONE ... 1245 us
+akl_toussaint ... DONE ... 301 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3756
+divide_and_conquer ... DONE ... 1220 us
+akl_toussaint ... DONE ... 391 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3805
+divide_and_conquer ... DONE ... 1244 us
+akl_toussaint ... DONE ... 430 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3840
+divide_and_conquer ... DONE ... 1292 us
+akl_toussaint ... DONE ... 477 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3878
+divide_and_conquer ... DONE ... 1263 us
+akl_toussaint ... DONE ... 388 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3885
+divide_and_conquer ... DONE ... 1285 us
+akl_toussaint ... DONE ... 395 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3933
+divide_and_conquer ... DONE ... 1278 us
+akl_toussaint ... DONE ... 391 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3957
+divide_and_conquer ... DONE ... 1312 us
+akl_toussaint ... DONE ... 392 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3992
+divide_and_conquer ... DONE ... 1300 us
+akl_toussaint ... DONE ... 396 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4022
+divide_and_conquer ... DONE ... 1312 us
+akl_toussaint ... DONE ... 398 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4109
+divide_and_conquer ... DONE ... 1318 us
+akl_toussaint ... DONE ... 415 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4136
+divide_and_conquer ... DONE ... 1349 us
+akl_toussaint ... DONE ... 424 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4220
+divide_and_conquer ... DONE ... 1374 us
+akl_toussaint ... DONE ... 460 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4310
+divide_and_conquer ... DONE ... 1409 us
+akl_toussaint ... DONE ... 545 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4410
+divide_and_conquer ... DONE ... 1516 us
+akl_toussaint ... DONE ... 449 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4423
+divide_and_conquer ... DONE ... 1439 us
+akl_toussaint ... DONE ... 449 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4480
+divide_and_conquer ... DONE ... 1454 us
+akl_toussaint ... DONE ... 461 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4560
+divide_and_conquer ... DONE ... 1483 us
+akl_toussaint ... DONE ... 464 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4605
+divide_and_conquer ... DONE ... 1506 us
+akl_toussaint ... DONE ... 476 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4686
+divide_and_conquer ... DONE ... 1521 us
+akl_toussaint ... DONE ... 483 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4748
+divide_and_conquer ... DONE ... 1576 us
+akl_toussaint ... DONE ... 498 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4789
+divide_and_conquer ... DONE ... 1571 us
+akl_toussaint ... DONE ... 503 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4873
+divide_and_conquer ... DONE ... 1579 us
+akl_toussaint ... DONE ... 509 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4916
+divide_and_conquer ... DONE ... 1584 us
+akl_toussaint ... DONE ... 476 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4980
+divide_and_conquer ... DONE ... 1596 us
+akl_toussaint ... DONE ... 499 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5039
+divide_and_conquer ... DONE ... 1624 us
+akl_toussaint ... DONE ... 494 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5054
+divide_and_conquer ... DONE ... 1850 us
+akl_toussaint ... DONE ... 615 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5093
+divide_and_conquer ... DONE ... 1723 us
+akl_toussaint ... DONE ... 509 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5166
+divide_and_conquer ... DONE ... 1871 us
+akl_toussaint ... DONE ... 627 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5214
+divide_and_conquer ... DONE ... 1762 us
+akl_toussaint ... DONE ... 544 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5281
+divide_and_conquer ... DONE ... 1721 us
+akl_toussaint ... DONE ... 555 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5327
+divide_and_conquer ... DONE ... 1751 us
+akl_toussaint ... DONE ... 546 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5346
+divide_and_conquer ... DONE ... 1741 us
+akl_toussaint ... DONE ... 586 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5407
+divide_and_conquer ... DONE ... 1784 us
+akl_toussaint ... DONE ... 613 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5417
+divide_and_conquer ... DONE ... 1892 us
+akl_toussaint ... DONE ... 698 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5516
+divide_and_conquer ... DONE ... 1789 us
+akl_toussaint ... DONE ... 557 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5522
+divide_and_conquer ... DONE ... 1822 us
+akl_toussaint ... DONE ... 577 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5552
+divide_and_conquer ... DONE ... 1796 us
+akl_toussaint ... DONE ... 558 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5582
+divide_and_conquer ... DONE ... 1808 us
+akl_toussaint ... DONE ... 710 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5647
+divide_and_conquer ... DONE ... 1844 us
+akl_toussaint ... DONE ... 579 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5725
+divide_and_conquer ... DONE ... 1924 us
+akl_toussaint ... DONE ... 611 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5791
+divide_and_conquer ... DONE ... 1911 us
+akl_toussaint ... DONE ... 601 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5873
+divide_and_conquer ... DONE ... 2046 us
+akl_toussaint ... DONE ... 679 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5911
+divide_and_conquer ... DONE ... 1939 us
+akl_toussaint ... DONE ... 676 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6000
+divide_and_conquer ... DONE ... 2103 us
+akl_toussaint ... DONE ... 685 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6082
+divide_and_conquer ... DONE ... 2119 us
+akl_toussaint ... DONE ... 701 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6181
+divide_and_conquer ... DONE ... 2058 us
+akl_toussaint ... DONE ... 713 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6254
+divide_and_conquer ... DONE ... 2075 us
+akl_toussaint ... DONE ... 730 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6318
+divide_and_conquer ... DONE ... 2072 us
+akl_toussaint ... DONE ... 707 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6349
+divide_and_conquer ... DONE ... 2088 us
+akl_toussaint ... DONE ... 715 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6355
+divide_and_conquer ... DONE ... 2335 us
+akl_toussaint ... DONE ... 885 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6375
+divide_and_conquer ... DONE ... 2299 us
+akl_toussaint ... DONE ... 907 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6457
+divide_and_conquer ... DONE ... 2165 us
+akl_toussaint ... DONE ... 746 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6488
+divide_and_conquer ... DONE ... 2168 us
+akl_toussaint ... DONE ... 759 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6555
+divide_and_conquer ... DONE ... 2177 us
+akl_toussaint ... DONE ... 750 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6633
+divide_and_conquer ... DONE ... 2219 us
+akl_toussaint ... DONE ... 784 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6664
+divide_and_conquer ... DONE ... 2268 us
+akl_toussaint ... DONE ... 946 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6689
+divide_and_conquer ... DONE ... 2223 us
+akl_toussaint ... DONE ... 747 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6726
+divide_and_conquer ... DONE ... 2178 us
+akl_toussaint ... DONE ... 741 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6814
+divide_and_conquer ... DONE ... 2231 us
+akl_toussaint ... DONE ... 757 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6821
+divide_and_conquer ... DONE ... 2210 us
+akl_toussaint ... DONE ... 754 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6876
+divide_and_conquer ... DONE ... 2246 us
+akl_toussaint ... DONE ... 825 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6904
+divide_and_conquer ... DONE ... 2239 us
+akl_toussaint ... DONE ... 909 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7004
+divide_and_conquer ... DONE ... 2264 us
+akl_toussaint ... DONE ... 783 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7044
+divide_and_conquer ... DONE ... 2261 us
+akl_toussaint ... DONE ... 799 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7103
+divide_and_conquer ... DONE ... 2270 us
+akl_toussaint ... DONE ... 814 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7128
+divide_and_conquer ... DONE ... 2304 us
+akl_toussaint ... DONE ... 845 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7167
+divide_and_conquer ... DONE ... 2383 us
+akl_toussaint ... DONE ... 1030 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7218
+divide_and_conquer ... DONE ... 2479 us
+akl_toussaint ... DONE ... 839 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7256
+divide_and_conquer ... DONE ... 2327 us
+akl_toussaint ... DONE ... 832 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7312
+divide_and_conquer ... DONE ... 2363 us
+akl_toussaint ... DONE ... 844 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7382
+divide_and_conquer ... DONE ... 2568 us
+akl_toussaint ... DONE ... 1035 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7428
+divide_and_conquer ... DONE ... 2396 us
+akl_toussaint ... DONE ... 870 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7527
+divide_and_conquer ... DONE ... 2709 us
+akl_toussaint ... DONE ... 976 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7547
+divide_and_conquer ... DONE ... 2434 us
+akl_toussaint ... DONE ... 901 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7614
+divide_and_conquer ... DONE ... 2459 us
+akl_toussaint ... DONE ... 905 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7668
+divide_and_conquer ... DONE ... 2490 us
+akl_toussaint ... DONE ... 1069 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7768
+divide_and_conquer ... DONE ... 2516 us
+akl_toussaint ... DONE ... 959 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7807
+divide_and_conquer ... DONE ... 2526 us
+akl_toussaint ... DONE ... 977 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7907
+divide_and_conquer ... DONE ... 2567 us
+akl_toussaint ... DONE ... 1017 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7999
+divide_and_conquer ... DONE ... 2782 us
+akl_toussaint ... DONE ... 1026 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8008
+divide_and_conquer ... DONE ... 2705 us
+akl_toussaint ... DONE ... 1137 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8059
+divide_and_conquer ... DONE ... 2642 us
+akl_toussaint ... DONE ... 1030 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8116
+divide_and_conquer ... DONE ... 2627 us
+akl_toussaint ... DONE ... 1013 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8165
+divide_and_conquer ... DONE ... 2612 us
+akl_toussaint ... DONE ... 1015 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8183
+divide_and_conquer ... DONE ... 2637 us
+akl_toussaint ... DONE ... 945 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8257
+divide_and_conquer ... DONE ... 2667 us
+akl_toussaint ... DONE ... 961 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8297
+divide_and_conquer ... DONE ... 2664 us
+akl_toussaint ... DONE ... 992 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8318
+divide_and_conquer ... DONE ... 2660 us
+akl_toussaint ... DONE ... 993 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8391
+divide_and_conquer ... DONE ... 2697 us
+akl_toussaint ... DONE ... 1273 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8417
+divide_and_conquer ... DONE ... 2709 us
+akl_toussaint ... DONE ... 1268 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8432
+divide_and_conquer ... DONE ... 2701 us
+akl_toussaint ... DONE ... 1273 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8457
+divide_and_conquer ... DONE ... 2714 us
+akl_toussaint ... DONE ... 1277 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8511
+divide_and_conquer ... DONE ... 2752 us
+akl_toussaint ... DONE ... 1298 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8576
+divide_and_conquer ... DONE ... 2745 us
+akl_toussaint ... DONE ... 1300 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8583
+divide_and_conquer ... DONE ... 2747 us
+akl_toussaint ... DONE ... 1299 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8597
+divide_and_conquer ... DONE ... 2799 us
+akl_toussaint ... DONE ... 1511 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8696
+divide_and_conquer ... DONE ... 2800 us
+akl_toussaint ... DONE ... 1356 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8755
+divide_and_conquer ... DONE ... 2913 us
+akl_toussaint ... DONE ... 1450 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8839
+divide_and_conquer ... DONE ... 2902 us
+akl_toussaint ... DONE ... 1548 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8871
+divide_and_conquer ... DONE ... 3089 us
+akl_toussaint ... DONE ... 1560 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8927
+divide_and_conquer ... DONE ... 2955 us
+akl_toussaint ... DONE ... 1404 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9007
+divide_and_conquer ... DONE ... 2991 us
+akl_toussaint ... DONE ... 1426 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9045
+divide_and_conquer ... DONE ... 3101 us
+akl_toussaint ... DONE ... 1434 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9081
+divide_and_conquer ... DONE ... 2954 us
+akl_toussaint ... DONE ... 1441 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9089
+divide_and_conquer ... DONE ... 2929 us
+akl_toussaint ... DONE ... 1441 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9131
+divide_and_conquer ... DONE ... 2939 us
+akl_toussaint ... DONE ... 1449 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9217
+divide_and_conquer ... DONE ... 3072 us
+akl_toussaint ... DONE ... 1731 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9244
+divide_and_conquer ... DONE ... 2986 us
+akl_toussaint ... DONE ... 1477 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9322
+divide_and_conquer ... DONE ... 3012 us
+akl_toussaint ... DONE ... 1499 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9362
+divide_and_conquer ... DONE ... 3319 us
+akl_toussaint ... DONE ... 1652 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9442
+divide_and_conquer ... DONE ... 3073 us
+akl_toussaint ... DONE ... 1662 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9489
+divide_and_conquer ... DONE ... 3082 us
+akl_toussaint ... DONE ... 1540 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9528
+divide_and_conquer ... DONE ... 3097 us
+akl_toussaint ... DONE ... 1551 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9566
+divide_and_conquer ... DONE ... 3101 us
+akl_toussaint ... DONE ... 1573 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9659
+divide_and_conquer ... DONE ... 3148 us
+akl_toussaint ... DONE ... 1585 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9714
+divide_and_conquer ... DONE ... 3235 us
+akl_toussaint ... DONE ... 1826 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9760
+divide_and_conquer ... DONE ... 3383 us
+akl_toussaint ... DONE ... 1611 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9848
+divide_and_conquer ... DONE ... 3406 us
+akl_toussaint ... DONE ... 1913 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9904
+divide_and_conquer ... DONE ... 3209 us
+akl_toussaint ... DONE ... 1659 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9988
+divide_and_conquer ... DONE ... 3532 us
+akl_toussaint ... DONE ... 1788 us
+hulls MATCH

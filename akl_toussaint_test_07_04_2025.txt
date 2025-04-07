@@ -1,0 +1,918 @@
+--------------------------------------------------------------------------------
+points capacity: 10000
+generating points ... DONE ... 127 s
+--------------------------------------------------------------------------------
+points count: 33
+divide and conquer ... DONE ... 21 us
+akl toussaint ... DONE ... 10 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 112
+divide and conquer ... DONE ... 46 us
+akl toussaint ... DONE ... 26 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 142
+divide and conquer ... DONE ... 55 us
+akl toussaint ... DONE ... 20 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 183
+divide and conquer ... DONE ... 61 us
+akl toussaint ... DONE ... 14 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 209
+divide and conquer ... DONE ... 66 us
+akl toussaint ... DONE ... 13 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 214
+divide and conquer ... DONE ... 69 us
+akl toussaint ... DONE ... 12 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 223
+divide and conquer ... DONE ... 67 us
+akl toussaint ... DONE ... 11 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 262
+divide and conquer ... DONE ... 80 us
+akl toussaint ... DONE ... 13 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 291
+divide and conquer ... DONE ... 90 us
+akl toussaint ... DONE ... 20 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 329
+divide and conquer ... DONE ... 101 us
+akl toussaint ... DONE ... 21 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 339
+divide and conquer ... DONE ... 101 us
+akl toussaint ... DONE ... 20 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 423
+divide and conquer ... DONE ... 130 us
+akl toussaint ... DONE ... 37 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 479
+divide and conquer ... DONE ... 148 us
+akl toussaint ... DONE ... 34 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 496
+divide and conquer ... DONE ... 145 us
+akl toussaint ... DONE ... 31 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 543
+divide and conquer ... DONE ... 161 us
+akl toussaint ... DONE ... 34 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 622
+divide and conquer ... DONE ... 189 us
+akl toussaint ... DONE ... 45 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 685
+divide and conquer ... DONE ... 272 us
+akl toussaint ... DONE ... 61 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 719
+divide and conquer ... DONE ... 235 us
+akl toussaint ... DONE ... 55 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 759
+divide and conquer ... DONE ... 243 us
+akl toussaint ... DONE ... 68 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 850
+divide and conquer ... DONE ... 268 us
+akl toussaint ... DONE ... 87 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 949
+divide and conquer ... DONE ... 313 us
+akl toussaint ... DONE ... 87 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 986
+divide and conquer ... DONE ... 311 us
+akl toussaint ... DONE ... 103 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1037
+divide and conquer ... DONE ... 413 us
+akl toussaint ... DONE ... 95 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1096
+divide and conquer ... DONE ... 350 us
+akl toussaint ... DONE ... 94 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1156
+divide and conquer ... DONE ... 385 us
+akl toussaint ... DONE ... 97 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1205
+divide and conquer ... DONE ... 379 us
+akl toussaint ... DONE ... 107 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1233
+divide and conquer ... DONE ... 391 us
+akl toussaint ... DONE ... 106 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1309
+divide and conquer ... DONE ... 415 us
+akl toussaint ... DONE ... 139 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1402
+divide and conquer ... DONE ... 456 us
+akl toussaint ... DONE ... 150 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1495
+divide and conquer ... DONE ... 477 us
+akl toussaint ... DONE ... 160 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1567
+divide and conquer ... DONE ... 496 us
+akl toussaint ... DONE ... 134 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1597
+divide and conquer ... DONE ... 509 us
+akl toussaint ... DONE ... 134 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1662
+divide and conquer ... DONE ... 531 us
+akl toussaint ... DONE ... 141 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1696
+divide and conquer ... DONE ... 545 us
+akl toussaint ... DONE ... 162 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1717
+divide and conquer ... DONE ... 554 us
+akl toussaint ... DONE ... 202 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1798
+divide and conquer ... DONE ... 575 us
+akl toussaint ... DONE ... 164 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1895
+divide and conquer ... DONE ... 601 us
+akl toussaint ... DONE ... 168 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1906
+divide and conquer ... DONE ... 780 us
+akl toussaint ... DONE ... 170 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1956
+divide and conquer ... DONE ... 629 us
+akl toussaint ... DONE ... 185 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2027
+divide and conquer ... DONE ... 657 us
+akl toussaint ... DONE ... 197 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2078
+divide and conquer ... DONE ... 672 us
+akl toussaint ... DONE ... 201 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2156
+divide and conquer ... DONE ... 700 us
+akl toussaint ... DONE ... 209 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2176
+divide and conquer ... DONE ... 707 us
+akl toussaint ... DONE ... 212 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2225
+divide and conquer ... DONE ... 721 us
+akl toussaint ... DONE ... 217 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2291
+divide and conquer ... DONE ... 747 us
+akl toussaint ... DONE ... 226 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2327
+divide and conquer ... DONE ... 756 us
+akl toussaint ... DONE ... 229 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2414
+divide and conquer ... DONE ... 779 us
+akl toussaint ... DONE ... 239 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2501
+divide and conquer ... DONE ... 829 us
+akl toussaint ... DONE ... 254 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2571
+divide and conquer ... DONE ... 854 us
+akl toussaint ... DONE ... 261 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2628
+divide and conquer ... DONE ... 886 us
+akl toussaint ... DONE ... 266 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2692
+divide and conquer ... DONE ... 905 us
+akl toussaint ... DONE ... 274 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2776
+divide and conquer ... DONE ... 937 us
+akl toussaint ... DONE ... 284 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2862
+divide and conquer ... DONE ... 970 us
+akl toussaint ... DONE ... 371 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2878
+divide and conquer ... DONE ... 965 us
+akl toussaint ... DONE ... 298 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2915
+divide and conquer ... DONE ... 976 us
+akl toussaint ... DONE ... 300 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3009
+divide and conquer ... DONE ... 992 us
+akl toussaint ... DONE ... 315 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3101
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 331 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3129
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 338 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3198
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 345 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3206
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 346 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3263
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 353 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3326
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 446 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3382
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 441 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3433
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 366 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3465
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 373 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3535
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 385 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3563
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 387 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3641
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 415 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3679
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 409 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3754
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 535 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3795
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 436 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3885
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 558 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3965
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 466 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3996
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 472 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4047
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 488 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4057
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 480 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4150
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 497 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4158
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 705 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4197
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 701 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4221
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 684 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4236
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 763 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4329
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 694 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4410
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 886 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4493
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 729 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4580
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 755 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4614
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 758 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4702
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 781 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4749
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 794 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4824
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 813 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4852
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 817 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4929
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5029
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 861 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5110
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 888 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5124
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 881 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5166
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 909 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5247
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 919 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5302
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 931 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5330
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5416
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 971 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5496
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5518
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5593
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 931 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5645
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 937 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5685
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 946 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5729
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 958 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5737
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 965 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5743
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5837
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5878
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5942
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5991
+divide and conquer ... DONE ... 1 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6041
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6126
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6201
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6299
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6369
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6413
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6423
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6459
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6549
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6622
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6691
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6702
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6780
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6870
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6888
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6985
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7045
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7107
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7175
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7222
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7309
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7343
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7350
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7383
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7475
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7543
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7617
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7633
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7701
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7767
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7832
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7932
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7943
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8037
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8046
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8081
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8098
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8112
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8159
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8231
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8320
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8392
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8444
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8464
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8511
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8592
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8671
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8695
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8793
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8854
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8881
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8901
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8961
+divide and conquer ... DONE ... 2 ms
+akl toussaint ... DONE ... 1 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9036
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9133
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9216
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9231
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9325
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9393
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9398
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9441
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9537
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9550
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9597
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9613
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9626
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9673
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9766
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9850
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9886
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9967
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9994
+divide and conquer ... DONE ... 3 ms
+akl toussaint ... DONE ... 2 ms
+hulls MATCH
