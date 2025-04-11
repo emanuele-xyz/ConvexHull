@@ -11,6 +11,61 @@ let hull = []; // Array holding the computed convex hull points
 let currentStep = 0; // Step counter for incremental visualization
 let algorithm = algoSelect.value; // Current selected algorithm
 
+// algoCtx must have the following methods
+// step() // execute one step of the algorithm
+// draw() // draws the current state of the algorithm
+/*
+class Naive {
+  constructor() {
+    this.points = [];
+    this.phase = "find_edges";
+    this.edges = [];
+    this.i = 0;
+    this.j = this.i + 1;
+
+  }
+
+  function pushPoint(p) {
+
+  }
+  function step() {
+    if (this.i >= this.points.length)
+    {
+      this.phase = "build_hull";
+    }
+
+    ...
+    if (this.phase === "find_edges") {
+      ...
+      this.j++;
+      if (this.j >= this.points.length) {
+        this.i++;
+        this.j = this.i + 1;
+      }
+    } else if (this.phase === "build_hull") {
+      ...
+    }
+  }
+  function draw() {
+    ...
+    // clear
+
+    drawSegment(this.points[i], this.points[j]);
+
+    for each point in this.points {
+      drawPoint(point);
+    }
+
+    for each edge in this.edges {
+      let from = edge[0];
+      let to = edge[1];
+      drawSegment(from, to);
+    }
+  }
+}
+*/
+// let algoCtx = {};
+
 // Utility: Draw all points
 function drawPoints() {
   ctx.fillStyle = "black";
@@ -100,12 +155,22 @@ function resetHull() {
 // Handle algorithm selection change
 algoSelect.addEventListener("change", function () {
   algorithm = this.value;
+  /*
+    switch (this.value) {
+      case "naive": { algoCtx = new Naive(); } break;
+      ...
+      default: { unreachable(); }
+    }
+  */
   resetHull();
   redraw();
 });
 
 // Simulation "step" button: reveal one more edge of the convex hull
 stepBtn.addEventListener("click", function () {
+  // algoCtx.step();
+  // algoCtx.draw();
+
   if (points.length < 3) {
     alert("At least 3 points are needed to compute a convex hull.");
     return;
