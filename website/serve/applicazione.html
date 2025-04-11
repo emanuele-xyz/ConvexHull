@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -7,7 +7,6 @@
       content="width=device-width, initial-scale=1.0, user-scalable=yes"
     />
     <title>Applicazione</title>
-    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Noto%20Serif"
@@ -16,14 +15,52 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=JetBrains+Mono"
     />
+    <script defer src="convex_hull.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+      }
+      #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #controls {
+        margin-bottom: 10px;
+      }
+      select,
+      button {
+        font-size: 16px;
+        margin: 0 5px 10px 5px;
+        padding: 5px 10px;
+      }
+      canvas {
+        border: 1px solid #444;
+        background-color: #fff;
+      }
+      #info {
+        margin-top: 10px;
+        color: #555;
+      }
+    </style>
   </head>
   <body>
-    <nav>
-      <a href="/index.html">home</a>
-      <a href="/teoria.html">teoria</a>
-      <a href="/benchmark.html">benchmark</a>
-      <a href="/manuale.html">manuale</a>
-      <a href="/applicazione.html">applicazione</a>
-    </nav>
+    <div id="container">
+      <div id="controls">
+        <label for="algoSelect">Select Algorithm:</label>
+        <select id="algoSelect">
+          <option value="naive">Naive</option>
+          <option value="divide-and-conquer">Divide and Conquer</option>
+          <option value="akl-toussaint">Akl and Toussaint</option>
+        </select>
+        <button id="stepBtn">Step</button>
+        <button id="continueBtn">Continue</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+      <canvas id="canvas" width="600" height="400"></canvas>
+      <div id="info">Click on the canvas to add points.</div>
+    </div>
   </body>
 </html>
