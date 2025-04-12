@@ -7,17 +7,183 @@ const continueBtn = document.getElementById("continueBtn");
 const resetBtn = document.getElementById("resetBtn");
 
 let points = []; // Array to hold points added by user
-let hull = []; // Array holding the computed convex hull points
-let currentStep = 0; // Step counter for incremental visualization
-let algorithm = algoSelect.value; // Current selected algorithm
 
-// Utility: Draw all points
-function drawPoints() {
+function v2(x, y) {
+  return { x: x, y: y };
+}
+
+function sub(u, v) {
+  return { x: u.x - v.x, y: u.y - v.y };
+}
+
+function dot(u, v) {
+  return u.x * v.x + u.y * v.y;
+}
+
+function normal(v) {
+  // Given a vector v, return one perpendicular vector [-v.y, v.x]
+  return { x: -v.y, y: v.x };
+}
+
+class Naive {
+  constructor() {
+    // 3 states: checkSegment, nextSegment, done
+    this.state = "checkSegment";
+    this.edges = [];
+    this.i = 0;
+    this.j = this.i + 1;
+  }
+
+  step() {
+    if (this.state === "done") {
+      return;
+    }
+
+    if (this.state === "checkSegment") {
+      const u = v2(points[this.i].x, points[this.i].y);
+      const v = v2(points[this.j].x, points[this.j].y);
+      const u_to_v = sub(v, u);
+      const normal_ = normal(u_to_v);
+
+      let positive_halfplane = 0;
+      let negative_halfplane = 0;
+
+      for (let k = 0; k < points.length; k++) {
+        if (k === this.i || k === this.j) {
+          continue;
+        }
+
+        const p = points[k];
+        const u_to_p = sub(u, p);
+        const dot_ = dot(normal_, u_to_p);
+
+        console.assert(dot_ !== 0);
+        if (dot_ > 0) {
+          positive_halfplane++;
+        } else {
+          negative_halfplane++;
+        }
+      }
+
+      if (positive_halfplane === 0 || negative_halfplane === 0) {
+        this.edges.push({ from: points[this.j], to: points[this.i] });
+      }
+
+      this.state = "nextSegment";
+    } else if (this.state === "nextSegment") {
+      this.j++;
+
+      if (this.j >= points.length) {
+        this.i++;
+        this.j = this.i + 1;
+      }
+
+      if (this.i >= points.length - 1) {
+        this.state = "done";
+      } else {
+        this.state = "checkSegment";
+      }
+    }
+  }
+
+  draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const point of points) {
+      drawPoint(point);
+    }
+
+    for (const edge of this.edges) {
+      drawSegment(edge.from, edge.to, "red");
+    }
+
+    if (this.state === "nextSegment") {
+      drawLine(points[this.i], points[this.j], "steelblue");
+    } else if (this.state === "done") {
+      ctx.fillStyle = "black";
+      ctx.font = "16px Arial";
+      ctx.fillText("Done", 10, 20);
+    }
+  }
+
+  reset() {
+    this.state = "checkSegment";
+    this.edges = [];
+    this.i = 0;
+    this.j = this.i + 1;
+  }
+}
+
+// algoCtx must have the following methods
+// step() // execute one step of the algorithm
+// draw() // draws the current state of the algorithm
+let algoCtx = new Naive();
+
+function drawPoint(point) {
   ctx.fillStyle = "black";
-  for (const pt of points) {
+  ctx.beginPath();
+  ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function drawPoints() {
+  for (const point of points) {
+    drawPoint(point);
+  }
+}
+
+function drawSegment(p, q, color) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(p.x, p.y);
+  ctx.lineTo(q.x, q.y);
+  ctx.stroke();
+}
+
+function drawLine(p, q, color) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+
+  const dx = q.x - p.x;
+  const dy = q.y - p.y;
+
+  if (dx === 0) {
+    // Vertical line
     ctx.beginPath();
-    ctx.arc(pt.x, pt.y, 4, 0, 2 * Math.PI);
-    ctx.fill();
+    ctx.moveTo(p.x, 0);
+    ctx.lineTo(p.x, canvas.height);
+    ctx.stroke();
+    return;
+  }
+
+  const m = dy / dx;
+  const b = p.y - m * p.x;
+
+  // Compute intersection with canvas edges
+  const edgePoints = [];
+
+  // Left edge (x = 0)
+  let y = m * 0 + b;
+  if (y >= 0 && y <= canvas.height) edgePoints.push({ x: 0, y });
+
+  // Right edge (x = canvas.width)
+  y = m * canvas.width + b;
+  if (y >= 0 && y <= canvas.height) edgePoints.push({ x: canvas.width, y });
+
+  // Top edge (y = 0)
+  let x = (0 - b) / m;
+  if (x >= 0 && x <= canvas.width) edgePoints.push({ x, y: 0 });
+
+  // Bottom edge (y = canvas.height)
+  x = (canvas.height - b) / m;
+  if (x >= 0 && x <= canvas.width) edgePoints.push({ x, y: canvas.height });
+
+  if (edgePoints.length >= 2) {
+    ctx.beginPath();
+    ctx.moveTo(edgePoints[0].x, edgePoints[0].y);
+    ctx.lineTo(edgePoints[1].x, edgePoints[1].y);
+    ctx.stroke();
   }
 }
 
@@ -25,20 +191,20 @@ function drawPoints() {
 function redraw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPoints();
-  if (hull.length > 0) {
-    // Draw already stepped hull edges
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    if (currentStep > 0) {
-      ctx.moveTo(hull[0].x, hull[0].y);
-      // Only draw edges up to the current step
-      for (let i = 1; i < currentStep; i++) {
-        ctx.lineTo(hull[i].x, hull[i].y);
-      }
-      ctx.stroke();
-    }
-  }
+  // if (hull.length > 0) {
+  //   // Draw already stepped hull edges
+  //   ctx.strokeStyle = "red";
+  //   ctx.lineWidth = 2;
+  //   ctx.beginPath();
+  //   if (currentStep > 0) {
+  //     ctx.moveTo(hull[0].x, hull[0].y);
+  //     // Only draw edges up to the current step
+  //     for (let i = 1; i < currentStep; i++) {
+  //       ctx.lineTo(hull[i].x, hull[i].y);
+  //     }
+  //     ctx.stroke();
+  //   }
+  // }
 }
 
 // Event: Canvas mouse click to add a point
@@ -48,59 +214,24 @@ canvas.addEventListener("click", function (e) {
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
   points.push({ x, y });
-  resetHull(); // reset any previous convex hull simulation when a new point is added
+  algoCtx.reset();
   redraw();
 });
-
-// Function to compute convex hull (Monotone Chain Implementation)
-function computeConvexHull(pts) {
-  if (pts.length <= 1) return pts.slice();
-  let sorted = pts
-    .slice()
-    .sort((a, b) => (a.x === b.x ? a.y - b.y : a.x - b.x));
-
-  // Function to compute cross product (o->a and o->b)
-  function cross(o, a, b) {
-    return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
-  }
-
-  let lower = [];
-  for (let p of sorted) {
-    while (
-      lower.length >= 2 &&
-      cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0
-    ) {
-      lower.pop();
-    }
-    lower.push(p);
-  }
-  let upper = [];
-  for (let i = sorted.length - 1; i >= 0; i--) {
-    let p = sorted[i];
-    while (
-      upper.length >= 2 &&
-      cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0
-    ) {
-      upper.pop();
-    }
-    upper.push(p);
-  }
-  // Remove the last point of each list as it's the starting point of the other list.
-  lower.pop();
-  upper.pop();
-  return lower.concat(upper);
-}
-
-// Reset hull simulation state when new points are added or reset is pressed.
-function resetHull() {
-  hull = [];
-  currentStep = 0;
-}
 
 // Handle algorithm selection change
 algoSelect.addEventListener("change", function () {
   algorithm = this.value;
-  resetHull();
+
+  switch (this.value) {
+    case "naive": {
+      algoCtx = new Naive();
+      break;
+    }
+    default: {
+      console.assert(false); // Unreachable
+    }
+  }
+
   redraw();
 });
 
@@ -110,28 +241,9 @@ stepBtn.addEventListener("click", function () {
     alert("At least 3 points are needed to compute a convex hull.");
     return;
   }
-  // If no hull computed yet, compute it.
-  if (hull.length === 0) {
-    // You can later add different algorithm implementations here.
-    // For now, we use the standard convex hull computed by monotone chain.
-    hull = computeConvexHull(points);
-    currentStep = 1; // Start drawing from the first vertex.
-  }
-  // Increment step if we haven't finished drawing the entire hull.
-  if (currentStep < hull.length) {
-    currentStep++;
-  }
-  // Optionally, if the algorithm simulation requires it, you can show intermediate computation states
-  // based on the selected algorithm (algorithm-specific logic can go here).
 
-  redraw();
-  // If all hull edges have been drawn, optionally connect the last edge.
-  if (currentStep === hull.length) {
-    ctx.beginPath();
-    ctx.moveTo(hull[hull.length - 1].x, hull[hull.length - 1].y);
-    ctx.lineTo(hull[0].x, hull[0].y);
-    ctx.stroke();
-  }
+  algoCtx.step();
+  algoCtx.draw();
 });
 
 // "Continue" button: complete the hull drawing immediately.
@@ -140,21 +252,17 @@ continueBtn.addEventListener("click", function () {
     alert("At least 3 points are needed to compute a convex hull.");
     return;
   }
-  if (hull.length === 0) {
-    hull = computeConvexHull(points);
+
+  while (algoCtx.state !== "done") {
+    algoCtx.step();
   }
-  currentStep = hull.length;
-  redraw();
-  // Connect last hull point to the first to complete the polygon
-  ctx.beginPath();
-  ctx.moveTo(hull[hull.length - 1].x, hull[hull.length - 1].y);
-  ctx.lineTo(hull[0].x, hull[0].y);
-  ctx.stroke();
+
+  algoCtx.draw();
 });
 
 // "Reset" button: clear canvas and simulation state.
 resetBtn.addEventListener("click", function () {
   points = [];
-  resetHull();
-  redraw();
+  algoCtx.reset();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
