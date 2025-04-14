@@ -26,6 +26,7 @@ header-includes: |
   - [Costruzione di $H$](#costruzione-di-h)
   - [Complessità temporale della ricerca delle tangenti](#complessità-temporale-della-ricerca-delle-tangenti)
   - [Complessità temporale della fusione](#complessità-temporale-della-fusione)
+  - [Complessità temporale Divide et Impera](#complessità-temporale-divide-et-impera)
 
 # Involucro convesso
 
@@ -82,7 +83,7 @@ Come abbiamo già detto, rappresentiamo l'involucro convesso $H$ usando una list
 
 Consideriamo il seguente involucro convesso $H$:
 
-<!-- TODO: Aggiungere disegno involucro triangolare u, v, w. -->
+![](./involucro_triangolare.svg){ style="height: 170px; display: block; margin: auto;" }
 
 Possiamo rappresentare $H$ usando entrambe queste liste:
 
@@ -100,9 +101,9 @@ Di rado può accadere di dover controllare se un involucro convesso è espresso 
 
 - Consideriamo i due vettori $\vec{v} - \vec{u} \hquad \textrm{e} \hquad \vec{w} - \vec{v}$.
 
-  - Se $det \begin{pmatrix} \vec{v} - \vec{u} \\ \vec{w} - \vec{v} \end{pmatrix} > 0$, allora siamo in senso antiorario.
+  - Se $det \begin{pmatrix} \vec{v}_x - \vec{u}_x & \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} & \vec{w_y} - \vec{v_y} \end{pmatrix} > 0$, allora siamo in senso antiorario.
 
-  - Se $det \begin{pmatrix} \vec{v} - \vec{u} \\ \vec{w} - \vec{v} \end{pmatrix} < 0$, allora siamo in senso orario.
+  - Se $det\begin{pmatrix} \vec{v}_x - \vec{u}_x & \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} & \vec{w_y} - \vec{v_y} \end{pmatrix} < 0$, allora siamo in senso orario.
 
 Se l'involucro è espresso in un senso, per esprimerlo nell'altro bisogna semplicemente invertire l'ordine della lista.
 
@@ -126,7 +127,7 @@ Per ogni punto $\vec{p} \in S$ con $\vec{p} \neq \vec{u} \hquad \textrm{e} \hqua
 
 ## Come controllare se $\vec{p}$ cade in $\Pi^+ \hquad \textrm{o} \hquad \Pi^-$?
 
-<!-- TODO: Aggiungere disegno dei 4 vettori n, p, v, q. -->
+![](./half_plane_test.svg){ style="height: 270px; display: block; margin: auto;" }
 
 Supponiamo che il vettore $\vec{v} - \vec{u}$ è un possibile vettore direzione della retta $r$.
 
@@ -254,10 +255,29 @@ Dunque, la complessità temporale della ricerca di una tangente è $O(n)$.
 
 ## Complessità temporale della fusione
 
-Il processo di fusione ??? in:
+Il processo di fusione consiste in:
 
 1. Cercare la tangente superiore $\rightarrow O(n)$
 2. Cercare la tangente inferiore $\rightarrow O(n)$
 3. Costruire H $\rightarrow O(n)$
 
 Perciò, il processo di fusione ha complessità temporale $O(n)$.
+
+## Complessità temporale Divide et Impera
+
+Possiamo vedere che:
+
+- Ordinamento dei punti in input $\rightarrow O(n \hhquad log \hhquad n)$.
+  - È necessario fare questo ordinamento una volta sola.
+- Applichiamo Divide et Impera ricorsivamente sulle due metà dell'input $\rightarrow 2T(\dfrac{n}{2})$.
+- Fusione $\rightarrow O(n)$.
+
+La complessità temporale dell'applicazione ricorsiva dell'algoritmo è espressa dalla seguente relazione di ricorrenza:
+
+$$T(n) = 2T(\dfrac{n}{2}) + n$$
+
+È facile vedere che $T(n) = O(n \hhquad log \hhquad n)$.
+
+Dunque, la complessità temporale complessiva è:
+
+$$O(n \hhquad log \hhquad n) + O(n \hhquad log \hhquad n) = O(n \hhquad log \hhquad n)$$

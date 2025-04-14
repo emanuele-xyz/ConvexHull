@@ -83,6 +83,8 @@ href="#complessità-temporale-della-ricerca-delle-tangenti">Complessità
 temporale della ricerca delle tangenti</a></li>
 <li><a href="#complessità-temporale-della-fusione">Complessità temporale
 della fusione</a></li>
+<li><a href="#complessità-temporale-divide-et-impera">Complessità
+temporale Divide et Impera</a></li>
 </ul></li>
 </ul>
 <h1 id="involucro-convesso">Involucro convesso</h1>
@@ -158,7 +160,8 @@ class="math inline">\(H\)</span> usando una lista dei punti di <span
 class="math inline">\(P(H)\)</span>.</p>
 <p>Consideriamo il seguente involucro convesso <span
 class="math inline">\(H\)</span>:</p>
-<!-- TODO: Aggiungere disegno involucro triangolare u, v, w. -->
+<p><img src="./involucro_triangolare.svg"
+style="height: 170px; display: block; margin: auto;" /></p>
 <p>Possiamo rappresentare <span class="math inline">\(H\)</span> usando
 entrambe queste liste:</p>
 <p><span class="math display">\[\vec{u}, \vec{v}, \vec{w} \quad
@@ -181,12 +184,14 @@ class="math inline">\(\vec{u}, \vec{v}, \vec{w}\)</span>
 \vec{u} \hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{w} -
 \vec{v}\)</span>.</p>
 <ul>
-<li><p>Se <span class="math inline">\(det \begin{pmatrix} \vec{v} -
-\vec{u} \\ \vec{w} - \vec{v} \end{pmatrix} &gt; 0\)</span>, allora siamo
-in senso antiorario.</p></li>
-<li><p>Se <span class="math inline">\(det \begin{pmatrix} \vec{v} -
-\vec{u} \\ \vec{w} - \vec{v} \end{pmatrix} &lt; 0\)</span>, allora siamo
-in senso orario.</p></li>
+<li><p>Se <span class="math inline">\(det \begin{pmatrix} \vec{v}_x -
+\vec{u}_x &amp; \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} &amp;
+\vec{w_y} - \vec{v_y} \end{pmatrix} &gt; 0\)</span>, allora siamo in
+senso antiorario.</p></li>
+<li><p>Se <span class="math inline">\(det\begin{pmatrix} \vec{v}_x -
+\vec{u}_x &amp; \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} &amp;
+\vec{w_y} - \vec{v_y} \end{pmatrix} &lt; 0\)</span>, allora siamo in
+senso orario.</p></li>
 </ul></li>
 </ul>
 <p>Se l’involucro è espresso in un senso, per esprimerlo nell’altro
@@ -230,7 +235,8 @@ id="come-controllare-se-vecp-cade-in-pi-hspace0.5emtextrmo-hspace0.5empi-">Come
 controllare se <span class="math inline">\(\vec{p}\)</span> cade in
 <span class="math inline">\(\Pi^+ \hspace{0.5em}\textrm{o}
 \hspace{0.5em}\Pi^-\)</span>?</h2>
-<!-- TODO: Aggiungere disegno dei 4 vettori n, p, v, q. -->
+<p><img src="./half_plane_test.svg"
+style="height: 270px; display: block; margin: auto;" /></p>
 <p>Supponiamo che il vettore <span class="math inline">\(\vec{v} -
 \vec{u}\)</span> è un possibile vettore direzione della retta <span
 class="math inline">\(r\)</span>.</p>
@@ -433,7 +439,7 @@ class="math inline">\(H_b\)</span> sarà visitato al più un volta.</p>
 <span class="math inline">\(O(n)\)</span>.</p>
 <h2 id="complessità-temporale-della-fusione">Complessità temporale della
 fusione</h2>
-<p>Il processo di fusione ??? in:</p>
+<p>Il processo di fusione consiste in:</p>
 <ol type="1">
 <li>Cercare la tangente superiore <span
 class="math inline">\(\rightarrow O(n)\)</span></li>
@@ -444,5 +450,29 @@ O(n)\)</span></li>
 </ol>
 <p>Perciò, il processo di fusione ha complessità temporale <span
 class="math inline">\(O(n)\)</span>.</p>
+<h2 id="complessità-temporale-divide-et-impera">Complessità temporale
+Divide et Impera</h2>
+<p>Possiamo vedere che:</p>
+<ul>
+<li>Ordinamento dei punti in input <span
+class="math inline">\(\rightarrow O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>.
+<ul>
+<li>È necessario fare questo ordinamento una volta sola.</li>
+</ul></li>
+<li>Applichiamo Divide et Impera ricorsivamente sulle due metà
+dell’input <span class="math inline">\(\rightarrow
+2T(\dfrac{n}{2})\)</span>.</li>
+<li>Fusione <span class="math inline">\(\rightarrow O(n)\)</span>.</li>
+</ul>
+<p>La complessità temporale dell’applicazione ricorsiva dell’algoritmo è
+espressa dalla seguente relazione di ricorrenza:</p>
+<p><span class="math display">\[T(n) = 2T(\dfrac{n}{2}) + n\]</span></p>
+<p>È facile vedere che <span class="math inline">\(T(n) = O(n
+\hspace{0.25em}log \hspace{0.25em}n)\)</span>.</p>
+<p>Dunque, la complessità temporale complessiva è:</p>
+<p><span class="math display">\[O(n \hspace{0.25em}log \hspace{0.25em}n)
++ O(n \hspace{0.25em}log \hspace{0.25em}n) = O(n \hspace{0.25em}log
+\hspace{0.25em}n)\]</span></p>
 </body>
 </html>

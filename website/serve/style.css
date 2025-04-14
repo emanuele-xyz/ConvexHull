@@ -24,9 +24,9 @@ nav a:hover {
   color: coral;
 }
 
-img {
+/* img {
   max-width: 100%;
-}
+} */
 
 p:has(.centered-images) {
   text-align: center;
