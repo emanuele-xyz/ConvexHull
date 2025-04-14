@@ -27,6 +27,11 @@ header-includes: |
   - [Complessità temporale della ricerca delle tangenti](#complessità-temporale-della-ricerca-delle-tangenti)
   - [Complessità temporale della fusione](#complessità-temporale-della-fusione)
   - [Complessità temporale Divide et Impera](#complessità-temporale-divide-et-impera)
+- [Algoritmo di Akl-Toussaint](#algoritmo-di-akl-toussaint)
+  - [Idea](#idea-2)
+    - [Euristica](#euristica)
+    - [Ricerca dei percorsi convessi per ogni lato del quadrilatero](#ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero)
+    - [Costruzione dell'involucro convesso $H$](#costruzione-dellinvolucro-convesso-h)
 
 # Involucro convesso
 
@@ -117,17 +122,19 @@ Consideriamo la retta $r$ passante per $\vec{u}$ e $\vec{v}$.
 
 Questa divide il piano $\Pi$ in due semipiani, $\Pi^+ \hquad \textrm{e} \hquad \Pi^-$.
 
-Per ogni punto $\vec{p} \in S$ con $\vec{p} \neq \vec{u} \hquad \textrm{e} \hquad \vec{p} \neq \vec{v}$ sono caudti esclusivamente in uno dei due semipiani, allora il segmento con estremi $\vec{u} \hquad \textrm{e} \hquad \vec{v}$ è un lato dell'involucro convesso.
+Per ogni punto $\vec{p} \in S$ con $\vec{p} \neq \vec{u} \hquad \textrm{e} \hquad \vec{p} \neq \vec{v}$ controlliamo se $\vec{p}$ cade in $\Pi^+ \hquad \textrm{o} \hquad \textrm{in} \hquad \Pi^-$.
+
+Se tutti i punti sono caduti esclusivamente in uno dei due semipiani, allora il segmento con estremi $\vec{u} \hquad \textrm{e} \hquad \vec{v}$ è un lato dell'involucro convesso.
 
 ## Complessità temporale
 
-- Iterare per ogni coppia di punti richiede tempo $O(n^2)$.
-- Iterare per ogni punto richiede tempo $O(n)$.
-- Combinando le due iterazione, vediamo come la complessità temporale dell'algoritmo è $O(n^3)$.
+- Iterare per ogni coppia di punti $\rightarrow O(n^2)$.
+- Iterare per ogni punto $\rightarrow O(n)$.
+- Combinando le due iterazioni, vediamo come la complessità temporale dell'algoritmo è $O(n^3)$.
 
 ## Come controllare se $\vec{p}$ cade in $\Pi^+ \hquad \textrm{o} \hquad \Pi^-$?
 
-![](./half_plane_test.svg){ style="height: 270px; display: block; margin: auto;" }
+![](./half_plane_test.svg){ style="height: 300px; display: block; margin: auto;" }
 
 Supponiamo che il vettore $\vec{v} - \vec{u}$ è un possibile vettore direzione della retta $r$.
 
@@ -281,3 +288,30 @@ $$T(n) = 2T(\dfrac{n}{2}) + n$$
 Dunque, la complessità temporale complessiva è:
 
 $$O(n \hhquad log \hhquad n) + O(n \hhquad log \hhquad n) = O(n \hhquad log \hhquad n)$$
+
+# Algoritmo di Akl-Toussaint
+
+## Idea
+
+### Euristica
+
+Determiniamo i seguenti punti di $S$:
+
+- $\textrm{XMIN}$, di minima $x$.
+- $\textrm{YMAX}$, di massima $y$.
+- $\textrm{XMAX}$, di massima $x$.
+- $\textrm{YMIN}$, di minima $y$.
+
+Questi quattro punti appartengono certamente a $P(H)$. Oltretutto, osserviamo che tutti i punti di $S$ che cadono all'interno del quadrilatero di vertici $\textrm{XMIN}$, $\textrm{YMAX}$, $\textrm{XMAX}$, $\textrm{YMIN}$, **sicuramente** non fanno parte di $P(H)$.
+
+Dunque possiamo eliminare tali punti da $S$.
+
+### Ricerca dei percorsi convessi per ogni lato del quadrilatero
+
+![](./akl_toussaint_quadrilatero.svg){ style="height: 400px; display: block; margin: auto;" }
+
+Osserviamo come su ogni lato del quadrilatero soggiace una regione. Quello che facciamo è percorrere il quadrilatero in senso orario e, per ogni regione, cercare il percorso convesso che ci porta da un estremo all'altro del lato su cui soggiace la suddetta regione.
+
+### Costruzione dell'involucro convesso $H$
+
+Una volta che abbiamo determinato i vari percorsi convessi per le relative regioni, andiamo a fonderli seguendo il senso orario di percorrenza dei lati del quadrilatero. La loro fusione risulta in $H$.

@@ -86,6 +86,18 @@ della fusione</a></li>
 <li><a href="#complessità-temporale-divide-et-impera">Complessità
 temporale Divide et Impera</a></li>
 </ul></li>
+<li><a href="#algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</a>
+<ul>
+<li><a href="#idea-2">Idea</a>
+<ul>
+<li><a href="#euristica">Euristica</a></li>
+<li><a
+href="#ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero">Ricerca
+dei percorsi convessi per ogni lato del quadrilatero</a></li>
+<li><a href="#costruzione-dellinvolucro-convesso-h">Costruzione
+dell’involucro convesso <span class="math inline">\(H\)</span></a></li>
+</ul></li>
+</ul></li>
 </ul>
 <h1 id="involucro-convesso">Involucro convesso</h1>
 <p><strong>Input</strong>: Insieme finito <span class="math inline">\(S
@@ -218,16 +230,20 @@ due semipiani, <span class="math inline">\(\Pi^+
 <p>Per ogni punto <span class="math inline">\(\vec{p} \in S\)</span> con
 <span class="math inline">\(\vec{p} \neq \vec{u}
 \hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{p} \neq \vec{v}\)</span>
-sono caudti esclusivamente in uno dei due semipiani, allora il segmento
-con estremi <span class="math inline">\(\vec{u} \hspace{0.5em}\textrm{e}
-\hspace{0.5em}\vec{v}\)</span> è un lato dell’involucro convesso.</p>
+controlliamo se <span class="math inline">\(\vec{p}\)</span> cade in
+<span class="math inline">\(\Pi^+ \hspace{0.5em}\textrm{o}
+\hspace{0.5em}\textrm{in} \hspace{0.5em}\Pi^-\)</span>.</p>
+<p>Se tutti i punti sono caduti esclusivamente in uno dei due semipiani,
+allora il segmento con estremi <span class="math inline">\(\vec{u}
+\hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{v}\)</span> è un lato
+dell’involucro convesso.</p>
 <h2 id="complessità-temporale">Complessità temporale</h2>
 <ul>
-<li>Iterare per ogni coppia di punti richiede tempo <span
-class="math inline">\(O(n^2)\)</span>.</li>
-<li>Iterare per ogni punto richiede tempo <span
-class="math inline">\(O(n)\)</span>.</li>
-<li>Combinando le due iterazione, vediamo come la complessità temporale
+<li>Iterare per ogni coppia di punti <span
+class="math inline">\(\rightarrow O(n^2)\)</span>.</li>
+<li>Iterare per ogni punto <span class="math inline">\(\rightarrow
+O(n)\)</span>.</li>
+<li>Combinando le due iterazioni, vediamo come la complessità temporale
 dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
 </ul>
 <h2
@@ -236,7 +252,7 @@ controllare se <span class="math inline">\(\vec{p}\)</span> cade in
 <span class="math inline">\(\Pi^+ \hspace{0.5em}\textrm{o}
 \hspace{0.5em}\Pi^-\)</span>?</h2>
 <p><img src="./half_plane_test.svg"
-style="height: 270px; display: block; margin: auto;" /></p>
+style="height: 300px; display: block; margin: auto;" /></p>
 <p>Supponiamo che il vettore <span class="math inline">\(\vec{v} -
 \vec{u}\)</span> è un possibile vettore direzione della retta <span
 class="math inline">\(r\)</span>.</p>
@@ -474,5 +490,47 @@ espressa dalla seguente relazione di ricorrenza:</p>
 <p><span class="math display">\[O(n \hspace{0.25em}log \hspace{0.25em}n)
 + O(n \hspace{0.25em}log \hspace{0.25em}n) = O(n \hspace{0.25em}log
 \hspace{0.25em}n)\]</span></p>
+<h1 id="algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</h1>
+<h2 id="idea-2">Idea</h2>
+<h3 id="euristica">Euristica</h3>
+<p>Determiniamo i seguenti punti di <span
+class="math inline">\(S\)</span>:</p>
+<ul>
+<li><span class="math inline">\(\textrm{XMIN}\)</span>, di minima <span
+class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\textrm{YMAX}\)</span>, di massima <span
+class="math inline">\(y\)</span>.</li>
+<li><span class="math inline">\(\textrm{XMAX}\)</span>, di massima <span
+class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\textrm{YMIN}\)</span>, di minima <span
+class="math inline">\(y\)</span>.</li>
+</ul>
+<p>Questi quattro punti appartengono certamente a <span
+class="math inline">\(P(H)\)</span>. Oltretutto, osserviamo che tutti i
+punti di <span class="math inline">\(S\)</span> che cadono all’interno
+del quadrilatero di vertici <span
+class="math inline">\(\textrm{XMIN}\)</span>, <span
+class="math inline">\(\textrm{YMAX}\)</span>, <span
+class="math inline">\(\textrm{XMAX}\)</span>, <span
+class="math inline">\(\textrm{YMIN}\)</span>,
+<strong>sicuramente</strong> non fanno parte di <span
+class="math inline">\(P(H)\)</span>.</p>
+<p>Dunque possiamo eliminare tali punti da <span
+class="math inline">\(S\)</span>.</p>
+<h3
+id="ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero">Ricerca
+dei percorsi convessi per ogni lato del quadrilatero</h3>
+<p><img src="./akl_toussaint_quadrilatero.svg"
+style="height: 400px; display: block; margin: auto;" /></p>
+<p>Osserviamo come su ogni lato del quadrilatero soggiace una regione.
+Quello che facciamo è percorrere il quadrilatero in senso orario e, per
+ogni regione, cercare il percorso convesso che ci porta da un estremo
+all’altro del lato su cui soggiace la suddetta regione.</p>
+<h3 id="costruzione-dellinvolucro-convesso-h">Costruzione dell’involucro
+convesso <span class="math inline">\(H\)</span></h3>
+<p>Una volta che abbiamo determinato i vari percorsi convessi per le
+relative regioni, andiamo a fonderli seguendo il senso orario di
+percorrenza dei lati del quadrilatero. La loro fusione risulta in <span
+class="math inline">\(H\)</span>.</p>
 </body>
 </html>
