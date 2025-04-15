@@ -1,3 +1,5 @@
+"use strict";
+
 // Global variables for the simulation state
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -158,8 +160,8 @@ class DivideAndConquer {
     console.assert(frame.rightHull.length > 0);
 
     // find rightmost point of a and leftmost point of b
-    const leftmostIndex = 0;
-    const rightmostIndex = 0;
+    let leftmostIndex = 0;
+    let rightmostIndex = 0;
     {
       for (let i = 1; i < frame.rightHull.length; i++) {
         if (frame.rightHull[i].x < frame.rightHull[leftmostIndex].x) {
@@ -168,7 +170,7 @@ class DivideAndConquer {
       }
 
       for (let i = 1; i < frame.leftHull.length; i++) {
-        if (frame.rightHull[i].x > frame.rightHull[rightmostIndex].x) {
+        if (frame.leftHull[i].x > frame.leftHull[rightmostIndex].x) {
           rightmostIndex = i;
         }
       }
@@ -178,8 +180,8 @@ class DivideAndConquer {
       (frame.leftHull[rightmostIndex].x + frame.rightHull[leftmostIndex].x) / 2; // middle vertical line (the x value) separating the two hulls
 
     // find upper tangent
-    const upperTanLeftIndex = 0;
-    const upperTanRightIndex = 0;
+    let upperTanLeftIndex = 0;
+    let upperTanRightIndex = 0;
     {
       let i = rightmostIndex;
       let j = leftmostIndex;
@@ -199,11 +201,11 @@ class DivideAndConquer {
           i = nextI;
         } else if (
           this.getIntersectY(
-            middle_line,
+            middleLine,
             frame.leftHull[i],
-            frame.rightHull[next_j]
+            frame.rightHull[nextJ]
           ) >
-          this.getIntersectY(middle_line, frame.leftHull[i], frame.rightHull[j])
+          this.getIntersectY(middleLine, frame.leftHull[i], frame.rightHull[j])
         ) {
           j = nextJ;
         } else {
@@ -216,8 +218,8 @@ class DivideAndConquer {
     }
 
     // find lower tangent
-    const lowerTanLeftIndex = 0;
-    const lowerTanRightIndex = 0;
+    let lowerTanLeftIndex = 0;
+    let lowerTanRightIndex = 0;
     {
       let i = rightmostIndex;
       let j = leftmostIndex;
@@ -237,11 +239,11 @@ class DivideAndConquer {
           i = nextI;
         } else if (
           this.getIntersectY(
-            middle_line,
+            middleLine,
             frame.leftHull[i],
-            frame.rightHull[next_j]
+            frame.rightHull[nextJ]
           ) >
-          this.getIntersectY(middle_line, frame.leftHull[i], frame.rightHull[j])
+          this.getIntersectY(middleLine, frame.leftHull[i], frame.rightHull[j])
         ) {
           j = nextJ;
         } else {
@@ -266,7 +268,7 @@ class DivideAndConquer {
 
     for (
       let j = upperTanRightIndex;
-      j != lowerTanLeftIndex;
+      j != lowerTanRightIndex;
       j = this.getNextIndexCw(j, frame.rightHull.length)
     ) {
       frame.hull.push(frame.rightHull[j]);
@@ -281,6 +283,7 @@ class DivideAndConquer {
       case "divide": {
         if (frame.points.length <= 1) {
           frame.state = "done";
+          frame.hull = [...frame.points];
           return;
         }
 
@@ -306,15 +309,15 @@ class DivideAndConquer {
         frame.rightHull = [...nextFrame.hull];
         this.stack.pop();
         frame.state = "merge";
-        this.merge();
         break;
       }
       case "merge": {
+        this.merge();
         frame.state = "done";
         break;
       }
       case "done": {
-        this.stackIndex--;
+        this.stackIndex = Math.max(0, this.stackIndex - 1);
         break;
       }
       default:
@@ -330,6 +333,30 @@ class DivideAndConquer {
       drawPoint(point);
     }
 
+    if (frame.points.length > 1) {
+      // Divide the canvas using a vertical line.
+      const x = (frame.points[frame.half - 1].x + frame.points[frame.half].x) / 2;
+      drawLine({ x: x, y: 0 }, { x: x, y: canvas.height }, "steelblue");
+    }
+
+    if (frame.hull.length > 0) {
+      // Hull has been computed. Draw it
+      drawPolygon(frame.hull, "red");
+    } else {
+      // Hull has yet to be computed. Draw left and right hulls
+      if (frame.leftHull.length > 0) {
+        drawPolygon(frame.leftHull, "red");
+      }
+      if (frame.rightHull.length > 0) {
+        drawPolygon(frame.rightHull, "red");
+      }
+    }
+
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.fillText(frame.state, 10, 20);
+
+    /*
     switch (frame.state) {
       case "divide": {
         if (frame.points.length <= 1) {
@@ -358,6 +385,7 @@ class DivideAndConquer {
       default:
         console.assert(false); // Unreachable
     }
+    */
   }
 
   reset() {
@@ -391,6 +419,14 @@ function drawSegment(p, q, color) {
   ctx.moveTo(p.x, p.y);
   ctx.lineTo(q.x, q.y);
   ctx.stroke();
+}
+
+function drawPolygon(points, color) {
+  for (let i = 0; i < points.length; i++) {
+    const from_idx = i;
+    const to_idx = (i + 1) % points.length;
+    drawSegment(points[from_idx], points[to_idx], color);
+  }
 }
 
 function drawLine(p, q, color) {
@@ -472,8 +508,6 @@ canvas.addEventListener("click", function (e) {
 
 // Handle algorithm selection change
 algoSelect.addEventListener("change", function () {
-  algorithm = this.value;
-
   switch (this.value) {
     case "naive": {
       algoCtx = new Naive();
