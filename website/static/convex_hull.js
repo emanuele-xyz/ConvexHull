@@ -1,6 +1,8 @@
 "use strict";
 
-// Global variables for the simulation state
+//
+// Global variables
+//
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const algoSelect = document.getElementById("algoSelect");
@@ -8,8 +10,11 @@ const stepBtn = document.getElementById("stepBtn");
 const continueBtn = document.getElementById("continueBtn");
 const resetBtn = document.getElementById("resetBtn");
 
-let points = []; // Array to hold points added by user
+let globalPoints = []; // Holds the points added by the user
 
+//
+// Linear algebra utility functions
+//
 function v2(x, y) {
   return { x: x, y: y };
 }
@@ -23,84 +28,146 @@ function dot(u, v) {
 }
 
 function normal(v) {
-  // Given a vector v, return one perpendicular vector [-v.y, v.x]
   return { x: -v.y, y: v.x };
 }
 
+//
+// Convex hull algorithms
+//
 class Naive {
-  constructor() {
-    // 3 states: checkSegment, nextSegment, done
+  constructor(points) {
+    // 3 states: checkSegment, nextSegment, hull, done
     this.state = "checkSegment";
+    this.points = points;
     this.edges = [];
+    this.hull = [];
     this.i = 0;
     this.j = this.i + 1;
   }
 
   step() {
-    if (this.state === "done") {
-      return;
-    }
+    switch (this.state) {
+      case "checkSegment": {
+        const u = v2(this.points[this.i].x, this.points[this.i].y);
+        const v = v2(this.points[this.j].x, this.points[this.j].y);
+        const u_to_v = sub(v, u);
+        const normal_ = normal(u_to_v);
 
-    if (this.state === "checkSegment") {
-      const u = v2(points[this.i].x, points[this.i].y);
-      const v = v2(points[this.j].x, points[this.j].y);
-      const u_to_v = sub(v, u);
-      const normal_ = normal(u_to_v);
+        let positiveHalfplane = 0;
+        let negativeHalfplane = 0;
 
-      let positive_halfplane = 0;
-      let negative_halfplane = 0;
+        for (let k = 0; k < this.points.length; k++) {
+          if (k === this.i || k === this.j) {
+            continue;
+          }
 
-      for (let k = 0; k < points.length; k++) {
-        if (k === this.i || k === this.j) {
-          continue;
+          const p = this.points[k];
+          const u_to_p = sub(u, p);
+          const dot_ = dot(normal_, u_to_p);
+
+          console.assert(dot_ !== 0);
+          if (dot_ > 0) {
+            positiveHalfplane++;
+          } else {
+            negativeHalfplane++;
+          }
         }
 
-        const p = points[k];
-        const u_to_p = sub(u, p);
-        const dot_ = dot(normal_, u_to_p);
+        if (positiveHalfplane === 0 || negativeHalfplane === 0) {
+          this.edges.push({
+            from: this.points[this.j],
+            to: this.points[this.i],
+          });
 
-        console.assert(dot_ !== 0);
-        if (dot_ > 0) {
-          positive_halfplane++;
+          this.edges.push({
+            from: this.points[this.i],
+            to: this.points[this.j],
+          });
+        }
+
+        this.state = "nextSegment";
+
+        break;
+      }
+      case "nextSegment": {
+        this.j++;
+
+        if (this.j >= this.points.length) {
+          this.i++;
+          this.j = this.i + 1;
+        }
+
+        if (this.i >= this.points.length - 1) {
+          this.state = "hull";
         } else {
-          negative_halfplane++;
+          this.state = "checkSegment";
         }
+
+        break;
       }
+      case "hull": {
+        const start = this.edges[0].from;
+        let prev = this.edges[0].from;
+        let cur = this.edges[0].to;
+        this.hull.push(start);
 
-      if (positive_halfplane === 0 || negative_halfplane === 0) {
-        this.edges.push({ from: points[this.j], to: points[this.i] });
-      }
+        do {
+          this.hull.push(cur);
+          let to = null;
 
-      this.state = "nextSegment";
-    } else if (this.state === "nextSegment") {
-      this.j++;
+          for (let i = 0; i < this.edges.length; i++) {
+            if (
+              this.edges[i].to.x === prev.x &&
+              this.edges[i].to.y === prev.y
+            ) {
+              continue;
+            }
 
-      if (this.j >= points.length) {
-        this.i++;
-        this.j = this.i + 1;
-      }
+            if (
+              cur.x === this.edges[i].from.x &&
+              cur.y === this.edges[i].from.y
+            ) {
+              to = this.edges[i].to;
+            }
+          }
 
-      if (this.i >= points.length - 1) {
+          prev = cur;
+          cur = to;
+        } while (cur !== null && !(cur.x === start.x && cur.y === start.y));
+
+        console.log(this.hull);
+        console.log(this.edges);
+
         this.state = "done";
-      } else {
-        this.state = "checkSegment";
+        break;
+      }
+      case "done": {
+        // Do nothing
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
       }
     }
   }
 
-  draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (const point of points) {
-      drawPoint(point);
+  continue() {
+    while (this.state !== "done") {
+      this.step();
     }
+  }
+
+  draw() {
+    clearCanvas();
+    drawPoints(this.points);
 
     for (const edge of this.edges) {
       drawSegment(edge.from, edge.to, "red");
     }
 
     if (this.state === "nextSegment") {
-      drawLine(points[this.i], points[this.j], "steelblue");
+      drawLine(this.points[this.i], this.points[this.j], "steelblue");
     } else if (this.state === "done") {
       ctx.fillStyle = "black";
       ctx.font = "16px Arial";
@@ -108,9 +175,11 @@ class Naive {
     }
   }
 
-  reset() {
+  reset(points) {
     this.state = "checkSegment";
+    this.points = points;
     this.edges = [];
+    this.hull = [];
     this.i = 0;
     this.j = this.i + 1;
   }
@@ -119,7 +188,13 @@ class Naive {
 class DCStackFrame {
   constructor(points) {
     // 5 states: divide, convex-hull-left, convex-hull-right, merge, done
-    this.state = "divide";
+    if (points.length > 1) {
+      this.state = "divide";
+      this.hull = [];
+    } else {
+      this.state = "done";
+      this.hull = [...points];
+    }
 
     this.points = [...points];
     this.points.sort((a, b) => a.x <= b.x);
@@ -128,174 +203,58 @@ class DCStackFrame {
 
     this.leftHull = [];
     this.rightHull = [];
-    this.hull = [];
   }
 }
 
 class DivideAndConquer {
-  constructor() {
+  constructor(points) {
+    this.points = points;
     this.stackIndex = 0;
     this.stack = [];
-    this.stack.push(new DCStackFrame(points));
+    this.stack.push(new DCStackFrame(this.points));
   }
 
-  getNextIndexCw(i, size) {
-    return (i + 1) % size;
+  getCurrentFrame() {
+    return this.stack[this.stackIndex];
   }
 
-  getNextIndexCcw(i, size) {
-    return (((i - 1) % size) + size) % size;
-  }
-
-  getIntersectY(middleX, p, q) {
-    const m = (p.y - q.y) / (p.x - q.x);
-    const b = p.y - m * p.x; // b = y - mx
-    return m * middleX + b; // y = mx + b
+  getNextFrame() {
+    return this.stack[this.stackIndex + 1];
   }
 
   merge() {
-    const frame = this.stack[this.stackIndex];
+    const frame = this.getCurrentFrame();
 
     console.assert(frame.leftHull.length > 0);
     console.assert(frame.rightHull.length > 0);
 
-    // find rightmost point of a and leftmost point of b
-    let leftmostIndex = 0;
-    let rightmostIndex = 0;
-    {
-      for (let i = 1; i < frame.rightHull.length; i++) {
-        if (frame.rightHull[i].x < frame.rightHull[leftmostIndex].x) {
-          leftmostIndex = i;
-        }
-      }
-
-      for (let i = 1; i < frame.leftHull.length; i++) {
-        if (frame.leftHull[i].x > frame.leftHull[rightmostIndex].x) {
-          rightmostIndex = i;
-        }
-      }
+    const naivePoints = [...frame.leftHull, ...frame.rightHull];
+    if (naivePoints.length <= 3) {
+      frame.hull = naivePoints;
+    } else {
+      const naive = new Naive(naivePoints);
+      naive.continue();
+      frame.hull = naive.hull;
     }
-
-    const middleLine =
-      (frame.leftHull[rightmostIndex].x + frame.rightHull[leftmostIndex].x) / 2; // middle vertical line (the x value) separating the two hulls
-
-    // find upper tangent
-    let upperTanLeftIndex = 0;
-    let upperTanRightIndex = 0;
-    {
-      let i = rightmostIndex;
-      let j = leftmostIndex;
-
-      while (true) {
-        let nextI = this.getNextIndexCcw(i, frame.leftHull.length);
-        let nextJ = this.getNextIndexCw(j, frame.rightHull.length);
-
-        if (
-          this.getIntersectY(
-            middleLine,
-            frame.leftHull[nextI],
-            frame.rightHull[j]
-          ) >
-          this.getIntersectY(middleLine, frame.leftHull[i], frame.rightHull[j])
-        ) {
-          i = nextI;
-        } else if (
-          this.getIntersectY(
-            middleLine,
-            frame.leftHull[i],
-            frame.rightHull[nextJ]
-          ) >
-          this.getIntersectY(middleLine, frame.leftHull[i], frame.rightHull[j])
-        ) {
-          j = nextJ;
-        } else {
-          break;
-        }
-      }
-
-      upperTanLeftIndex = i;
-      upperTanRightIndex = j;
-    }
-
-    // find lower tangent
-    let lowerTanLeftIndex = 0;
-    let lowerTanRightIndex = 0;
-    {
-      let i = rightmostIndex;
-      let j = leftmostIndex;
-
-      while (true) {
-        let nextI = this.getNextIndexCw(i, frame.leftHull.length);
-        let nextJ = this.getNextIndexCcw(j, frame.rightHull.length);
-
-        if (
-          this.getIntersectY(
-            middleLine,
-            frame.leftHull[nextI],
-            frame.rightHull[j]
-          ) >
-          this.getIntersectY(middleLine, frame.leftHull[i], frame.rightHull[j])
-        ) {
-          i = nextI;
-        } else if (
-          this.getIntersectY(
-            middleLine,
-            frame.leftHull[i],
-            frame.rightHull[nextJ]
-          ) >
-          this.getIntersectY(middleLine, frame.leftHull[i], frame.rightHull[j])
-        ) {
-          j = nextJ;
-        } else {
-          break;
-        }
-      }
-
-      lowerTanLeftIndex = i;
-      lowerTanRightIndex = j;
-    }
-
-    // clockwise merge the two hulls using the found tangents
-    for (
-      let i = lowerTanLeftIndex;
-      i != upperTanLeftIndex;
-      i = this.getNextIndexCw(i, frame.leftHull.length)
-    ) {
-      frame.hull.push(frame.leftHull[i]);
-    }
-
-    frame.hull.push(frame.leftHull[upperTanLeftIndex]);
-
-    for (
-      let j = upperTanRightIndex;
-      j != lowerTanRightIndex;
-      j = this.getNextIndexCw(j, frame.rightHull.length)
-    ) {
-      frame.hull.push(frame.rightHull[j]);
-    }
-
-    frame.hull.push(frame.rightHull[lowerTanRightIndex]);
   }
 
   step() {
-    const frame = this.stack[this.stackIndex];
+    const frame = this.getCurrentFrame();
     switch (frame.state) {
       case "divide": {
         if (frame.points.length <= 1) {
           frame.state = "done";
           frame.hull = [...frame.points];
-          return;
+        } else {
+          frame.state = "convex-hull-left";
+          const slice = frame.points.slice(0, frame.half);
+          this.stack.push(new DCStackFrame(slice));
+          this.stackIndex++;
         }
-
-        // frame.half = Math.trunc(frame.points.length / 2);
-        frame.state = "convex-hull-left";
-        const slice = frame.points.slice(0, frame.half);
-        this.stack.push(new DCStackFrame(slice));
-        this.stackIndex++;
         break;
       }
       case "convex-hull-left": {
-        const nextFrame = this.stack[this.stackIndex + 1];
+        const nextFrame = this.getNextFrame();
         frame.leftHull = [...nextFrame.hull];
         this.stack.pop();
         frame.state = "convex-hull-right";
@@ -305,7 +264,7 @@ class DivideAndConquer {
         break;
       }
       case "convex-hull-right": {
-        const nextFrame = this.stack[this.stackIndex + 1];
+        const nextFrame = this.getNextFrame();
         frame.rightHull = [...nextFrame.hull];
         this.stack.pop();
         frame.state = "merge";
@@ -322,20 +281,25 @@ class DivideAndConquer {
       }
       default:
         console.assert(false); // Unreachable
+        break;
+    }
+  }
+
+  continue() {
+    while (this.stack[0].state !== "done") {
+      this.step();
     }
   }
 
   draw() {
-    const frame = this.stack[this.stackIndex];
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const frame = this.getCurrentFrame();
+    clearCanvas();
+    drawPoints(frame.points);
 
-    for (const point of frame.points) {
-      drawPoint(point);
-    }
-
-    if (frame.points.length > 1) {
+    if (frame.state !== "done" && frame.points.length > 1) {
       // Divide the canvas using a vertical line.
-      const x = (frame.points[frame.half - 1].x + frame.points[frame.half].x) / 2;
+      const x =
+        (frame.points[frame.half - 1].x + frame.points[frame.half].x) / 2;
       drawLine({ x: x, y: 0 }, { x: x, y: canvas.height }, "steelblue");
     }
 
@@ -355,49 +319,27 @@ class DivideAndConquer {
     ctx.fillStyle = "black";
     ctx.font = "16px Arial";
     ctx.fillText(frame.state, 10, 20);
-
-    /*
-    switch (frame.state) {
-      case "divide": {
-        if (frame.points.length <= 1) {
-          return;
-        }
-
-        // Divide the canvas using a vertical line.
-        const x =
-          (frame.points[frame.half - 1].x + frame.points[frame.half].x) / 2;
-
-        drawLine({ x: x, y: 0 }, { x: x, y: canvas.height }, "steelblue");
-        break;
-      }
-      case "convex-hull-left": {
-        break;
-      }
-      case "convex-hull-right": {
-        break;
-      }
-      case "merge": {
-        break;
-      }
-      case "done": {
-        break;
-      }
-      default:
-        console.assert(false); // Unreachable
-    }
-    */
   }
 
-  reset() {
+  reset(points) {
+    this.points = points;
+    this.stackIndex = 0;
     this.stack = [];
-    this.stack.push(new DCStackFrame(points));
+    this.stack.push(new DCStackFrame(this.points));
   }
 }
 
 // algoCtx must have the following methods
 // step() // execute one step of the algorithm
 // draw() // draws the current state of the algorithm
-let algoCtx = new Naive();
+let algoCtx = new Naive(globalPoints);
+
+//
+// Drawing functions
+//
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 function drawPoint(point) {
   ctx.fillStyle = "black";
@@ -406,8 +348,12 @@ function drawPoint(point) {
   ctx.fill();
 }
 
-function drawPoints() {
+function drawPoints(points) {
   for (const point of points) {
+    let coords = `(${Math.trunc(point.x)},${Math.trunc(point.y)})`;
+    ctx.fillStyle = "black";
+    ctx.font = "11px Arial";
+    ctx.fillText(coords, point.x - 20, point.y - 10);
     drawPoint(point);
   }
 }
@@ -477,23 +423,13 @@ function drawLine(p, q, color) {
 
 // Utility: Clear canvas and redraw points (and partial hull if available)
 function redraw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawPoints();
-  // if (hull.length > 0) {
-  //   // Draw already stepped hull edges
-  //   ctx.strokeStyle = "red";
-  //   ctx.lineWidth = 2;
-  //   ctx.beginPath();
-  //   if (currentStep > 0) {
-  //     ctx.moveTo(hull[0].x, hull[0].y);
-  //     // Only draw edges up to the current step
-  //     for (let i = 1; i < currentStep; i++) {
-  //       ctx.lineTo(hull[i].x, hull[i].y);
-  //     }
-  //     ctx.stroke();
-  //   }
-  // }
+  clearCanvas();
+  drawPoints(globalPoints);
 }
+
+//
+// Event listeners
+//
 
 // Event: Canvas mouse click to add a point
 canvas.addEventListener("click", function (e) {
@@ -501,8 +437,8 @@ canvas.addEventListener("click", function (e) {
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-  points.push({ x, y });
-  algoCtx.reset();
+  globalPoints.push({ x, y });
+  algoCtx.reset(globalPoints);
   redraw();
 });
 
@@ -510,11 +446,11 @@ canvas.addEventListener("click", function (e) {
 algoSelect.addEventListener("change", function () {
   switch (this.value) {
     case "naive": {
-      algoCtx = new Naive();
+      algoCtx = new Naive(globalPoints);
       break;
     }
     case "divide-and-conquer": {
-      algoCtx = new DivideAndConquer();
+      algoCtx = new DivideAndConquer(globalPoints);
       break;
     }
     default: {
@@ -525,9 +461,9 @@ algoSelect.addEventListener("change", function () {
   redraw();
 });
 
-// Simulation "step" button: reveal one more edge of the convex hull
+// "Step" button: execute a single step of the algorithm.
 stepBtn.addEventListener("click", function () {
-  if (points.length < 3) {
+  if (globalPoints.length < 3) {
     alert("At least 3 points are needed to compute a convex hull.");
     return;
   }
@@ -536,28 +472,25 @@ stepBtn.addEventListener("click", function () {
   algoCtx.draw();
 });
 
-// "Continue" button: complete the hull drawing immediately.
+// "Continue" button: draw the complete hull.
 continueBtn.addEventListener("click", function () {
-  if (points.length < 3) {
+  if (globalPoints.length < 3) {
     alert("At least 3 points are needed to compute a convex hull.");
     return;
   }
 
-  while (algoCtx.state !== "done") {
-    algoCtx.step();
-  }
-
+  algoCtx.continue();
   algoCtx.draw();
 });
 
-// "Reset" button: clear canvas and simulation state.
+// "Reset" button: clear canvas and reset algorithm state.
 resetBtn.addEventListener("click", function () {
-  points = [];
-  algoCtx.reset();
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  globalPoints = [];
+  algoCtx.reset(globalPoints);
+  clearCanvas();
 });
 
-// Select Naive as the default algorithm.
+// Select "Naive" as the default algorithm.
 window.addEventListener("load", function () {
   document.getElementById("algoSelect").value = "naive";
 });
