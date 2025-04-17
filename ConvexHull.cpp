@@ -434,4 +434,28 @@ namespace ch
             return akl_toussaint_impl(copy);
         }
     }
+    
+    std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points)
+    {
+        assert(points.size() >= 3);
+
+        // apply akl toussaint heuristic
+        std::vector<v2> kill_zone{ build_kill_zone(points) };
+        std::vector<v2> survivors{ akl_toussaint_heuristic(points, kill_zone) };
+        
+        // run naive on survivors
+        return naive(survivors);
+    }
+
+    std::vector<v2> divide_and_conquer_akl_toussaint(const std::vector<v2>& points)
+    {
+        assert(points.size() >= 3);
+
+        // apply akl toussaint heuristic
+        std::vector<v2> kill_zone{ build_kill_zone(points) };
+        std::vector<v2> survivors{ akl_toussaint_heuristic(points, kill_zone) };
+
+        // run divide and conquer on survivors
+        return divide_and_conquer(survivors);
+    }
 }

@@ -1,0 +1,227 @@
+naive akl-toussaint against naive
+--------------------------------------------------------------------------------
+dataset capacity: 10000
+generating points ... DONE ... 127 s
+--------------------------------------------------------------------------------
+points count: 48
+naive ... DONE ... 229 us
+naive akl-toussaint ... DONE ... 42 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 63
+naive ... DONE ... 373 us
+naive akl-toussaint ... DONE ... 61 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 100
+naive ... DONE ... 1397 us
+naive akl-toussaint ... DONE ... 167 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 172
+naive ... DONE ... 6891 us
+naive akl-toussaint ... DONE ... 1242 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 249
+naive ... DONE ... 19718 us
+naive akl-toussaint ... DONE ... 3398 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 264
+naive ... DONE ... 23793 us
+naive akl-toussaint ... DONE ... 4190 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 346
+naive ... DONE ... 53077 us
+naive akl-toussaint ... DONE ... 10348 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 411
+naive ... DONE ... 89675 us
+naive akl-toussaint ... DONE ... 17549 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 511
+naive ... DONE ... 173588 us
+naive akl-toussaint ... DONE ... 33737 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 601
+naive ... DONE ... 289433 us
+naive akl-toussaint ... DONE ... 49936 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 701
+naive ... DONE ... 473853 us
+naive akl-toussaint ... DONE ... 70483 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 774
+naive ... DONE ... 653290 us
+naive akl-toussaint ... DONE ... 97434 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 836
+naive ... DONE ... 831158 us
+naive akl-toussaint ... DONE ... 118113 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 880
+naive ... DONE ... 980889 us
+naive akl-toussaint ... DONE ... 133962 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 963
+naive ... DONE ... 1312561 us
+naive akl-toussaint ... DONE ... 164118 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1053
+naive ... DONE ... 1755248 us
+naive akl-toussaint ... DONE ... 159978 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1059
+naive ... DONE ... 1784954 us
+naive akl-toussaint ... DONE ... 163666 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1108
+naive ... DONE ... 2068805 us
+naive akl-toussaint ... DONE ... 193098 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1139
+naive ... DONE ... 2261887 us
+naive akl-toussaint ... DONE ... 213015 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1173
+naive ... DONE ... 2483290 us
+naive akl-toussaint ... DONE ... 243465 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1271
+naive ... DONE ... 3235535 us
+naive akl-toussaint ... DONE ... 322875 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1353
+naive ... DONE ... 3951904 us
+naive akl-toussaint ... DONE ... 381050 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1438
+naive ... DONE ... 4802561 us
+naive akl-toussaint ... DONE ... 456138 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1510
+naive ... DONE ... 5610423 us
+naive akl-toussaint ... DONE ... 535730 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1534
+naive ... DONE ... 5904204 us
+naive akl-toussaint ... DONE ... 563930 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1628
+naive ... DONE ... 7156113 us
+naive akl-toussaint ... DONE ... 689150 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1700
+naive ... DONE ... 8204344 us
+naive akl-toussaint ... DONE ... 792231 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1749
+naive ... DONE ... 8989363 us
+naive akl-toussaint ... DONE ... 877200 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1817
+naive ... DONE ... 10143930 us
+naive akl-toussaint ... DONE ... 970992 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1903
+naive ... DONE ... 11733671 us
+naive akl-toussaint ... DONE ... 1306665 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1918
+naive ... DONE ... 12027008 us
+naive akl-toussaint ... DONE ... 1329629 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1997
+naive ... DONE ... 13686889 us
+naive akl-toussaint ... DONE ... 1519788 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2031
+naive ... DONE ... 14435005 us
+naive akl-toussaint ... DONE ... 1618826 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2060
+naive ... DONE ... 15103024 us
+naive akl-toussaint ... DONE ... 1707406 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2099
+naive ... DONE ... 16049959 us
+naive akl-toussaint ... DONE ... 1807387 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2142
+naive ... DONE ... 17114582 us
+naive akl-toussaint ... DONE ... 1921174 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2164
+naive ... DONE ... 17671884 us
+naive akl-toussaint ... DONE ... 2004881 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2204
+naive ... DONE ... 18730256 us
+naive akl-toussaint ... DONE ... 2147169 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2270
+naive ... DONE ... 20555964 us
+naive akl-toussaint ... DONE ... 2323733 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2361
+naive ... DONE ... 23278329 us
+naive akl-toussaint ... DONE ... 2651570 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2399
+naive ... DONE ... 24471891 us
+naive akl-toussaint ... DONE ... 3089176 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2435
+naive ... DONE ... 25644075 us
+naive akl-toussaint ... DONE ... 3244115 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2474
+naive ... DONE ... 26967479 us
+naive akl-toussaint ... DONE ... 3387013 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2486
+naive ... DONE ... 27386996 us
+naive akl-toussaint ... DONE ... 3430461 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2522
+naive ... 

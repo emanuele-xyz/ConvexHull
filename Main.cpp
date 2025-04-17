@@ -254,12 +254,28 @@ static void test_akl_toussaint_against_dc()
 {
     Logger logger{};
 
+    logger.log("akl-toussaint against divide and conquer\n");
+
     int dataset_capacity{ 10000 };
     logger.log("--------------------------------------------------------------------------------\n");
     logger.logf("dataset capacity: {}\n", dataset_capacity);
 
     std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
-    test(logger, dataset, ch::divide_and_conquer, "divide_and_conquer", ch::akl_toussaint, "akl_toussaint");
+    test(logger, dataset, ch::divide_and_conquer, "divide and conquer", ch::akl_toussaint, "akl-toussaint");
+}
+
+static void test_naive_akl_toussaint_against_naive()
+{
+    Logger logger{};
+
+    logger.log("naive akl-toussaint against naive\n");
+
+    int dataset_capacity{ 10000 };
+    logger.log("--------------------------------------------------------------------------------\n");
+    logger.logf("dataset capacity: {}\n", dataset_capacity);
+
+    std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
+    test(logger, dataset, ch::naive, "naive", ch::naive_akl_toussaint, "naive akl-toussaint");
 }
 
 #if 0
@@ -289,6 +305,7 @@ int main()
 #else
 int main()
 {
-    test_akl_toussaint_against_dc();
+    //test_akl_toussaint_against_dc();
+    test_naive_akl_toussaint_against_naive();
 }
 #endif
