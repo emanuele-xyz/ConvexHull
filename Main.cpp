@@ -250,7 +250,7 @@ static void test(Logger& logger, std::vector<ch::v2> dataset, HullFn oracle, con
     }
 }
 
-static void test_dc_akl_toussaint()
+static void test_akl_toussaint_against_dc()
 {
     Logger logger{};
 
@@ -266,7 +266,7 @@ static void test_dc_akl_toussaint()
 int main()
 {
     // generate points
-    int points_count{ 400 };
+    int points_count{ 10 };
     std::vector<ch::v2> points{ generate_points(points_count) };
     assert(points.size() == points_count); // sanity check
 
@@ -289,6 +289,6 @@ int main()
 #else
 int main()
 {
-    test_dc_akl_toussaint();
+    test_akl_toussaint_against_dc();
 }
 #endif
