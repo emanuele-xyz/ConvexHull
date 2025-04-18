@@ -326,7 +326,7 @@ static void benchmark()
         logger.log("--------------------------------------------------------------------------------\n");
         logger.logf("{}\n", algorithms_names[i]);
 
-        int points_count{ 10 };
+        int points_count{ 100 };
         constexpr long long ALLOTTED_SECONDS_FOR_ALGO_BENCHMARK{ 60 * 3 }; // three minutes
         long long seconds_since_algo_benchmark_start{};
         while (points_count < static_cast<int>(dataset.size()))
@@ -351,7 +351,7 @@ static void benchmark()
             }
 
             // go to the next benchmark data point
-            points_count += 10;
+            points_count += 100;
         }
     }
 }
