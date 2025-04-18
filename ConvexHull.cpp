@@ -248,37 +248,55 @@ namespace ch
         return divide_and_conquer_impl(copy);
     }
 
-    static std::vector<int> build_killzone(int x_min_idx, int x_max_idx, int y_min_idx, int y_max_idx)
+    static std::vector<v2> build_kill_zone(const std::vector<v2> points)
     {
-        std::vector<int> kill_zone{};
-        int points[4]{ x_min_idx, y_max_idx, x_max_idx, y_min_idx };
-        for (int i{}; i < 4; i++)
+        v2 xmin{};
+        v2 xmax{};
         {
-            int point{ points[i] };
-            if (auto it{ std::find(kill_zone.begin(), kill_zone.end(), point) }; it == kill_zone.end())
+            auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.x < b.x; }) };
+            assert(it.first != points.end());
+            assert(it.second != points.end());
+            xmin = *it.first;
+            xmax = *it.second;
+        }
+        v2 ymin{};
+        v2 ymax{};
+        {
+            auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.y < b.y; }) };
+            assert(it.first != points.end());
+            assert(it.second != points.end());
+            ymin = *it.first;
+            ymax = *it.second;
+        }
+
+        std::vector<v2> kill_zone{};
+        {
+            v2 quadrilateral[4]{ xmin, ymax, xmax, ymin };
+            for (v2 p : quadrilateral)
             {
-                kill_zone.emplace_back(point);
+                if (auto it{ std::find(kill_zone.begin(), kill_zone.end(), p) }; it == kill_zone.end())
+                {
+                    kill_zone.emplace_back(p);
+                }
             }
         }
         return kill_zone;
     }
 
-    static bool falls_within_killzone(int p_idx, const std::vector<int>& kill_zone, const std::vector<v2>& points)
+    /*
+        A point falls within the kill zone, if all the half plane tests give back a negative dot product.
+        We do one half plane test for each side of the killzone.
+    */
+    static bool falls_within_kill_zone(v2 p, const std::vector<v2>& kill_zone)
     {
-        if (auto it{ std::find(kill_zone.begin(), kill_zone.end(), p_idx) }; it != kill_zone.end())
-        {
-            return false;
-        }
-
         bool falls_within{ true };
         for (int i{}; i < static_cast<int>(kill_zone.size()) && falls_within; i++)
         {
-            // TODO: theory comment
-            int from{ kill_zone[i] };
-            int to{ kill_zone[(i + 1) % static_cast<int>(kill_zone.size())] };
-            v2 from_to{ points[to] - points[from] };
+            v2 from{ kill_zone[i] };
+            v2 to{ kill_zone[(i + 1) % static_cast<int>(kill_zone.size())] };
+            v2 from_to{ to - from };
             v2 normal{ v2::normal(from_to) };
-            v2 from_p{ points[p_idx] - points[from] };
+            v2 from_p{ p - from };
             falls_within = v2::dot(normal, from_p) < 0;
         }
         return falls_within;
@@ -286,75 +304,47 @@ namespace ch
 
     static bool falls_within_region(v2 p, v2 from, v2 to)
     {
-        if (p == from || p == to)
-        {
-            return false;
-        }
-
         v2 from_to{ to - from };
         v2 normal{ v2::normal(from_to) };
         v2 from_p{ p - from };
         return v2::dot(normal, from_p) > 0;
     }
 
-    std::vector<v2> akl_toussaint_heuristic(const std::vector<v2>& points)
+    static std::vector<v2> akl_toussaint_heuristic(const std::vector<v2>& points, const std::vector<v2> kill_zone)
     {
-        // build kill zone
-        std::vector<int> kill_zone{};
-        {
-            int x_min_idx{};
-            int x_max_idx{};
-            int y_min_idx{};
-            int y_max_idx{};
-            {
-                {
-                    auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.x < b.x; }) };
-                    assert(it.first != points.end());
-                    assert(it.second != points.end());
-                    x_min_idx = static_cast<int>(std::distance(points.begin(), it.first));
-                    x_max_idx = static_cast<int>(std::distance(points.begin(), it.second));
-                }
-                {
-                    auto it{ std::minmax_element(points.begin(), points.end(), [](const v2& a, const v2& b) { return a.y < b.y; }) };
-                    assert(it.first != points.end());
-                    assert(it.second != points.end());
-                    y_min_idx = static_cast<int>(std::distance(points.begin(), it.first));
-                    y_max_idx = static_cast<int>(std::distance(points.begin(), it.second));
-                }
-            }
-            assert(x_min_idx != x_max_idx);
-            assert(y_min_idx != y_max_idx);
-
-            kill_zone = build_killzone(x_min_idx, x_max_idx, y_min_idx, y_max_idx);
-        }
-
         // apply heuristic, i.e. filter points that fall within the kill zone
-        std::vector<v2> akl_toussaint_points{};
+        std::vector<v2> survivors{};
+        for (v2 p : points)
         {
-            for (int i{}; i < static_cast<int>(points.size()); i++)
+            if (!falls_within_kill_zone(p, kill_zone))
             {
-                if (!falls_within_killzone(i, kill_zone, points))
-                {
-                    akl_toussaint_points.emplace_back(points[i]);
-                }
+                survivors.emplace_back(p);
             }
         }
+        return survivors;
+    }
 
-        // build hull
+    static std::vector<v2> akl_toussaint_impl(const std::vector<v2>& points)
+    {
+        // apply akl toussaint heuristic
+        std::vector<v2> kill_zone{ build_kill_zone(points) };
+        std::vector<v2> survivors{ akl_toussaint_heuristic(points, kill_zone) };
+
+        // build hull on survivor point set
         std::vector<v2> hull{};
         {
             for (int i{}; i < static_cast<int>(kill_zone.size()); i++)
             {
-                int from{ kill_zone[i] };
-                int to{ kill_zone[(i + 1) % static_cast<int>(kill_zone.size())] };
+                v2 from{ kill_zone[i] };
+                v2 to{ kill_zone[(i + 1) % static_cast<int>(kill_zone.size())] };
 
                 // find points belonging to the region (including "from" and "to")
                 std::vector<v2> region_points{};
-                region_points.emplace_back(points[from]);
-                region_points.emplace_back(points[to]);
-                for (v2 p : akl_toussaint_points)
+                region_points.emplace_back(from);
+                region_points.emplace_back(to);
+                for (v2 p : survivors)
                 {
-                    if (falls_within_region(p, points[from], points[to]))
+                    if (falls_within_region(p, from, to))
                     {
                         region_points.emplace_back(p);
                     }
@@ -362,7 +352,7 @@ namespace ch
 
                 // sort points
                 {
-                    v2 from_to{ points[to] - points[from] };
+                    v2 from_to{ to - from };
                     assert(from_to.x != 0); // no two points can have the same x
                     if (from_to.x > 0)
                     {
@@ -423,7 +413,6 @@ namespace ch
                 }
             }
         }
-
         return hull;
     }
 
@@ -432,7 +421,6 @@ namespace ch
         assert(points.size() >= 3);
 
         std::vector<v2> copy{ points };
-
         if (points.size() == 3)
         {
             if (!is_hull_clockwise(points))
@@ -441,9 +429,33 @@ namespace ch
             }
             return copy;
         }
+        else
+        {
+            return akl_toussaint_impl(copy);
+        }
+    }
+    
+    std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points)
+    {
+        assert(points.size() >= 3);
 
-        copy = akl_toussaint_heuristic(copy);
+        // apply akl toussaint heuristic
+        std::vector<v2> kill_zone{ build_kill_zone(points) };
+        std::vector<v2> survivors{ akl_toussaint_heuristic(points, kill_zone) };
+        
+        // run naive on survivors
+        return naive(survivors);
+    }
 
-        return copy;
+    std::vector<v2> divide_and_conquer_akl_toussaint(const std::vector<v2>& points)
+    {
+        assert(points.size() >= 3);
+
+        // apply akl toussaint heuristic
+        std::vector<v2> kill_zone{ build_kill_zone(points) };
+        std::vector<v2> survivors{ akl_toussaint_heuristic(points, kill_zone) };
+
+        // run divide and conquer on survivors
+        return divide_and_conquer(survivors);
     }
 }

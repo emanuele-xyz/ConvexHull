@@ -250,23 +250,117 @@ static void test(Logger& logger, std::vector<ch::v2> dataset, HullFn oracle, con
     }
 }
 
-static void test_dc_akl_toussaint()
+static void test_akl_toussaint_against_dc()
 {
     Logger logger{};
+
+    logger.log("akl-toussaint against divide and conquer\n");
 
     int dataset_capacity{ 10000 };
     logger.log("--------------------------------------------------------------------------------\n");
     logger.logf("dataset capacity: {}\n", dataset_capacity);
 
     std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
-    test(logger, dataset, ch::divide_and_conquer, "divide_and_conquer", ch::akl_toussaint, "akl_toussaint");
+    test(logger, dataset, ch::divide_and_conquer, "divide and conquer", ch::akl_toussaint, "akl-toussaint");
+}
+
+static void test_naive_akl_toussaint_against_naive()
+{
+    Logger logger{};
+
+    logger.log("naive akl-toussaint against naive\n");
+
+    int dataset_capacity{ 1000 };
+    logger.log("--------------------------------------------------------------------------------\n");
+    logger.logf("dataset capacity: {}\n", dataset_capacity);
+
+    std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
+    test(logger, dataset, ch::naive, "naive", ch::naive_akl_toussaint, "naive akl-toussaint");
+}
+
+static void test_dc_akl_toussaint_against_dc()
+{
+    Logger logger{};
+
+    logger.log("divide and conquer akl-toussaint against divide and conquer\n");
+
+    int dataset_capacity{ 10000 };
+    logger.log("--------------------------------------------------------------------------------\n");
+    logger.logf("dataset capacity: {}\n", dataset_capacity);
+
+    std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
+    test(logger, dataset, ch::divide_and_conquer, "divide and conquer", ch::divide_and_conquer_akl_toussaint, "divide and conquer akl-toussaint");
+}
+
+static void benchmark()
+{
+    Logger logger{};
+    logger.log("--------------------------------------------------------------------------------\n");
+    logger.log("Benchmark\n");
+
+    int dataset_capacity{ 10000 };
+    logger.log("--------------------------------------------------------------------------------\n");
+    logger.logf("dataset capacity: {}\n", dataset_capacity);
+
+    std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
+
+    HullFn algorithms[5]
+    {
+        ch::naive,
+        ch::divide_and_conquer,
+        ch::akl_toussaint,
+        ch::naive_akl_toussaint,
+        ch::divide_and_conquer_akl_toussaint,
+    };
+    const char* algorithms_names[5]
+    {
+        "naive",
+        "divide_and_conquer",
+        "akl_toussaint",
+        "naive_akl_toussaint",
+        "divide_and_conquer_akl_toussaint",
+    };
+
+    for (int i{}; i < 5; i++)
+    {
+        logger.log("--------------------------------------------------------------------------------\n");
+        logger.logf("{}\n", algorithms_names[i]);
+
+        int points_count{ 100 };
+        constexpr long long ALLOTTED_SECONDS_FOR_ALGO_BENCHMARK{ 60 * 3 }; // three minutes
+        long long seconds_since_algo_benchmark_start{};
+        while (points_count < static_cast<int>(dataset.size()))
+        {
+            // copy portion of point dataset
+            std::vector<ch::v2> points{ dataset.begin(), dataset.begin() + points_count };
+
+            // run benchmark /w timing data
+            auto start{ std::chrono::high_resolution_clock::now() };
+            std::vector<ch::v2> hull{ algorithms[i](points) };
+            auto end{ std::chrono::high_resolution_clock::now() };
+
+            // print benchmark data point
+            auto us{ std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() };
+            logger.logf("n={} t={}\n", points_count, us);
+
+            // if it took more than one minute, it is probably too slow to go up to 10k points
+            seconds_since_algo_benchmark_start += std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
+            if (seconds_since_algo_benchmark_start >= ALLOTTED_SECONDS_FOR_ALGO_BENCHMARK)
+            {
+                break;
+            }
+
+            // go to the next benchmark data point
+            points_count += 100;
+        }
+    }
 }
 
 #if 0
 int main()
 {
     // generate points
-    int points_count{ 400 };
+    int points_count{ 10 };
     std::vector<ch::v2> points{ generate_points(points_count) };
     assert(points.size() == points_count); // sanity check
 
@@ -289,6 +383,10 @@ int main()
 #else
 int main()
 {
-    test_dc_akl_toussaint();
+    //test_akl_toussaint_against_dc();
+    //test_naive_akl_toussaint_against_naive();
+    //test_dc_akl_toussaint_against_dc();
+
+    benchmark();
 }
 #endif

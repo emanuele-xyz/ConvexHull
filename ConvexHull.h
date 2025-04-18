@@ -54,4 +54,6 @@ namespace ch
     std::vector<v2> naive(const std::vector<v2>& points);
     std::vector<v2> divide_and_conquer(const std::vector<v2>& points);
     std::vector<v2> akl_toussaint(const std::vector<v2>& points);
+    std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points);
+    std::vector<v2> divide_and_conquer_akl_toussaint(const std::vector<v2>& points);
 }
