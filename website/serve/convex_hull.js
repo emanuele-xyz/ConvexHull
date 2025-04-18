@@ -186,10 +186,10 @@ class Naive {
 }
 
 class DCStackFrame {
-  constructor(points) {
-    // 5 states: divide, convex-hull-left, convex-hull-right, merge, done
+  constructor(points, state = "start") {
+    // 6 states: start, divide, convex-hull-left, convex-hull-right, merge, done
     if (points.length > 1) {
-      this.state = "divide";
+      this.state = state;
       this.hull = [];
     } else {
       this.state = "done";
@@ -241,6 +241,10 @@ class DivideAndConquer {
   step() {
     const frame = this.getCurrentFrame();
     switch (frame.state) {
+      case "start": {
+        frame.state = "divide";
+        break;
+      }
       case "divide": {
         if (frame.points.length <= 1) {
           frame.state = "done";
@@ -248,7 +252,7 @@ class DivideAndConquer {
         } else {
           frame.state = "convex-hull-left";
           const slice = frame.points.slice(0, frame.half);
-          this.stack.push(new DCStackFrame(slice));
+          this.stack.push(new DCStackFrame(slice, "divide"));
           this.stackIndex++;
         }
         break;
@@ -259,7 +263,7 @@ class DivideAndConquer {
         this.stack.pop();
         frame.state = "convex-hull-right";
         const slice = frame.points.slice(frame.half, frame.points.length);
-        this.stack.push(new DCStackFrame(slice));
+        this.stack.push(new DCStackFrame(slice, "divide"));
         this.stackIndex++;
         break;
       }

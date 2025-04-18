@@ -1,3 +1,0 @@
----
-pagetitle: Risultati dei benchmark
----
