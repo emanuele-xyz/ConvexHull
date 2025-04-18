@@ -197,7 +197,7 @@ class DCStackFrame {
     }
 
     this.points = [...points];
-    this.points.sort((a, b) => a.x <= b.x);
+    this.points.sort((a, b) => a.x - b.x);
 
     this.half = Math.trunc(this.points.length / 2);
 
