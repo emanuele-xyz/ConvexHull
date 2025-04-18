@@ -333,6 +333,88 @@ class DivideAndConquer {
   }
 }
 
+class AklToussaint {
+  constructor(points) {
+    // 5 states: start, kill-zone, survivors, convex-path, done
+    this.state = "start";
+    this.points = points;
+    this.killZone = [];
+  }
+
+  buildKillZone() {
+    let xmin = this.points[0];
+    let xmax = this.points[0];
+    for (const p of this.points) {
+      if (p.x < xmin.x) xmin = p;
+      if (p.x > xmax.x) xmax = p;
+    }
+
+    let ymin = this.points[0];
+    let ymax = this.points[0];
+    for (const p of this.points) {
+      if (p.y < ymin.y) ymin = p;
+      if (p.y > ymax.y) ymax = p;
+    }
+
+    const quadrilateral = [xmin, ymax, xmax, ymin];
+
+    for (const p of quadrilateral) {
+      if (!this.killZone.some((kp) => kp.x === p.x && kp.y === p.y)) {
+        this.killZone.push(p);
+      }
+    }
+  }
+
+  fallsWithinKillZone(p) {
+    let fallsWithin = true;
+
+    for (let i = 0; i < this.killZone.length && fallsWithin; i++) {
+      const from = this.killZone[i];
+      const to = this.killZone[(i + 1) % this.killZone.length];
+
+      const from_to = sub(to, from);
+      const n = normal(from_to);
+      const from_p = sub(p, from);
+      fallsWithin = dot(n, from_p) < 0;
+    }
+
+    return fallsWithin;
+  }
+
+  fallWithinRegion(p, from, to) {
+    const from_to = sub(to, from);
+    const normal = normal(from_to);
+    const from_p = sub(p, from);
+    return dot(normal, from_p) > 0;
+  }
+
+  step() {
+    switch (this.state) {
+      case "start": {
+        this.buildKillZone();
+        this.state = "kill-zone";
+        break;
+      }
+      case "kill-zone": {
+        break;
+      }
+      case "survivors": {
+        break;
+      }
+      case "convex-path": {
+        break;
+      }
+      case "done": {
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+  }
+}
+
 // algoCtx must have the following methods
 // step() // execute one step of the algorithm
 // draw() // draws the current state of the algorithm
