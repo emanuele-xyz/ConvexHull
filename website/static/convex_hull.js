@@ -135,8 +135,8 @@ class Naive {
           cur = to;
         } while (cur !== null && !(cur.x === start.x && cur.y === start.y));
 
-        console.log(this.hull);
-        console.log(this.edges);
+        console.log(this.hull); // TODO: to be removed?
+        console.log(this.edges); // TODO: to be removed?
 
         this.state = "done";
         break;
@@ -339,6 +339,8 @@ class AklToussaint {
     this.state = "start";
     this.points = points;
     this.killZone = [];
+    this.survivors = [];
+    this.hull = [];
   }
 
   buildKillZone() {
@@ -361,6 +363,14 @@ class AklToussaint {
     for (const p of quadrilateral) {
       if (!this.killZone.some((kp) => kp.x === p.x && kp.y === p.y)) {
         this.killZone.push(p);
+      }
+    }
+  }
+
+  applyHeuristic() {
+    for (const p of this.points) {
+      if (!this.fallsWithinKillZone(p, this.killZone)) {
+        this.survivors.push(p);
       }
     }
   }
@@ -396,12 +406,19 @@ class AklToussaint {
         break;
       }
       case "kill-zone": {
+        this.applyHeuristic();
+        this.state = "survivors";
         break;
       }
       case "survivors": {
+        const naive = new Naive(this.survivors);
+        naive.continue();
+        this.hull = naive.hull;
+        this.state = "convex-path";
         break;
       }
       case "convex-path": {
+        this.state = "done";
         break;
       }
       case "done": {
@@ -412,6 +429,44 @@ class AklToussaint {
         break;
       }
     }
+  }
+
+  continue() {
+    while (this.state !== "done") {
+      this.step();
+    }
+  }
+
+  draw() {
+    clearCanvas();
+
+    if (this.state === "kill-zone") {
+      drawPoints(this.points);
+      drawPolygon(this.killZone, "steelblue");
+    } else if (this.state === "survivors") {
+      drawPoints(this.survivors);
+      drawPolygon(this.killZone, "steelblue");
+    } else if (this.state === "convex-path") {
+      drawPoints(this.survivors);
+      drawPolygon(this.killZone, "steelblue");
+      drawPolygon(this.hull, "red");
+    } else if (this.state === "done") {
+      drawPoints(this.points);
+      drawPolygon(this.hull, "red");
+    }
+
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.fillText(this.state, 10, 20);
+  }
+
+  reset(points) {
+    // 5 states: start, kill-zone, survivors, convex-path, done
+    this.state = "start";
+    this.points = points;
+    this.killZone = [];
+    this.survivors = [];
+    this.hull = [];
   }
 }
 
@@ -537,6 +592,10 @@ algoSelect.addEventListener("change", function () {
     }
     case "divide-and-conquer": {
       algoCtx = new DivideAndConquer(globalPoints);
+      break;
+    }
+    case "akl-toussaint": {
+      algoCtx = new AklToussaint(globalPoints);
       break;
     }
     default: {
