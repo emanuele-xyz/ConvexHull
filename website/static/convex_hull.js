@@ -31,6 +31,10 @@ function normal(v) {
   return { x: -v.y, y: v.x };
 }
 
+function determinant(u, v) {
+  return u.x * v.y - u.y * v.x;
+}
+
 //
 // Convex hull algorithms
 //
@@ -391,13 +395,6 @@ class AklToussaint {
     return fallsWithin;
   }
 
-  fallWithinRegion(p, from, to) {
-    const from_to = sub(to, from);
-    const normal = normal(from_to);
-    const from_p = sub(p, from);
-    return dot(normal, from_p) > 0;
-  }
-
   step() {
     switch (this.state) {
       case "start": {
@@ -470,6 +467,204 @@ class AklToussaint {
   }
 }
 
+class AklToussaintConvexPath {
+  constructor(points) {
+    // 6 states: start, kill-zone, kill-zone-edge, region, convex-path, done
+    this.state = "start";
+    this.points = points;
+    this.killZone = [];
+    this.from = {};
+    this.to = {};
+    this.region = [];
+    this.regionStart = [];
+    this.wasThereAnyDeletion = false;
+    this.k = 0;
+  }
+
+  buildKillZone() {
+    let xmin = this.points[0];
+    let xmax = this.points[0];
+    for (const p of this.points) {
+      if (p.x < xmin.x) xmin = p;
+      if (p.x > xmax.x) xmax = p;
+    }
+
+    let ymin = this.points[0];
+    let ymax = this.points[0];
+    for (const p of this.points) {
+      if (p.y < ymin.y) ymin = p;
+      if (p.y > ymax.y) ymax = p;
+    }
+
+    const quadrilateral = [xmin, ymax, xmax, ymin];
+
+    for (const p of quadrilateral) {
+      if (!this.killZone.some((kp) => kp.x === p.x && kp.y === p.y)) {
+        this.killZone.push(p);
+      }
+    }
+  }
+
+  buildRegion() {
+    this.region.push(this.from);
+    this.region.push(this.to);
+    for (const p of this.points) {
+      if (this.fallsWithinRegion(p, this.from, this.to)) {
+        this.region.push(p);
+      }
+    }
+
+    const from_to = sub(this.to, this.from);
+    if (from_to.x > 0) {
+      // we either are in region 1 or 2
+      this.region.sort((a, b) => a.x - b.x);
+    }
+    else if (from_to.x < 0) {
+      // we either are in region 3 or 4
+      this.region.sort((a, b) => b.x - a.x);
+    }
+
+    this.regionStart = [...this.region];
+  }
+
+  fallsWithinRegion(p, from, to) {
+    const from_to = sub(to, from);
+    const n = normal(from_to);
+    const from_p = sub(p, from);
+    return dot(n, from_p) > 0;
+  }
+
+  step() {
+    switch (this.state) {
+      case "start": {
+        this.buildKillZone();
+        this.state = "kill-zone";
+        break;
+      }
+      case "kill-zone": {
+        this.from = this.killZone[0];
+        this.to = this.killZone[1];
+        this.state = "kill-zone-edge";
+        break;
+      }
+      case "kill-zone-edge": {
+        this.buildRegion();
+        this.state = "region";
+        break;
+      }
+      case "region": {
+        this.state = "convex-path";
+        break;
+      }
+      case "convex-path": {
+        if (0 <= this.k && this.k < this.region.length - 2) {
+          const p = this.region[this.k];
+          const pn = this.region[this.k + 1];
+          const pnn = this.region[this.k + 2];
+          const s = determinant(sub(pnn, pn), sub(pn, p));
+          if (s >= 0) {
+            this.k++;
+          } else {
+            this.region.splice(this.k + 1, 1);
+            this.wasThereAnyDeletion = true;
+            this.k--;
+          }
+        } else {
+          if (!this.wasThereAnyDeletion) {
+            this.state = "done";
+          } else {
+            this.wasThereAnyDeletion = false;
+            this.k = 0;
+            this.state = "convex-path";
+          }
+        }
+        break;
+      }
+      case "done": {
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+  }
+
+  continue() {
+    while (this.state !== "done") {
+      this.step();
+    }
+  }
+
+  draw() {
+    clearCanvas();
+
+    switch (this.state) {
+      case "kill-zone": {
+        drawPoints(this.points);
+        drawPolygon(this.killZone, "steelblue");
+        break;
+      }
+      case "kill-zone-edge": {
+        drawPoints(this.points);
+        drawLine(this.from, this.to, "steelblue");
+        break;
+      }
+      case "region": {
+        drawPoints(this.region);
+        drawLine(this.from, this.to, "steelblue");
+        break;
+      }
+      case "convex-path": {
+        drawPoints(this.region);
+        drawSegment(this.from, this.to, "steelblue");
+        drawPolyLine(this.region, "red");
+        if (0 <= (this.k + 2) && (this.k + 2) <= this.region.length - 1) {
+          drawPoint(this.region[this.k + 2], "green");
+        }
+        if (0 <= (this.k + 1) && (this.k + 1) <= this.region.length - 1) {
+          drawPoint(this.region[this.k + 1], "green");
+        }
+        if (0 <= this.k && this.k <= this.region.length - 1) {
+          drawPoint(this.region[this.k], "lightgreen");
+        }
+        break;
+      }
+      case "done": {
+        drawPoints(this.regionStart);
+        drawSegment(this.from, this.to, "steelblue");
+        drawPolyLine(this.region, "red");
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    if (this.state === "convex-path") {
+      ctx.fillText(this.state + ": (" + this.k + ")", 10, 20);
+    } else {
+      ctx.fillText(this.state, 10, 20);
+    }
+  }
+
+  reset(points) {
+    // 6 states: start, kill-zone, kill-zone-edge, region, convex-path, done
+    this.state = "start";
+    this.points = points;
+    this.killZone = [];
+    this.from = {};
+    this.to = {};
+    this.region = [];
+    this.regionStart = [];
+    this.wasThereAnyDeletion = false;
+    this.k = 0;
+  }
+}
+
 // algoCtx must have the following methods
 // step() // execute one step of the algorithm
 // draw() // draws the current state of the algorithm
@@ -482,8 +677,8 @@ function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function drawPoint(point) {
-  ctx.fillStyle = "black";
+function drawPoint(point, color = "black") {
+  ctx.fillStyle = color;
   ctx.beginPath();
   ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
   ctx.fill();
@@ -508,12 +703,17 @@ function drawSegment(p, q, color) {
   ctx.stroke();
 }
 
-function drawPolygon(points, color) {
-  for (let i = 0; i < points.length; i++) {
+function drawPolyLine(points, color) {
+  for (let i = 0; i < points.length - 1; i++) {
     const from_idx = i;
-    const to_idx = (i + 1) % points.length;
+    const to_idx = (i + 1);
     drawSegment(points[from_idx], points[to_idx], color);
   }
+}
+
+function drawPolygon(points, color) {
+  drawPolyLine(points, color);
+  drawSegment(points[points.length - 1], points[0], color);
 }
 
 function drawLine(p, q, color) {
@@ -596,6 +796,10 @@ algoSelect.addEventListener("change", function () {
     }
     case "akl-toussaint": {
       algoCtx = new AklToussaint(globalPoints);
+      break;
+    }
+    case "akl-toussaint-convex-path": {
+      algoCtx = new AklToussaintConvexPath(globalPoints);
       break;
     }
     default: {
