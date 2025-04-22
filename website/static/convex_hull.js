@@ -337,6 +337,168 @@ class DivideAndConquer {
   }
 }
 
+class DivideAndConquerUpperTangent {
+  constructor(points) {
+    // TODO: n states: start, ..., done
+    this.state = "start";
+    this.points = [...points];
+    this.half = -1;
+    this.middleX = 0;
+    this.leftHull = [];
+    this.rightHull = [];
+    this.leftIdx = -1;
+    this.rightIdx = -1;
+  }
+
+  getIntersectY(middleX, p, q) {
+    const m = (p.y - q.y) / (p.x - q.x);
+    const b = p.y - m * p.x;
+    return m * middleX + b;
+  }
+
+  step() {
+    switch (this.state) {
+      case "start": {
+        this.points.sort((a, b) => a.x - b.x);
+        this.half = Math.trunc(this.points.length / 2);
+        this.middleX = (this.points[this.half - 1].x + this.points[this.half].x) / 2;
+        this.state = "divide";
+        break;
+      }
+      case "divide": {
+        // build left hull
+        {
+          const naive = new Naive(this.points.slice(0, this.half));
+          naive.continue();
+          this.leftHull = naive.hull;
+        }
+        // build right hull
+        {
+          const naive = new Naive(this.points.slice(this.half, this.points.length));
+          naive.continue();
+          this.rightHull = naive.hull;
+        }
+        console.assert(false); // TODO: you must make the two hulls clockwise
+        this.state = "hulls";
+        break;
+      }
+      case "hulls": {
+        // find left hull rightmost point index
+        this.leftIdx = 0;
+        for (let i = 1; i < this.leftHull.length; i++) {
+          if (this.leftHull[i].x > this.leftHull[this.leftIdx].x) {
+            this.leftIdx = i;
+          }
+        }
+        // find right hull leftmost point index
+        this.rightIdx = 0;
+        for (let i = 1; i < this.rightHull.length; i++) {
+          if (this.rightHull[i].x < this.rightHull[this.rightIdx].x) {
+            this.rightIdx = i;
+          }
+        }
+        this.state = "rightmost-and-leftmost"
+        break;
+      }
+      case "rightmost-and-leftmost":
+      case "upper-tangent": {
+        // TODO: make this correct, when the two hulls are clockwise
+        const leftHullNextIdx = (((this.leftIdx - 1) % this.leftHull.length) + this.leftHull.length) % this.leftHull.length;
+        const rightHullNextIdx = (((this.rightIdx - 1) % this.rightHull.length) + this.rightHull.length) % this.rightHull.length;
+        // if (
+        //   this.getIntersectY(this.middleX, this.leftHull[leftHullNextIdx], this.rightHull[this.rightIdx]) >
+        //   this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[this.rightIdx])) {
+        //   this.leftIdx = leftHullNextIdx;
+        //   this.state = "upper-tangent";
+        // } else if (
+        //   this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[rightHullNextIdx]) >
+        //   this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[this.rightIdx])) {
+        //   this.rightIdx = rightHullNextIdx;
+        //   this.state = "upper-tangent";
+        // } else {
+        //   this.state = "done";
+        // }
+        this.leftIdx = leftHullNextIdx;
+        this.rightIdx = rightHullNextIdx;
+        this.state = "upper-tangent";
+        break;
+      }
+      case "done": {
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+  }
+
+  continue() {
+    while (this.state !== "done") {
+      this.step();
+    }
+  }
+
+  draw() {
+    clearCanvas();
+
+    switch (this.state) {
+      case "divide": {
+        drawPoints(this.points);
+        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        break;
+      }
+      case "hulls": {
+        drawPoints(this.points);
+        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawPolygon(this.leftHull, "red");
+        drawPolygon(this.rightHull, "red");
+        break;
+      }
+      case "rightmost-and-leftmost": {
+        drawPoints(this.points);
+        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawPolygon(this.leftHull, "red");
+        drawPolygon(this.rightHull, "red");
+        drawPoint(this.leftHull[this.leftIdx], "lightgreen");
+        drawPoint(this.rightHull[this.rightIdx], "lightgreen");
+      } break;
+      case "upper-tangent": {
+        drawPoints(this.points);
+        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawPolygon(this.leftHull, "red");
+        drawPolygon(this.rightHull, "red");
+        drawPoint(this.leftHull[this.leftIdx], "lightgreen");
+        drawPoint(this.rightHull[this.rightIdx], "lightgreen");
+        break;
+      }
+      case "done": {
+        drawPoints(this.points);
+        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawPolygon(this.leftHull, "red");
+        drawPolygon(this.rightHull, "red");
+        drawPoint(this.leftHull[this.leftIdx], "lightgreen");
+        drawPoint(this.rightHull[this.rightIdx], "lightgreen");
+        drawSegment(this.leftHull[this.leftIdxdx], this.rightHull[this.rightIdx], "green");
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.fillText(this.state, 10, 20);
+  }
+
+  reset(points) {
+    // TODO: n states: start, ..., done
+    console.error("TODO: DivideAndConquerUpperTangent reset has yet to be implemented");
+  }
+}
+
 class AklToussaint {
   constructor(points) {
     // 5 states: start, kill-zone, survivors, convex-path, done
@@ -792,6 +954,10 @@ algoSelect.addEventListener("change", function () {
     }
     case "divide-and-conquer": {
       algoCtx = new DivideAndConquer(globalPoints);
+      break;
+    }
+    case "divide-and-conquer-upper-tangent": {
+      algoCtx = new DivideAndConquerUpperTangent(globalPoints);
       break;
     }
     case "akl-toussaint": {
