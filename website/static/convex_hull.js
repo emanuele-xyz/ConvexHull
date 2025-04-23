@@ -1,6 +1,5 @@
 "use strict";
 
-// TODO: remove reset method from algorithms. Just reinstantiate the class
 // TODO: divide and conquer upper tangent needs at least 6 points
 // TODO: draw segments and then draw points on top
 
@@ -197,15 +196,6 @@ class Naive {
       ctx.fillText("Done", 10, 20);
     }
   }
-
-  reset(points) {
-    this.state = "checkSegment";
-    this.points = points;
-    this.edges = [];
-    this.hull = [];
-    this.i = 0;
-    this.j = this.i + 1;
-  }
 }
 
 class DCStackFrame {
@@ -346,13 +336,6 @@ class DivideAndConquer {
     ctx.fillStyle = "black";
     ctx.font = "16px Arial";
     ctx.fillText(frame.state, 10, 20);
-  }
-
-  reset(points) {
-    this.points = points;
-    this.stackIndex = 0;
-    this.stack = [];
-    this.stack.push(new DCStackFrame(this.points));
   }
 }
 
@@ -547,24 +530,6 @@ class DivideAndConquerUpperTangent {
       ctx.fillText(this.state, 10, 20);
     }
   }
-
-  reset(points) {
-    // 7 states: start, divide, hulls, rightmost-and-leftmost, advance, intersect, done
-    this.state = "start";
-    this.points = [...points];
-    this.half = -1;
-    this.middleX = 0;
-    this.leftHull = [];
-    this.rightHull = [];
-    this.leftIdx = -1;
-    this.rightIdx = -1;
-    this.leftNextIdx = -1;
-    this.rightNextIdx = -1;
-    this.intersectY = 0;
-    this.nextLeftIntersectY = 0;
-    this.nextRightIntersectY = 0;
-    this.advanceChoice = "";
-  }
 }
 
 class AklToussaint {
@@ -685,15 +650,6 @@ class AklToussaint {
     ctx.fillStyle = "black";
     ctx.font = "16px Arial";
     ctx.fillText(this.state, 10, 20);
-  }
-
-  reset(points) {
-    // 5 states: start, kill-zone, survivors, convex-path, done
-    this.state = "start";
-    this.points = points;
-    this.killZone = [];
-    this.survivors = [];
-    this.hull = [];
   }
 }
 
@@ -880,19 +836,6 @@ class AklToussaintConvexPath {
       ctx.fillText(this.state, 10, 20);
     }
   }
-
-  reset(points) {
-    // 6 states: start, kill-zone, kill-zone-edge, region, convex-path, done
-    this.state = "start";
-    this.points = points;
-    this.killZone = [];
-    this.from = {};
-    this.to = {};
-    this.region = [];
-    this.regionStart = [];
-    this.wasThereAnyDeletion = false;
-    this.k = 0;
-  }
 }
 
 // algoCtx must have the following methods
@@ -1009,7 +952,7 @@ canvas.addEventListener("click", function (e) {
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
   globalPoints.push({ x, y });
-  algoCtx.reset(globalPoints);
+  algoCtx = new algoCtx.constructor(globalPoints);
   redraw();
 });
 
@@ -1070,7 +1013,7 @@ continueBtn.addEventListener("click", function () {
 // "Reset" button: clear canvas and reset algorithm state.
 resetBtn.addEventListener("click", function () {
   globalPoints = [];
-  algoCtx.reset(globalPoints);
+  algoCtx = new algoCtx.constructor(globalPoints);
   clearCanvas();
 });
 
