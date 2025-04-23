@@ -1,6 +1,5 @@
 "use strict";
 
-// TODO: divide and conquer upper tangent needs at least 6 points
 // TODO: draw segments and then draw points on top
 
 //
@@ -59,6 +58,7 @@ function isHullClockwise(hull) {
 class Naive {
   constructor(points) {
     // 3 states: checkSegment, nextSegment, hull, done
+    this.minRequiredPoints = 3;
     this.state = "checkSegment";
     this.points = points;
     this.edges = [];
@@ -218,6 +218,7 @@ class DCStackFrame {
 
 class DivideAndConquer {
   constructor(points) {
+    this.minRequiredPoints = 3;
     this.points = points;
     this.stackIndex = 0;
     this.stack = [];
@@ -339,6 +340,7 @@ class DivideAndConquer {
 class DivideAndConquerUpperTangent {
   constructor(points) {
     // 7 states: start, divide, hulls, rightmost-and-leftmost, advance, intersect, done
+    this.minRequiredPoints = 6;
     this.state = "start";
     this.points = [...points];
     this.half = -1;
@@ -532,6 +534,7 @@ class DivideAndConquerUpperTangent {
 class AklToussaint {
   constructor(points) {
     // 5 states: start, kill-zone, survivors, convex-path, done
+    this.minRequiredPoints = 3;
     this.state = "start";
     this.points = points;
     this.killZone = [];
@@ -653,6 +656,7 @@ class AklToussaint {
 class AklToussaintConvexPath {
   constructor(points) {
     // 6 states: start, kill-zone, kill-zone-edge, region, convex-path, done
+    this.minRequiredPoints = 3;
     this.state = "start";
     this.points = points;
     this.killZone = [];
@@ -986,9 +990,8 @@ algoSelect.addEventListener("change", function () {
 
 // "Step" button: execute a single step of the algorithm.
 stepBtn.addEventListener("click", function () {
-  // TODO: the required number of points depends on the sort of operation we are doing
-  if (globalPoints.length < 3) {
-    alert("At least 3 points are needed to compute a convex hull.");
+  if (globalPoints.length < algoCtx.minRequiredPoints) {
+    alert("At least " + algoCtx.minRequiredPoints + " points are needed.");
     return;
   }
 
@@ -998,8 +1001,8 @@ stepBtn.addEventListener("click", function () {
 
 // "Continue" button: draw the complete hull.
 continueBtn.addEventListener("click", function () {
-  if (globalPoints.length < 3) {
-    alert("At least 3 points are needed to compute a convex hull.");
+  if (globalPoints.length < algoCtx.minRequiredPoints) {
+    alert("At least " + algoCtx.minRequiredPoints + " points are needed.");
     return;
   }
 
