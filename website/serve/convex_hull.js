@@ -509,10 +509,8 @@ class DivideAndConquerUpperTangent {
         drawPoint(this.leftHull[this.leftNextIdx], "green");
         drawPoint(this.rightHull[this.rightNextIdx], "green");
         drawPoint({ x: this.middleX, y: this.intersectY }, "red");
-        drawPoint({ x: this.middleX, y: this.nextLeftIntersectY }, "red");
-        drawPoint({ x: this.middleX, y: this.nextRightIntersectY }, "red");
-        const bestIntersectY = Math.min(this.intersectY, this.nextLeftIntersectY, this.nextRightIntersectY);
-        drawPoint({ x: this.middleX, y: bestIntersectY }, "yellow");
+        drawPoint({ x: this.middleX, y: this.nextLeftIntersectY }, "yellow");
+        drawPoint({ x: this.middleX, y: this.nextRightIntersectY }, "blue");
         break;
       }
       case "advance": {
@@ -528,10 +526,9 @@ class DivideAndConquerUpperTangent {
       }
       case "done": {
         drawPoints(this.points);
-        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
-        drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightIdx], "green");
+        drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightIdx], "lightgreen");
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
         break;
