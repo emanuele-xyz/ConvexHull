@@ -157,9 +157,6 @@ class Naive {
           cur = to;
         } while (cur !== null && !(cur.x === start.x && cur.y === start.y));
 
-        console.log(this.hull); // TODO: to be removed?
-        console.log(this.edges); // TODO: to be removed?
-
         this.state = "done";
         break;
       }
