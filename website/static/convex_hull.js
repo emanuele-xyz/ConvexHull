@@ -1,7 +1,5 @@
 "use strict";
 
-// TODO: draw segments and then draw points on top
-
 //
 // Global variables
 //
@@ -57,9 +55,9 @@ function isHullClockwise(hull) {
 //
 class Naive {
   constructor(points) {
-    // 3 states: checkSegment, nextSegment, hull, done
+    // 3 states: check-segment, next-segment, hull, done
     this.minRequiredPoints = 3;
-    this.state = "checkSegment";
+    this.state = "check-segment";
     this.points = points;
     this.edges = [];
     this.hull = [];
@@ -69,7 +67,7 @@ class Naive {
 
   step() {
     switch (this.state) {
-      case "checkSegment": {
+      case "check-segment": {
         const u = v2(this.points[this.i].x, this.points[this.i].y);
         const v = v2(this.points[this.j].x, this.points[this.j].y);
         const u_to_v = sub(v, u);
@@ -107,11 +105,11 @@ class Naive {
           });
         }
 
-        this.state = "nextSegment";
+        this.state = "next-segment";
 
         break;
       }
-      case "nextSegment": {
+      case "next-segment": {
         this.j++;
 
         if (this.j >= this.points.length) {
@@ -122,7 +120,7 @@ class Naive {
         if (this.i >= this.points.length - 1) {
           this.state = "hull";
         } else {
-          this.state = "checkSegment";
+          this.state = "check-segment";
         }
 
         break;
@@ -179,19 +177,20 @@ class Naive {
 
   draw() {
     clearCanvas();
-    drawPoints(this.points);
 
     for (const edge of this.edges) {
       drawSegment(edge.from, edge.to, "red");
     }
 
-    if (this.state === "nextSegment") {
+    if (this.state === "next-segment") {
       drawLine(this.points[this.i], this.points[this.j], "steelblue");
-    } else if (this.state === "done") {
-      ctx.fillStyle = "black";
-      ctx.font = "16px Arial";
-      ctx.fillText("Done", 10, 20);
     }
+
+    drawPoints(this.points);
+
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.fillText(this.state, 10, 20);
   }
 }
 
@@ -309,12 +308,11 @@ class DivideAndConquer {
   draw() {
     const frame = this.getCurrentFrame();
     clearCanvas();
-    drawPoints(frame.points);
 
     if (frame.state !== "done" && frame.points.length > 1) {
       // Divide the canvas using a vertical line.
       const x =
-        (frame.points[frame.half - 1].x + frame.points[frame.half].x) / 2;
+      (frame.points[frame.half - 1].x + frame.points[frame.half].x) / 2;
       drawLine({ x: x, y: 0 }, { x: x, y: canvas.height }, "steelblue");
     }
 
@@ -330,6 +328,8 @@ class DivideAndConquer {
         drawPolygon(frame.rightHull, "red");
       }
     }
+
+    drawPoints(frame.points);
 
     ctx.fillStyle = "black";
     ctx.font = "16px Arial";
@@ -459,30 +459,30 @@ class DivideAndConquerUpperTangent {
 
     switch (this.state) {
       case "divide": {
-        drawPoints(this.points);
         drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawPoints(this.points);
         break;
       }
       case "hulls": {
-        drawPoints(this.points);
         drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
+        drawPoints(this.points);
         break;
       }
       case "rightmost-and-leftmost": {
-        drawPoints(this.points);
         drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
+        drawPoints(this.points);
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
       } break;
       case "intersect": {
-        drawPoints(this.points);
         drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
+        drawPoints(this.points);
         drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightIdx], "lightgreen");
         drawSegment(this.leftHull[this.leftNextIdx], this.rightHull[this.rightIdx], "purple");
         drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightNextIdx], "purple");
@@ -496,10 +496,10 @@ class DivideAndConquerUpperTangent {
         break;
       }
       case "advance": {
-        drawPoints(this.points);
         drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
+        drawPoints(this.points);
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
         drawPoint(this.leftHull[this.leftNextIdx], "green");
@@ -507,9 +507,9 @@ class DivideAndConquerUpperTangent {
         break;
       }
       case "done": {
-        drawPoints(this.points);
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
+        drawPoints(this.points);
         drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightIdx], "lightgreen");
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
@@ -633,18 +633,18 @@ class AklToussaint {
     clearCanvas();
 
     if (this.state === "kill-zone") {
-      drawPoints(this.points);
       drawPolygon(this.killZone, "steelblue");
+      drawPoints(this.points);
     } else if (this.state === "survivors") {
-      drawPoints(this.survivors);
       drawPolygon(this.killZone, "steelblue");
+      drawPoints(this.survivors);
     } else if (this.state === "convex-path") {
-      drawPoints(this.survivors);
       drawPolygon(this.killZone, "steelblue");
       drawPolygon(this.hull, "red");
+      drawPoints(this.survivors);
     } else if (this.state === "done") {
-      drawPoints(this.points);
       drawPolygon(this.hull, "red");
+      drawPoints(this.points);
     }
 
     ctx.fillStyle = "black";
@@ -788,24 +788,24 @@ class AklToussaintConvexPath {
 
     switch (this.state) {
       case "kill-zone": {
-        drawPoints(this.points);
         drawPolygon(this.killZone, "steelblue");
+        drawPoints(this.points);
         break;
       }
       case "kill-zone-edge": {
-        drawPoints(this.points);
         drawLine(this.from, this.to, "steelblue");
+        drawPoints(this.points);
         break;
       }
       case "region": {
-        drawPoints(this.region);
         drawLine(this.from, this.to, "steelblue");
+        drawPoints(this.region);
         break;
       }
       case "convex-path": {
-        drawPoints(this.region);
         drawSegment(this.from, this.to, "steelblue");
         drawPolyLine(this.region, "red");
+        drawPoints(this.region);
         if (0 <= (this.k + 2) && (this.k + 2) <= this.region.length - 1) {
           drawPoint(this.region[this.k + 2], "green");
         }
@@ -818,9 +818,9 @@ class AklToussaintConvexPath {
         break;
       }
       case "done": {
-        drawPoints(this.regionStart);
         drawSegment(this.from, this.to, "steelblue");
         drawPolyLine(this.region, "red");
+        drawPoints(this.regionStart);
         break;
       }
       default: {
