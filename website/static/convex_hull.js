@@ -1,5 +1,9 @@
 "use strict";
 
+// TODO: remove reset method from algorithms. Just reinstantiate the class
+// TODO: divide and conquer upper tangent needs at least 6 points
+// TODO: draw segments and then draw points on top
+
 //
 // Global variables
 //
@@ -33,6 +37,21 @@ function normal(v) {
 
 function determinant(u, v) {
   return u.x * v.y - u.y * v.x;
+}
+
+//
+// Convex hull utility functions
+//
+function isHullClockwise(hull) {
+  if (hull.length < 3) {
+    console.assert(false);
+  }
+  const a = hull[0];
+  const b = hull[1];
+  const c = hull[2];
+  const aToB = sub(b, a);
+  const bToC = sub(c, b);
+  return determinant(aToB, bToC) <= 0;
 }
 
 //
@@ -339,7 +358,7 @@ class DivideAndConquer {
 
 class DivideAndConquerUpperTangent {
   constructor(points) {
-    // TODO: n states: start, ..., done
+    // 7 states: start, divide, hulls, rightmost-and-leftmost, advance, intersect, done
     this.state = "start";
     this.points = [...points];
     this.half = -1;
@@ -348,6 +367,12 @@ class DivideAndConquerUpperTangent {
     this.rightHull = [];
     this.leftIdx = -1;
     this.rightIdx = -1;
+    this.leftNextIdx = -1;
+    this.rightNextIdx = -1;
+    this.intersectY = 0;
+    this.nextLeftIntersectY = 0;
+    this.nextRightIntersectY = 0;
+    this.advanceChoice = "";
   }
 
   getIntersectY(middleX, p, q) {
@@ -371,14 +396,19 @@ class DivideAndConquerUpperTangent {
           const naive = new Naive(this.points.slice(0, this.half));
           naive.continue();
           this.leftHull = naive.hull;
+          if (!isHullClockwise(this.leftHull)) {
+            this.leftHull.reverse();
+          }
         }
         // build right hull
         {
           const naive = new Naive(this.points.slice(this.half, this.points.length));
           naive.continue();
           this.rightHull = naive.hull;
+          if (!isHullClockwise(this.rightHull)) {
+            this.rightHull.reverse();
+          }
         }
-        console.assert(false); // TODO: you must make the two hulls clockwise
         this.state = "hulls";
         break;
       }
@@ -401,26 +431,29 @@ class DivideAndConquerUpperTangent {
         break;
       }
       case "rightmost-and-leftmost":
-      case "upper-tangent": {
-        // TODO: make this correct, when the two hulls are clockwise
-        const leftHullNextIdx = (((this.leftIdx - 1) % this.leftHull.length) + this.leftHull.length) % this.leftHull.length;
-        const rightHullNextIdx = (((this.rightIdx - 1) % this.rightHull.length) + this.rightHull.length) % this.rightHull.length;
-        // if (
-        //   this.getIntersectY(this.middleX, this.leftHull[leftHullNextIdx], this.rightHull[this.rightIdx]) >
-        //   this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[this.rightIdx])) {
-        //   this.leftIdx = leftHullNextIdx;
-        //   this.state = "upper-tangent";
-        // } else if (
-        //   this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[rightHullNextIdx]) >
-        //   this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[this.rightIdx])) {
-        //   this.rightIdx = rightHullNextIdx;
-        //   this.state = "upper-tangent";
-        // } else {
-        //   this.state = "done";
-        // }
-        this.leftIdx = leftHullNextIdx;
-        this.rightIdx = rightHullNextIdx;
-        this.state = "upper-tangent";
+      case "advance": {
+        this.leftNextIdx = (this.leftIdx + 1) % this.leftHull.length;
+        this.rightNextIdx = (((this.rightIdx - 1) % this.rightHull.length) + this.rightHull.length) % this.rightHull.length;
+        this.intersectY = this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[this.rightIdx]);
+        this.nextLeftIntersectY = this.getIntersectY(this.middleX, this.leftHull[this.leftNextIdx], this.rightHull[this.rightIdx]);
+        this.nextRightIntersectY = this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[this.rightNextIdx]);
+        this.state = "intersect";
+        break;
+      }
+      case "intersect": {
+        if (this.nextLeftIntersectY < this.intersectY) {
+          this.leftIdx = this.leftNextIdx;
+          this.leftNextIdx = (this.leftIdx + 1) % this.leftHull.length;
+          this.advanceChoice = "left";
+          this.state = "advance";
+        } else if (this.nextRightIntersectY < this.intersectY) {
+          this.rightIdx = this.rightNextIdx;
+          this.rightNextIdx = (((this.rightIdx - 1) % this.rightHull.length) + this.rightHull.length) % this.rightHull.length;
+          this.advanceChoice = "right";
+          this.state = "advance";
+        } else {
+          this.state = "done";
+        }
         break;
       }
       case "done": {
@@ -463,13 +496,34 @@ class DivideAndConquerUpperTangent {
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
       } break;
-      case "upper-tangent": {
+      case "intersect": {
+        drawPoints(this.points);
+        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawPolygon(this.leftHull, "red");
+        drawPolygon(this.rightHull, "red");
+        drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightIdx], "lightgreen");
+        drawSegment(this.leftHull[this.leftNextIdx], this.rightHull[this.rightIdx], "purple");
+        drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightNextIdx], "purple");
+        drawPoint(this.leftHull[this.leftIdx], "lightgreen");
+        drawPoint(this.rightHull[this.rightIdx], "lightgreen");
+        drawPoint(this.leftHull[this.leftNextIdx], "green");
+        drawPoint(this.rightHull[this.rightNextIdx], "green");
+        drawPoint({ x: this.middleX, y: this.intersectY }, "red");
+        drawPoint({ x: this.middleX, y: this.nextLeftIntersectY }, "red");
+        drawPoint({ x: this.middleX, y: this.nextRightIntersectY }, "red");
+        const bestIntersectY = Math.min(this.intersectY, this.nextLeftIntersectY, this.nextRightIntersectY);
+        drawPoint({ x: this.middleX, y: bestIntersectY }, "yellow");
+        break;
+      }
+      case "advance": {
         drawPoints(this.points);
         drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
+        drawPoint(this.leftHull[this.leftNextIdx], "green");
+        drawPoint(this.rightHull[this.rightNextIdx], "green");
         break;
       }
       case "done": {
@@ -477,9 +531,9 @@ class DivideAndConquerUpperTangent {
         drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
+        drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightIdx], "green");
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
-        drawSegment(this.leftHull[this.leftIdxdx], this.rightHull[this.rightIdx], "green");
         break;
       }
       default: {
@@ -490,12 +544,29 @@ class DivideAndConquerUpperTangent {
 
     ctx.fillStyle = "black";
     ctx.font = "16px Arial";
-    ctx.fillText(this.state, 10, 20);
+    if (this.state === "advance") {
+      ctx.fillText(this.state + " (" + this.advanceChoice + ")", 10, 20);
+    } else {
+      ctx.fillText(this.state, 10, 20);
+    }
   }
 
   reset(points) {
-    // TODO: n states: start, ..., done
-    console.error("TODO: DivideAndConquerUpperTangent reset has yet to be implemented");
+    // 7 states: start, divide, hulls, rightmost-and-leftmost, advance, intersect, done
+    this.state = "start";
+    this.points = [...points];
+    this.half = -1;
+    this.middleX = 0;
+    this.leftHull = [];
+    this.rightHull = [];
+    this.leftIdx = -1;
+    this.rightIdx = -1;
+    this.leftNextIdx = -1;
+    this.rightNextIdx = -1;
+    this.intersectY = 0;
+    this.nextLeftIntersectY = 0;
+    this.nextRightIntersectY = 0;
+    this.advanceChoice = "";
   }
 }
 
@@ -978,6 +1049,7 @@ algoSelect.addEventListener("change", function () {
 
 // "Step" button: execute a single step of the algorithm.
 stepBtn.addEventListener("click", function () {
+  // TODO: the required number of points depends on the sort of operation we are doing
   if (globalPoints.length < 3) {
     alert("At least 3 points are needed to compute a convex hull.");
     return;
