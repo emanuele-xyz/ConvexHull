@@ -92,16 +92,39 @@ static bool validate_hull(const std::vector<ch::v2>& truth, const std::vector<ch
     }
 }
 
-static bool validate_points_subset(const std::vector<ch::v2>& points, const std::vector<ch::v2>& points_sample)
+static bool validate_points_subset(
+    const std::vector<ch::v2>& points, const std::vector<ch::v2>& points_sample, const std::vector<ch::v2>& hull, const std::vector<ch::v2>& approximate_hull
+)
 {
-    bool all_belong{ true };
-    for (int i{}; i < static_cast<int>(points_sample.size()) && all_belong; i++)
+    bool ok{ true };
+
+    // check that all samples are in the original point set
+    if (ok)
     {
-        ch::v2 p{ points_sample[i] };
-        auto it{ std::find(points.begin(), points.end(), p) };
-        all_belong = it != points.end();
+        bool all_belong{ true };
+        for (int i{}; i < static_cast<int>(points_sample.size()) && all_belong; i++)
+        {
+            ch::v2 p{ points_sample[i] };
+            auto it{ std::find(points.begin(), points.end(), p) };
+            all_belong = it != points.end();
+        }
+        ok = ok && all_belong;
     }
-    return all_belong;
+
+    // check that all the points in the approximated hull are in the correct hull
+    if (ok)
+    {
+        bool all_belong{ true };
+        for (int i{}; i < static_cast<int>(approximate_hull.size()) && all_belong; i++)
+        {
+            ch::v2 p{ approximate_hull[i] };
+            auto it{ std::find(hull.begin(), hull.end(), p) };
+            all_belong = it != points.end();
+        }
+        ok = ok && all_belong;
+    }
+
+    return ok;
 }
 
 static void dump_points_and_hull(const std::vector<ch::v2>& points, const std::vector<ch::v2>& hull)
@@ -343,7 +366,27 @@ static void test_sample_points_for_subset()
                 logger.logf("DONE ... {} us\n", us);
             }
 
-            if (validate_points_subset(points, points_sample))
+            logger.log("computing approximate convex hull ... ");
+            std::vector<ch::v2> approximate_hull{};
+            {
+                auto start{ std::chrono::high_resolution_clock::now() };
+                approximate_hull = ch::akl_toussaint(points_sample);
+                auto end{ std::chrono::high_resolution_clock::now() };
+                auto us{ std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() };
+                logger.logf("DONE ... {} us\n", us);
+            }
+
+            logger.log("computing correct convex hull ... ");
+            std::vector<ch::v2> hull{};
+            {
+                auto start{ std::chrono::high_resolution_clock::now() };
+                hull = ch::akl_toussaint(points);
+                auto end{ std::chrono::high_resolution_clock::now() };
+                auto us{ std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() };
+                logger.logf("DONE ... {} us\n", us);
+            }
+
+            if (validate_points_subset(points, points_sample, hull, approximate_hull))
             {
                 logger.log("points sample is OK\n");
             }
