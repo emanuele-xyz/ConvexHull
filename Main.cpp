@@ -22,8 +22,8 @@ static std::vector<ch::v2> generate_points(int points_count)
     assert(points_count >= 3);
 
     std::random_device random_device{};
-    std::mt19937 generator{ random_device() };
-    //std::mt19937 generator{ 1 };
+    //std::mt19937 generator{ random_device() };
+    std::mt19937 generator{ 1 };
     std::uniform_real_distribution<> distribution{ 0.0, static_cast<double>(points_count) * 10.0 };
 
     std::vector<ch::v2> points{};
@@ -356,7 +356,7 @@ static void benchmark()
     }
 }
 
-#if 0
+#if 1
 int main()
 {
     // generate points
@@ -366,12 +366,16 @@ int main()
 
     // generate hull and test against oracle
     //std::vector<ch::v2> naive_hull{ ch::naive(points) };
-    std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
+    //std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
+    #if 0
     std::vector<ch::v2> akl_toussaint_hull{ ch::akl_toussaint(points) };
-
     dump_points_and_hull(points, akl_toussaint_hull);
+    #else
+    std::vector<ch::v2> sampled_points{ ch::sample_points_for_subset(points, 9) };
+    dump_points_and_hull(sampled_points, {});
+    #endif
 
-    #if 1
+    #if 0
     if (!validate_hull(dc_hull, akl_toussaint_hull))
     {
         std::cerr << "hull validation failed" << std::endl;

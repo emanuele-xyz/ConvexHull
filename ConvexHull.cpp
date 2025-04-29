@@ -3,6 +3,7 @@
 #include <cassert>
 #include <algorithm>
 #include <unordered_map>
+#include <unordered_set>
 
 template<>
 struct std::hash<ch::v2>
@@ -434,7 +435,7 @@ namespace ch
             return akl_toussaint_impl(copy);
         }
     }
-    
+
     std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points)
     {
         assert(points.size() >= 3);
@@ -442,7 +443,7 @@ namespace ch
         // apply akl toussaint heuristic
         std::vector<v2> kill_zone{ build_kill_zone(points) };
         std::vector<v2> survivors{ akl_toussaint_heuristic(points, kill_zone) };
-        
+
         // run naive on survivors
         return naive(survivors);
     }
@@ -457,5 +458,100 @@ namespace ch
 
         // run divide and conquer on survivors
         return divide_and_conquer(survivors);
+    }
+
+    std::vector<v2> sample_points_for_subset(const std::vector<v2>& points, int k)
+    {
+        assert(points.size() >= 3);
+        assert(k > 0); // we need at least one strip
+
+        // find the two points with minimum and maximum x
+        int minXIdx{ -1 };
+        int maxXIdx{ -1 };
+        {
+            auto it{ std::minmax_element(points.begin(), points.end(), [](v2 a, v2 b) { return a.x < b.x; }) };
+            assert(it.first != points.end());
+            assert(it.second != points.end());
+            minXIdx = static_cast<int>(std::distance(points.begin(), it.first));
+            maxXIdx = static_cast<int>(std::distance(points.begin(), it.second));
+        }
+        assert(minXIdx >= 0);
+        assert(maxXIdx >= 0);
+
+        // compute difference between max x and min x values
+        double dx{ points[maxXIdx].x - points[minXIdx].x };
+        assert(dx > 0);
+
+        // compute strip delta x (a.k.a. strip width)
+        double strip_dx{ dx / static_cast<double>(k) };
+
+        struct strip
+        {
+            int minYIdx{ -1 };
+            int maxYIdx{ -1 };
+        };
+
+        // allocate k strips
+        std::vector<strip> strips{};
+        strips.resize(k);
+
+        // populate strips
+        for (int i{}; i < static_cast<int>(points.size()); i++)
+        {
+            if (i == minXIdx || i == maxXIdx)
+            {
+                // don't put x min and x max points in any strip
+                continue;
+            }
+
+            // get point
+            v2 p{ points[i] };
+
+            // get the index of the strip in which the point falls into
+            int stripIdx{ static_cast<int>(std::floor((p.x - points[minXIdx].x) / strip_dx)) };
+            assert(stripIdx >= 0);
+
+            // get reference to the strip
+            strip& strip{ strips[stripIdx] };
+
+            // update strip min y, if necessary
+            if (strip.minYIdx == -1 || p.y < points[strip.minYIdx].y)
+            {
+                strip.minYIdx = i;
+            }
+
+            // update strip max y, if necessary
+            if (strip.maxYIdx == -1 || p.y > points[strip.maxYIdx].y)
+            {
+                strip.maxYIdx = i;
+            }
+        }
+
+        // build new point set from strips
+        std::vector<v2> approximate_points{};
+        {
+            std::unordered_set<int> sampling{}; // set of points indices used for the sampling
+            sampling.emplace(minXIdx); // take the point with min x
+            sampling.emplace(maxXIdx); // take the point with max x
+            for (const auto& strip : strips)
+            {
+                if (strip.minYIdx >= 0)
+                {
+                    sampling.emplace(strip.minYIdx); // take the point with min y, inside the strip
+                }
+                if (strip.maxYIdx >= 0)
+                {
+                    sampling.emplace(strip.maxYIdx); // take the point with max y, inside the strip
+                }
+            }
+
+            for (int idx : sampling)
+            {
+                approximate_points.emplace_back(points[idx]);
+            }
+        }
+
+        // sampling of initial pointset
+        return approximate_points;
     }
 }

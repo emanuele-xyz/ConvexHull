@@ -56,4 +56,6 @@ namespace ch
     std::vector<v2> akl_toussaint(const std::vector<v2>& points);
     std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points);
     std::vector<v2> divide_and_conquer_akl_toussaint(const std::vector<v2>& points);
+
+    std::vector<v2> sample_points_for_subset(const std::vector<v2>& points, int k);
 }
