@@ -535,6 +535,9 @@ namespace ch
             sampling.emplace(maxXIdx); // take the point with max x
             for (const auto& strip : strips)
             {
+                assert(!(strip.minYIdx == -1) || strip.maxYIdx == -1); // if strip.minYIdx == -1 then strip.maxYIdx == -1
+                assert(!(strip.maxYIdx == -1) || strip.minYIdx == -1); // if strip.maxYIdx == -1 then strip.minYIdx == -1
+
                 if (strip.minYIdx >= 0)
                 {
                     sampling.emplace(strip.minYIdx); // take the point with min y, inside the strip
