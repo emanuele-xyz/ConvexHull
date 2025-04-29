@@ -92,6 +92,18 @@ static bool validate_hull(const std::vector<ch::v2>& truth, const std::vector<ch
     }
 }
 
+static bool validate_points_subset(const std::vector<ch::v2>& points, const std::vector<ch::v2>& points_sample)
+{
+    bool all_belong{ true };
+    for (int i{}; i < static_cast<int>(points_sample.size()) && all_belong; i++)
+    {
+        ch::v2 p{ points_sample[i] };
+        auto it{ std::find(points.begin(), points.end(), p) };
+        all_belong = it != points.end();
+    }
+    return all_belong;
+}
+
 static void dump_points_and_hull(const std::vector<ch::v2>& points, const std::vector<ch::v2>& hull)
 {
     std::string out_path{ "test.txt" };
@@ -292,6 +304,61 @@ static void test_dc_akl_toussaint_against_dc()
     test(logger, dataset, ch::divide_and_conquer, "divide and conquer", ch::divide_and_conquer_akl_toussaint, "divide and conquer akl-toussaint");
 }
 
+static void test_sample_points_for_subset()
+{
+    Logger logger{};
+
+    logger.log("test sample points for subset\n");
+
+    int dataset_capacity{ 10000 };
+    logger.log("--------------------------------------------------------------------------------\n");
+    logger.logf("dataset capacity: {}\n", dataset_capacity);
+
+    std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
+
+    std::random_device rd{};
+    std::mt19937 gen{ rd() };
+    std::uniform_int_distribution<> points_count_increment_distrib{ 5, 100 };
+    int points_count{ points_count_increment_distrib(gen) };
+    while (points_count < static_cast<int>(dataset.size()))
+    {
+        std::uniform_int_distribution<> k_increment_distrib{ 1, points_count / 2 };
+        int k{ k_increment_distrib(gen) };
+        while (k < points_count)
+        {
+            logger.log("--------------------------------------------------------------------------------\n");
+            logger.logf("points count: {}\n", points_count);
+            logger.logf("k: {}\n", k);
+
+            // copy portion of point dataset
+            std::vector<ch::v2> points{ dataset.begin(), dataset.begin() + points_count };
+
+            logger.log("sampling ... ");
+            std::vector<ch::v2> points_sample{};
+            {
+                auto start{ std::chrono::high_resolution_clock::now() };
+                points_sample = ch::sample_points_for_subset(points, k);
+                auto end{ std::chrono::high_resolution_clock::now() };
+                auto us{ std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() };
+                logger.logf("DONE ... {} us\n", us);
+            }
+
+            if (validate_points_subset(points, points_sample))
+            {
+                logger.log("points sample is OK\n");
+            }
+            else
+            {
+                logger.log("points sample is WRONG\n");
+            }
+
+            k += k_increment_distrib(gen);
+        }
+
+        points_count += points_count_increment_distrib(gen);
+    }
+}
+
 static void benchmark()
 {
     Logger logger{};
@@ -356,7 +423,7 @@ static void benchmark()
     }
 }
 
-#if 1
+#if 0
 int main()
 {
     // generate points
@@ -391,6 +458,8 @@ int main()
     //test_naive_akl_toussaint_against_naive();
     //test_dc_akl_toussaint_against_dc();
 
-    benchmark();
+    test_sample_points_for_subset();
+
+    //benchmark();
 }
 #endif
