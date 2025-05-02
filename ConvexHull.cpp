@@ -466,20 +466,20 @@ namespace ch
         assert(k > 0); // we need at least one strip
 
         // find the two points with minimum and maximum x
-        int minXIdx{ -1 };
-        int maxXIdx{ -1 };
+        int min_x_idx{ -1 };
+        int max_x_idx{ -1 };
         {
             auto it{ std::minmax_element(points.begin(), points.end(), [](v2 a, v2 b) { return a.x < b.x; }) };
             assert(it.first != points.end());
             assert(it.second != points.end());
-            minXIdx = static_cast<int>(std::distance(points.begin(), it.first));
-            maxXIdx = static_cast<int>(std::distance(points.begin(), it.second));
+            min_x_idx = static_cast<int>(std::distance(points.begin(), it.first));
+            max_x_idx = static_cast<int>(std::distance(points.begin(), it.second));
         }
-        assert(minXIdx >= 0);
-        assert(maxXIdx >= 0);
+        assert(min_x_idx >= 0);
+        assert(max_x_idx >= 0);
 
         // compute difference between max x and min x values
-        double dx{ points[maxXIdx].x - points[minXIdx].x };
+        double dx{ points[max_x_idx].x - points[min_x_idx].x };
         assert(dx > 0);
 
         // compute strip delta x (a.k.a. strip width)
@@ -487,8 +487,8 @@ namespace ch
 
         struct strip
         {
-            int minYIdx{ -1 };
-            int maxYIdx{ -1 };
+            int min_y_idx{ -1 };
+            int max_y_idx{ -1 };
         };
 
         // allocate k strips
@@ -498,7 +498,7 @@ namespace ch
         // populate strips
         for (int i{}; i < static_cast<int>(points.size()); i++)
         {
-            if (i == minXIdx || i == maxXIdx)
+            if (i == min_x_idx || i == max_x_idx)
             {
                 // don't put x min and x max points in any strip
                 continue;
@@ -508,22 +508,22 @@ namespace ch
             v2 p{ points[i] };
 
             // get the index of the strip in which the point falls into
-            int stripIdx{ static_cast<int>(std::floor((p.x - points[minXIdx].x) / strip_dx)) };
-            assert(stripIdx >= 0);
+            int strip_idx{ static_cast<int>(std::floor((p.x - points[min_x_idx].x) / strip_dx)) };
+            assert(strip_idx >= 0);
 
             // get reference to the strip
-            strip& strip{ strips[stripIdx] };
+            strip& strip{ strips[strip_idx] };
 
             // update strip min y, if necessary
-            if (strip.minYIdx == -1 || p.y < points[strip.minYIdx].y)
+            if (strip.min_y_idx == -1 || p.y < points[strip.min_y_idx].y)
             {
-                strip.minYIdx = i;
+                strip.min_y_idx = i;
             }
 
             // update strip max y, if necessary
-            if (strip.maxYIdx == -1 || p.y > points[strip.maxYIdx].y)
+            if (strip.max_y_idx == -1 || p.y > points[strip.max_y_idx].y)
             {
-                strip.maxYIdx = i;
+                strip.max_y_idx = i;
             }
         }
 
@@ -531,20 +531,20 @@ namespace ch
         std::vector<v2> approximate_points{};
         {
             std::unordered_set<int> sampling{}; // set of points indices used for the sampling
-            sampling.emplace(minXIdx); // take the point with min x
-            sampling.emplace(maxXIdx); // take the point with max x
+            sampling.emplace(min_x_idx); // take the point with min x
+            sampling.emplace(max_x_idx); // take the point with max x
             for (const auto& strip : strips)
             {
-                assert(!(strip.minYIdx == -1) || strip.maxYIdx == -1); // if strip.minYIdx == -1 then strip.maxYIdx == -1
-                assert(!(strip.maxYIdx == -1) || strip.minYIdx == -1); // if strip.maxYIdx == -1 then strip.minYIdx == -1
+                assert(!(strip.min_y_idx == -1) || strip.max_y_idx == -1); // if strip.min_y_idx == -1 then strip.max_y_idx == -1
+                assert(!(strip.max_y_idx == -1) || strip.min_y_idx == -1); // if strip.max_y_idx == -1 then strip.min_y_idx == -1
 
-                if (strip.minYIdx >= 0)
+                if (strip.min_y_idx >= 0)
                 {
-                    sampling.emplace(strip.minYIdx); // take the point with min y, inside the strip
+                    sampling.emplace(strip.min_y_idx); // take the point with min y, inside the strip
                 }
-                if (strip.maxYIdx >= 0)
+                if (strip.max_y_idx >= 0)
                 {
-                    sampling.emplace(strip.maxYIdx); // take the point with max y, inside the strip
+                    sampling.emplace(strip.max_y_idx); // take the point with max y, inside the strip
                 }
             }
 
