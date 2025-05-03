@@ -9,6 +9,9 @@ const algoSelect = document.getElementById("algoSelect");
 const stepBtn = document.getElementById("stepBtn");
 const continueBtn = document.getElementById("continueBtn");
 const resetBtn = document.getElementById("resetBtn");
+const kSliderContainer = document.getElementById("kSliderContainer");
+const kSlider = document.getElementById("kSlider");
+const kValueLabel = document.getElementById("kValueLabel");
 
 let globalPoints = []; // Holds the points added by the user
 
@@ -840,12 +843,12 @@ class AklToussaintConvexPath {
 }
 
 class BentleyFaustPreparataApproximation {
-  constructor(points) {
-    // n states: start, ..., done
+  constructor(points, k = 1) {
+    // 7 states: start, minx-maxx, strips, sample, sample-hull, points-hull, done
     this.minRequiredPoints = 3;
     this.state = "start";
     this.points = points;
-    this.k = 3; // TODO: HARDCODED
+    this.k = k;
     this.minXIdx = 0;
     this.maxXIdx = 0;
     this.dx = 0;
@@ -1130,6 +1133,21 @@ function redraw() {
 // Event listeners
 //
 
+function updateKSlider() {
+    if (algoSelect.value === "bentley-faust-preparata-approximation") {
+      const maxK = Math.max(1, globalPoints.length);
+      kSlider.max = maxK;
+      // clamp current value
+      if (kSlider.value > maxK) kSlider.value = maxK;
+      kValueLabel.textContent = kSlider.value;
+      kSliderContainer.style.display = "block";
+      // re-init BFP with the slider's k
+      algoCtx.k = kSlider.value;
+    } else {
+      kSliderContainer.style.display = "none";
+    }
+}
+
 // Event: Canvas mouse click to add a point
 canvas.addEventListener("click", function (e) {
   // Get bounding rectangle for correct mouse position within the canvas.
@@ -1139,6 +1157,7 @@ canvas.addEventListener("click", function (e) {
   globalPoints.push({ x, y });
   algoCtx = new algoCtx.constructor(globalPoints);
   redraw();
+  updateKSlider();
 });
 
 // Handle algorithm selection change
@@ -1173,7 +1192,18 @@ algoSelect.addEventListener("change", function () {
     }
   }
 
+  updateKSlider();
   redraw();
+});
+
+kSlider.addEventListener("input", function () {
+  kValueLabel.textContent = this.value;
+
+  if (algoSelect.value === "bentley-faust-preparata-approximation") {
+    algoCtx = new BentleyFaustPreparataApproximation(globalPoints, this.value);
+    clearCanvas();
+    drawPoints(globalPoints);
+  }
 });
 
 // "Step" button: execute a single step of the algorithm.
@@ -1203,6 +1233,7 @@ resetBtn.addEventListener("click", function () {
   globalPoints = [];
   algoCtx = new algoCtx.constructor(globalPoints);
   clearCanvas();
+  updateKSlider();
 });
 
 // Select "Naive" as the default algorithm.

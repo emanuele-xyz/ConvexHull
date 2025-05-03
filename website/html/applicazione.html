@@ -44,6 +44,13 @@
         margin-top: 10px;
         color: #555;
       }
+      #kSliderContainer label {
+        font-size: 16px;
+        margin-right: 8px;
+      }
+      #kSliderContainer input {
+        vertical-align: middle;
+      }
     </style>
   </head>
   <body>
@@ -64,6 +71,10 @@
       </div>
       <canvas id="canvas" width="600" height="400"></canvas>
       <div id="info">Click on the canvas to add points.</div>
+      <div id="kSliderContainer" style="display: none">
+        <label for="kSlider">k = <span id="kValueLabel">1</span></label>
+        <input type="range" id="kSlider" min="1" value="1" />
+      </div>
     </div>
   </body>
 </html>
