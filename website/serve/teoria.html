@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Teoria</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Noto%20Serif"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=JetBrains+Mono"
+  />
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<nav>
+  <a href="/index.html">home</a>
+  <a href="/teoria.html">teoria</a>
+  <a href="/benchmark.html">benchmark</a>
+  <a href="/manuale.html">manuale</a>
+  <a href="/applicazione.html">applicazione</a>
+</nav>
+<!-- TODO: Rimuovere manualmente i doppi escape nell'indice. -->
+<h1 id="indice">Indice <!-- omit in toc --></h1>
+<ul>
+<li><a href="#involucro-convesso">Involucro convesso</a>
+<ul>
+<li><a href="#lower-bound-della-complessità-del-problema">Lower bound
+della complessità del problema</a>
+<ul>
+<li><a href="#dimostrazione">Dimostrazione</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#involucri-clockwise-e-counterclockwise">Involucri
+clockwise e counterclockwise</a></li>
+<li><a href="#algoritmo-naive">Algoritmo Naive</a>
+<ul>
+<li><a href="#idea">Idea</a></li>
+<li><a href="#complessità-temporale">Complessità temporale</a></li>
+<li><a
+href="#come-controllare-se-vecp-cade-in-pi-hquad-textrmo-hquad-pi-">Come
+controllare se <span class="math inline">\(\\vec{p}\)</span> cade in
+<span class="math inline">\(\\Pi^+ \\hquad \\textrm{o} \\hquad
+\\Pi^-\)</span>?</a></li>
+<li><a href="#come-trovare-un-vettore-perpendicolare-ad-un-altro">Come
+trovare un vettore perpendicolare ad un altro?</a></li>
+</ul></li>
+<li><a href="#algoritmo-divide-and-conquer">Algoritmo Divide and
+Conquer</a>
+<ul>
+<li><a href="#idea-1">Idea</a></li>
+<li><a href="#fusione">Fusione</a></li>
+<li><a href="#ricerca-tangente-superiore">Ricerca tangente
+superiore</a></li>
+<li><a href="#ricerca-tangente-inferiore">Ricerca tangente
+inferiore</a></li>
+<li><a href="#costruzione-di-h">Costruzione di <span
+class="math inline">\(H\)</span></a></li>
+<li><a
+href="#complessità-temporale-della-ricerca-delle-tangenti">Complessità
+temporale della ricerca delle tangenti</a></li>
+<li><a href="#complessità-temporale-della-fusione">Complessità temporale
+della fusione</a></li>
+<li><a href="#complessità-temporale-divide-et-impera">Complessità
+temporale Divide et Impera</a></li>
+</ul></li>
+<li><a href="#algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</a>
+<ul>
+<li><a href="#idea-2">Idea</a>
+<ul>
+<li><a href="#euristica">Euristica</a></li>
+<li><a
+href="#ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero">Ricerca
+dei percorsi convessi per ogni lato del quadrilatero</a></li>
+<li><a href="#costruzione-dellinvolucro-convesso-h">Costruzione
+dell’involucro convesso <span class="math inline">\(H\)</span></a></li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="involucro-convesso">Involucro convesso</h1>
+<p><strong>Input</strong>: Insieme finito <span class="math inline">\(S
+\subseteq R^2\)</span>.</p>
+<p><strong>Output</strong>: Poligono convesso <span
+class="math inline">\(H\)</span> di area minima che contiene tutti i
+punti di <span class="math inline">\(S\)</span>.</p>
+<p><strong>Notazione</strong></p>
+<p>Denotiamo con:</p>
+<ul>
+<li><span class="math inline">\(P(H)\)</span> l’insieme di vertici di
+<span class="math inline">\(H\)</span>.</li>
+<li><span class="math inline">\(d\)</span> la cardinalità di <span
+class="math inline">\(P(H)\)</span>.</li>
+<li><span class="math inline">\(n\)</span> la cardinalità di <span
+class="math inline">\(S\)</span>.</li>
+</ul>
+<p><strong>Proprietà</strong>: <span class="math inline">\(P(H)
+\subseteq S\)</span>.</p>
+<p><strong>Corollario</strong>: <span class="math inline">\(d \le
+n\)</span></p>
+<p><strong>Rappresentare <span
+class="math inline">\(H\)</span></strong></p>
+<p>Rappresentiamo <span class="math inline">\(H\)</span> usando una
+lista ordinata di punti di <span
+class="math inline">\(P(H)\)</span>:</p>
+<p><span class="math display">\[P_1, P_2, P_3, ..., P_d \qquad P_i \in
+P(H), i = 1, ..., d\]</span></p>
+<p>Tale che:</p>
+<ul>
+<li><span class="math inline">\(\forall i = 1, ..., d - 1\)</span> il
+segmento di estremi <span class="math inline">\(P_i\)</span> e <span
+class="math inline">\(P_{i+1}\)</span> è un lato di <span
+class="math inline">\(H\)</span>.</li>
+<li>Il segmento di estremi <span class="math inline">\(P_d\)</span> e
+<span class="math inline">\(P_1\)</span> è un lato di <span
+class="math inline">\(H\)</span>.</li>
+</ul>
+<h2 id="lower-bound-della-complessità-del-problema">Lower bound della
+complessità del problema</h2>
+<p>Il lower bound del problema è <span class="math inline">\(\Omega(n
+\hspace{0.25em}log \hspace{0.25em}n)\)</span>.</p>
+<h3 id="dimostrazione">Dimostrazione</h3>
+<p>Supponiamo di avere il seguente insieme finito di numeri</p>
+<p><span class="math display">\[I = { x_1, x_2, x_3, ..., x_n }
+\subseteq \mathbb{R} \quad \textrm{dove} \quad x_1 &lt; x_2 &lt; x_3
+&lt; ... &lt; x_n\]</span></p>
+<p>È facile vedere che i punti di <span class="math inline">\(S\)</span>
+giacciono su una parabola. Proprio per questo, è facile che un possibile
+involucro convesso di <span class="math inline">\(S\)</span> è dato
+dalla lista <span class="math inline">\((x_1, x_1^2), (x_2, x_2^2), ...,
+(x_n, x_n^2)\)</span>.</p>
+<p>Se ottenessimo una qualsiasi altra lista, potremmo ottenere quella
+mostrata sopra in tempo <span class="math inline">\(O(d)\)</span> e
+dunque <span class="math inline">\(O(n)\)</span>.</p>
+<p>Supponiamo ora, per assurdo, di essere in grado di trovare
+l’involucro convesso di <span class="math inline">\(S\)</span> in tempo
+inferiore a <span class="math inline">\(O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>.</p>
+<p>Se questo fosse il caso, prendendo la prima proiezione della lista
+<span class="math inline">\((x_1, x_1^2), (x_2, x_2^2), ..., (x_n,
+x_n^2)\)</span>. otterremo la lista <span class="math inline">\(x_1,
+x_2, ..., x_n\)</span>. Dunque saremmo in grado di ordinare l’insieme
+<span class="math inline">\(I\)</span> in tempo inferiore a <span
+class="math inline">\(O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>.</p>
+<p>Questo è assurdo. <span class="math inline">\(\square\)</span></p>
+<h1 id="involucri-clockwise-e-counterclockwise">Involucri clockwise e
+counterclockwise</h1>
+<p>Come abbiamo già detto, rappresentiamo l’involucro convesso <span
+class="math inline">\(H\)</span> usando una lista dei punti di <span
+class="math inline">\(P(H)\)</span>.</p>
+<p>Consideriamo il seguente involucro convesso <span
+class="math inline">\(H\)</span>:</p>
+<p><img src="./involucro_triangolare.svg"
+style="height: 170px; display: block; margin: auto;" /></p>
+<p>Possiamo rappresentare <span class="math inline">\(H\)</span> usando
+entrambe queste liste:</p>
+<p><span class="math display">\[\vec{u}, \vec{v}, \vec{w} \quad
+\textrm{e} \quad \vec{u}, \vec{w}, \vec{v}\]</span></p>
+<p>Osserviamo come la prima lista elencai punti di <span
+class="math inline">\(H\)</span> in senso antiorario. La seconda lista
+invece elenca i punti in senso orario <a href="#fn1"
+class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Nella nostra trattazione, per convenzione e per facilitare
+l’implementazione degli algoritmi, useremo e ritorneremo sempre liste
+che elencano i punti dell’involucro convesso in senso orario.</p>
+<p>Di rado può accadere di dover controllare se un involucro convesso è
+espresso in senso orario o antiorario. Per fare questo:</p>
+<ul>
+<li><p>Prendiamo tre punti qualsiasi <span
+class="math inline">\(\vec{u}, \vec{v}, \vec{w}\)</span>
+<strong>consecutivi</strong>.</p></li>
+<li><p>Consideriamo i due vettori <span class="math inline">\(\vec{v} -
+\vec{u} \hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{w} -
+\vec{v}\)</span>.</p>
+<ul>
+<li><p>Se <span class="math inline">\(det \begin{pmatrix} \vec{v}_x -
+\vec{u}_x &amp; \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} &amp;
+\vec{w_y} - \vec{v_y} \end{pmatrix} &gt; 0\)</span>, allora siamo in
+senso antiorario.</p></li>
+<li><p>Se <span class="math inline">\(det\begin{pmatrix} \vec{v}_x -
+\vec{u}_x &amp; \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} &amp;
+\vec{w_y} - \vec{v_y} \end{pmatrix} &lt; 0\)</span>, allora siamo in
+senso orario.</p></li>
+</ul></li>
+</ul>
+<p>Se l’involucro è espresso in un senso, per esprimerlo nell’altro
+bisogna semplicemente invertire l’ordine della lista.</p>
+<aside id="footnotes" class="footnotes footnotes-end-of-section"
+role="doc-footnote">
+<hr />
+<ol>
+<li id="fn1"><p>Non vi sono altre orientazioni possibili.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+<h1 id="algoritmo-naive">Algoritmo Naive</h1>
+<h2 id="idea">Idea</h2>
+<p>Per ogni coppia di punti <span class="math inline">\(\vec{u}, \vec{v}
+\in S\)</span>, con <span class="math inline">\(\vec{u} \neq
+\vec{v}\)</span>:</p>
+<p>Consideriamo la retta <span class="math inline">\(r\)</span> passante
+per <span class="math inline">\(\vec{u}\)</span> e <span
+class="math inline">\(\vec{v}\)</span>.</p>
+<p>Questa divide il piano <span class="math inline">\(\Pi\)</span> in
+due semipiani, <span class="math inline">\(\Pi^+
+\hspace{0.5em}\textrm{e} \hspace{0.5em}\Pi^-\)</span>.</p>
+<p>Per ogni punto <span class="math inline">\(\vec{p} \in S\)</span> con
+<span class="math inline">\(\vec{p} \neq \vec{u}
+\hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{p} \neq \vec{v}\)</span>
+controlliamo se <span class="math inline">\(\vec{p}\)</span> cade in
+<span class="math inline">\(\Pi^+ \hspace{0.5em}\textrm{o}
+\hspace{0.5em}\textrm{in} \hspace{0.5em}\Pi^-\)</span>.</p>
+<p>Se tutti i punti sono caduti esclusivamente in uno dei due semipiani,
+allora il segmento con estremi <span class="math inline">\(\vec{u}
+\hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{v}\)</span> è un lato
+dell’involucro convesso.</p>
+<h2 id="complessità-temporale">Complessità temporale</h2>
+<ul>
+<li>Iterare per ogni coppia di punti <span
+class="math inline">\(\rightarrow O(n^2)\)</span>.</li>
+<li>Iterare per ogni punto <span class="math inline">\(\rightarrow
+O(n)\)</span>.</li>
+<li>Combinando le due iterazioni, vediamo come la complessità temporale
+dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
+</ul>
+<h2
+id="come-controllare-se-vecp-cade-in-pi-hspace0.5emtextrmo-hspace0.5empi-">Come
+controllare se <span class="math inline">\(\vec{p}\)</span> cade in
+<span class="math inline">\(\Pi^+ \hspace{0.5em}\textrm{o}
+\hspace{0.5em}\Pi^-\)</span>?</h2>
+<p><img src="./half_plane_test.svg"
+style="height: 300px; display: block; margin: auto;" /></p>
+<p>Supponiamo che il vettore <span class="math inline">\(\vec{v} -
+\vec{u}\)</span> è un possibile vettore direzione della retta <span
+class="math inline">\(r\)</span>.</p>
+<p>Dato il vettore <span class="math inline">\(\vec{v} -
+\vec{u}\)</span> troviamo un vettore <span
+class="math inline">\(\vec{n}\)</span> perpendicolare ad esso.</p>
+<p><span class="math inline">\(\vec{n}\)</span> è una possibile normale
+della retta <span class="math inline">\(r\)</span>.</p>
+<p>Dato un qualsiasi punto <span
+class="math inline">\(\vec{p}\)</span>:</p>
+<ol type="1">
+<li>Prendiamo il vettore <span class="math inline">\(\vec{p} -
+\vec{u}\)</span>.</li>
+<li>Se <span class="math inline">\(\vec{n} \cdot (\vec{p} - \vec{u})
+&gt; 0\)</span>, allora siamo in <span
+class="math inline">\(\Pi^+\)</span>. <br /> Se <span
+class="math inline">\(\vec{n} \cdot (\vec{p} - \vec{u}) &lt; 0\)</span>,
+allora siamo in <span class="math inline">\(\Pi^-\)</span>.</li>
+</ol>
+<h2 id="come-trovare-un-vettore-perpendicolare-ad-un-altro">Come trovare
+un vettore perpendicolare ad un altro?</h2>
+<p>Consideriamo il vettore <span class="math inline">\(\vec{v}
+\leftrightarrow \begin{bmatrix} v_x \\ v_y \end{bmatrix}\)</span>.</p>
+<p>Un vettore <span class="math inline">\(\vec{u} \leftrightarrow
+\begin{bmatrix} u_x \\ u_y \end{bmatrix}\)</span> è perpendicolare a
+<span class="math inline">\(\vec{v}\)</span> se e solo se <span
+class="math inline">\(\vec{u} \cdot \vec{v} = 0\)</span>.</p>
+<p>Vogliamo determinare <span class="math inline">\(u_x
+\hspace{0.5em}\textrm{e} \hspace{0.5em}u_y\)</span>, essendo a
+conoscenza di <span class="math inline">\(v_x \hspace{0.5em}\textrm{e}
+\hspace{0.5em}v_y\)</span>.</p>
+<p>Sappiamo che <span class="math inline">\(\vec{u} \cdot \vec{v} =
+0\)</span> se e solo se <span class="math inline">\(u_x v_x + u_y v_y =
+0\)</span>.</p>
+<p>Dunque <span class="math inline">\(u_x = - \dfrac{u_y
+v_y}{v_x}\)</span></p>
+<p>Fissando <span class="math inline">\(u_y = v_x\)</span>, abbiamo che
+<span class="math inline">\(u_x = - \dfrac{v_x v_y}{v_x} =
+-v_y\)</span></p>
+<h1 id="algoritmo-divide-and-conquer">Algoritmo Divide and Conquer</h1>
+<h2 id="idea-1">Idea</h2>
+<p>Sia <span class="math inline">\(P\)</span> la lista dei punti di
+<span class="math inline">\(S\)</span>, ordinata in ordine non crescente
+della loro componente <span class="math inline">\(x\)</span>.</p>
+<p>Dividiamo <span class="math inline">\(P\)</span> a metà, ottenendo
+così le liste <span class="math inline">\(A\)</span> e <span
+class="math inline">\(B\)</span>.</p>
+<p>Applichiamo ricorsivamente l’algoritmo “Divide et Impera” su <span
+class="math inline">\(A\)</span> e su <span
+class="math inline">\(B\)</span>, ottenendo così gli involucri convessi
+<span class="math inline">\(H_a\)</span> e <span
+class="math inline">\(H_b\)</span> rispettivamente, degli insieme di
+punti dati dalle liste <span class="math inline">\(A\)</span> e <span
+class="math inline">\(B\)</span>.</p>
+<p>Fondiamo <span class="math inline">\(H_a\)</span> e <span
+class="math inline">\(H_b\)</span>, ottenendo così l’involucro <span
+class="math inline">\(H\)</span>.</p>
+<h2 id="fusione">Fusione</h2>
+<p>Dati due involucri convessi <span class="math inline">\(H_a\)</span>
+e <span class="math inline">\(H_b\)</span>, vogliamo trovare l’involucro
+convesso <span class="math inline">\(H\)</span> dell’uniione dei vertici
+di <span class="math inline">\(H_a\)</span> e <span
+class="math inline">\(H_b\)</span>.</p>
+<p>Possiamo fare questo sfruttando il fatto che:</p>
+<ul>
+<li><span class="math inline">\(H_a\)</span> e <span
+class="math inline">\(H_b\)</span> sono involucri convessi.</li>
+<li><span class="math inline">\(H_a\)</span> è alla sinistra di <span
+class="math inline">\(H_b\)</span>.</li>
+</ul>
+<p>Per quanto detto sopra, è facile vedere che l’involucro convesso
+<span class="math inline">\(H\)</span> risultato dalla fusione di <span
+class="math inline">\(H_a\)</span> e <span
+class="math inline">\(H_b\)</span> è composto da:</p>
+<ul>
+<li>Una porzione dell’involucro di <span
+class="math inline">\(H_a\)</span>.</li>
+<li>Una porzione dell’involucro di <span
+class="math inline">\(H_b\)</span>.</li>
+<li>Due segmenti, dette tangenti, ognuna con estremi sia un vertice di
+<span class="math inline">\(H_a\)</span> che un vertice di <span
+class="math inline">\(H_b\)</span>.</li>
+</ul>
+<p>La procedura di fusione si riduce dunque alla ricerca di queste due
+tangenti, una detta tangente superiore, e l’altra detta tangente
+inferiore.</p>
+<h2 id="ricerca-tangente-superiore">Ricerca tangente superiore</h2>
+<p>Sia <span class="math inline">\(r_a\)</span> il punto più a destra di
+<span class="math inline">\(H_a\)</span>.</p>
+<p>Sia <span class="math inline">\(l_b\)</span> il punto più a sinistra
+di <span class="math inline">\(H_b\)</span>.</p>
+<p>Consideriamo la retta <span class="math inline">\(r: x = m,
+\hspace{0.5em}\textrm{dove} \hspace{0.5em}m = \dfrac{r_a x + l_b
+x}{2}\)</span></p>
+<p>Percorriamo simultaneamente:</p>
+<ul>
+<li><span class="math inline">\(H_a\)</span> in senso
+<strong>antiorario</strong>, partendo da <span
+class="math inline">\(r_a\)</span>.</li>
+<li><span class="math inline">\(H_b\)</span> in senso
+<strong>orario</strong>, partendo da <span
+class="math inline">\(l_b\)</span>.</li>
+</ul>
+<p>Cercando il segmento il segmento di estremi <span
+class="math inline">\(p\)</span> e <span
+class="math inline">\(q\)</span>, con <span
+class="math inline">\(p\)</span> vertice di <span
+class="math inline">\(H_a\)</span> e <span
+class="math inline">\(q\)</span> vertice di <span
+class="math inline">\(H_b\)</span>, tale per cui la sua intersezione con
+<span class="math inline">\(r\)</span> abbia componente <span
+class="math inline">\(y\)</span> massima.</p>
+<p>Il segmento <span class="math inline">\(pq\)</span> è la tangente
+superiore.</p>
+<h2 id="ricerca-tangente-inferiore">Ricerca tangente inferiore</h2>
+<p>Sia <span class="math inline">\(r_a\)</span> il punto più a destra di
+<span class="math inline">\(H_a\)</span>.</p>
+<p>Sia <span class="math inline">\(l_b\)</span> il punto più a sinistra
+di <span class="math inline">\(H_b\)</span>.</p>
+<p>Consideriamo la retta <span class="math inline">\(r: x = m,
+\hspace{0.5em}\textrm{dove} \hspace{0.5em}m = \dfrac{r_a x + l_b
+x}{2}\)</span></p>
+<p>Percorriamo simultaneamente, in modo alternato:</p>
+<ul>
+<li><span class="math inline">\(H_a\)</span> in senso
+<strong>orario</strong>, partendo da <span
+class="math inline">\(r_a\)</span>.</li>
+<li><span class="math inline">\(H_b\)</span> in senso
+<strong>antiorario</strong>, partendo da <span
+class="math inline">\(l_b\)</span>.</li>
+</ul>
+<p>Cercando il segmento il segmento di estremi <span
+class="math inline">\(p\)</span> e <span
+class="math inline">\(q\)</span>, con <span
+class="math inline">\(p\)</span> vertice di <span
+class="math inline">\(H_a\)</span> e <span
+class="math inline">\(q\)</span> vertice di <span
+class="math inline">\(H_b\)</span>, tale per cui la sua intersezione con
+<span class="math inline">\(r\)</span> abbia componente <span
+class="math inline">\(y\)</span> minima.</p>
+<p>Il segmento <span class="math inline">\(pq\)</span> è la tangente
+inferiore.</p>
+<h2 id="costruzione-di-h">Costruzione di <span
+class="math inline">\(H\)</span></h2>
+<p>Per costruire <span class="math inline">\(H\)</span>,
+percorriamo:</p>
+<ul>
+<li><p><span class="math inline">\(H_a\)</span>, partendo dal vertice
+appartenente alla tangente inferiore fino al vertice appartenente alla
+tangente superiore, procedendo in senso orario.</p></li>
+<li><p><span class="math inline">\(H_b\)</span>, partendo dal vertice
+appartenente alla tangente superiore fino al vertice appartenente alla
+tangente inferiore, procedendo in senso orario.</p></li>
+</ul>
+<h2 id="complessità-temporale-della-ricerca-delle-tangenti">Complessità
+temporale della ricerca delle tangenti</h2>
+<p>Usando un approccio naive, possiamo cercare una tangente andando ad
+esaminare tutte le coppie di punti <span class="math inline">\((p, q)
+\in P(H_a) \times P(H_b)\)</span> ed usare il “two fingers method” per
+trovare la tangente cercata.</p>
+<p>Siccome <span class="math inline">\(\left| P(H_a) \right|
+\hspace{0.5em}\textrm{e} \hspace{0.5em}\left| P(H_b) \right|\)</span>
+sono <span class="math inline">\(O(n)\)</span>, questo metodo naive
+richiederebbe un tempo <span class="math inline">\(O(n^2)\)</span>.</p>
+<!-- TODO: forse sarebbe meglio utilizzare la spiegazione del two fingers method del blog post? -->
+<p>Tuttavia possiamo fare di meglio se sfruttiamo il fatto che sia <span
+class="math inline">\(H_a\)</span> che <span
+class="math inline">\(H_b\)</span> sono poligoni convessi.</p>
+<p>Percorriamo simultaneamente, in modo alternato, <span
+class="math inline">\(H_a\)</span> e <span
+class="math inline">\(H_b\)</span>. Ad ogni iterazione, confrontiamo tre
+segmenti:</p>
+<ol type="1">
+<li>Il segmento tra il vertice corrente di <span
+class="math inline">\(H_a\)</span> e il vertice corrente di <span
+class="math inline">\(H_b\)</span>.</li>
+<li>Il segmento tra il vertice corrente di <span
+class="math inline">\(H_a\)</span> e il vertice successivo di <span
+class="math inline">\(H_b\)</span>.</li>
+<li>Il segmento tra il vertice successivo di <span
+class="math inline">\(H_a\)</span> e il vertice corrente di <span
+class="math inline">\(H_b\)</span>.</li>
+</ol>
+<p>Se 2. è “migliore” di 1., allora avanziamo il vertice corrente di
+<span class="math inline">\(H_b\)</span>. Se 3. migliore di 1., allora
+avanziamo il vertice corrente di <span
+class="math inline">\(H_a\)</span>. Altrimenti terminiamo la visita.</p>
+<p>Guardando come visitiamo i vertici di <span
+class="math inline">\(H_a\)</span> e <span
+class="math inline">\(H_b\)</span>, vediamo che:</p>
+<ul>
+<li>Ad ogni iterazione, consideriamo sempre un nuovo vertice.</li>
+<li>Possiamo all’iterazione successiva solo se abbiamo trovato un
+miglior candidato come tangente.</li>
+</ul>
+<p>Dunque, per trovare la tangente, ogni vertice di <span
+class="math inline">\(H_a\)</span> e <span
+class="math inline">\(H_b\)</span> sarà visitato al più un volta.</p>
+<p>Dunque, la complessità temporale della ricerca di una tangente è
+<span class="math inline">\(O(n)\)</span>.</p>
+<h2 id="complessità-temporale-della-fusione">Complessità temporale della
+fusione</h2>
+<p>Il processo di fusione consiste in:</p>
+<ol type="1">
+<li>Cercare la tangente superiore <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
+<li>Cercare la tangente inferiore <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
+<li>Costruire H <span class="math inline">\(\rightarrow
+O(n)\)</span></li>
+</ol>
+<p>Perciò, il processo di fusione ha complessità temporale <span
+class="math inline">\(O(n)\)</span>.</p>
+<h2 id="complessità-temporale-divide-et-impera">Complessità temporale
+Divide et Impera</h2>
+<p>Possiamo vedere che:</p>
+<ul>
+<li>Ordinamento dei punti in input <span
+class="math inline">\(\rightarrow O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>.
+<ul>
+<li>È necessario fare questo ordinamento una volta sola.</li>
+</ul></li>
+<li>Applichiamo Divide et Impera ricorsivamente sulle due metà
+dell’input <span class="math inline">\(\rightarrow
+2T(\dfrac{n}{2})\)</span>.</li>
+<li>Fusione <span class="math inline">\(\rightarrow O(n)\)</span>.</li>
+</ul>
+<p>La complessità temporale dell’applicazione ricorsiva dell’algoritmo è
+espressa dalla seguente relazione di ricorrenza:</p>
+<p><span class="math display">\[T(n) = 2T(\dfrac{n}{2}) + n\]</span></p>
+<p>È facile vedere che <span class="math inline">\(T(n) = O(n
+\hspace{0.25em}log \hspace{0.25em}n)\)</span>.</p>
+<p>Dunque, la complessità temporale complessiva è:</p>
+<p><span class="math display">\[O(n \hspace{0.25em}log \hspace{0.25em}n)
++ O(n \hspace{0.25em}log \hspace{0.25em}n) = O(n \hspace{0.25em}log
+\hspace{0.25em}n)\]</span></p>
+<h1 id="algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</h1>
+<h2 id="idea-2">Idea</h2>
+<h3 id="euristica">Euristica</h3>
+<p>Determiniamo i seguenti punti di <span
+class="math inline">\(S\)</span>:</p>
+<ul>
+<li><span class="math inline">\(\textrm{XMIN}\)</span>, di minima <span
+class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\textrm{YMAX}\)</span>, di massima <span
+class="math inline">\(y\)</span>.</li>
+<li><span class="math inline">\(\textrm{XMAX}\)</span>, di massima <span
+class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\textrm{YMIN}\)</span>, di minima <span
+class="math inline">\(y\)</span>.</li>
+</ul>
+<p>Questi quattro punti appartengono certamente a <span
+class="math inline">\(P(H)\)</span>. Oltretutto, osserviamo che tutti i
+punti di <span class="math inline">\(S\)</span> che cadono all’interno
+del quadrilatero di vertici <span
+class="math inline">\(\textrm{XMIN}\)</span>, <span
+class="math inline">\(\textrm{YMAX}\)</span>, <span
+class="math inline">\(\textrm{XMAX}\)</span>, <span
+class="math inline">\(\textrm{YMIN}\)</span>,
+<strong>sicuramente</strong> non fanno parte di <span
+class="math inline">\(P(H)\)</span>.</p>
+<p>Dunque possiamo eliminare tali punti da <span
+class="math inline">\(S\)</span>.</p>
+<h3
+id="ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero">Ricerca
+dei percorsi convessi per ogni lato del quadrilatero</h3>
+<p><img src="./akl_toussaint_quadrilatero.svg"
+style="height: 400px; display: block; margin: auto;" /></p>
+<p>Osserviamo come su ogni lato del quadrilatero soggiace una regione.
+Quello che facciamo è percorrere il quadrilatero in senso orario e, per
+ogni regione, cercare il percorso convesso che ci porta da un estremo
+all’altro del lato su cui soggiace la suddetta regione.</p>
+<h3 id="costruzione-dellinvolucro-convesso-h">Costruzione dell’involucro
+convesso <span class="math inline">\(H\)</span></h3>
+<p>Una volta che abbiamo determinato i vari percorsi convessi per le
+relative regioni, andiamo a fonderli seguendo il senso orario di
+percorrenza dei lati del quadrilatero. La loro fusione risulta in <span
+class="math inline">\(H\)</span>.</p>
+</body>
+</html>

@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=yes"
     />
     <title>Applicazione</title>
+    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Noto%20Serif"
@@ -17,12 +18,8 @@
     />
     <script defer src="convex_hull.js"></script>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f5f5f5;
-      }
       #container {
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -37,16 +34,30 @@
         padding: 5px 10px;
       }
       canvas {
-        border: 1px solid #444;
-        background-color: #fff;
+        border: 1px solid black;
+        background-color: white;
       }
       #info {
         margin-top: 10px;
-        color: #555;
+        color: black;
+      }
+      #kSliderContainer label {
+        font-size: 16px;
+        margin-right: 8px;
+      }
+      #kSliderContainer input {
+        vertical-align: middle;
       }
     </style>
   </head>
   <body>
+    <nav>
+      <a href="/index.html">home</a>
+      <a href="/teoria.html">teoria</a>
+      <a href="/benchmark.html">benchmark</a>
+      <a href="/manuale.html">manuale</a>
+      <a href="/applicazione.html">applicazione</a>
+    </nav>
     <div id="container">
       <div id="controls">
         <label for="algoSelect">Select Algorithm:</label>
@@ -64,6 +75,10 @@
       </div>
       <canvas id="canvas" width="600" height="400"></canvas>
       <div id="info">Click on the canvas to add points.</div>
+      <div id="kSliderContainer" style="display: none">
+        <label for="kSlider">k = <span id="kValueLabel">1</span></label>
+        <input type="range" id="kSlider" min="1" value="1" />
+      </div>
     </div>
   </body>
 </html>
