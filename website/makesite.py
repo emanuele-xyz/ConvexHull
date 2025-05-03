@@ -23,7 +23,7 @@ def pandoc(f):
             f"--reference-location=section "
             f"--include-in-header markdown/common/header.html "
             f"--include-before-body markdown/common/body.html "
-            f"--css style.css "
+            f"--css common.css "
             f"--output serve/{relative_filepath}.html {f}"
         )
     )
