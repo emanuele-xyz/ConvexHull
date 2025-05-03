@@ -312,7 +312,7 @@ class DivideAndConquer {
     if (frame.state !== "done" && frame.points.length > 1) {
       // Divide the canvas using a vertical line.
       const x =
-      (frame.points[frame.half - 1].x + frame.points[frame.half].x) / 2;
+        (frame.points[frame.half - 1].x + frame.points[frame.half].x) / 2;
       drawLine({ x: x, y: 0 }, { x: x, y: canvas.height }, "steelblue");
     }
 
@@ -839,6 +839,188 @@ class AklToussaintConvexPath {
   }
 }
 
+class BentleyFaustPreparataApproximation {
+  constructor(points) {
+    // n states: start, ..., done
+    this.minRequiredPoints = 3;
+    this.state = "start";
+    this.points = points;
+    this.k = 3; // TODO: HARDCODED
+    this.minXIdx = 0;
+    this.maxXIdx = 0;
+    this.dx = 0;
+    this.stripDx = 0;
+    this.sampled = [];
+    this.sample_hull = [];
+    this.hull = [];
+  }
+
+  step() {
+    switch (this.state) {
+      case "start": {
+        for (let i = 0; i < this.points.length; i++) {
+          if (this.points[i].x < this.points[this.minXIdx].x) {
+            this.minXIdx = i;
+          }
+          if (this.points[i].x > this.points[this.maxXIdx].x) {
+            this.maxXIdx = i;
+          }
+        }
+        this.state = "minx-maxx";
+        break;
+      }
+      case "minx-maxx": {
+        this.dx = this.points[this.maxXIdx].x - this.points[this.minXIdx].x;
+        this.stripDx = this.dx / this.k;
+        this.state = "strips";
+        break;
+      }
+      case "strips": {
+        const strips = Array.from({ length: this.k }, () => { return { minYIdx: -1, maxYIdx: -1 }; });
+
+        // populate strips
+        for (let i = 0; i < this.points.length; i++) {
+          if (i === this.minXIdx || i === this.maxXIdx) {
+            continue;
+          }
+
+          // get point
+          const p = this.points[i];
+
+          // get the index of the strip in which the point falls into
+          const stripIdx = Math.floor((p.x - this.points[this.minXIdx].x) / this.stripDx);
+
+          // update strip min y, if necessary
+          if (strips[stripIdx].minYIdx === -1 || p.y < this.points[strips[stripIdx].minYIdx].y) {
+            strips[stripIdx].minYIdx = i;
+          }
+
+          // update strip max y, if necessary
+          if (strips[stripIdx].maxYIdx === -1 || p.y > this.points[strips[stripIdx].maxYIdx].y) {
+            strips[stripIdx].maxYIdx = i;
+          }
+        }
+
+        // sample point set
+        this.sampled = [];
+        {
+          const sampledIdxs = new Set(); // set of points indices used for the sampling
+          sampledIdxs.add(this.minXIdx);
+          sampledIdxs.add(this.maxXIdx);
+          for (let i = 0; i < strips.length; i++) {
+            if (strips[i].minYIdx >= 0) {
+              sampledIdxs.add(strips[i].minYIdx);
+            }
+            if (strips[i].maxYIdx >= 0) {
+              sampledIdxs.add(strips[i].maxYIdx);
+            }
+          }
+
+          for (const sampledIdx of sampledIdxs) {
+            this.sampled.push(this.points[sampledIdx]);
+          }
+        }
+
+        this.state = "sample";
+        break;
+      }
+      case "sample": {
+        const naive = new Naive(this.sampled);
+        naive.continue();
+        this.sample_hull = naive.hull;
+        this.state = "sample-hull";
+        break;
+      }
+      case "sample-hull": {
+        const naive = new Naive(this.points);
+        naive.continue();
+        this.hull = naive.hull;
+        this.state = "points-hull";
+        break;
+      }
+      case "points-hull":
+      case "done": {
+        this.state = "done"
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+  }
+
+  continue() {
+    while (this.state !== "done") {
+      this.step();
+    }
+  }
+
+  draw() {
+    clearCanvas();
+
+    switch (this.state) {
+      case "minx-maxx": {
+        const minX = this.points[this.minXIdx].x;
+        const maxX = this.points[this.maxXIdx].x;
+        drawLine({ x: minX, y: 0 }, { x: minX, y: canvas.height }, "red");
+        drawLine({ x: maxX, y: 0 }, { x: maxX, y: canvas.height }, "red");
+        drawPoints(this.points);
+        break;
+      }
+      case "strips": {
+        const minX = this.points[this.minXIdx].x;
+        const maxX = this.points[this.maxXIdx].x;
+        drawLine({ x: minX, y: 0 }, { x: minX, y: canvas.height }, "red");
+        drawLine({ x: maxX, y: 0 }, { x: maxX, y: canvas.height }, "red");
+        let startX = minX;
+        for (let i = 0; i < this.k - 1; i++) {
+          startX += this.stripDx;
+          drawLine({ x: startX, y: 0 }, { x: startX, y: canvas.height }, "steelblue");
+        }
+        drawPoints(this.points);
+        break;
+      }
+      case "sample": {
+        const minX = this.points[this.minXIdx].x;
+        const maxX = this.points[this.maxXIdx].x;
+        drawLine({ x: minX, y: 0 }, { x: minX, y: canvas.height }, "red");
+        drawLine({ x: maxX, y: 0 }, { x: maxX, y: canvas.height }, "red");
+        let startX = minX;
+        for (let i = 0; i < this.k - 1; i++) {
+          startX += this.stripDx;
+          drawLine({ x: startX, y: 0 }, { x: startX, y: canvas.height }, "steelblue");
+        }
+        drawPoints(this.points);
+        drawPoints(this.sampled, "lightgreen", false);
+        break;
+      }
+      case "sample-hull": {
+        drawPolygon(this.sample_hull, "steelblue");
+        drawPoints(this.points);
+        drawPoints(this.sampled, "lightgreen", false);
+        break;
+      }
+      case "points-hull":
+      case "done": {
+        drawPolygon(this.sample_hull, "steelblue");
+        drawPolygon(this.hull, "red");
+        drawPoints(this.points);
+        drawPoints(this.sampled, "lightgreen", false);
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.fillText(this.state + ": (k=" + this.k + ")", 10, 20);
+  }
+}
+
 // algoCtx must have the following methods
 // step() // execute one step of the algorithm
 // draw() // draws the current state of the algorithm
@@ -858,13 +1040,15 @@ function drawPoint(point, color = "black") {
   ctx.fill();
 }
 
-function drawPoints(points) {
+function drawPoints(points, color = "black", label = true) {
   for (const point of points) {
-    let coords = `(${Math.trunc(point.x)},${Math.trunc(point.y)})`;
-    ctx.fillStyle = "black";
-    ctx.font = "11px Arial";
-    ctx.fillText(coords, point.x - 20, point.y - 10);
-    drawPoint(point);
+    if (label) {
+      let coords = `(${Math.trunc(point.x)},${Math.trunc(point.y)})`;
+      ctx.fillStyle = "black";
+      ctx.font = "11px Arial";
+      ctx.fillText(coords, point.x - 20, point.y - 10);
+    }
+    drawPoint(point, color);
   }
 }
 
@@ -978,6 +1162,10 @@ algoSelect.addEventListener("change", function () {
     }
     case "akl-toussaint-convex-path": {
       algoCtx = new AklToussaintConvexPath(globalPoints);
+      break;
+    }
+    case "bentley-faust-preparata-approximation": {
+      algoCtx = new BentleyFaustPreparataApproximation(globalPoints);
       break;
     }
     default: {
