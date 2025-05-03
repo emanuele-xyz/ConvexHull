@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=yes"
     />
     <title>Applicazione</title>
+    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Noto%20Serif"
@@ -17,12 +18,8 @@
     />
     <script defer src="convex_hull.js"></script>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f5f5f5;
-      }
       #container {
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -37,12 +34,12 @@
         padding: 5px 10px;
       }
       canvas {
-        border: 1px solid #444;
-        background-color: #fff;
+        border: 1px solid black;
+        background-color: white;
       }
       #info {
         margin-top: 10px;
-        color: #555;
+        color: black;
       }
       #kSliderContainer label {
         font-size: 16px;
@@ -54,6 +51,13 @@
     </style>
   </head>
   <body>
+    <nav>
+      <a href="/index.html">home</a>
+      <a href="/teoria.html">teoria</a>
+      <a href="/benchmark.html">benchmark</a>
+      <a href="/manuale.html">manuale</a>
+      <a href="/applicazione.html">applicazione</a>
+    </nav>
     <div id="container">
       <div id="controls">
         <label for="algoSelect">Select Algorithm:</label>

@@ -1123,7 +1123,7 @@ function drawLine(p, q, color) {
   }
 }
 
-// Utility: Clear canvas and redraw points (and partial hull if available)
+// Clear canvas and redraw points
 function redraw() {
   clearCanvas();
   drawPoints(globalPoints);
@@ -1132,7 +1132,6 @@ function redraw() {
 //
 // Event listeners
 //
-
 function updateKSlider() {
     if (algoSelect.value === "bentley-faust-preparata-approximation") {
       const maxK = Math.max(1, globalPoints.length);
@@ -1148,7 +1147,7 @@ function updateKSlider() {
     }
 }
 
-// Event: Canvas mouse click to add a point
+// Handle canvas mouse click to add a point
 canvas.addEventListener("click", function (e) {
   // Get bounding rectangle for correct mouse position within the canvas.
   const rect = canvas.getBoundingClientRect();
