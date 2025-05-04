@@ -16,7 +16,7 @@ header-includes: |
 - [Algoritmo Naive](#algoritmo-naive)
   - [Idea](#idea)
   - [Complessità temporale](#complessità-temporale)
-  - [Come controllare se $\\vec{p}$ cade in $\\Pi^+ \\hquad \\textrm{o} \\hquad \\Pi^-$?](#come-controllare-se-vecp-cade-in-pi-hquad-textrmo-hquad-pi-)
+  - [Half-plane test](#half-plane-test)
   - [Come trovare un vettore perpendicolare ad un altro?](#come-trovare-un-vettore-perpendicolare-ad-un-altro)
 - [Algoritmo Divide and Conquer](#algoritmo-divide-and-conquer)
   - [Idea](#idea-1)
@@ -32,6 +32,12 @@ header-includes: |
     - [Euristica](#euristica)
     - [Ricerca dei percorsi convessi per ogni lato del quadrilatero](#ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero)
     - [Costruzione dell'involucro convesso $H$](#costruzione-dellinvolucro-convesso-h)
+  - [Ricerca di un percorso convesso di una data regione](#ricerca-di-un-percorso-convesso-di-una-data-regione)
+  - [Complessità temporale](#complessità-temporale-1)
+    - [Euristica](#euristica-1)
+    - [Ricerca del percorso convesso](#ricerca-del-percorso-convesso)
+    - [Costruzione di H](#costruzione-di-h-1)
+    - [Complessità complessiva](#complessità-complessiva)
 
 # Involucro convesso
 
@@ -132,9 +138,11 @@ Se tutti i punti sono caduti esclusivamente in uno dei due semipiani, allora il 
 - Iterare per ogni punto $\rightarrow O(n)$.
 - Combinando le due iterazioni, vediamo come la complessità temporale dell'algoritmo è $O(n^3)$.
 
-## Come controllare se $\vec{p}$ cade in $\Pi^+ \hquad \textrm{o} \hquad \Pi^-$?
+## Half-plane test
 
 ![](./half_plane_test.svg){ style="height: 300px; display: block; margin: auto;" }
+
+Come possiamo controllare se un punto $\vec{p}$ cade in $\Pi^+ \hquad \textrm{o} \hquad \Pi^-$?
 
 Supponiamo che il vettore $\vec{v} - \vec{u}$ è un possibile vettore direzione della retta $r$.
 
@@ -315,3 +323,44 @@ Osserviamo come su ogni lato del quadrilatero soggiace una regione. Quello che f
 ### Costruzione dell'involucro convesso $H$
 
 Una volta che abbiamo determinato i vari percorsi convessi per le relative regioni, andiamo a fonderli seguendo il senso orario di percorrenza dei lati del quadrilatero. La loro fusione risulta in $H$.
+
+## Ricerca di un percorso convesso di una data regione
+
+Sia $R$ l'insieme di punti che cadono nella regione (compresi gli estremi del lato su cui soggiace la regione).
+
+Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di $R$ in ordine non decrescente di $x$, risultando nella lista di punti $P$.
+
+Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine non crescente di $x$, risultando nella lista di punti $P$.
+
+1. Per ogni tripla di punti consecutivi $(P_k, P_{k+1}, P_{k+2})$ in $P$:
+
+   - Calcoliamo il $det \begin{pmatrix} (P_{k+2} - P_{k+1})_x & (P_{k+1} - P_{k})_x \\ (P_{k+2} - P_{k+1})_y & (P_{k+1} - P_{k})_y \end{pmatrix}$
+
+   - Se tale determinante è:
+     - Maggiore o uguale a 0, passiamo alla successiva tripla $(P_{k+1}, P_{k+2}, P_{k+3})$ di punti consecutivi in $P$.
+     - Minore di 0, eliminiamo il punto $P_{k+1}$ dalla lista $P$ e passiamo alla tripla $(P_{k-1}, P_k, P_{k+2})$ di punti consecutivi in $P$.
+
+2. Se abbiamo completato (1) senza avere rimosso nessun punto di $P$, allora ci fermiamo, altrimenti ripetiamo (1).
+
+Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orario, del percorso convesso che stavamo cercando.
+
+![](./akl_toussaint_determinante.svg){ style="height: 300px; display: block; margin: auto;" }
+
+## Complessità temporale
+
+### Euristica
+
+1. Cercare $\textrm{XMIN}$, $\textrm{YMAX}$, $\textrm{XMAX}$, $\textrm{YMIN}$ richiede una semplice scansione di $S$ $\rightarrow O(n)$
+2. Eliminare i punti di $S$ che cadono all'interno del quadrilatero richiede, per ciascun punto, fino a quattro half-plane test (uno per ogni lato del quadrilatero) $\rightarrow O(n)$
+
+### Ricerca del percorso convesso
+
+L'articolo di riferimento afferma che tale ricerca impieghi tempo $O(n \hhquad log \hhquad n)$, dovuto all'ordinamento dei punti appartenenti alle varie regioni.
+
+### Costruzione di H
+
+Per costruire $H$ è sufficiente scandire i percorsi convessi trovati $\rightarrow O(n)$
+
+### Complessità complessiva
+
+Per quanto detto sopra, la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.

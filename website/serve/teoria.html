@@ -59,11 +59,7 @@ clockwise e counterclockwise</a></li>
 <ul>
 <li><a href="#idea">Idea</a></li>
 <li><a href="#complessità-temporale">Complessità temporale</a></li>
-<li><a
-href="#come-controllare-se-vecp-cade-in-pi-hquad-textrmo-hquad-pi-">Come
-controllare se <span class="math inline">\(\\vec{p}\)</span> cade in
-<span class="math inline">\(\\Pi^+ \\hquad \\textrm{o} \\hquad
-\\Pi^-\)</span>?</a></li>
+<li><a href="#half-plane-test">Half-plane test</a></li>
 <li><a href="#come-trovare-un-vettore-perpendicolare-ad-un-altro">Come
 trovare un vettore perpendicolare ad un altro?</a></li>
 </ul></li>
@@ -96,6 +92,17 @@ href="#ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero">Ricerca
 dei percorsi convessi per ogni lato del quadrilatero</a></li>
 <li><a href="#costruzione-dellinvolucro-convesso-h">Costruzione
 dell’involucro convesso <span class="math inline">\(H\)</span></a></li>
+</ul></li>
+<li><a
+href="#ricerca-di-un-percorso-convesso-di-una-data-regione">Ricerca di
+un percorso convesso di una data regione</a></li>
+<li><a href="#complessità-temporale-1">Complessità temporale</a>
+<ul>
+<li><a href="#euristica-1">Euristica</a></li>
+<li><a href="#ricerca-del-percorso-convesso">Ricerca del percorso
+convesso</a></li>
+<li><a href="#costruzione-di-h-1">Costruzione di H</a></li>
+<li><a href="#complessità-complessiva">Complessità complessiva</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -246,13 +253,13 @@ O(n)\)</span>.</li>
 <li>Combinando le due iterazioni, vediamo come la complessità temporale
 dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
 </ul>
-<h2
-id="come-controllare-se-vecp-cade-in-pi-hspace0.5emtextrmo-hspace0.5empi-">Come
-controllare se <span class="math inline">\(\vec{p}\)</span> cade in
-<span class="math inline">\(\Pi^+ \hspace{0.5em}\textrm{o}
-\hspace{0.5em}\Pi^-\)</span>?</h2>
+<h2 id="half-plane-test">Half-plane test</h2>
 <p><img src="./half_plane_test.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
+<p>Come possiamo controllare se un punto <span
+class="math inline">\(\vec{p}\)</span> cade in <span
+class="math inline">\(\Pi^+ \hspace{0.5em}\textrm{o}
+\hspace{0.5em}\Pi^-\)</span>?</p>
 <p>Supponiamo che il vettore <span class="math inline">\(\vec{v} -
 \vec{u}\)</span> è un possibile vettore direzione della retta <span
 class="math inline">\(r\)</span>.</p>
@@ -532,5 +539,76 @@ convesso <span class="math inline">\(H\)</span></h3>
 relative regioni, andiamo a fonderli seguendo il senso orario di
 percorrenza dei lati del quadrilatero. La loro fusione risulta in <span
 class="math inline">\(H\)</span>.</p>
+<h2 id="ricerca-di-un-percorso-convesso-di-una-data-regione">Ricerca di
+un percorso convesso di una data regione</h2>
+<p>Sia <span class="math inline">\(R\)</span> l’insieme di punti che
+cadono nella regione (compresi gli estremi del lato su cui soggiace la
+regione).</p>
+<p>Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di
+<span class="math inline">\(R\)</span> in ordine non decrescente di
+<span class="math inline">\(x\)</span>, risultando nella lista di punti
+<span class="math inline">\(P\)</span>.</p>
+<p>Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di
+<span class="math inline">\(R\)</span> in ordine non crescente di <span
+class="math inline">\(x\)</span>, risultando nella lista di punti <span
+class="math inline">\(P\)</span>.</p>
+<ol type="1">
+<li><p>Per ogni tripla di punti consecutivi <span
+class="math inline">\((P_k, P_{k+1}, P_{k+2})\)</span> in <span
+class="math inline">\(P\)</span>:</p>
+<ul>
+<li><p>Calcoliamo il <span class="math inline">\(det \begin{pmatrix}
+(P_{k+2} - P_{k+1})_x &amp; (P_{k+1} - P_{k})_x \\ (P_{k+2} - P_{k+1})_y
+&amp; (P_{k+1} - P_{k})_y \end{pmatrix}\)</span></p></li>
+<li><p>Se tale determinante è:</p>
+<ul>
+<li>Maggiore o uguale a 0, passiamo alla successiva tripla <span
+class="math inline">\((P_{k+1}, P_{k+2}, P_{k+3})\)</span> di punti
+consecutivi in <span class="math inline">\(P\)</span>.</li>
+<li>Minore di 0, eliminiamo il punto <span
+class="math inline">\(P_{k+1}\)</span> dalla lista <span
+class="math inline">\(P\)</span> e passiamo alla tripla <span
+class="math inline">\((P_{k-1}, P_k, P_{k+2})\)</span> di punti
+consecutivi in <span class="math inline">\(P\)</span>.</li>
+</ul></li>
+</ul></li>
+<li><p>Se abbiamo completato (1) senza avere rimosso nessun punto di
+<span class="math inline">\(P\)</span>, allora ci fermiamo, altrimenti
+ripetiamo (1).</p></li>
+</ol>
+<p>Quando ci fermeremo, la lista <span class="math inline">\(P\)</span>
+sarà proprio la lista di punti, in senso orario, del percorso convesso
+che stavamo cercando.</p>
+<p><img src="./akl_toussaint_determinante.svg"
+style="height: 300px; display: block; margin: auto;" /></p>
+<h2 id="complessità-temporale-1">Complessità temporale</h2>
+<h3 id="euristica-1">Euristica</h3>
+<ol type="1">
+<li>Cercare <span class="math inline">\(\textrm{XMIN}\)</span>, <span
+class="math inline">\(\textrm{YMAX}\)</span>, <span
+class="math inline">\(\textrm{XMAX}\)</span>, <span
+class="math inline">\(\textrm{YMIN}\)</span> richiede una semplice
+scansione di <span class="math inline">\(S\)</span> <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
+<li>Eliminare i punti di <span class="math inline">\(S\)</span> che
+cadono all’interno del quadrilatero richiede effettuare, per ogni punto
+di <span class="math inline">\(S\)</span>, al massimo quattro (uno per
+ogni lato del quadrilatero) half-plane test <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
+</ol>
+<h3 id="ricerca-del-percorso-convesso">Ricerca del percorso
+convesso</h3>
+<p>L’articolo di riferimento afferma che tale ricerca impieghi tempo
+<span class="math inline">\(O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>, dovuto all’ordinamento dei punti
+appartenenti alle varie regioni.</p>
+<h3 id="costruzione-di-h-1">Costruzione di H</h3>
+<p>Per costruire <span class="math inline">\(H\)</span> è sufficiente
+scandire i percorsi convessi trovati <span
+class="math inline">\(\rightarrow O(n)\)</span></p>
+<h3 id="complessità-complessiva">Complessità complessiva</h3>
+<p>Per quanto detto sopra, la complessità temporale complessiva è <span
+class="math inline">\(O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>.</p>
 </body>
 </html>
