@@ -23,7 +23,7 @@ header-includes: |
   - [Fusione](#fusione)
   - [Ricerca tangente superiore](#ricerca-tangente-superiore)
   - [Ricerca tangente inferiore](#ricerca-tangente-inferiore)
-  - [Costruzione di $H$](#costruzione-di-h)
+  - [Costruzione di H](#costruzione-di-h)
   - [Complessità temporale della ricerca delle tangenti](#complessità-temporale-della-ricerca-delle-tangenti)
   - [Complessità temporale della fusione](#complessità-temporale-della-fusione)
   - [Complessità temporale Divide et Impera](#complessità-temporale-divide-et-impera)
@@ -31,7 +31,7 @@ header-includes: |
   - [Idea](#idea-2)
     - [Euristica](#euristica)
     - [Ricerca dei percorsi convessi per ogni lato del quadrilatero](#ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero)
-    - [Costruzione dell'involucro convesso $H$](#costruzione-dellinvolucro-convesso-h)
+    - [Costruzione dell'involucro convesso H](#costruzione-dellinvolucro-convesso-h)
   - [Ricerca di un percorso convesso di una data regione](#ricerca-di-un-percorso-convesso-di-una-data-regione)
   - [Complessità temporale](#complessità-temporale-1)
     - [Euristica](#euristica-1)
@@ -57,7 +57,7 @@ Denotiamo con:
 
 **Corollario**: $d \le n$
 
-**Rappresentare $H$**
+**Rappresentare H**
 
 Rappresentiamo $H$ usando una lista ordinata di punti di $P(H)$:
 
@@ -233,7 +233,7 @@ Cercando il segmento il segmento di estremi $p$ e $q$, con $p$ vertice di $H_a$ 
 
 Il segmento $pq$ è la tangente inferiore.
 
-## Costruzione di $H$
+## Costruzione di H
 
 Per costruire $H$, percorriamo:
 
@@ -320,7 +320,7 @@ Dunque possiamo eliminare tali punti da $S$.
 
 Osserviamo come su ogni lato del quadrilatero soggiace una regione. Quello che facciamo è percorrere il quadrilatero in senso orario e, per ogni regione, cercare il percorso convesso che ci porta da un estremo all'altro del lato su cui soggiace la suddetta regione.
 
-### Costruzione dell'involucro convesso $H$
+### Costruzione dell'involucro convesso H
 
 Una volta che abbiamo determinato i vari percorsi convessi per le relative regioni, andiamo a fonderli seguendo il senso orario di percorrenza dei lati del quadrilatero. La loro fusione risulta in $H$.
 
