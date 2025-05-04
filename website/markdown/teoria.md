@@ -334,10 +334,12 @@ Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine 
 
 1. Per ogni tripla di punti consecutivi $(P_k, P_{k+1}, P_{k+2})$ in $P$:
 
-   - Calcoliamo il $det \begin{pmatrix} (P_{k+2} - P_{k+1})_x & (P_{k+1} - P_{k})_x \\ (P_{k+2} - P_{k+1})_y & (P_{k+1} - P_{k})_y \end{pmatrix}$
+   - Calcoliamo $det \begin{pmatrix} (P_{k+2} - P_{k+1})_x & (P_{k+1} - P_{k})_x \\ (P_{k+2} - P_{k+1})_y & (P_{k+1} - P_{k})_y \end{pmatrix}$
 
    - Se tale determinante è:
+
      - Maggiore o uguale a 0, passiamo alla successiva tripla $(P_{k+1}, P_{k+2}, P_{k+3})$ di punti consecutivi in $P$.
+
      - Minore di 0, eliminiamo il punto $P_{k+1}$ dalla lista $P$ e passiamo alla tripla $(P_{k-1}, P_k, P_{k+2})$ di punti consecutivi in $P$.
 
 2. Se abbiamo completato (1) senza avere rimosso nessun punto di $P$, allora ci fermiamo, altrimenti ripetiamo (1).
@@ -363,4 +365,4 @@ Per costruire $H$ è sufficiente scandire i percorsi convessi trovati $\rightarr
 
 ### Complessità complessiva
 
-Per quanto detto sopra, la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.
+Di conseguenza, la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.
