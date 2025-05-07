@@ -38,6 +38,7 @@ header-includes: |
     - [Ricerca del percorso convesso](#ricerca-del-percorso-convesso)
     - [Costruzione di H](#costruzione-di-h-1)
     - [Complessità complessiva](#complessità-complessiva)
+- [Benchmark](#benchmark)
 
 # Involucro convesso
 
@@ -366,3 +367,7 @@ Per costruire $H$ è sufficiente scandire i percorsi convessi trovati $\rightarr
 ### Complessità complessiva
 
 Di conseguenza, la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.
+
+# Benchmark
+
+<canvas id="canvas" width="600" height="400"></canvas>
