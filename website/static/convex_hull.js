@@ -644,10 +644,10 @@ class AklToussaint {
       const from = this.killZone[i];
       const to = this.killZone[(i + 1) % this.killZone.length];
 
-      const from_to = sub(to, from);
-      const n = normal(from_to);
-      const from_p = sub(p, from);
-      fallsWithin = dot(n, from_p) < 0;
+      const fromTo = sub(to, from);
+      const n = normal(fromTo);
+      const fromP = sub(p, from);
+      fallsWithin = dot(n, fromP) < 0;
     }
 
     return fallsWithin;
@@ -764,11 +764,11 @@ class AklToussaintConvexPath {
       }
     }
 
-    const from_to = sub(this.to, this.from);
-    if (from_to.x > 0) {
+    const fromTo = sub(this.to, this.from);
+    if (fromTo.x > 0) {
       // we either are in region 1 or 2
       this.region.sort((a, b) => a.x - b.x);
-    } else if (from_to.x < 0) {
+    } else if (fromTo.x < 0) {
       // we either are in region 3 or 4
       this.region.sort((a, b) => b.x - a.x);
     }
@@ -777,10 +777,10 @@ class AklToussaintConvexPath {
   }
 
   fallsWithinRegion(p, from, to) {
-    const from_to = sub(to, from);
-    const n = normal(from_to);
-    const from_p = sub(p, from);
-    return dot(n, from_p) > 0;
+    const fromTo = sub(to, from);
+    const n = normal(fromTo);
+    const fromP = sub(p, from);
+    return dot(n, fromP) > 0;
   }
 
   step() {
@@ -913,7 +913,7 @@ class BentleyFaustPreparataApproximation {
     this.dx = 0;
     this.stripDx = 0;
     this.sampled = [];
-    this.sample_hull = [];
+    this.sampleHull = [];
     this.hull = [];
   }
 
@@ -999,7 +999,7 @@ class BentleyFaustPreparataApproximation {
       case "sample": {
         const naive = new Naive(this.sampled);
         naive.continue();
-        this.sample_hull = naive.hull;
+        this.sampleHull = naive.hull;
         this.state = "sample-hull";
         break;
       }
@@ -1143,9 +1143,9 @@ function drawSegment(p, q, color) {
 
 function drawPolyLine(points, color) {
   for (let i = 0; i < points.length - 1; i++) {
-    const from_idx = i;
-    const to_idx = i + 1;
-    drawSegment(points[from_idx], points[to_idx], color);
+    const fromIdx = i;
+    const toIdx = i + 1;
+    drawSegment(points[fromIdx], points[toIdx], color);
   }
 }
 
