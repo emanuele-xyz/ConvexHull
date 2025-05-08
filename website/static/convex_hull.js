@@ -9,6 +9,7 @@ const algoSelect = document.getElementById("algoSelect");
 const stepBtn = document.getElementById("stepBtn");
 const continueBtn = document.getElementById("continueBtn");
 const resetBtn = document.getElementById("resetBtn");
+const undoBtn = document.getElementById("undoBtn");
 const kSliderContainer = document.getElementById("kSliderContainer");
 const kSlider = document.getElementById("kSlider");
 const kValueLabel = document.getElementById("kValueLabel");
@@ -1314,6 +1315,15 @@ continueBtn.addEventListener("click", function () {
 
   algoCtx.continue();
   algoCtx.draw();
+});
+
+// "Undo" button: remove the last inserted point and reset algorithm state.
+undoBtn.addEventListener("click", function () {
+  globalPoints.pop();
+  algoCtx = new algoCtx.constructor(globalPoints);
+  clearCanvas();
+  updateKSlider();
+  drawPoints(globalPoints);
 });
 
 // "Reset" button: clear canvas and reset algorithm state.

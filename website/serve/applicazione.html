@@ -27,6 +27,10 @@
       #controls {
         margin-bottom: 10px;
       }
+      #buttonRow {
+        display: flex;
+        justify-content: center;
+      }
       select,
       button {
         font-size: 16px;
@@ -41,12 +45,19 @@
         margin-top: 10px;
         color: black;
       }
+      #kSliderContainer {
+        display: none;
+        margin-bottom: 10px;
+      }
       #kSliderContainer label {
         font-size: 16px;
         margin-right: 8px;
       }
       #kSliderContainer input {
         vertical-align: middle;
+      }
+      #pointsTooClose {
+        display: none;
       }
     </style>
   </head>
@@ -59,32 +70,43 @@
     </nav>
     <div id="container">
       <div id="controls">
-        <label for="algoSelect">Seleziona algoritmo:</label>
-        <select id="algoSelect">
-          <option value="naive">Naive</option>
-          <option value="divide-and-conquer">Divide and Conquer</option>
-          <option value="divide-and-conquer-upper-tangent">
-            Divide and Conquer: Upper Tangent
-          </option>
-          <option value="akl-toussaint">Akl-Toussaint</option>
-          <option value="akl-toussaint-convex-path">
-            Akl-Toussaint: Convex Path
-          </option>
-          <option value="bentley-faust-preparata-approximation">
-            Bentley-Faust-Preparata Approximation
-          </option>
-        </select>
-        <button id="stepBtn">Step</button>
-        <button id="continueBtn">Continue</button>
-        <button id="resetBtn">Reset</button>
+        <div>
+          <label for="algoSelect">Seleziona algoritmo:</label>
+          <select id="algoSelect">
+            <option value="naive">Naive</option>
+            <option value="divide-and-conquer">Divide and Conquer</option>
+            <option value="divide-and-conquer-upper-tangent">
+              Divide and Conquer: Upper Tangent
+            </option>
+            <option value="akl-toussaint">Akl-Toussaint</option>
+            <option value="akl-toussaint-convex-path">
+              Akl-Toussaint: Convex Path
+            </option>
+            <option value="bentley-faust-preparata-approximation">
+              Bentley-Faust-Preparata Approximation
+            </option>
+          </select>
+        </div>
+        <div id="buttonRow">
+          <button title="Esegue un passo dell'algoritmo" id="stepBtn">
+            Step
+          </button>
+          <button title="Esegue l'algoritmo fino alla fine" id="continueBtn">
+            Continue
+          </button>
+          <button title="Rimuove tutti i punti" id="resetBtn">Reset</button>
+          <button title="Rimuove l'ultimo punto inserito" id="undoBtn">
+            Undo
+          </button>
+        </div>
       </div>
-      <div id="kSliderContainer" style="display: none; margin-bottom: 10px">
+      <div id="kSliderContainer">
         <label for="kSlider">k = <span id="kValueLabel">1</span></label>
         <input type="range" id="kSlider" min="1" value="1" />
       </div>
       <canvas id="canvas" width="600" height="400"></canvas>
       <div id="info">Clicca sulla canvas per aggiungere punti.</div>
-      <div id="pointsTooClose" style="display: none">
+      <div id="pointsTooClose">
         <b>ATTENZIONE:</b> Il punto che si vuole inserire è troppo vicino ad un
         punto esistente.
       </div>
