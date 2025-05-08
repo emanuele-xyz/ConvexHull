@@ -12,6 +12,7 @@ const resetBtn = document.getElementById("resetBtn");
 const kSliderContainer = document.getElementById("kSliderContainer");
 const kSlider = document.getElementById("kSlider");
 const kValueLabel = document.getElementById("kValueLabel");
+const pointsTooClose = document.getElementById("pointsTooClose");
 
 let globalPoints = []; // Holds the points added by the user
 
@@ -371,7 +372,8 @@ class DivideAndConquerUpperTangent {
       case "start": {
         this.points.sort((a, b) => a.x - b.x);
         this.half = Math.trunc(this.points.length / 2);
-        this.middleX = (this.points[this.half - 1].x + this.points[this.half].x) / 2;
+        this.middleX =
+          (this.points[this.half - 1].x + this.points[this.half].x) / 2;
         this.state = "divide";
         break;
       }
@@ -387,7 +389,9 @@ class DivideAndConquerUpperTangent {
         }
         // build right hull
         {
-          const naive = new Naive(this.points.slice(this.half, this.points.length));
+          const naive = new Naive(
+            this.points.slice(this.half, this.points.length)
+          );
           naive.continue();
           this.rightHull = naive.hull;
           if (!isHullClockwise(this.rightHull)) {
@@ -412,16 +416,31 @@ class DivideAndConquerUpperTangent {
             this.rightIdx = i;
           }
         }
-        this.state = "rightmost-and-leftmost"
+        this.state = "rightmost-and-leftmost";
         break;
       }
       case "rightmost-and-leftmost":
       case "advance": {
         this.leftNextIdx = (this.leftIdx + 1) % this.leftHull.length;
-        this.rightNextIdx = (((this.rightIdx - 1) % this.rightHull.length) + this.rightHull.length) % this.rightHull.length;
-        this.intersectY = this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[this.rightIdx]);
-        this.nextLeftIntersectY = this.getIntersectY(this.middleX, this.leftHull[this.leftNextIdx], this.rightHull[this.rightIdx]);
-        this.nextRightIntersectY = this.getIntersectY(this.middleX, this.leftHull[this.leftIdx], this.rightHull[this.rightNextIdx]);
+        this.rightNextIdx =
+          (((this.rightIdx - 1) % this.rightHull.length) +
+            this.rightHull.length) %
+          this.rightHull.length;
+        this.intersectY = this.getIntersectY(
+          this.middleX,
+          this.leftHull[this.leftIdx],
+          this.rightHull[this.rightIdx]
+        );
+        this.nextLeftIntersectY = this.getIntersectY(
+          this.middleX,
+          this.leftHull[this.leftNextIdx],
+          this.rightHull[this.rightIdx]
+        );
+        this.nextRightIntersectY = this.getIntersectY(
+          this.middleX,
+          this.leftHull[this.leftIdx],
+          this.rightHull[this.rightNextIdx]
+        );
         this.state = "intersect";
         break;
       }
@@ -433,7 +452,10 @@ class DivideAndConquerUpperTangent {
           this.state = "advance";
         } else if (this.nextRightIntersectY < this.intersectY) {
           this.rightIdx = this.rightNextIdx;
-          this.rightNextIdx = (((this.rightIdx - 1) % this.rightHull.length) + this.rightHull.length) % this.rightHull.length;
+          this.rightNextIdx =
+            (((this.rightIdx - 1) % this.rightHull.length) +
+              this.rightHull.length) %
+            this.rightHull.length;
           this.advanceChoice = "right";
           this.state = "advance";
         } else {
@@ -462,33 +484,63 @@ class DivideAndConquerUpperTangent {
 
     switch (this.state) {
       case "divide": {
-        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawLine(
+          { x: this.middleX, y: 0 },
+          { x: this.middleX, y: canvas.height },
+          "steelblue"
+        );
         drawPoints(this.points);
         break;
       }
       case "hulls": {
-        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawLine(
+          { x: this.middleX, y: 0 },
+          { x: this.middleX, y: canvas.height },
+          "steelblue"
+        );
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
         drawPoints(this.points);
         break;
       }
-      case "rightmost-and-leftmost": {
-        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
-        drawPolygon(this.leftHull, "red");
-        drawPolygon(this.rightHull, "red");
-        drawPoints(this.points);
-        drawPoint(this.leftHull[this.leftIdx], "lightgreen");
-        drawPoint(this.rightHull[this.rightIdx], "lightgreen");
-      } break;
+      case "rightmost-and-leftmost":
+        {
+          drawLine(
+            { x: this.middleX, y: 0 },
+            { x: this.middleX, y: canvas.height },
+            "steelblue"
+          );
+          drawPolygon(this.leftHull, "red");
+          drawPolygon(this.rightHull, "red");
+          drawPoints(this.points);
+          drawPoint(this.leftHull[this.leftIdx], "lightgreen");
+          drawPoint(this.rightHull[this.rightIdx], "lightgreen");
+        }
+        break;
       case "intersect": {
-        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawLine(
+          { x: this.middleX, y: 0 },
+          { x: this.middleX, y: canvas.height },
+          "steelblue"
+        );
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
         drawPoints(this.points);
-        drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightIdx], "lightgreen");
-        drawSegment(this.leftHull[this.leftNextIdx], this.rightHull[this.rightIdx], "purple");
-        drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightNextIdx], "purple");
+        drawSegment(
+          this.leftHull[this.leftIdx],
+          this.rightHull[this.rightIdx],
+          "lightgreen"
+        );
+        drawSegment(
+          this.leftHull[this.leftNextIdx],
+          this.rightHull[this.rightIdx],
+          "purple"
+        );
+        drawSegment(
+          this.leftHull[this.leftIdx],
+          this.rightHull[this.rightNextIdx],
+          "purple"
+        );
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
         drawPoint(this.leftHull[this.leftNextIdx], "green");
@@ -499,7 +551,11 @@ class DivideAndConquerUpperTangent {
         break;
       }
       case "advance": {
-        drawLine({ x: this.middleX, y: 0 }, { x: this.middleX, y: canvas.height }, "steelblue");
+        drawLine(
+          { x: this.middleX, y: 0 },
+          { x: this.middleX, y: canvas.height },
+          "steelblue"
+        );
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
         drawPoints(this.points);
@@ -513,7 +569,11 @@ class DivideAndConquerUpperTangent {
         drawPolygon(this.leftHull, "red");
         drawPolygon(this.rightHull, "red");
         drawPoints(this.points);
-        drawSegment(this.leftHull[this.leftIdx], this.rightHull[this.rightIdx], "lightgreen");
+        drawSegment(
+          this.leftHull[this.leftIdx],
+          this.rightHull[this.rightIdx],
+          "lightgreen"
+        );
         drawPoint(this.leftHull[this.leftIdx], "lightgreen");
         drawPoint(this.rightHull[this.rightIdx], "lightgreen");
         break;
@@ -708,8 +768,7 @@ class AklToussaintConvexPath {
     if (from_to.x > 0) {
       // we either are in region 1 or 2
       this.region.sort((a, b) => a.x - b.x);
-    }
-    else if (from_to.x < 0) {
+    } else if (from_to.x < 0) {
       // we either are in region 3 or 4
       this.region.sort((a, b) => b.x - a.x);
     }
@@ -809,10 +868,10 @@ class AklToussaintConvexPath {
         drawSegment(this.from, this.to, "steelblue");
         drawPolyLine(this.region, "red");
         drawPoints(this.region);
-        if (0 <= (this.k + 2) && (this.k + 2) <= this.region.length - 1) {
+        if (0 <= this.k + 2 && this.k + 2 <= this.region.length - 1) {
           drawPoint(this.region[this.k + 2], "green");
         }
-        if (0 <= (this.k + 1) && (this.k + 1) <= this.region.length - 1) {
+        if (0 <= this.k + 1 && this.k + 1 <= this.region.length - 1) {
           drawPoint(this.region[this.k + 1], "green");
         }
         if (0 <= this.k && this.k <= this.region.length - 1) {
@@ -879,7 +938,9 @@ class BentleyFaustPreparataApproximation {
         break;
       }
       case "strips": {
-        const strips = Array.from({ length: this.k }, () => { return { minYIdx: -1, maxYIdx: -1 }; });
+        const strips = Array.from({ length: this.k }, () => {
+          return { minYIdx: -1, maxYIdx: -1 };
+        });
 
         // populate strips
         for (let i = 0; i < this.points.length; i++) {
@@ -891,15 +952,23 @@ class BentleyFaustPreparataApproximation {
           const p = this.points[i];
 
           // get the index of the strip in which the point falls into
-          const stripIdx = Math.floor((p.x - this.points[this.minXIdx].x) / this.stripDx);
+          const stripIdx = Math.floor(
+            (p.x - this.points[this.minXIdx].x) / this.stripDx
+          );
 
           // update strip min y, if necessary
-          if (strips[stripIdx].minYIdx === -1 || p.y < this.points[strips[stripIdx].minYIdx].y) {
+          if (
+            strips[stripIdx].minYIdx === -1 ||
+            p.y < this.points[strips[stripIdx].minYIdx].y
+          ) {
             strips[stripIdx].minYIdx = i;
           }
 
           // update strip max y, if necessary
-          if (strips[stripIdx].maxYIdx === -1 || p.y > this.points[strips[stripIdx].maxYIdx].y) {
+          if (
+            strips[stripIdx].maxYIdx === -1 ||
+            p.y > this.points[strips[stripIdx].maxYIdx].y
+          ) {
             strips[stripIdx].maxYIdx = i;
           }
         }
@@ -943,7 +1012,7 @@ class BentleyFaustPreparataApproximation {
       }
       case "points-hull":
       case "done": {
-        this.state = "done"
+        this.state = "done";
         break;
       }
       default: {
@@ -979,7 +1048,11 @@ class BentleyFaustPreparataApproximation {
         let startX = minX;
         for (let i = 0; i < this.k - 1; i++) {
           startX += this.stripDx;
-          drawLine({ x: startX, y: 0 }, { x: startX, y: canvas.height }, "steelblue");
+          drawLine(
+            { x: startX, y: 0 },
+            { x: startX, y: canvas.height },
+            "steelblue"
+          );
         }
         drawPoints(this.points);
         break;
@@ -992,7 +1065,11 @@ class BentleyFaustPreparataApproximation {
         let startX = minX;
         for (let i = 0; i < this.k - 1; i++) {
           startX += this.stripDx;
-          drawLine({ x: startX, y: 0 }, { x: startX, y: canvas.height }, "steelblue");
+          drawLine(
+            { x: startX, y: 0 },
+            { x: startX, y: canvas.height },
+            "steelblue"
+          );
         }
         drawPoints(this.points);
         drawPoints(this.sampled, "lightgreen", false);
@@ -1067,7 +1144,7 @@ function drawSegment(p, q, color) {
 function drawPolyLine(points, color) {
   for (let i = 0; i < points.length - 1; i++) {
     const from_idx = i;
-    const to_idx = (i + 1);
+    const to_idx = i + 1;
     drawSegment(points[from_idx], points[to_idx], color);
   }
 }
@@ -1133,18 +1210,18 @@ function redraw() {
 // Event listeners
 //
 function updateKSlider() {
-    if (algoSelect.value === "bentley-faust-preparata-approximation") {
-      const maxK = Math.max(1, globalPoints.length);
-      kSlider.max = maxK;
-      // clamp current value
-      if (kSlider.value > maxK) kSlider.value = maxK;
-      kValueLabel.textContent = kSlider.value;
-      kSliderContainer.style.display = "block";
-      // re-init BFP with the slider's k
-      algoCtx.k = kSlider.value;
-    } else {
-      kSliderContainer.style.display = "none";
-    }
+  if (algoSelect.value === "bentley-faust-preparata-approximation") {
+    const maxK = Math.max(1, globalPoints.length);
+    kSlider.max = maxK;
+    // clamp current value
+    if (kSlider.value > maxK) kSlider.value = maxK;
+    kValueLabel.textContent = kSlider.value;
+    kSliderContainer.style.display = "block";
+    // re-init BFP with the slider's k
+    algoCtx.k = kSlider.value;
+  } else {
+    kSliderContainer.style.display = "none";
+  }
 }
 
 // Handle canvas mouse click to add a point
@@ -1153,10 +1230,22 @@ canvas.addEventListener("click", function (e) {
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-  globalPoints.push({ x, y });
-  algoCtx = new algoCtx.constructor(globalPoints);
-  redraw();
-  updateKSlider();
+
+  // Reject if within the NxN square of any existing point
+  const N = 5;
+  const tooClose = globalPoints.some(
+    (p) => Math.abs(p.x - x) < N && Math.abs(p.y - y) < N
+  );
+
+  if (tooClose) {
+    pointsTooClose.style.display = "block";
+  } else {
+    pointsTooClose.style.display = "none";
+    globalPoints.push({ x, y });
+    algoCtx = new algoCtx.constructor(globalPoints);
+    redraw();
+    updateKSlider();
+  }
 });
 
 // Handle algorithm selection change

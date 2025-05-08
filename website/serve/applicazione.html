@@ -78,11 +78,15 @@
         <button id="continueBtn">Continue</button>
         <button id="resetBtn">Reset</button>
       </div>
-      <canvas id="canvas" width="600" height="400"></canvas>
-      <div id="info">Clicca sulla canvas per aggiungere punti.</div>
-      <div id="kSliderContainer" style="display: none">
+      <div id="kSliderContainer" style="display: none; margin-bottom: 10px">
         <label for="kSlider">k = <span id="kValueLabel">1</span></label>
         <input type="range" id="kSlider" min="1" value="1" />
+      </div>
+      <canvas id="canvas" width="600" height="400"></canvas>
+      <div id="info">Clicca sulla canvas per aggiungere punti.</div>
+      <div id="pointsTooClose" style="display: none">
+        <b>ATTENZIONE:</b> Il punto che si vuole inserire è troppo vicino ad un
+        punto esistente.
       </div>
     </div>
   </body>
