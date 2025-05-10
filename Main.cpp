@@ -466,20 +466,21 @@ static void benchmark()
     }
 }
 
-#if 0
+#if 1
 int main()
 {
     // generate points
-    int points_count{ 10 };
+    int points_count{ 20 };
     std::vector<ch::v2> points{ generate_points(points_count) };
     assert(points.size() == points_count); // sanity check
 
     // generate hull and test against oracle
     //std::vector<ch::v2> naive_hull{ ch::naive(points) };
     //std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
-    #if 0
+    #if 1
     std::vector<ch::v2> akl_toussaint_hull{ ch::akl_toussaint(points) };
-    dump_points_and_hull(points, akl_toussaint_hull);
+    std::vector<ch::v2> torch_hull{ ch::torch(points) };
+    dump_points_and_hull(points, torch_hull);
     #else
     std::vector<ch::v2> sampled_points{ ch::sample_points_for_subset(points, 9) };
     dump_points_and_hull(sampled_points, {});

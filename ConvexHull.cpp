@@ -436,6 +436,146 @@ namespace ch
         }
     }
 
+    std::vector<v2> torch(const std::vector<v2>& points)
+    {
+        assert(points.size() > 3);
+
+        std::vector<v2> copy{ points };
+
+        // sort point set in x direction
+        std::sort(copy.begin(), copy.end(), [](v2 a, v2 b) { return a.x <= b.x; });
+
+        // find the leftmost (west) and rightmost (east) points
+        int west_idx{ 0 };
+        int east_idx{ static_cast<int>(copy.size() - 1) };
+
+        // find the lowermost (south) and uppermost (north) points
+        int south_idx{};
+        int north_idx{};
+        {
+            auto it{ std::minmax_element(copy.begin(), copy.end(), [](v2 a, v2 b) { return a.y <= b.y; }) };
+            assert(it.first != copy.end());
+            assert(it.second != copy.end());
+            south_idx = static_cast<int>(std::distance(copy.begin(), it.first));
+            north_idx = static_cast<int>(std::distance(copy.begin(), it.second));
+            assert(south_idx >= 0);
+            assert(north_idx >= 0);
+        }
+
+        // find south west hull
+        std::vector<int> south_west{};
+        {
+            double min_y{ copy[west_idx].y };
+            south_west.emplace_back(west_idx);
+            for (int i{ west_idx + 1 }; i <= south_idx; i++)
+            {
+                if (copy[i].y <= min_y)
+                {
+                    min_y = copy[i].y;
+                    south_west.emplace_back(i);
+                }
+            }
+        }
+
+        // find south east hull
+        std::vector<int> south_east{};
+        {
+            double min_y{ copy[east_idx].y };
+            south_east.emplace_back(east_idx);
+            for (int i{ east_idx - 1 }; i >= south_idx; i--)
+            {
+                if (copy[i].y <= min_y)
+                {
+                    min_y = copy[i].y;
+                    south_east.emplace_back(i);
+                }
+            }
+        }
+
+        // find north west hull
+        std::vector<int> north_west{};
+        {
+            double max_y{ copy[west_idx].y };
+            north_west.emplace_back(west_idx);
+            for (int i{ west_idx + 1 }; i <= north_idx; i++)
+            {
+                if (copy[i].y >= max_y)
+                {
+                    max_y = copy[i].y;
+                    north_west.emplace_back(i);
+                }
+            }
+        }
+
+        // find north east hull
+        std::vector<int> north_east{};
+        {
+            double max_y{ copy[east_idx].y };
+            north_east.emplace_back(east_idx);
+            for (int i{ east_idx - 1 }; i >= north_idx; i--)
+            {
+                if (copy[i].y >= max_y)
+                {
+                    max_y = copy[i].y;
+                    north_east.emplace_back(i);
+                }
+            }
+        }
+
+        // construct the approximate hull by merging the four lateral hulls (the resulting hull may not be convex)
+        std::vector<v2> approximate_hull{};
+        {
+            approximate_hull.emplace_back(copy[east_idx]);
+            for (int i{ 1 }; i < static_cast<int>(north_east.size()) - 1; i++)
+            {
+                approximate_hull.emplace_back(copy[north_east[i]]);
+            }
+
+            approximate_hull.emplace_back(copy[north_idx]);
+            for (int i{ static_cast<int>(north_west.size()) - 1 }; i > 0; i--)
+            {
+                approximate_hull.emplace_back(copy[north_west[i]]);
+            }
+
+            approximate_hull.emplace_back(copy[west_idx]);
+            for (int i{ 1 }; i < static_cast<int>(south_west.size()) - 1; i++)
+            {
+                approximate_hull.emplace_back(copy[south_west[i]]);
+            }
+
+            approximate_hull.emplace_back(copy[south_idx]);
+            for (int i{ static_cast<int>(south_east.size()) - 1 }; i > 0; i--)
+            {
+                approximate_hull.emplace_back(copy[south_east[i]]);
+            }
+        }
+
+        // inflate the approximate hull (convexification)
+        {
+            // TODO: ...
+            int m{ static_cast<int>(approximate_hull.size()) }; // number of points of the approximate hull
+            int count{}; // counter for backtracking
+            if (m >= 3)
+            {
+                for (int i{}; i < m; i++)
+                {
+                    // TODO: this check works for CCW approximate hull. We built it CW. Thus we need to fix it.
+
+                    v2 a{ approximate_hull[(i - count) % m] };
+                    v2 b{ approximate_hull[(i + 1) % m] };
+                    v2 c{ approximate_hull[(i + 2) % m] };
+                    double d_x{ b.x - a.x };
+                    double d_y{ b.y - a.y };
+                    double D_x{ c.x - a.x };
+                    double D_y{ c.y - a.y };
+                }
+            }
+        }
+
+        std::vector<v2> hull{};
+        return hull;
+    }
+
     std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points)
     {
         assert(points.size() >= 3);
@@ -458,6 +598,12 @@ namespace ch
 
         // run divide and conquer on survivors
         return divide_and_conquer(survivors);
+    }
+
+    std::vector<v2> torch_akl_toussaint(const std::vector<v2>& points)
+    {
+        // TODO: to be implemented
+        return {};
     }
 
     std::vector<v2> sample_points_for_subset(const std::vector<v2>& points, int k)
