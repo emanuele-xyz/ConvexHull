@@ -462,7 +462,7 @@ namespace ch
             assert(north_idx >= 0);
         }
 
-        // find south west hull
+        // find south west hull (from west to south)
         std::vector<int> south_west{};
         {
             double min_y{ copy[west_idx].y };
@@ -477,7 +477,7 @@ namespace ch
             }
         }
 
-        // find south east hull
+        // find south east hull (from east to south)
         std::vector<int> south_east{};
         {
             double min_y{ copy[east_idx].y };
@@ -492,7 +492,7 @@ namespace ch
             }
         }
 
-        // find north west hull
+        // find north west hull (from west to north)
         std::vector<int> north_west{};
         {
             double max_y{ copy[west_idx].y };
@@ -507,7 +507,7 @@ namespace ch
             }
         }
 
-        // find north east hull
+        // find north east hull (from east to north)
         std::vector<int> north_east{};
         {
             double max_y{ copy[east_idx].y };
@@ -525,6 +525,7 @@ namespace ch
         // construct the approximate hull by merging the four lateral hulls (the resulting hull may not be convex)
         std::vector<v2> approximate_hull{};
         {
+            #if 0
             approximate_hull.emplace_back(copy[east_idx]);
             for (int i{ 1 }; i < static_cast<int>(north_east.size()) - 1; i++)
             {
@@ -548,9 +549,28 @@ namespace ch
             {
                 approximate_hull.emplace_back(copy[south_east[i]]);
             }
+            #endif
+
+            for (int i{}; i < static_cast<int>(north_west.size()) - 1; i++)
+            {
+                approximate_hull.emplace_back(copy[north_west[i]]);
+            }
+            for (int i{ static_cast<int>(north_east.size()) - 1 }; i > 0; i--)
+            {
+                approximate_hull.emplace_back(copy[north_east[i]]);
+            }
+            for (int i{}; i < static_cast<int>(south_east.size()) - 1; i++)
+            {
+                approximate_hull.emplace_back(copy[south_east[i]]);
+            }
+            for (int i{ static_cast<int>(south_west.size()) - 1 }; i > 0; i--)
+            {
+                approximate_hull.emplace_back(copy[south_west[i]]);
+            }
         }
 
         // inflate the approximate hull (convexification)
+        #if 0
         {
             // TODO: ...
             int m{ static_cast<int>(approximate_hull.size()) }; // number of points of the approximate hull
@@ -574,6 +594,11 @@ namespace ch
 
         std::vector<v2> hull{};
         return hull;
+        #endif
+
+        assert(is_hull_clockwise(approximate_hull));
+
+        return approximate_hull;
     }
 
     std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points)

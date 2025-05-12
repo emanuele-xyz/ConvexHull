@@ -470,7 +470,7 @@ static void benchmark()
 int main()
 {
     // generate points
-    int points_count{ 20 };
+    int points_count{ 1000 };
     std::vector<ch::v2> points{ generate_points(points_count) };
     assert(points.size() == points_count); // sanity check
 
