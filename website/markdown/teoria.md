@@ -117,6 +117,8 @@ Di rado può accadere di dover controllare se un involucro convesso è espresso 
 
   - Se $det\begin{pmatrix} \vec{v}_x - \vec{u}_x & \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} & \vec{w_y} - \vec{v_y} \end{pmatrix} < 0$, allora siamo in senso orario.
 
+  - Se il determinante è uguale a zero allora i tre punti hanno la stessa direzione e dunque sono colineari. Ricordiamo che non consideriamo punti colineari.
+
 Se l'involucro è espresso in un senso, per esprimerlo nell'altro bisogna semplicemente invertire l'ordine della lista.
 
 # Algoritmo Naive
