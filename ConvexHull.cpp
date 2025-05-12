@@ -381,11 +381,11 @@ namespace ch
                             v2 pn{ region_points[k + 1] };
                             v2 pnn{ region_points[k + 2] };
                             double s{ determinant(pnn - pn, pn - p) };
-                            if (s >= 0)
+                            if (s >= 0) // convex triplet
                             {
                                 k++;
                             }
-                            else
+                            else // concave triplet
                             {
                                 region_points.erase(region_points.begin() + k + 1);
                                 was_there_any_deletion = true;
@@ -525,6 +525,7 @@ namespace ch
         // construct the approximate hull by merging the four lateral hulls (the resulting hull may not be convex)
         std::vector<v2> approximate_hull{};
         {
+            // TODO: remove it
             #if 0
             approximate_hull.emplace_back(copy[east_idx]);
             for (int i{ 1 }; i < static_cast<int>(north_east.size()) - 1; i++)
@@ -569,9 +570,10 @@ namespace ch
             }
         }
 
-        // inflate the approximate hull (convexification)
-        #if 0
+        // inflate the approximate hull (convexification), building the final convex hull
+        std::vector<v2> hull{};
         {
+            #if 0
             // TODO: ...
             int m{ static_cast<int>(approximate_hull.size()) }; // number of points of the approximate hull
             int count{}; // counter for backtracking
@@ -590,15 +592,46 @@ namespace ch
                     double D_y{ c.y - a.y };
                 }
             }
+            #endif
+            int m{ static_cast<int>(approximate_hull.size()) }; // number of points of the approximate hull
+            int count{}; // counter for backtracking
+            if (m >= 3)
+            {
+                for (int i{}; i < m; i++)
+                {
+                    #if 0
+                    v2 a{ approximate_hull[(i - count) % m] };
+                    v2 b{ approximate_hull[(i + 1) % m] };
+                    v2 c{ approximate_hull[(i + 2) % m] };
+                    double s{ determinant(c - b, b - a) };
+                    if (s < 0) // concave triplet
+                    {
+                        count++;
+                    }
+                    else // s >= 0 // convex triplet
+                    {
+                        count = 0;
+                        hull.emplace_back(b);
+                    }
+                    #endif
+                    v2 a{ approximate_hull[(i - count) % m] };
+                    v2 b{ approximate_hull[(i + 1) % m] };
+                    v2 c{ approximate_hull[(i + 2) % m] };
+                    double s{ determinant(b - a, c - a) };
+                    if (s > 0)
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        count = 0;
+                        hull.emplace_back(b);
+                    }
+                }
+            }
         }
 
-        std::vector<v2> hull{};
         return hull;
-        #endif
-
-        assert(is_hull_clockwise(approximate_hull));
-
-        return approximate_hull;
     }
 
     std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points)

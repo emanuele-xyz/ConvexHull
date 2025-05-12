@@ -22,8 +22,8 @@ static std::vector<ch::v2> generate_points(int points_count)
     assert(points_count >= 3);
 
     std::random_device random_device{};
-    //std::mt19937 generator{ random_device() };
-    std::mt19937 generator{ 1 };
+    std::mt19937 generator{ random_device() };
+    //std::mt19937 generator{ 1 };
     std::uniform_real_distribution<> distribution{ 0.0, static_cast<double>(points_count) * 10.0 };
 
     std::vector<ch::v2> points{};
@@ -470,7 +470,7 @@ static void benchmark()
 int main()
 {
     // generate points
-    int points_count{ 1000 };
+    int points_count{ 200 };
     std::vector<ch::v2> points{ generate_points(points_count) };
     assert(points.size() == points_count); // sanity check
 
@@ -486,8 +486,8 @@ int main()
     dump_points_and_hull(sampled_points, {});
     #endif
 
-    #if 0
-    if (!validate_hull(dc_hull, akl_toussaint_hull))
+    #if 1
+    if (!validate_hull(akl_toussaint_hull, torch_hull))
     {
         std::cerr << "hull validation failed" << std::endl;
     }
