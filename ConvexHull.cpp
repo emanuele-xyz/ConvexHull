@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
+#include <set> // TODO: I can probably remove this alongside has_duplicates
 
 template<>
 struct std::hash<ch::v2>
@@ -436,6 +437,21 @@ namespace ch
         }
     }
 
+
+    bool has_duplicates(const std::vector<v2>& points)
+    {
+        auto cmp = [](const v2& a, const v2& b) {
+            return (a.x < b.x) || (a.x == b.x && a.y < b.y);
+        };
+        std::set<v2, decltype(cmp)> unique_points(cmp);
+        for (const auto& p : points)
+        {
+            if (!unique_points.insert(p).second)
+                return true; // Duplicate found
+        }
+        return false; // All unique
+    }
+
     std::vector<v2> torch(const std::vector<v2>& points)
     {
         assert(points.size() > 3);
@@ -522,107 +538,48 @@ namespace ch
             }
         }
 
-        // construct the approximate hull by merging the four lateral hulls (the resulting hull may not be convex)
+        // build the CCW approximate hull by merging the four lateral hulls (the resulting hull may not be convex)
         std::vector<v2> approximate_hull{};
         {
-            // TODO: remove it
-            #if 0
-            approximate_hull.emplace_back(copy[east_idx]);
-            for (int i{ 1 }; i < static_cast<int>(north_east.size()) - 1; i++)
+            for (int i{}; i < static_cast<int>(north_east.size()) - 1; i++)
             {
                 approximate_hull.emplace_back(copy[north_east[i]]);
             }
-
-            approximate_hull.emplace_back(copy[north_idx]);
             for (int i{ static_cast<int>(north_west.size()) - 1 }; i > 0; i--)
             {
                 approximate_hull.emplace_back(copy[north_west[i]]);
             }
-
-            approximate_hull.emplace_back(copy[west_idx]);
-            for (int i{ 1 }; i < static_cast<int>(south_west.size()) - 1; i++)
+            for (int i{}; i < static_cast<int>(south_west.size()) - 1; i++)
             {
                 approximate_hull.emplace_back(copy[south_west[i]]);
             }
-
-            approximate_hull.emplace_back(copy[south_idx]);
             for (int i{ static_cast<int>(south_east.size()) - 1 }; i > 0; i--)
             {
                 approximate_hull.emplace_back(copy[south_east[i]]);
             }
-            #endif
-
-            for (int i{}; i < static_cast<int>(north_west.size()) - 1; i++)
-            {
-                approximate_hull.emplace_back(copy[north_west[i]]);
-            }
-            for (int i{ static_cast<int>(north_east.size()) - 1 }; i > 0; i--)
-            {
-                approximate_hull.emplace_back(copy[north_east[i]]);
-            }
-            for (int i{}; i < static_cast<int>(south_east.size()) - 1; i++)
-            {
-                approximate_hull.emplace_back(copy[south_east[i]]);
-            }
-            for (int i{ static_cast<int>(south_west.size()) - 1 }; i > 0; i--)
-            {
-                approximate_hull.emplace_back(copy[south_west[i]]);
-            }
         }
+
+        assert(!has_duplicates(approximate_hull));
 
         // inflate the approximate hull (convexification), building the final convex hull
         std::vector<v2> hull{};
         {
-            #if 0
-            // TODO: ...
             int m{ static_cast<int>(approximate_hull.size()) }; // number of points of the approximate hull
             int count{}; // counter for backtracking
             if (m >= 3)
             {
                 for (int i{}; i < m; i++)
                 {
-                    // TODO: this check works for CCW approximate hull. We built it CW. Thus we need to fix it.
-
-                    v2 a{ approximate_hull[(i - count) % m] };
-                    v2 b{ approximate_hull[(i + 1) % m] };
-                    v2 c{ approximate_hull[(i + 2) % m] };
-                    double d_x{ b.x - a.x };
-                    double d_y{ b.y - a.y };
-                    double D_x{ c.x - a.x };
-                    double D_y{ c.y - a.y };
-                }
-            }
-            #endif
-            int m{ static_cast<int>(approximate_hull.size()) }; // number of points of the approximate hull
-            int count{}; // counter for backtracking
-            if (m >= 3)
-            {
-                for (int i{}; i < m; i++)
-                {
-                    #if 0
-                    v2 a{ approximate_hull[(i - count) % m] };
-                    v2 b{ approximate_hull[(i + 1) % m] };
-                    v2 c{ approximate_hull[(i + 2) % m] };
-                    double s{ determinant(c - b, b - a) };
-                    if (s < 0) // concave triplet
-                    {
-                        count++;
-                    }
-                    else // s >= 0 // convex triplet
-                    {
-                        count = 0;
-                        hull.emplace_back(b);
-                    }
-                    #endif
+                    assert((i - count) >= 0);
                     v2 a{ approximate_hull[(i - count) % m] };
                     v2 b{ approximate_hull[(i + 1) % m] };
                     v2 c{ approximate_hull[(i + 2) % m] };
                     double s{ determinant(b - a, c - a) };
-                    if (s > 0)
+                    if (s <= 0) // concave triplet
                     {
                         count++;
                     }
-                    else
+                    else // convex triplet
                     {
                         count = 0;
                         hull.emplace_back(b);
@@ -630,7 +587,12 @@ namespace ch
                 }
             }
         }
+        
+        assert(!has_duplicates(hull));
 
+        // reverse the hull from CCW to CW
+        std::reverse(hull.begin(), hull.end());
+        assert(is_hull_clockwise(hull));
         return hull;
     }
 
