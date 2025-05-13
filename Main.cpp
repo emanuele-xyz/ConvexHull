@@ -469,29 +469,34 @@ static void benchmark()
 #if 1
 int main()
 {
-    // generate points
-    int points_count{ 200 };
-    std::vector<ch::v2> points{ generate_points(points_count) };
-    assert(points.size() == points_count); // sanity check
+    for (int i{}; i < 100; i++) {
+        std::cout << i << "\n";
 
-    // generate hull and test against oracle
-    //std::vector<ch::v2> naive_hull{ ch::naive(points) };
-    //std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
-    #if 1
-    std::vector<ch::v2> akl_toussaint_hull{ ch::akl_toussaint(points) };
-    std::vector<ch::v2> torch_hull{ ch::torch(points) };
-    dump_points_and_hull(points, torch_hull);
-    #else
-    std::vector<ch::v2> sampled_points{ ch::sample_points_for_subset(points, 9) };
-    dump_points_and_hull(sampled_points, {});
-    #endif
+        // generate points
+        int points_count{ 200 };
+        std::vector<ch::v2> points{ generate_points(points_count) };
+        assert(points.size() == points_count); // sanity check
 
-    #if 1
-    if (!validate_hull(akl_toussaint_hull, torch_hull))
-    {
-        std::cerr << "hull validation failed" << std::endl;
+        // generate hull and test against oracle
+        //std::vector<ch::v2> naive_hull{ ch::naive(points) };
+        //std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
+#if 1
+        std::vector<ch::v2> akl_toussaint_hull{ ch::akl_toussaint(points) };
+        std::vector<ch::v2> torch_hull{ ch::torch(points) };
+        dump_points_and_hull(points, torch_hull);
+#else
+        std::vector<ch::v2> sampled_points{ ch::sample_points_for_subset(points, 9) };
+        dump_points_and_hull(sampled_points, {});
+#endif
+
+#if 1
+        if (!validate_hull(akl_toussaint_hull, torch_hull))
+        {
+            std::cerr << "hull validation failed" << std::endl;
+            return -1;
+        }
+#endif
     }
-    #endif
 
     return 0;
 }

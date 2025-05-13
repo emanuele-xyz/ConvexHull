@@ -452,6 +452,59 @@ namespace ch
         return false; // All unique
     }
 
+    // Inflate the approximate hull in-place, iterating until no more points are removed.
+    void torch_inflate(std::vector<v2>& approximate_hull)
+    {
+        int N{ static_cast<int>(approximate_hull.size()) };
+        if (N < 3) return;
+
+        std::vector<bool> flag(N);
+        bool changed;
+
+        do
+        {
+            N = static_cast<int>(approximate_hull.size());
+            flag.assign(N, false);
+            int count{};
+
+            // 1) Mark convex vertices in flag[]
+            for (int i{}; i < N; i++)
+            {
+                assert((i - count) >= 0);
+                v2 a{ approximate_hull[(i - count) % N] };
+                v2 b{ approximate_hull[(i + 1) % N] };
+                v2 c{ approximate_hull[(i + 2) % N] };
+
+                double det{ determinant(b - a, c - a) };
+                if (det <= 0)
+                {
+                    // b is concave -> skip it in this pass
+                    count++;
+                }
+                else
+                {
+                    // b is convex -> mark it
+                    count = 0;
+                    flag[(i + 1) % N] = true;
+                }
+            }
+
+            // 2) Compact cycle down to only flagged points
+            std::vector<v2> new_hull;
+            new_hull.reserve(N);
+            for (int i{}; i < N; i++) 
+            {
+                if (flag[i])
+                {
+                    new_hull.push_back(approximate_hull[i]);
+                }
+            }
+
+            changed = (static_cast<int>(new_hull.size()) != N);
+            approximate_hull.swap(new_hull);
+        } while (changed && approximate_hull.size() >= 3);
+    }
+
     std::vector<v2> torch(const std::vector<v2>& points)
     {
         assert(points.size() > 3);
@@ -561,39 +614,12 @@ namespace ch
 
         assert(!has_duplicates(approximate_hull));
 
-        // inflate the approximate hull (convexification), building the final convex hull
-        std::vector<v2> hull{};
-        {
-            int m{ static_cast<int>(approximate_hull.size()) }; // number of points of the approximate hull
-            int count{}; // counter for backtracking
-            if (m >= 3)
-            {
-                for (int i{}; i < m; i++)
-                {
-                    assert((i - count) >= 0);
-                    v2 a{ approximate_hull[(i - count) % m] };
-                    v2 b{ approximate_hull[(i + 1) % m] };
-                    v2 c{ approximate_hull[(i + 2) % m] };
-                    double s{ determinant(b - a, c - a) };
-                    if (s <= 0) // concave triplet
-                    {
-                        count++;
-                    }
-                    else // convex triplet
-                    {
-                        count = 0;
-                        hull.emplace_back(b);
-                    }
-                }
-            }
-        }
-        
-        assert(!has_duplicates(hull));
+        torch_inflate(approximate_hull);
 
         // reverse the hull from CCW to CW
-        std::reverse(hull.begin(), hull.end());
-        assert(is_hull_clockwise(hull));
-        return hull;
+        std::reverse(approximate_hull.begin(), approximate_hull.end());
+        assert(is_hull_clockwise(approximate_hull));
+        return approximate_hull;
     }
 
     std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points)
