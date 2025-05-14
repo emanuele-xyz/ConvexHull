@@ -1,10 +1,10 @@
 #include <ConvexHull.h>
 
-#include <cassert>
 #include <algorithm>
+#include <cassert>
+#include <set> // TODO: I can probably remove this alongside has_duplicates
 #include <unordered_map>
 #include <unordered_set>
-#include <set> // TODO: I can probably remove this alongside has_duplicates
 
 template<>
 struct std::hash<ch::v2>
@@ -442,7 +442,7 @@ namespace ch
     {
         auto cmp = [](const v2& a, const v2& b) {
             return (a.x < b.x) || (a.x == b.x && a.y < b.y);
-        };
+            };
         std::set<v2, decltype(cmp)> unique_points(cmp);
         for (const auto& p : points)
         {
@@ -492,7 +492,7 @@ namespace ch
             // 2) Compact cycle down to only flagged points
             std::vector<v2> new_hull;
             new_hull.reserve(N);
-            for (int i{}; i < N; i++) 
+            for (int i{}; i < N; i++)
             {
                 if (flag[i])
                 {
@@ -591,6 +591,7 @@ namespace ch
             }
         }
 
+        #if 0
         // build the CCW approximate hull by merging the four lateral hulls (the resulting hull may not be convex)
         std::vector<v2> approximate_hull{};
         {
@@ -611,15 +612,68 @@ namespace ch
                 approximate_hull.emplace_back(copy[south_east[i]]);
             }
         }
+        #endif
+        std::vector<v2> hull{};
+        {
+            for (int i{}; i < static_cast<int>(north_west.size()) - 1; i++)
+            {
+                hull.emplace_back(copy[north_west[i]]);
+            }
+            for (int i{ static_cast<int>(north_east.size()) - 1 }; i > 0; i--)
+            {
+                hull.emplace_back(copy[north_east[i]]);
+            }
+            for (int i{}; i < static_cast<int>(south_east.size()) - 1; i++)
+            {
+                hull.emplace_back(copy[south_east[i]]);
+            }
+            for (int i{ static_cast<int>(south_west.size()) - 1 }; i > 0; i--)
+            {
+                hull.emplace_back(copy[south_west[i]]);
+            }
+        }
 
-        assert(!has_duplicates(approximate_hull));
+        assert(!has_duplicates(hull));
 
-        torch_inflate(approximate_hull);
+        #if 0
+        torch_inflate(hull);
+        #endif
+
+        // convexification
+        while (true)
+        {
+            assert(hull.size() >= 2);
+
+            bool was_there_any_deletion{ false };
+            int k{};
+            while (0 <= k && k < static_cast<int>(hull.size()))
+            {
+                v2 p{ hull[k] };
+                v2 pn{ hull[(k + 1) % hull.size()] };
+                v2 pnn{ hull[(k + 2) % hull.size()] };
+                double s{ determinant(pnn - pn, pn - p) };
+                if (s >= 0) // convex triplet
+                {
+                    k++;
+                }
+                else // concave triplet
+                {
+                    hull.erase(hull.begin() + k + 1);
+                    was_there_any_deletion = true;
+                    k--;
+                }
+            }
+
+            if (!was_there_any_deletion)
+            {
+                break;
+            }
+        }
 
         // reverse the hull from CCW to CW
-        std::reverse(approximate_hull.begin(), approximate_hull.end());
-        assert(is_hull_clockwise(approximate_hull));
-        return approximate_hull;
+        //std::reverse(hull.begin(), hull.end());
+        assert(is_hull_clockwise(hull));
+        return hull;
     }
 
     std::vector<v2> naive_akl_toussaint(const std::vector<v2>& points)

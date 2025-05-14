@@ -299,6 +299,20 @@ static void test_akl_toussaint_against_dc()
     test(logger, dataset, ch::divide_and_conquer, "divide and conquer", ch::akl_toussaint, "akl-toussaint");
 }
 
+static void test_torch_against_akl_toussaint()
+{
+    Logger logger{};
+
+    logger.log("torch against akl-toussaint\n");
+
+    int dataset_capacity{ 10000 };
+    logger.log("--------------------------------------------------------------------------------\n");
+    logger.logf("dataset capacity: {}\n", dataset_capacity);
+
+    std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
+    test(logger, dataset, ch::akl_toussaint, "akl-toussaint", ch::torch, "torch");
+}
+
 static void test_naive_akl_toussaint_against_naive()
 {
     Logger logger{};
@@ -326,6 +340,7 @@ static void test_dc_akl_toussaint_against_dc()
     std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
     test(logger, dataset, ch::divide_and_conquer, "divide and conquer", ch::divide_and_conquer_akl_toussaint, "divide and conquer akl-toussaint");
 }
+
 
 static void test_sample_points_for_subset()
 {
@@ -469,34 +484,30 @@ static void benchmark()
 #if 1
 int main()
 {
-    for (int i{}; i < 100; i++) {
-        std::cout << i << "\n";
+    // generate points
+    int points_count{ 500 };
+    std::vector<ch::v2> points{ generate_points(points_count) };
+    assert(points.size() == points_count); // sanity check
 
-        // generate points
-        int points_count{ 200 };
-        std::vector<ch::v2> points{ generate_points(points_count) };
-        assert(points.size() == points_count); // sanity check
+    // generate hull and test against oracle
+    //std::vector<ch::v2> naive_hull{ ch::naive(points) };
+    //std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
+    #if 1
+    std::vector<ch::v2> akl_toussaint_hull{ ch::akl_toussaint(points) };
+    std::vector<ch::v2> torch_hull{ ch::torch(points) };
+    dump_points_and_hull(points, torch_hull);
+    #else
+    std::vector<ch::v2> sampled_points{ ch::sample_points_for_subset(points, 9) };
+    dump_points_and_hull(sampled_points, {});
+    #endif
 
-        // generate hull and test against oracle
-        //std::vector<ch::v2> naive_hull{ ch::naive(points) };
-        //std::vector<ch::v2> dc_hull{ ch::divide_and_conquer(points) };
-#if 1
-        std::vector<ch::v2> akl_toussaint_hull{ ch::akl_toussaint(points) };
-        std::vector<ch::v2> torch_hull{ ch::torch(points) };
-        dump_points_and_hull(points, torch_hull);
-#else
-        std::vector<ch::v2> sampled_points{ ch::sample_points_for_subset(points, 9) };
-        dump_points_and_hull(sampled_points, {});
-#endif
-
-#if 1
-        if (!validate_hull(akl_toussaint_hull, torch_hull))
-        {
-            std::cerr << "hull validation failed" << std::endl;
-            return -1;
-        }
-#endif
+    #if 1
+    if (!validate_hull(akl_toussaint_hull, torch_hull))
+    {
+        std::cerr << "hull validation failed" << std::endl;
+        return -1;
     }
+    #endif
 
     return 0;
 }
@@ -506,8 +517,9 @@ int main()
     //test_akl_toussaint_against_dc();
     //test_naive_akl_toussaint_against_naive();
     //test_dc_akl_toussaint_against_dc();
+    test_torch_against_akl_toussaint();
 
-    test_sample_points_for_subset();
+    //test_sample_points_for_subset();
 
     //benchmark();
 }
