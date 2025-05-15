@@ -59,10 +59,10 @@ clockwise e counterclockwise</a></li>
 <li><a href="#algoritmo-naive">Algoritmo Naive</a>
 <ul>
 <li><a href="#idea">Idea</a></li>
-<li><a href="#complessità-temporale">Complessità temporale</a></li>
 <li><a href="#half-plane-test">Half-plane test</a></li>
 <li><a href="#come-trovare-un-vettore-perpendicolare-ad-un-altro">Come
 trovare un vettore perpendicolare ad un altro?</a></li>
+<li><a href="#complessità-temporale">Complessità temporale</a></li>
 </ul></li>
 <li><a href="#algoritmo-divide-and-conquer">Algoritmo Divide and
 Conquer</a>
@@ -74,13 +74,13 @@ superiore</a></li>
 <li><a href="#ricerca-tangente-inferiore">Ricerca tangente
 inferiore</a></li>
 <li><a href="#costruzione-di-h">Costruzione di H</a></li>
-<li><a
-href="#complessità-temporale-della-ricerca-delle-tangenti">Complessità
-temporale della ricerca delle tangenti</a></li>
-<li><a href="#complessità-temporale-della-fusione">Complessità temporale
-della fusione</a></li>
-<li><a href="#complessità-temporale-divide-et-impera">Complessità
-temporale Divide et Impera</a></li>
+<li><a href="#complessità-temporale-1">Complessità temporale</a>
+<ul>
+<li><a href="#ricerca-delle-tangenti">Ricerca delle tangenti</a></li>
+<li><a href="#fusione-1">Fusione</a></li>
+<li><a href="#divide-et-impera">Divide et Impera</a></li>
+<li><a href="#complessità-complessiva">Complessità complessiva</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</a>
 <ul>
@@ -96,13 +96,14 @@ dell’involucro convesso H</a></li>
 <li><a
 href="#ricerca-di-un-percorso-convesso-di-una-data-regione">Ricerca di
 un percorso convesso di una data regione</a></li>
-<li><a href="#complessità-temporale-1">Complessità temporale</a>
+<li><a href="#complessità-temporale-2">Complessità temporale</a>
 <ul>
 <li><a href="#euristica-1">Euristica</a></li>
 <li><a href="#ricerca-del-percorso-convesso">Ricerca del percorso
 convesso</a></li>
 <li><a href="#costruzione-di-h-1">Costruzione di H</a></li>
-<li><a href="#complessità-complessiva">Complessità complessiva</a></li>
+<li><a href="#complessità-complessiva-1">Complessità
+complessiva</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#benchmark">Benchmark</a></li>
@@ -149,14 +150,17 @@ complessità del problema</h2>
 \hspace{0.25em}log \hspace{0.25em}n)\)</span>.</p>
 <h3 id="dimostrazione">Dimostrazione</h3>
 <p>Supponiamo di avere il seguente insieme finito di numeri</p>
-<p><span class="math display">\[I = { x_1, x_2, x_3, ..., x_n }
+<p><span class="math display">\[I = \{ x_1, x_2, x_3, ..., x_n \}
 \subseteq \mathbb{R} \quad \textrm{dove} \quad x_1 &lt; x_2 &lt; x_3
 &lt; ... &lt; x_n\]</span></p>
-<p>È facile vedere che i punti di <span class="math inline">\(S\)</span>
-giacciono su una parabola. Proprio per questo, è facile che un possibile
-involucro convesso di <span class="math inline">\(S\)</span> è dato
-dalla lista <span class="math inline">\((x_1, x_1^2), (x_2, x_2^2), ...,
-(x_n, x_n^2)\)</span>.</p>
+<p>Definiamo il seguente insieme</p>
+<p><span class="math display">\[S = \{ (x_i, x_i^2) \mid x_i \in I \}
+\subseteq \mathbb{R}^2\]</span></p>
+<p>Notiamo come i punti di <span class="math inline">\(S\)</span>
+giacciono su una parabola. Proprio per questo, è facile vedere che un
+possibile involucro convesso di <span class="math inline">\(S\)</span> è
+dato dalla lista <span class="math inline">\((x_1, x_1^2), (x_2, x_2^2),
+..., (x_n, x_n^2)\)</span>.</p>
 <p>Se ottenessimo una qualsiasi altra lista, potremmo ottenere quella
 mostrata sopra in tempo <span class="math inline">\(O(d)\)</span> e
 dunque <span class="math inline">\(O(n)\)</span>.</p>
@@ -247,15 +251,6 @@ controlliamo se <span class="math inline">\(\vec{p}\)</span> cade in
 allora il segmento con estremi <span class="math inline">\(\vec{u}
 \hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{v}\)</span> è un lato
 dell’involucro convesso.</p>
-<h2 id="complessità-temporale">Complessità temporale</h2>
-<ul>
-<li>Iterare per ogni coppia di punti <span
-class="math inline">\(\rightarrow O(n^2)\)</span>.</li>
-<li>Iterare per ogni punto <span class="math inline">\(\rightarrow
-O(n)\)</span>.</li>
-<li>Combinando le due iterazioni, vediamo come la complessità temporale
-dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
-</ul>
 <h2 id="half-plane-test">Half-plane test</h2>
 <p><img src="./half_plane_test.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
@@ -302,6 +297,17 @@ v_y}{v_x}\)</span></p>
 <p>Fissando <span class="math inline">\(u_y = v_x\)</span>, abbiamo che
 <span class="math inline">\(u_x = - \dfrac{v_x v_y}{v_x} =
 -v_y\)</span></p>
+<h2 id="complessità-temporale">Complessità temporale</h2>
+<ul>
+<li>Iterare per ogni coppia di punti <span
+class="math inline">\(\rightarrow O(n^2)\)</span>.
+<ul>
+<li>Iterare per ogni punto <span class="math inline">\(\rightarrow
+O(n)\)</span>.</li>
+</ul></li>
+<li>Combinando le due iterazioni, vediamo come la complessità temporale
+dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
+</ul>
 <h1 id="algoritmo-divide-and-conquer">Algoritmo Divide and Conquer</h1>
 <h2 id="idea-1">Idea</h2>
 <p>Sia <span class="math inline">\(P\)</span> la lista dei punti di
@@ -348,15 +354,16 @@ class="math inline">\(H_b\)</span>.</li>
 </ul>
 <p>La procedura di fusione si riduce dunque alla ricerca di queste due
 tangenti, una detta tangente superiore, e l’altra detta tangente
-inferiore.</p>
+inferiore. Per trovarle utilizzeremo il cosiddetto “two fingers
+method”.</p>
 <h2 id="ricerca-tangente-superiore">Ricerca tangente superiore</h2>
 <p>Sia <span class="math inline">\(r_a\)</span> il punto più a destra di
 <span class="math inline">\(H_a\)</span>.</p>
 <p>Sia <span class="math inline">\(l_b\)</span> il punto più a sinistra
 di <span class="math inline">\(H_b\)</span>.</p>
 <p>Consideriamo la retta <span class="math inline">\(r: x = m,
-\hspace{0.5em}\textrm{dove} \hspace{0.5em}m = \dfrac{r_a x + l_b
-x}{2}\)</span></p>
+\hspace{0.5em}\textrm{dove} \hspace{0.5em}m = \dfrac{(r_a)_x +
+(l_b)_x}{2}\)</span></p>
 <p>Percorriamo simultaneamente:</p>
 <ul>
 <li><span class="math inline">\(H_a\)</span> in senso
@@ -383,8 +390,8 @@ superiore.</p>
 <p>Sia <span class="math inline">\(l_b\)</span> il punto più a sinistra
 di <span class="math inline">\(H_b\)</span>.</p>
 <p>Consideriamo la retta <span class="math inline">\(r: x = m,
-\hspace{0.5em}\textrm{dove} \hspace{0.5em}m = \dfrac{r_a x + l_b
-x}{2}\)</span></p>
+\hspace{0.5em}\textrm{dove} \hspace{0.5em}m = \dfrac{(r_a)_x +
+(l_b)_x}{2}\)</span></p>
 <p>Percorriamo simultaneamente, in modo alternato:</p>
 <ul>
 <li><span class="math inline">\(H_a\)</span> in senso
@@ -416,8 +423,8 @@ tangente superiore, procedendo in senso orario.</p></li>
 appartenente alla tangente superiore fino al vertice appartenente alla
 tangente inferiore, procedendo in senso orario.</p></li>
 </ul>
-<h2 id="complessità-temporale-della-ricerca-delle-tangenti">Complessità
-temporale della ricerca delle tangenti</h2>
+<h2 id="complessità-temporale-1">Complessità temporale</h2>
+<h3 id="ricerca-delle-tangenti">Ricerca delle tangenti</h3>
 <p>Usando un approccio naive, possiamo cercare una tangente andando ad
 esaminare tutte le coppie di punti <span class="math inline">\((p, q)
 \in P(H_a) \times P(H_b)\)</span> ed usare il “two fingers method” per
@@ -462,8 +469,7 @@ class="math inline">\(H_a\)</span> e <span
 class="math inline">\(H_b\)</span> sarà visitato al più un volta.</p>
 <p>Dunque, la complessità temporale della ricerca di una tangente è
 <span class="math inline">\(O(n)\)</span>.</p>
-<h2 id="complessità-temporale-della-fusione">Complessità temporale della
-fusione</h2>
+<h3 id="fusione-1">Fusione</h3>
 <p>Il processo di fusione consiste in:</p>
 <ol type="1">
 <li>Cercare la tangente superiore <span
@@ -475,8 +481,7 @@ O(n)\)</span></li>
 </ol>
 <p>Perciò, il processo di fusione ha complessità temporale <span
 class="math inline">\(O(n)\)</span>.</p>
-<h2 id="complessità-temporale-divide-et-impera">Complessità temporale
-Divide et Impera</h2>
+<h3 id="divide-et-impera">Divide et Impera</h3>
 <p>Possiamo vedere che:</p>
 <ul>
 <li>Ordinamento dei punti in input <span
@@ -495,10 +500,10 @@ espressa dalla seguente relazione di ricorrenza:</p>
 <p><span class="math display">\[T(n) = 2T(\dfrac{n}{2}) + n\]</span></p>
 <p>È facile vedere che <span class="math inline">\(T(n) = O(n
 \hspace{0.25em}log \hspace{0.25em}n)\)</span>.</p>
-<p>Dunque, la complessità temporale complessiva è:</p>
-<p><span class="math display">\[O(n \hspace{0.25em}log \hspace{0.25em}n)
-+ O(n \hspace{0.25em}log \hspace{0.25em}n) = O(n \hspace{0.25em}log
-\hspace{0.25em}n)\]</span></p>
+<h3 id="complessità-complessiva">Complessità complessiva</h3>
+<p>Dunque, per quanto detto sopra la complessità temporale complessiva è
+<span class="math inline">\(O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>.</p>
 <h1 id="algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</h1>
 <h2 id="idea-2">Idea</h2>
 <h3 id="euristica">Euristica</h3>
@@ -583,7 +588,7 @@ sarà proprio la lista di punti, in senso orario, del percorso convesso
 che stavamo cercando.</p>
 <p><img src="./akl_toussaint_determinante.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
-<h2 id="complessità-temporale-1">Complessità temporale</h2>
+<h2 id="complessità-temporale-2">Complessità temporale</h2>
 <h3 id="euristica-1">Euristica</h3>
 <ol type="1">
 <li>Cercare <span class="math inline">\(\textrm{XMIN}\)</span>, <span
@@ -607,7 +612,7 @@ appartenenti alle varie regioni.</p>
 <p>Per costruire <span class="math inline">\(H\)</span> è sufficiente
 scandire i percorsi convessi trovati <span
 class="math inline">\(\rightarrow O(n)\)</span></p>
-<h3 id="complessità-complessiva">Complessità complessiva</h3>
+<h3 id="complessità-complessiva-1">Complessità complessiva</h3>
 <p>Di conseguenza, la complessità temporale complessiva è <span
 class="math inline">\(O(n \hspace{0.25em}log
 \hspace{0.25em}n)\)</span>.</p>

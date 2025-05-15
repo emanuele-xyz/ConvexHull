@@ -15,29 +15,31 @@ header-includes: |
 - [Involucri clockwise e counterclockwise](#involucri-clockwise-e-counterclockwise)
 - [Algoritmo Naive](#algoritmo-naive)
   - [Idea](#idea)
-  - [Complessità temporale](#complessità-temporale)
   - [Half-plane test](#half-plane-test)
   - [Come trovare un vettore perpendicolare ad un altro?](#come-trovare-un-vettore-perpendicolare-ad-un-altro)
+  - [Complessità temporale](#complessità-temporale)
 - [Algoritmo Divide and Conquer](#algoritmo-divide-and-conquer)
   - [Idea](#idea-1)
   - [Fusione](#fusione)
   - [Ricerca tangente superiore](#ricerca-tangente-superiore)
   - [Ricerca tangente inferiore](#ricerca-tangente-inferiore)
   - [Costruzione di H](#costruzione-di-h)
-  - [Complessità temporale della ricerca delle tangenti](#complessità-temporale-della-ricerca-delle-tangenti)
-  - [Complessità temporale della fusione](#complessità-temporale-della-fusione)
-  - [Complessità temporale Divide et Impera](#complessità-temporale-divide-et-impera)
+  - [Complessità temporale](#complessità-temporale-1)
+    - [Ricerca delle tangenti](#ricerca-delle-tangenti)
+    - [Fusione](#fusione-1)
+    - [Divide et Impera](#divide-et-impera)
+    - [Complessità complessiva](#complessità-complessiva)
 - [Algoritmo di Akl-Toussaint](#algoritmo-di-akl-toussaint)
   - [Idea](#idea-2)
     - [Euristica](#euristica)
     - [Ricerca dei percorsi convessi per ogni lato del quadrilatero](#ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero)
     - [Costruzione dell'involucro convesso H](#costruzione-dellinvolucro-convesso-h)
   - [Ricerca di un percorso convesso di una data regione](#ricerca-di-un-percorso-convesso-di-una-data-regione)
-  - [Complessità temporale](#complessità-temporale-1)
+  - [Complessità temporale](#complessità-temporale-2)
     - [Euristica](#euristica-1)
     - [Ricerca del percorso convesso](#ricerca-del-percorso-convesso)
     - [Costruzione di H](#costruzione-di-h-1)
-    - [Complessità complessiva](#complessità-complessiva)
+    - [Complessità complessiva](#complessità-complessiva-1)
 - [Benchmark](#benchmark)
 
 # Involucro convesso
@@ -77,9 +79,13 @@ Il lower bound del problema è $\Omega(n \hhquad log \hhquad n)$.
 
 Supponiamo di avere il seguente insieme finito di numeri
 
-$$I = { x_1, x_2, x_3, ..., x_n } \subseteq \mathbb{R} \quad \textrm{dove} \quad x_1 < x_2 < x_3 < ... < x_n$$
+$$I = \{ x_1, x_2, x_3, ..., x_n \} \subseteq \mathbb{R} \quad \textrm{dove} \quad x_1 < x_2 < x_3 < ... < x_n$$
 
-È facile vedere che i punti di $S$ giacciono su una parabola. Proprio per questo, è facile che un possibile involucro convesso di $S$ è dato dalla lista $(x_1, x_1^2), (x_2, x_2^2), ..., (x_n, x_n^2)$.
+Definiamo il seguente insieme
+
+$$S = \{ (x_i, x_i^2) \mid x_i \in I \} \subseteq \mathbb{R}^2$$
+
+Notiamo come i punti di $S$ giacciono su una parabola. Proprio per questo, è facile vedere che un possibile involucro convesso di $S$ è dato dalla lista $(x_1, x_1^2), (x_2, x_2^2), ..., (x_n, x_n^2)$.
 
 Se ottenessimo una qualsiasi altra lista, potremmo ottenere quella mostrata sopra in tempo $O(d)$ e dunque $O(n)$.
 
@@ -135,12 +141,6 @@ Per ogni punto $\vec{p} \in S$ con $\vec{p} \neq \vec{u} \hquad \textrm{e} \hqua
 
 Se tutti i punti sono caduti esclusivamente in uno dei due semipiani, allora il segmento con estremi $\vec{u} \hquad \textrm{e} \hquad \vec{v}$ è un lato dell'involucro convesso.
 
-## Complessità temporale
-
-- Iterare per ogni coppia di punti $\rightarrow O(n^2)$.
-- Iterare per ogni punto $\rightarrow O(n)$.
-- Combinando le due iterazioni, vediamo come la complessità temporale dell'algoritmo è $O(n^3)$.
-
 ## Half-plane test
 
 ![](./half_plane_test.svg){ style="height: 300px; display: block; margin: auto;" }
@@ -173,6 +173,12 @@ Dunque $u_x = - \dfrac{u_y v_y}{v_x}$
 
 Fissando $u_y = v_x$, abbiamo che $u_x = - \dfrac{v_x v_y}{v_x} = -v_y$
 
+## Complessità temporale
+
+- Iterare per ogni coppia di punti $\rightarrow O(n^2)$.
+  - Iterare per ogni punto $\rightarrow O(n)$.
+- Combinando le due iterazioni, vediamo come la complessità temporale dell'algoritmo è $O(n^3)$.
+
 # Algoritmo Divide and Conquer
 
 ## Idea
@@ -200,7 +206,7 @@ Per quanto detto sopra, è facile vedere che l'involucro convesso $H$ risultato 
 - Una porzione dell'involucro di $H_b$.
 - Due segmenti, dette tangenti, ognuna con estremi sia un vertice di $H_a$ che un vertice di $H_b$.
 
-La procedura di fusione si riduce dunque alla ricerca di queste due tangenti, una detta tangente superiore, e l'altra detta tangente inferiore.
+La procedura di fusione si riduce dunque alla ricerca di queste due tangenti, una detta tangente superiore, e l'altra detta tangente inferiore. Per trovarle utilizzeremo il cosiddetto "two fingers method".
 
 ## Ricerca tangente superiore
 
@@ -208,7 +214,7 @@ Sia $r_a$ il punto più a destra di $H_a$.
 
 Sia $l_b$ il punto più a sinistra di $H_b$.
 
-Consideriamo la retta $r: x = m, \hquad \textrm{dove} \hquad m = \dfrac{r_a x + l_b x}{2}$
+Consideriamo la retta $r: x = m, \hquad \textrm{dove} \hquad m = \dfrac{(r_a)_x + (l_b)_x}{2}$
 
 Percorriamo simultaneamente:
 
@@ -225,7 +231,7 @@ Sia $r_a$ il punto più a destra di $H_a$.
 
 Sia $l_b$ il punto più a sinistra di $H_b$.
 
-Consideriamo la retta $r: x = m, \hquad \textrm{dove} \hquad m = \dfrac{r_a x + l_b x}{2}$
+Consideriamo la retta $r: x = m, \hquad \textrm{dove} \hquad m = \dfrac{(r_a)_x + (l_b)_x}{2}$
 
 Percorriamo simultaneamente, in modo alternato:
 
@@ -244,7 +250,9 @@ Per costruire $H$, percorriamo:
 
 - $H_b$, partendo dal vertice appartenente alla tangente superiore fino al vertice appartenente alla tangente inferiore, procedendo in senso orario.
 
-## Complessità temporale della ricerca delle tangenti
+## Complessità temporale
+
+### Ricerca delle tangenti
 
 Usando un approccio naive, possiamo cercare una tangente andando ad esaminare tutte le coppie di punti $(p, q) \in P(H_a) \times P(H_b)$ ed usare il "two fingers method" per trovare la tangente cercata.
 
@@ -271,7 +279,7 @@ Dunque, per trovare la tangente, ogni vertice di $H_a$ e $H_b$ sarà visitato al
 
 Dunque, la complessità temporale della ricerca di una tangente è $O(n)$.
 
-## Complessità temporale della fusione
+### Fusione
 
 Il processo di fusione consiste in:
 
@@ -281,7 +289,7 @@ Il processo di fusione consiste in:
 
 Perciò, il processo di fusione ha complessità temporale $O(n)$.
 
-## Complessità temporale Divide et Impera
+### Divide et Impera
 
 Possiamo vedere che:
 
@@ -296,9 +304,9 @@ $$T(n) = 2T(\dfrac{n}{2}) + n$$
 
 È facile vedere che $T(n) = O(n \hhquad log \hhquad n)$.
 
-Dunque, la complessità temporale complessiva è:
+### Complessità complessiva
 
-$$O(n \hhquad log \hhquad n) + O(n \hhquad log \hhquad n) = O(n \hhquad log \hhquad n)$$
+Dunque, per quanto detto sopra la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.
 
 # Algoritmo di Akl-Toussaint
 
