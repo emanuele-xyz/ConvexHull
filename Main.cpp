@@ -442,21 +442,25 @@ static void benchmark()
 
     std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
 
-    HullFn algorithms[5]
+    HullFn algorithms[7]
     {
         ch::naive,
         ch::divide_and_conquer,
         ch::akl_toussaint,
+        ch::torch,
         ch::naive_akl_toussaint,
         ch::divide_and_conquer_akl_toussaint,
+        ch::torch_akl_toussaint,
     };
-    const char* algorithms_names[5]
+    const char* algorithms_names[7]
     {
         "naive",
         "divide_and_conquer",
         "akl_toussaint",
+        "torch",
         "naive_akl_toussaint",
         "divide_and_conquer_akl_toussaint",
+        "torch_akl_toussaint",
     };
 
     for (int i{}; i < 5; i++)
@@ -531,10 +535,10 @@ int main()
     //test_torch_against_akl_toussaint();
     //test_naive_akl_toussaint_against_naive();
     //test_dc_akl_toussaint_against_dc();
-    test_torch_akl_toussaint_against_torch();
+    //test_torch_akl_toussaint_against_torch();
 
     //test_sample_points_for_subset();
 
-    //benchmark();
+    benchmark();
 }
 #endif
