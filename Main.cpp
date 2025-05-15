@@ -341,6 +341,19 @@ static void test_dc_akl_toussaint_against_dc()
     test(logger, dataset, ch::divide_and_conquer, "divide and conquer", ch::divide_and_conquer_akl_toussaint, "divide and conquer akl-toussaint");
 }
 
+static void test_torch_akl_toussaint_against_torch()
+{
+    Logger logger{};
+
+    logger.log("torch akl-toussaint vs torch\n");
+
+    int dataset_capacity{ 10000 };
+    logger.log("--------------------------------------------------------------------------------\n");
+    logger.logf("dataset capacity: {}\n", dataset_capacity);
+
+    std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
+    test(logger, dataset, ch::torch, "torch", ch::torch_akl_toussaint, "torch akl-toussaint");
+}
 
 static void test_sample_points_for_subset()
 {
@@ -481,7 +494,7 @@ static void benchmark()
     }
 }
 
-#if 1
+#if 0
 int main()
 {
     // generate points
@@ -515,9 +528,10 @@ int main()
 int main()
 {
     //test_akl_toussaint_against_dc();
+    //test_torch_against_akl_toussaint();
     //test_naive_akl_toussaint_against_naive();
     //test_dc_akl_toussaint_against_dc();
-    test_torch_against_akl_toussaint();
+    test_torch_akl_toussaint_against_torch();
 
     //test_sample_points_for_subset();
 

@@ -675,8 +675,14 @@ namespace ch
 
     std::vector<v2> torch_akl_toussaint(const std::vector<v2>& points)
     {
-        // TODO: to be implemented
-        return {};
+        assert(points.size() >= 3);
+
+        // apply akl toussaint heuristic
+        std::vector<v2> kill_zone{ build_kill_zone(points) };
+        std::vector<v2> survivors{ akl_toussaint_heuristic(points, kill_zone) };
+
+        // run torch on survivors
+        return torch(survivors);
     }
 
     std::vector<v2> sample_points_for_subset(const std::vector<v2>& points, int k)
