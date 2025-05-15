@@ -591,28 +591,6 @@ namespace ch
             }
         }
 
-        #if 0
-        // build the CCW approximate hull by merging the four lateral hulls (the resulting hull may not be convex)
-        std::vector<v2> approximate_hull{};
-        {
-            for (int i{}; i < static_cast<int>(north_east.size()) - 1; i++)
-            {
-                approximate_hull.emplace_back(copy[north_east[i]]);
-            }
-            for (int i{ static_cast<int>(north_west.size()) - 1 }; i > 0; i--)
-            {
-                approximate_hull.emplace_back(copy[north_west[i]]);
-            }
-            for (int i{}; i < static_cast<int>(south_west.size()) - 1; i++)
-            {
-                approximate_hull.emplace_back(copy[south_west[i]]);
-            }
-            for (int i{ static_cast<int>(south_east.size()) - 1 }; i > 0; i--)
-            {
-                approximate_hull.emplace_back(copy[south_east[i]]);
-            }
-        }
-        #endif
         std::vector<v2> hull{};
         {
             for (int i{}; i < static_cast<int>(north_west.size()) - 1; i++)
@@ -634,10 +612,6 @@ namespace ch
         }
 
         assert(!has_duplicates(hull));
-
-        #if 0
-        torch_inflate(hull);
-        #endif
 
         // convexification
         while (true)
@@ -670,9 +644,8 @@ namespace ch
             }
         }
 
-        // reverse the hull from CCW to CW
-        //std::reverse(hull.begin(), hull.end());
         assert(is_hull_clockwise(hull));
+
         return hull;
     }
 

@@ -481,7 +481,7 @@ static void benchmark()
     }
 }
 
-#if 0
+#if 1
 int main()
 {
     // generate points
