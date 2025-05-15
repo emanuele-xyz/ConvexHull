@@ -442,7 +442,9 @@ static void benchmark()
 
     std::vector<ch::v2> dataset{ generate_dataset(logger, dataset_capacity) };
 
-    HullFn algorithms[7]
+    constexpr int N{ 7 };
+
+    HullFn algorithms[N]
     {
         ch::naive,
         ch::divide_and_conquer,
@@ -452,7 +454,7 @@ static void benchmark()
         ch::divide_and_conquer_akl_toussaint,
         ch::torch_akl_toussaint,
     };
-    const char* algorithms_names[7]
+    const char* algorithms_names[N]
     {
         "naive",
         "divide_and_conquer",
@@ -463,7 +465,7 @@ static void benchmark()
         "torch_akl_toussaint",
     };
 
-    for (int i{}; i < 5; i++)
+    for (int i{}; i < N; i++)
     {
         logger.log("--------------------------------------------------------------------------------\n");
         logger.logf("{}\n", algorithms_names[i]);
