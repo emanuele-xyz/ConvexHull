@@ -1,0 +1,984 @@
+torch against akl-toussaint
+--------------------------------------------------------------------------------
+dataset capacity: 10000
+generating points ... DONE ... 129 s
+--------------------------------------------------------------------------------
+points count: 100
+akl-toussaint ... DONE ... 16 us
+torch ... DONE ... 17 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 156
+akl-toussaint ... DONE ... 20 us
+torch ... DONE ... 12 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 168
+akl-toussaint ... DONE ... 14 us
+torch ... DONE ... 11 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 250
+akl-toussaint ... DONE ... 20 us
+torch ... DONE ... 16 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 259
+akl-toussaint ... DONE ... 18 us
+torch ... DONE ... 16 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 314
+akl-toussaint ... DONE ... 25 us
+torch ... DONE ... 19 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 326
+akl-toussaint ... DONE ... 20 us
+torch ... DONE ... 18 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 361
+akl-toussaint ... DONE ... 26 us
+torch ... DONE ... 21 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 378
+akl-toussaint ... DONE ... 23 us
+torch ... DONE ... 26 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 468
+akl-toussaint ... DONE ... 23 us
+torch ... DONE ... 21 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 548
+akl-toussaint ... DONE ... 27 us
+torch ... DONE ... 24 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 571
+akl-toussaint ... DONE ... 33 us
+torch ... DONE ... 25 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 591
+akl-toussaint ... DONE ... 33 us
+torch ... DONE ... 26 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 638
+akl-toussaint ... DONE ... 38 us
+torch ... DONE ... 29 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 731
+akl-toussaint ... DONE ... 43 us
+torch ... DONE ... 41 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 798
+akl-toussaint ... DONE ... 45 us
+torch ... DONE ... 44 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 895
+akl-toussaint ... DONE ... 48 us
+torch ... DONE ... 48 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 929
+akl-toussaint ... DONE ... 48 us
+torch ... DONE ... 50 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 945
+akl-toussaint ... DONE ... 47 us
+torch ... DONE ... 50 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 997
+akl-toussaint ... DONE ... 72 us
+torch ... DONE ... 54 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1002
+akl-toussaint ... DONE ... 69 us
+torch ... DONE ... 54 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1053
+akl-toussaint ... DONE ... 76 us
+torch ... DONE ... 55 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1065
+akl-toussaint ... DONE ... 78 us
+torch ... DONE ... 56 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1137
+akl-toussaint ... DONE ... 81 us
+torch ... DONE ... 59 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1196
+akl-toussaint ... DONE ... 83 us
+torch ... DONE ... 62 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1294
+akl-toussaint ... DONE ... 91 us
+torch ... DONE ... 68 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1359
+akl-toussaint ... DONE ... 99 us
+torch ... DONE ... 71 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1423
+akl-toussaint ... DONE ... 103 us
+torch ... DONE ... 76 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1460
+akl-toussaint ... DONE ... 105 us
+torch ... DONE ... 76 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1490
+akl-toussaint ... DONE ... 106 us
+torch ... DONE ... 75 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1558
+akl-toussaint ... DONE ... 132 us
+torch ... DONE ... 82 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1608
+akl-toussaint ... DONE ... 134 us
+torch ... DONE ... 82 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1660
+akl-toussaint ... DONE ... 140 us
+torch ... DONE ... 86 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1690
+akl-toussaint ... DONE ... 141 us
+torch ... DONE ... 88 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1755
+akl-toussaint ... DONE ... 174 us
+torch ... DONE ... 135 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1777
+akl-toussaint ... DONE ... 173 us
+torch ... DONE ... 101 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1838
+akl-toussaint ... DONE ... 153 us
+torch ... DONE ... 96 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1893
+akl-toussaint ... DONE ... 152 us
+torch ... DONE ... 97 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 1940
+akl-toussaint ... DONE ... 155 us
+torch ... DONE ... 100 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2030
+akl-toussaint ... DONE ... 162 us
+torch ... DONE ... 113 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2084
+akl-toussaint ... DONE ... 167 us
+torch ... DONE ... 109 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2148
+akl-toussaint ... DONE ... 174 us
+torch ... DONE ... 120 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2200
+akl-toussaint ... DONE ... 179 us
+torch ... DONE ... 123 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2288
+akl-toussaint ... DONE ... 186 us
+torch ... DONE ... 132 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2298
+akl-toussaint ... DONE ... 185 us
+torch ... DONE ... 134 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2389
+akl-toussaint ... DONE ... 192 us
+torch ... DONE ... 138 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2409
+akl-toussaint ... DONE ... 194 us
+torch ... DONE ... 137 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2501
+akl-toussaint ... DONE ... 209 us
+torch ... DONE ... 145 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2576
+akl-toussaint ... DONE ... 216 us
+torch ... DONE ... 149 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2662
+akl-toussaint ... DONE ... 223 us
+torch ... DONE ... 153 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2731
+akl-toussaint ... DONE ... 227 us
+torch ... DONE ... 158 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2751
+akl-toussaint ... DONE ... 229 us
+torch ... DONE ... 160 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2757
+akl-toussaint ... DONE ... 308 us
+torch ... DONE ... 161 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2774
+akl-toussaint ... DONE ... 233 us
+torch ... DONE ... 159 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2821
+akl-toussaint ... DONE ... 236 us
+torch ... DONE ... 162 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2835
+akl-toussaint ... DONE ... 237 us
+torch ... DONE ... 163 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2849
+akl-toussaint ... DONE ... 240 us
+torch ... DONE ... 224 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2859
+akl-toussaint ... DONE ... 322 us
+torch ... DONE ... 211 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2956
+akl-toussaint ... DONE ... 316 us
+torch ... DONE ... 180 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 2990
+akl-toussaint ... DONE ... 273 us
+torch ... DONE ... 176 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3067
+akl-toussaint ... DONE ... 264 us
+torch ... DONE ... 181 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3111
+akl-toussaint ... DONE ... 271 us
+torch ... DONE ... 183 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3209
+akl-toussaint ... DONE ... 305 us
+torch ... DONE ... 193 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3243
+akl-toussaint ... DONE ... 298 us
+torch ... DONE ... 193 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3310
+akl-toussaint ... DONE ... 308 us
+torch ... DONE ... 194 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3335
+akl-toussaint ... DONE ... 313 us
+torch ... DONE ... 245 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3396
+akl-toussaint ... DONE ... 303 us
+torch ... DONE ... 202 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3408
+akl-toussaint ... DONE ... 299 us
+torch ... DONE ... 198 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3430
+akl-toussaint ... DONE ... 301 us
+torch ... DONE ... 200 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3468
+akl-toussaint ... DONE ... 313 us
+torch ... DONE ... 201 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3515
+akl-toussaint ... DONE ... 308 us
+torch ... DONE ... 202 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3590
+akl-toussaint ... DONE ... 330 us
+torch ... DONE ... 213 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3622
+akl-toussaint ... DONE ... 326 us
+torch ... DONE ... 210 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3676
+akl-toussaint ... DONE ... 337 us
+torch ... DONE ... 216 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3745
+akl-toussaint ... DONE ... 422 us
+torch ... DONE ... 230 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3835
+akl-toussaint ... DONE ... 366 us
+torch ... DONE ... 224 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3884
+akl-toussaint ... DONE ... 462 us
+torch ... DONE ... 291 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3943
+akl-toussaint ... DONE ... 458 us
+torch ... DONE ... 232 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 3997
+akl-toussaint ... DONE ... 445 us
+torch ... DONE ... 248 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4036
+akl-toussaint ... DONE ... 429 us
+torch ... DONE ... 240 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4114
+akl-toussaint ... DONE ... 673 us
+torch ... DONE ... 275 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4177
+akl-toussaint ... DONE ... 447 us
+torch ... DONE ... 235 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4187
+akl-toussaint ... DONE ... 441 us
+torch ... DONE ... 235 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4283
+akl-toussaint ... DONE ... 496 us
+torch ... DONE ... 315 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4379
+akl-toussaint ... DONE ... 610 us
+torch ... DONE ... 257 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4475
+akl-toussaint ... DONE ... 491 us
+torch ... DONE ... 256 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4575
+akl-toussaint ... DONE ... 503 us
+torch ... DONE ... 262 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4663
+akl-toussaint ... DONE ... 513 us
+torch ... DONE ... 265 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4751
+akl-toussaint ... DONE ... 547 us
+torch ... DONE ... 271 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4794
+akl-toussaint ... DONE ... 533 us
+torch ... DONE ... 271 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4869
+akl-toussaint ... DONE ... 545 us
+torch ... DONE ... 277 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4920
+akl-toussaint ... DONE ... 569 us
+torch ... DONE ... 280 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4938
+akl-toussaint ... DONE ... 569 us
+torch ... DONE ... 284 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 4963
+akl-toussaint ... DONE ... 571 us
+torch ... DONE ... 288 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5033
+akl-toussaint ... DONE ... 584 us
+torch ... DONE ... 288 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5053
+akl-toussaint ... DONE ... 609 us
+torch ... DONE ... 286 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5148
+akl-toussaint ... DONE ... 600 us
+torch ... DONE ... 302 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5162
+akl-toussaint ... DONE ... 768 us
+torch ... DONE ... 300 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5218
+akl-toussaint ... DONE ... 626 us
+torch ... DONE ... 301 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5228
+akl-toussaint ... DONE ... 612 us
+torch ... DONE ... 302 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5269
+akl-toussaint ... DONE ... 732 us
+torch ... DONE ... 309 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5345
+akl-toussaint ... DONE ... 639 us
+torch ... DONE ... 309 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5436
+akl-toussaint ... DONE ... 651 us
+torch ... DONE ... 316 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5496
+akl-toussaint ... DONE ... 671 us
+torch ... DONE ... 319 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5540
+akl-toussaint ... DONE ... 659 us
+torch ... DONE ... 318 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5576
+akl-toussaint ... DONE ... 668 us
+torch ... DONE ... 323 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5663
+akl-toussaint ... DONE ... 680 us
+torch ... DONE ... 327 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5693
+akl-toussaint ... DONE ... 686 us
+torch ... DONE ... 330 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5737
+akl-toussaint ... DONE ... 706 us
+torch ... DONE ... 404 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5792
+akl-toussaint ... DONE ... 873 us
+torch ... DONE ... 340 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5799
+akl-toussaint ... DONE ... 707 us
+torch ... DONE ... 338 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5852
+akl-toussaint ... DONE ... 811 us
+torch ... DONE ... 346 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5910
+akl-toussaint ... DONE ... 732 us
+torch ... DONE ... 359 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 5990
+akl-toussaint ... DONE ... 870 us
+torch ... DONE ... 356 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6043
+akl-toussaint ... DONE ... 747 us
+torch ... DONE ... 353 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6108
+akl-toussaint ... DONE ... 759 us
+torch ... DONE ... 358 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6200
+akl-toussaint ... DONE ... 774 us
+torch ... DONE ... 363 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6267
+akl-toussaint ... DONE ... 793 us
+torch ... DONE ... 356 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6291
+akl-toussaint ... DONE ... 803 us
+torch ... DONE ... 356 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6314
+akl-toussaint ... DONE ... 804 us
+torch ... DONE ... 360 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6371
+akl-toussaint ... DONE ... 919 us
+torch ... DONE ... 493 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6380
+akl-toussaint ... DONE ... 873 us
+torch ... DONE ... 366 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6421
+akl-toussaint ... DONE ... 854 us
+torch ... DONE ... 378 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6455
+akl-toussaint ... DONE ... 907 us
+torch ... DONE ... 490 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6466
+akl-toussaint ... DONE ... 982 us
+torch ... DONE ... 371 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6486
+akl-toussaint ... DONE ... 1030 us
+torch ... DONE ... 373 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6563
+akl-toussaint ... DONE ... 946 us
+torch ... DONE ... 449 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6607
+akl-toussaint ... DONE ... 1096 us
+torch ... DONE ... 452 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6697
+akl-toussaint ... DONE ... 911 us
+torch ... DONE ... 476 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6731
+akl-toussaint ... DONE ... 938 us
+torch ... DONE ... 389 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6745
+akl-toussaint ... DONE ... 895 us
+torch ... DONE ... 390 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6763
+akl-toussaint ... DONE ... 918 us
+torch ... DONE ... 393 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6772
+akl-toussaint ... DONE ... 902 us
+torch ... DONE ... 396 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6835
+akl-toussaint ... DONE ... 910 us
+torch ... DONE ... 404 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6916
+akl-toussaint ... DONE ... 926 us
+torch ... DONE ... 405 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 6944
+akl-toussaint ... DONE ... 912 us
+torch ... DONE ... 402 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7014
+akl-toussaint ... DONE ... 941 us
+torch ... DONE ... 406 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7044
+akl-toussaint ... DONE ... 945 us
+torch ... DONE ... 413 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7072
+akl-toussaint ... DONE ... 950 us
+torch ... DONE ... 411 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7168
+akl-toussaint ... DONE ... 1003 us
+torch ... DONE ... 418 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7210
+akl-toussaint ... DONE ... 977 us
+torch ... DONE ... 419 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7273
+akl-toussaint ... DONE ... 1002 us
+torch ... DONE ... 425 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7305
+akl-toussaint ... DONE ... 1027 us
+torch ... DONE ... 423 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7374
+akl-toussaint ... DONE ... 1036 us
+torch ... DONE ... 422 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7389
+akl-toussaint ... DONE ... 1051 us
+torch ... DONE ... 424 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7426
+akl-toussaint ... DONE ... 1044 us
+torch ... DONE ... 426 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7433
+akl-toussaint ... DONE ... 1043 us
+torch ... DONE ... 556 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7480
+akl-toussaint ... DONE ... 1054 us
+torch ... DONE ... 440 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7494
+akl-toussaint ... DONE ... 1073 us
+torch ... DONE ... 441 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7513
+akl-toussaint ... DONE ... 1057 us
+torch ... DONE ... 442 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7578
+akl-toussaint ... DONE ... 1071 us
+torch ... DONE ... 447 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7604
+akl-toussaint ... DONE ... 1059 us
+torch ... DONE ... 448 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7611
+akl-toussaint ... DONE ... 1067 us
+torch ... DONE ... 446 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7633
+akl-toussaint ... DONE ... 1063 us
+torch ... DONE ... 452 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7659
+akl-toussaint ... DONE ... 1087 us
+torch ... DONE ... 451 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7678
+akl-toussaint ... DONE ... 1074 us
+torch ... DONE ... 440 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7764
+akl-toussaint ... DONE ... 1096 us
+torch ... DONE ... 443 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7849
+akl-toussaint ... DONE ... 1120 us
+torch ... DONE ... 474 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7874
+akl-toussaint ... DONE ... 1123 us
+torch ... DONE ... 460 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7932
+akl-toussaint ... DONE ... 1189 us
+torch ... DONE ... 488 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 7997
+akl-toussaint ... DONE ... 1310 us
+torch ... DONE ... 463 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8088
+akl-toussaint ... DONE ... 1226 us
+torch ... DONE ... 485 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8159
+akl-toussaint ... DONE ... 1268 us
+torch ... DONE ... 485 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8177
+akl-toussaint ... DONE ... 1205 us
+torch ... DONE ... 476 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8223
+akl-toussaint ... DONE ... 1326 us
+torch ... DONE ... 474 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8238
+akl-toussaint ... DONE ... 1237 us
+torch ... DONE ... 491 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8284
+akl-toussaint ... DONE ... 1223 us
+torch ... DONE ... 483 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8365
+akl-toussaint ... DONE ... 1230 us
+torch ... DONE ... 473 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8457
+akl-toussaint ... DONE ... 1260 us
+torch ... DONE ... 491 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8550
+akl-toussaint ... DONE ... 1279 us
+torch ... DONE ... 499 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8567
+akl-toussaint ... DONE ... 1285 us
+torch ... DONE ... 504 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8644
+akl-toussaint ... DONE ... 1088 us
+torch ... DONE ... 507 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8692
+akl-toussaint ... DONE ... 1111 us
+torch ... DONE ... 502 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8762
+akl-toussaint ... DONE ... 1188 us
+torch ... DONE ... 514 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8788
+akl-toussaint ... DONE ... 1310 us
+torch ... DONE ... 527 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8801
+akl-toussaint ... DONE ... 1131 us
+torch ... DONE ... 517 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8884
+akl-toussaint ... DONE ... 1135 us
+torch ... DONE ... 513 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 8931
+akl-toussaint ... DONE ... 1145 us
+torch ... DONE ... 509 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9024
+akl-toussaint ... DONE ... 1162 us
+torch ... DONE ... 536 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9096
+akl-toussaint ... DONE ... 1182 us
+torch ... DONE ... 519 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9129
+akl-toussaint ... DONE ... 1231 us
+torch ... DONE ... 586 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9141
+akl-toussaint ... DONE ... 1300 us
+torch ... DONE ... 659 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9221
+akl-toussaint ... DONE ... 1343 us
+torch ... DONE ... 604 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9229
+akl-toussaint ... DONE ... 1423 us
+torch ... DONE ... 596 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9305
+akl-toussaint ... DONE ... 1733 us
+torch ... DONE ... 578 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9319
+akl-toussaint ... DONE ... 1252 us
+torch ... DONE ... 542 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9373
+akl-toussaint ... DONE ... 1245 us
+torch ... DONE ... 599 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9459
+akl-toussaint ... DONE ... 1705 us
+torch ... DONE ... 571 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9479
+akl-toussaint ... DONE ... 1364 us
+torch ... DONE ... 573 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9529
+akl-toussaint ... DONE ... 1326 us
+torch ... DONE ... 682 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9608
+akl-toussaint ... DONE ... 1324 us
+torch ... DONE ... 635 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9663
+akl-toussaint ... DONE ... 1405 us
+torch ... DONE ... 554 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9669
+akl-toussaint ... DONE ... 1299 us
+torch ... DONE ... 558 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9759
+akl-toussaint ... DONE ... 1339 us
+torch ... DONE ... 563 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9854
+akl-toussaint ... DONE ... 1338 us
+torch ... DONE ... 562 us
+hulls MATCH
+--------------------------------------------------------------------------------
+points count: 9932
+akl-toussaint ... DONE ... 1361 us
+torch ... DONE ... 594 us
+hulls MATCH
