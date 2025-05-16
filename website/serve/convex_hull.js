@@ -902,6 +902,205 @@ class AklToussaintConvexPath {
   }
 }
 
+class TORCH {
+  constructor(points) {
+    // n states: start, ..., done
+    this.minRequiredPoints = 3;
+    this.state = "start";
+    this.points = [...points];
+    this.west_idx = -1;
+    this.east_idx = -1;
+    this.north_idx = -1;
+    this.south_idx = -1;
+    this.north_west = [];
+    this.north_east = [];
+    this.south_west = [];
+    this.south_east = [];
+    this.hull = [];
+  }
+
+  step() {
+    switch (this.state) {
+      case "start": {
+        this.points.sort((a, b) => a.x - b.x);
+        this.west_idx = 0;
+        this.east_idx = this.points.length - 1;
+        this.state = "xmin-xmax";
+        break;
+      }
+      case "xmin-xmax": {
+        this.north_idx = 0;
+        this.south_idx = 0;
+        for (let i = 0; i < this.points.length; i++) {
+          if (this.points[i].y < this.points[this.north_idx].y) {
+            this.north_idx = i;
+          }
+          if (this.points[i].y > this.points[this.south_idx].y) {
+            this.south_idx = i;
+          }
+        }
+        this.state = "ymin-ymax";
+        break;
+      }
+      case "ymin-ymax": {
+        // find south west hull (from west to south)
+        this.south_west = [];
+        {
+          let max_y = this.points[this.west_idx].y;
+          this.south_west.push(this.points[this.west_idx]);
+          for (let i = this.west_idx + 1; i <= this.south_idx; i++) {
+            if (this.points[i].y >= max_y) {
+              max_y = this.points[i].y;
+              this.south_west.push(this.points[i]);
+            }
+          }
+        }
+
+        // find south east hull (from east to south)
+        this.south_east = [];
+        {
+          let max_y = this.points[this.east_idx].y;
+          this.south_east.push(this.points[this.east_idx]);
+          for (let i = this.east_idx - 1; i >= this.south_idx; i--) {
+            if (this.points[i].y >= max_y) {
+              max_y = this.points[i].y;
+              this.south_east.push(this.points[i]);
+            }
+          }
+        }
+
+        // find north west hull (from west to north)
+        this.north_west = [];
+        {
+          let min_y = this.points[this.west_idx].y;
+          this.north_west.push(this.points[this.west_idx]);
+          for (let i = this.west_idx + 1; i <= this.north_idx; i++) {
+            if (this.points[i].y <= min_y) {
+              min_y = this.points[i].y;
+              this.north_west.push(this.points[i]);
+            }
+          }
+        }
+
+        // find north east hull (from east to north)
+        this.north_east = [];
+        {
+          let min_y = this.points[this.east_idx].y;
+          this.north_east.push(this.points[this.east_idx]);
+          for (let i = this.east_idx - 1; i >= this.north_idx; i--) {
+            if (this.points[i].y <= min_y) {
+              min_y = this.points[i].y;
+              this.north_east.push(this.points[i]);
+            }
+          }
+        }
+
+        this.state = "lateral-hulls";
+        break;
+      }
+      case "lateral-hulls": {
+        this.state = "merge";
+        break;
+      }
+      case "merge": {
+        const naive = new Naive(this.points);
+        naive.continue();
+        this.hull = naive.hull;
+        this.state = "inflate";
+        break;
+      }
+      case "inflate": {
+        this.state = "done";
+        break;
+      }
+      case "done": {
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+  }
+
+  continue() {
+    while (this.state !== "done") {
+      this.step();
+    }
+  }
+
+  draw() {
+    clearCanvas();
+
+    switch (this.state) {
+      case "xmin-xmax": {
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        drawPoint(this.points[this.east_idx], "yellow");
+        break;
+      }
+      case "ymin-ymax": {
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        drawPoint(this.points[this.east_idx], "yellow");
+        drawPoint(this.points[this.north_idx], "orange");
+        drawPoint(this.points[this.south_idx], "red");
+        break;
+      }
+      case "lateral-hulls": {
+        drawPolyLine(this.north_west, "lightgreen");
+        drawPolyLine(this.north_east, "orange");
+        drawPolyLine(this.south_east, "yellow");
+        drawPolyLine(this.south_west, "red");
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        drawPoint(this.points[this.east_idx], "yellow");
+        drawPoint(this.points[this.north_idx], "orange");
+        drawPoint(this.points[this.south_idx], "red");
+        break;
+      }
+      case "merge": {
+        drawPolyLine(this.north_west, "steelblue");
+        drawPolyLine(this.north_east, "steelblue");
+        drawPolyLine(this.south_east, "steelblue");
+        drawPolyLine(this.south_west, "steelblue");
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        drawPoint(this.points[this.east_idx], "yellow");
+        drawPoint(this.points[this.north_idx], "orange");
+        drawPoint(this.points[this.south_idx], "red");
+        break;
+      }
+      case "inflate": {
+        drawPolyLine(this.north_west, "steelblue");
+        drawPolyLine(this.north_east, "steelblue");
+        drawPolyLine(this.south_east, "steelblue");
+        drawPolyLine(this.south_west, "steelblue");
+        drawPolygon(this.hull, "red");
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        drawPoint(this.points[this.east_idx], "yellow");
+        drawPoint(this.points[this.north_idx], "orange");
+        drawPoint(this.points[this.south_idx], "red");
+        break;
+      }
+      case "done": {
+        drawPolygon(this.hull, "red");
+        drawPoints(this.points);
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    ctx.fillText(this.state, 10, 20);
+  }
+}
+
 class BentleyFaustPreparataApproximation {
   constructor(points, k = 1) {
     // 7 states: start, minx-maxx, strips, sample, sample-hull, points-hull, done
@@ -1270,6 +1469,10 @@ algoSelect.addEventListener("change", function () {
     }
     case "akl-toussaint-convex-path": {
       algoCtx = new AklToussaintConvexPath(globalPoints);
+      break;
+    }
+    case "torch": {
+      algoCtx = new TORCH(globalPoints);
       break;
     }
     case "bentley-faust-preparata-approximation": {
