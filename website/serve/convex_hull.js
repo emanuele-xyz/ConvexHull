@@ -1276,14 +1276,14 @@ class BentleyFaustPreparataApproximation {
         break;
       }
       case "sample-hull": {
-        drawPolygon(this.sample_hull, "steelblue");
+        drawPolygon(this.sampleHull, "steelblue");
         drawPoints(this.points);
         drawPoints(this.sampled, "lightgreen", false);
         break;
       }
       case "points-hull":
       case "done": {
-        drawPolygon(this.sample_hull, "steelblue");
+        drawPolygon(this.sampleHull, "steelblue");
         drawPolygon(this.hull, "red");
         drawPoints(this.points);
         drawPoints(this.sampled, "lightgreen", false);
