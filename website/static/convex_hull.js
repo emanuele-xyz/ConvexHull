@@ -904,7 +904,7 @@ class AklToussaintConvexPath {
 
 class TORCH {
   constructor(points) {
-    // n states: start, ..., done
+    // 7 states: start, xmin-xmax, ymin-ymax, lateral-hulls, merge, inflate, done
     this.minRequiredPoints = 3;
     this.state = "start";
     this.points = [...points];
@@ -1098,6 +1098,124 @@ class TORCH {
     ctx.fillStyle = "black";
     ctx.font = "16px Arial";
     ctx.fillText(this.state, 10, 20);
+  }
+}
+
+class TORCHSouthWestHull {
+  constructor(points) {
+    // n states: start, ..., done
+    this.minRequiredPoints = 3;
+    this.state = "start";
+    this.points = [...points];
+    this.west_idx = -1;
+    this.south_idx = -1;
+    this.south_west = [];
+    this.max_y = 0;
+    this.i = -1;
+  }
+
+  step() {
+    switch (this.state) {
+      case "start": {
+        this.points.sort((a, b) => a.x - b.x);
+        this.west_idx = 0;
+        this.state = "west";
+        break;
+      }
+      case "west": {
+        this.south_idx = 0;
+        for (let i = 0; i < this.points.length; i++) {
+          if (this.points[i].y > this.points[this.south_idx].y) {
+            this.south_idx = i;
+          }
+        }
+        this.state = "south";
+        break;
+      }
+      case "south": {
+        this.south_west = [];
+        this.max_y = this.points[this.west_idx].y;
+        this.south_west.push(this.points[this.west_idx]);
+        this.i = this.west_idx + 1;
+        this.state = "south-west-hull";
+        break;
+      }
+      case "south-west-hull": {
+        if (this.i <= this.south_idx) {
+          if (this.points[this.i].y >= this.max_y) {
+            this.max_y = this.points[this.i].y;
+            this.south_west.push(this.points[this.i]);
+          }
+          this.i++;
+        } else {
+          this.state = "done";
+        }
+        break;
+      }
+      case "done": {
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+  }
+
+  continue() {
+    while (this.state !== "done") {
+      this.step();
+    }
+  }
+
+  draw() {
+    clearCanvas();
+
+    switch (this.state) {
+      case "west": {
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        break;
+      }
+      case "south": {
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        drawPoint(this.points[this.south_idx], "red");
+        break;
+      }
+      case "south-west-hull": {
+        if (this.south_west.length > 1) {
+          drawPolyLine(this.south_west, "green");
+        }
+        drawLine({ x: this.points[this.i].x, y: 0 }, { x: this.points[this.i].x, y: canvas.height }, "lightgreen", true);
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        drawPoint(this.points[this.south_idx], "red");
+        drawPoint(this.points[this.i], "lightgreen");
+        break;
+      }
+      case "done": {
+        if (this.south_west.length > 1) {
+          drawPolyLine(this.south_west, "lightgreen");
+        }
+        drawPoints(this.points);
+        drawPoint(this.points[this.west_idx], "lightgreen");
+        drawPoint(this.points[this.south_idx], "red");
+        break;
+      }
+      default: {
+        console.assert(false); // Unreachable
+        break;
+      }
+    }
+
+    ctx.fillStyle = "black";
+    ctx.font = "16px Arial";
+    if (this.state === "south-west-hull") {
+      ctx.fillText(this.state + ": maxy = " + Math.trunc(this.max_y), 10, 20);
+    } else {
+      ctx.fillText(this.state, 10, 20);
+    }
   }
 }
 
@@ -1354,9 +1472,12 @@ function drawPolygon(points, color) {
   drawSegment(points[points.length - 1], points[0], color);
 }
 
-function drawLine(p, q, color) {
+function drawLine(p, q, color, dashed = false) {
   ctx.strokeStyle = color;
   ctx.lineWidth = 2;
+  if (dashed) {
+    ctx.setLineDash([10, 5]);
+  }
 
   const dx = q.x - p.x;
   const dy = q.y - p.y;
@@ -1367,6 +1488,7 @@ function drawLine(p, q, color) {
     ctx.moveTo(p.x, 0);
     ctx.lineTo(p.x, canvas.height);
     ctx.stroke();
+    ctx.setLineDash([]);
     return;
   }
 
@@ -1397,6 +1519,7 @@ function drawLine(p, q, color) {
     ctx.moveTo(edgePoints[0].x, edgePoints[0].y);
     ctx.lineTo(edgePoints[1].x, edgePoints[1].y);
     ctx.stroke();
+    ctx.setLineDash([]);
   }
 }
 
@@ -1473,6 +1596,10 @@ algoSelect.addEventListener("change", function () {
     }
     case "torch": {
       algoCtx = new TORCH(globalPoints);
+      break;
+    }
+    case "torch-south-west-hull": {
+      algoCtx = new TORCHSouthWestHull(globalPoints);
       break;
     }
     case "bentley-faust-preparata-approximation": {
