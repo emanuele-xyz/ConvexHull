@@ -41,6 +41,16 @@ header-includes: |
     - [Costruzione di H](#costruzione-di-h-1)
     - [Complessità complessiva](#complessità-complessiva-1)
 - [Benchmark](#benchmark)
+- [Algoritmo di approssimazione di Bentley Faust e Preparata](#algoritmo-di-approssimazione-di-bentley-faust-e-preparata)
+  - [Idea](#idea-3)
+  - [Complessità temporale](#complessità-temporale-3)
+  - [Calcolo di S'](#calcolo-di-s)
+    - [Proprietà](#proprietà)
+      - [Dimostrazione](#dimostrazione-1)
+    - [Proprietà](#proprietà-1)
+      - [Dimostrazione](#dimostrazione-2)
+    - [Corollario](#corollario)
+      - [Dimostrazione](#dimostrazione-3)
 
 # Involucro convesso
 
@@ -381,3 +391,113 @@ Di conseguenza, la complessità temporale complessiva è $O(n \hhquad log \hhqua
 # Benchmark
 
 <canvas id="canvas" width="600" height="400"></canvas>
+
+# Algoritmo di approssimazione di Bentley Faust e Preparata
+
+Un algoritmo di approssimazione, al contrario dei classici algoritmi che più comunemente si studiano, non da garanzie di trovare la (o una) soluzione corretta, bensì ne trova una che, in generale, sarà "abbastanza buona".
+
+Con "abbastanza buona" si intende che la distanza tra la soluzione e quella corretta è minore di un dato valore di soglia. La funzione distanza tra le due soluzioni, di norma, emerge naturalmente dalla natura del problema trattato, e dalle sue soluzioni.
+
+Usiamo un algoritmo di approssimazione quando per noi non è strettamente necessario trovare la (o una) soluzione esatta.
+
+Ha senso pratico usare un algoritmo di approssimazione solo nel caso in cui il suo tempo di esecuzione sia inferiore al tempo di esecuzione di un qualsiasi algoritmo esatto per il problema. Se questo non fosse il caso, potremmo direttamente trovare la (o una) soluzione esatta in un tempo inferiore rispetto a quella approssimata
+
+## Idea
+
+Presentiamo ora uno schema generale per la definizione di algoritmi di approssimazione per il problema dell'involucro convesso:
+
+1. Sia $S'$ un insieme di punti calcolato a partire da $S$.
+2. Determiniamo $H'$, l'involucro convesso di $S'$, eseguendo un algoritmo per la ricerca dell'involucro convesso su $S'$.
+3. Usiamo $H'$ come soluzione approssimata per $H$.
+
+## Complessità temporale
+
+Sia:
+
+- $T_{s'}$ la funzione che caratterizza la complessità temporale del calcolo di $S'$.
+- $m = | S' |$
+- $T$ la funzione che caratterizza la complessità temporale dell'algoritmo usato per trovare $H'$.
+
+Dunque, è chiaro che la complessità temporale di un qualsiasi algoritmo di approssimazione che usa lo schema presentato sopra è:
+
+$$T_{s'}(n) + T(m)$$
+
+## Calcolo di S'
+
+L'aspetto più interessante dello schema generale per la definizione di algoritmi di approssimazione dell'involucro convesso è il calcolo di $S'$. Vi sono innumerevoli strategie che possiamo usare per calcolare $S'$. Quella che presenteremo è stata proposta da Bentley, Faust e Preparata nel 1988.
+
+Consideriamo i quattro punti seguenti di $S$:
+
+- $\textrm{XMAX}$, di massima $x$.
+- $\textrm{XMIN}$, di minima $x$.
+- $\textrm{YMAX}$, di massima $y$.
+- $\textrm{YMIN}$, di minima $y$.
+
+Poniamo $S' = \{ \textrm{XMIN}, \textrm{XMAX}, \textrm{YMIN}, \textrm{YMAX} \}$. È chiaro che $H'$ è il quadrilatero convesso $Q$ di vertici $\textrm{XMIN}, \textrm{XMAX}, \textrm{YMIN}, \textrm{YMAX}$.
+
+### Proprietà
+
+Per ogni punto $p \in S$, se $p$ cade al di fuori del quadrilatero $Q$ allora la distanza tra $p$ e $Q$ è al più $\Delta X$, dove $\Delta X = \textrm{XMAX}_x - \textrm{XMIN}_x$.
+
+#### Dimostrazione
+
+Sia $R$ il rettangolo con diagonale il segmento di estremi $(\textrm{XMIN}_x, \textrm{YMIN}_y)$ e $(\textrm{XMAX}_x, \textrm{YMAX}_y)$.
+
+È facile vedere che tutti i punti $p \in S$ cadono all'interno di $R$.
+
+Un qualsiasi punto $p \in S$ che cade al di fuori del quadrilatero deve essere in una delle quattro regioni $A, B, C \hhquad o \hhquad D$ sotto riportate.
+
+<!-- TODO: aggiungere immagine quadrilatero. -->
+
+Prendiamo, senza perdita di generalità, un generico punto $p \in S$ che cade nella regione $A$. Naturalmente, la distanza $\delta$ tra $p$ e $Q$ è data dalla distanza tra $p$ e il segmento $\textrm{XMIN}, \textrm{YMAX}$.
+
+Denotiamo con $\delta x$, la lunghezza del segmento con estremi:
+
+- $p$, e
+- il punto di intersezione tra il segmento $\textrm{XMIN}, \textrm{YMAX}$ e la retta parallela all'asse delle $x$ passante per $p$.
+
+<!-- TODO: aggiungere immagine segmento XMIN, YMAX. -->
+
+È facile osservare come $\delta \le \delta x \le \Delta X$. $\square$
+
+Possiamo immaginare di aver calcolato $S'$ nel modo seguente:
+
+- Aggiungiamo a $S'$ il punto $\textrm{XMIN}$.
+- Aggiungiamo a $S'$ il punto $\textrm{XMAX}$.
+- Consideriamo l'intervallo $[\textrm{XMIN}_x, \textrm{XMAX}_x]$. Questo può essere visto come una striscia verticale sul piano. Tutti i punti di $S$ cadono all'interno di questa striscia. Cerchiamo i due punti della striscia con $y$ minima e $y$ massima e li aggiungiamo a $S'$.
+
+Possiamo estendere la costruzione esposta sopra ad un generico numero $k$ di strisce di larghezza uniforme:
+
+- Aggiungiamo a $S'$ il punto $\textrm{XMIN}$.
+- Aggiungiamo a $S'$ il punto $\textrm{XMAX}$.
+- Consideriamo l'intervallo $[\textrm{XMIN}_x, \textrm{XMAX}_x]$ e lo partizioniamo in $k$ sotto intervalli (strisce), ognuno di ampiezza $\dfrac{\Delta X}{k}$.
+- Per ogni sotto intervallo (striscia), cerchiamo, tra i punti di $S$ che cadono nella striscia, i due che hanno $y$ minima e $y$ massima, e li aggiungiamo a $S'$.
+
+**Osservazione:** Possiamo osservare che, per costruzione di $S'$ si ha che $P(H') \subseteq P(H)$.
+
+### Proprietà
+
+Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ allora la distanza tra $p$ e $H'$ è al più $\dfrac{\Delta X}{k}$.
+
+#### Dimostrazione
+
+Consideriamo un qualsiasi punto $p \in S$ che cade al di fuori di $H'$. Per costruzione, $p$ deve cadere all'interno di una data striscia.
+
+Siccome $p$ cade al di fuori di $H'$, $p$ non può né avere $y$ minima né $y$ massima nella striscia. Dunque, $p_y$ deve essere compreso tra questi due valori, esclusi. Perciò, nella striscia in cui cade $p$, devono cadere almeno altri due punti. Oltretutto, almeno un punto $h$ tra questi due deve appartenere a $P(H')$. Dunque, la distanza $\delta$ tra $p$ e $H'$ è data dalla distanza tra uno dei due lati di $H'$ che ha $h$ come uno dei due estremi.
+
+Denotiamo con $\delta x$ la lunghezza del segmento che ha come estremi:
+
+- $p$, e
+- l'intersezione tra il suddetto lato di $H'$ e la retta parallela all'asse $x$ passante per $p$.
+
+<!-- TODO: aggiungere immagine quadrilatero tratteggiato. -->
+
+Possiamo vedere che $\delta \le \delta x \le \dfrac{\Delta X}{k}$. $\square$
+
+### Corollario
+
+Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ allora la distanza tra $p$ e $H'$ è al più $\dfrac{D}{k}$, dove $D$ è il diametro di $S$. Il diametro è definito come la massima distanza tra due generici punti di $S$.
+
+#### Dimostrazione
+
+Per definizione di $D$, $\Delta X \le D$. Questo assieme a quanto dimostrato precedentemente è sufficiente a provare il corollario. $\square$

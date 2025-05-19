@@ -107,6 +107,28 @@ complessiva</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#benchmark">Benchmark</a></li>
+<li><a
+href="#algoritmo-di-approssimazione-di-bentley-faust-e-preparata">Algoritmo
+di approssimazione di Bentley Faust e Preparata</a>
+<ul>
+<li><a href="#idea-3">Idea</a></li>
+<li><a href="#complessità-temporale-3">Complessità temporale</a></li>
+<li><a href="#calcolo-di-s">Calcolo di S’</a>
+<ul>
+<li><a href="#proprietà">Proprietà</a>
+<ul>
+<li><a href="#dimostrazione-1">Dimostrazione</a></li>
+</ul></li>
+<li><a href="#proprietà-1">Proprietà</a>
+<ul>
+<li><a href="#dimostrazione-2">Dimostrazione</a></li>
+</ul></li>
+<li><a href="#corollario">Corollario</a>
+<ul>
+<li><a href="#dimostrazione-3">Dimostrazione</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
 </ul>
 <h1 id="involucro-convesso">Involucro convesso</h1>
 <p><strong>Input</strong>: Insieme finito <span class="math inline">\(S
@@ -619,5 +641,215 @@ class="math inline">\(O(n \hspace{0.25em}log
 <h1 id="benchmark">Benchmark</h1>
 <canvas id="canvas" width="600" height="400">
 </canvas>
+<h1
+id="algoritmo-di-approssimazione-di-bentley-faust-e-preparata">Algoritmo
+di approssimazione di Bentley Faust e Preparata</h1>
+<p>Un algoritmo di approssimazione, al contrario dei classici algoritmi
+che più comunemente si studiano, non da garanzie di trovare la (o una)
+soluzione corretta, bensì ne trova una che, in generale, sarà
+“abbastanza buona”.</p>
+<p>Con “abbastanza buona” si intende che la distanza tra la soluzione e
+quella corretta è minore di un dato valore di soglia. La funzione
+distanza tra le due soluzioni, di norma, emerge naturalmente dalla
+natura del problema trattato, e dalle sue soluzioni.</p>
+<p>Usiamo un algoritmo di approssimazione quando per noi non è
+strettamente necessario trovare la (o una) soluzione esatta.</p>
+<p>Ha senso pratico usare un algoritmo di approssimazione solo nel caso
+in cui il suo tempo di esecuzione sia inferiore al tempo di esecuzione
+di un qualsiasi algoritmo esatto per il problema. Se questo non fosse il
+caso, potremmo direttamente trovare la (o una) soluzione esatta in un
+tempo inferiore rispetto a quella approssimata</p>
+<h2 id="idea-3">Idea</h2>
+<p>Presentiamo ora uno schema generale per la definizione di algoritmi
+di approssimazione per il problema dell’involucro convesso:</p>
+<ol type="1">
+<li>Sia <span class="math inline">\(S&#39;\)</span> un insieme di punti
+calcolato a partire da <span class="math inline">\(S\)</span>.</li>
+<li>Determiniamo <span class="math inline">\(H&#39;\)</span>,
+l’involucro convesso di <span class="math inline">\(S&#39;\)</span>,
+eseguendo un algoritmo per la ricerca dell’involucro convesso su <span
+class="math inline">\(S&#39;\)</span>.</li>
+<li>Usiamo <span class="math inline">\(H&#39;\)</span> come soluzione
+approssimata per <span class="math inline">\(H\)</span>.</li>
+</ol>
+<h2 id="complessità-temporale-3">Complessità temporale</h2>
+<p>Sia:</p>
+<ul>
+<li><span class="math inline">\(T_{s&#39;}\)</span> la funzione che
+caratterizza la complessità temporale del calcolo di <span
+class="math inline">\(S&#39;\)</span>.</li>
+<li><span class="math inline">\(m = | S&#39; |\)</span></li>
+<li><span class="math inline">\(T\)</span> la funzione che caratterizza
+la complessità temporale dell’algoritmo usato per trovare <span
+class="math inline">\(H&#39;\)</span>.</li>
+</ul>
+<p>Dunque, è chiaro che la complessità temporale di un qualsiasi
+algoritmo di approssimazione che usa lo schema presentato sopra è:</p>
+<p><span class="math display">\[T_{s&#39;}(n) + T(m)\]</span></p>
+<h2 id="calcolo-di-s">Calcolo di S’</h2>
+<p>L’aspetto più interessante dello schema generale per la definizione
+di algoritmi di approssimazione dell’involucro convesso è il calcolo di
+<span class="math inline">\(S&#39;\)</span>. Vi sono innumerevoli
+strategie che possiamo usare per calcolare <span
+class="math inline">\(S&#39;\)</span>. Quella che presenteremo è stata
+proposta da Bentley, Faust e Preparata nel 1988.</p>
+<p>Consideriamo i quattro punti seguenti di <span
+class="math inline">\(S\)</span>:</p>
+<ul>
+<li><span class="math inline">\(\textrm{XMAX}\)</span>, di massima <span
+class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\textrm{XMIN}\)</span>, di minima <span
+class="math inline">\(x\)</span>.</li>
+<li><span class="math inline">\(\textrm{YMAX}\)</span>, di massima <span
+class="math inline">\(y\)</span>.</li>
+<li><span class="math inline">\(\textrm{YMIN}\)</span>, di minima <span
+class="math inline">\(y\)</span>.</li>
+</ul>
+<p>Poniamo <span class="math inline">\(S&#39; = \{ \textrm{XMIN},
+\textrm{XMAX}, \textrm{YMIN}, \textrm{YMAX} \}\)</span>. È chiaro che
+<span class="math inline">\(H&#39;\)</span> è il quadrilatero convesso
+<span class="math inline">\(Q\)</span> di vertici <span
+class="math inline">\(\textrm{XMIN}, \textrm{XMAX}, \textrm{YMIN},
+\textrm{YMAX}\)</span>.</p>
+<h3 id="proprietà">Proprietà</h3>
+<p>Per ogni punto <span class="math inline">\(p \in S\)</span>, se <span
+class="math inline">\(p\)</span> cade al di fuori del quadrilatero <span
+class="math inline">\(Q\)</span> allora la distanza tra <span
+class="math inline">\(p\)</span> e <span
+class="math inline">\(Q\)</span> è al più <span
+class="math inline">\(\Delta X\)</span>, dove <span
+class="math inline">\(\Delta X = \textrm{XMAX}_x -
+\textrm{XMIN}_x\)</span>.</p>
+<h4 id="dimostrazione-1">Dimostrazione</h4>
+<p>Sia <span class="math inline">\(R\)</span> il rettangolo con
+diagonale il segmento di estremi <span
+class="math inline">\((\textrm{XMIN}_x, \textrm{YMIN}_y)\)</span> e
+<span class="math inline">\((\textrm{XMAX}_x,
+\textrm{YMAX}_y)\)</span>.</p>
+<p>È facile vedere che tutti i punti <span class="math inline">\(p \in
+S\)</span> cadono all’interno di <span
+class="math inline">\(R\)</span>.</p>
+<p>Un qualsiasi punto <span class="math inline">\(p \in S\)</span> che
+cade al di fuori del quadrilatero deve essere in una delle quattro
+regioni <span class="math inline">\(A, B, C \hspace{0.25em}o
+\hspace{0.25em}D\)</span> sotto riportate.</p>
+<!-- TODO: aggiungere immagine quadrilatero. -->
+<p>Prendiamo, senza perdita di generalità, un generico punto <span
+class="math inline">\(p \in S\)</span> che cade nella regione <span
+class="math inline">\(A\)</span>. Naturalmente, la distanza <span
+class="math inline">\(\delta\)</span> tra <span
+class="math inline">\(p\)</span> e <span
+class="math inline">\(Q\)</span> è data dalla distanza tra <span
+class="math inline">\(p\)</span> e il segmento <span
+class="math inline">\(\textrm{XMIN}, \textrm{YMAX}\)</span>.</p>
+<p>Denotiamo con <span class="math inline">\(\delta x\)</span>, la
+lunghezza del segmento con estremi:</p>
+<ul>
+<li><span class="math inline">\(p\)</span>, e</li>
+<li>il punto di intersezione tra il segmento <span
+class="math inline">\(\textrm{XMIN}, \textrm{YMAX}\)</span> e la retta
+parallela all’asse delle <span class="math inline">\(x\)</span> passante
+per <span class="math inline">\(p\)</span>.</li>
+</ul>
+<!-- TODO: aggiungere immagine segmento XMIN, YMAX. -->
+<p>È facile osservare come <span class="math inline">\(\delta \le \delta
+x \le \Delta X\)</span>. <span
+class="math inline">\(\square\)</span></p>
+<p>Possiamo immaginare di aver calcolato <span
+class="math inline">\(S&#39;\)</span> nel modo seguente:</p>
+<ul>
+<li>Aggiungiamo a <span class="math inline">\(S&#39;\)</span> il punto
+<span class="math inline">\(\textrm{XMIN}\)</span>.</li>
+<li>Aggiungiamo a <span class="math inline">\(S&#39;\)</span> il punto
+<span class="math inline">\(\textrm{XMAX}\)</span>.</li>
+<li>Consideriamo l’intervallo <span
+class="math inline">\([\textrm{XMIN}_x, \textrm{XMAX}_x]\)</span>.
+Questo può essere visto come una striscia verticale sul piano. Tutti i
+punti di <span class="math inline">\(S\)</span> cadono all’interno di
+questa striscia. Cerchiamo i due punti della striscia con <span
+class="math inline">\(y\)</span> minima e <span
+class="math inline">\(y\)</span> massima e li aggiungiamo a <span
+class="math inline">\(S&#39;\)</span>.</li>
+</ul>
+<p>Possiamo estendere la costruzione esposta sopra ad un generico numero
+<span class="math inline">\(k\)</span> di strisce di larghezza
+uniforme:</p>
+<ul>
+<li>Aggiungiamo a <span class="math inline">\(S&#39;\)</span> il punto
+<span class="math inline">\(\textrm{XMIN}\)</span>.</li>
+<li>Aggiungiamo a <span class="math inline">\(S&#39;\)</span> il punto
+<span class="math inline">\(\textrm{XMAX}\)</span>.</li>
+<li>Consideriamo l’intervallo <span
+class="math inline">\([\textrm{XMIN}_x, \textrm{XMAX}_x]\)</span> e lo
+partizioniamo in <span class="math inline">\(k\)</span> sotto intervalli
+(strisce), ognuno di ampiezza <span class="math inline">\(\dfrac{\Delta
+X}{k}\)</span>.</li>
+<li>Per ogni sotto intervallo (striscia), cerchiamo, tra i punti di
+<span class="math inline">\(S\)</span> che cadono nella striscia, i due
+che hanno <span class="math inline">\(y\)</span> minima e <span
+class="math inline">\(y\)</span> massima, e li aggiungiamo a <span
+class="math inline">\(S&#39;\)</span>.</li>
+</ul>
+<p><strong>Osservazione:</strong> Possiamo osservare che, per
+costruzione di <span class="math inline">\(S&#39;\)</span> si ha che
+<span class="math inline">\(P(H&#39;) \subseteq P(H)\)</span>.</p>
+<h3 id="proprietà-1">Proprietà</h3>
+<p>Per ogni punto <span class="math inline">\(p \in S\)</span>, se <span
+class="math inline">\(p\)</span> cade al di fuori di <span
+class="math inline">\(H&#39;\)</span> allora la distanza tra <span
+class="math inline">\(p\)</span> e <span
+class="math inline">\(H&#39;\)</span> è al più <span
+class="math inline">\(\dfrac{\Delta X}{k}\)</span>.</p>
+<h4 id="dimostrazione-2">Dimostrazione</h4>
+<p>Consideriamo un qualsiasi punto <span class="math inline">\(p \in
+S\)</span> che cade al di fuori di <span
+class="math inline">\(H&#39;\)</span>. Per costruzione, <span
+class="math inline">\(p\)</span> deve cadere all’interno di una data
+striscia.</p>
+<p>Siccome <span class="math inline">\(p\)</span> cade al di fuori di
+<span class="math inline">\(H&#39;\)</span>, <span
+class="math inline">\(p\)</span> non può né avere <span
+class="math inline">\(y\)</span> minima né <span
+class="math inline">\(y\)</span> massima nella striscia. Dunque, <span
+class="math inline">\(p_y\)</span> deve essere compreso tra questi due
+valori, esclusi. Perciò, nella striscia in cui cade <span
+class="math inline">\(p\)</span>, devono cadere almeno altri due punti.
+Oltretutto, almeno un punto <span class="math inline">\(h\)</span> tra
+questi due deve appartenere a <span
+class="math inline">\(P(H&#39;)\)</span>. Dunque, la distanza <span
+class="math inline">\(\delta\)</span> tra <span
+class="math inline">\(p\)</span> e <span
+class="math inline">\(H&#39;\)</span> è data dalla distanza tra uno dei
+due lati di <span class="math inline">\(H&#39;\)</span> che ha <span
+class="math inline">\(h\)</span> come uno dei due estremi.</p>
+<p>Denotiamo con <span class="math inline">\(\delta x\)</span> la
+lunghezza del segmento che ha come estremi:</p>
+<ul>
+<li><span class="math inline">\(p\)</span>, e</li>
+<li>l’intersezione tra il suddetto lato di <span
+class="math inline">\(H&#39;\)</span> e la retta parallela all’asse
+<span class="math inline">\(x\)</span> passante per <span
+class="math inline">\(p\)</span>.</li>
+</ul>
+<!-- TODO: aggiungere immagine quadrilatero tratteggiato. -->
+<p>Possiamo vedere che <span class="math inline">\(\delta \le \delta x
+\le \dfrac{\Delta X}{k}\)</span>. <span
+class="math inline">\(\square\)</span></p>
+<h3 id="corollario">Corollario</h3>
+<p>Per ogni punto <span class="math inline">\(p \in S\)</span>, se <span
+class="math inline">\(p\)</span> cade al di fuori di <span
+class="math inline">\(H&#39;\)</span> allora la distanza tra <span
+class="math inline">\(p\)</span> e <span
+class="math inline">\(H&#39;\)</span> è al più <span
+class="math inline">\(\dfrac{D}{k}\)</span>, dove <span
+class="math inline">\(D\)</span> è il diametro di <span
+class="math inline">\(S\)</span>. Il diametro è definito come la massima
+distanza tra due generici punti di <span
+class="math inline">\(S\)</span>.</p>
+<h4 id="dimostrazione-3">Dimostrazione</h4>
+<p>Per definizione di <span class="math inline">\(D\)</span>, <span
+class="math inline">\(\Delta X \le D\)</span>. Questo assieme a quanto
+dimostrato precedentemente è sufficiente a provare il corollario. <span
+class="math inline">\(\square\)</span></p>
 </body>
 </html>
