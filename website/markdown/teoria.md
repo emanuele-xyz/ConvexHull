@@ -190,7 +190,7 @@ Fissando $u_y = v_x$, abbiamo che $u_x = - \dfrac{v_x v_y}{v_x} = -v_y$
 
 ## Idea
 
-Sia $P$ la lista dei punti di $S$, ordinata in ordine non crescente della loro componente $x$.
+Sia $P$ la lista dei punti di $S$, ordinata in ordine decrescente della loro componente $x$.
 
 Dividiamo $P$ a metà, ottenendo così le liste $A$ e $B$.
 
@@ -346,9 +346,9 @@ Una volta che abbiamo determinato i vari percorsi convessi per le relative regio
 
 Sia $R$ l'insieme di punti che cadono nella regione (compresi gli estremi del lato su cui soggiace la regione).
 
-Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di $R$ in ordine non decrescente di $x$, risultando nella lista di punti $P$.
+Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di $R$ in ordine crescente di $x$, risultando nella lista di punti $P$.
 
-Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine non crescente di $x$, risultando nella lista di punti $P$.
+Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine decrescente di $x$, risultando nella lista di punti $P$.
 
 1. Per ogni tripla di punti consecutivi $(P_k, P_{k+1}, P_{k+2})$ in $P$:
 
