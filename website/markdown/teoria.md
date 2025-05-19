@@ -5,11 +5,10 @@ header-includes: |
   \newcommand{\hhquad}{\hspace{0.25em}}
 ---
 
-<!-- TODO: Rimuovere manualmente i doppi escape nell'indice. -->
-
 # Indice <!-- omit in toc -->
 
 - [Involucro convesso](#involucro-convesso)
+  - [Rappresentare H](#rappresentare-h)
   - [Lower bound della complessità del problema](#lower-bound-della-complessità-del-problema)
     - [Dimostrazione](#dimostrazione)
 - [Involucri clockwise e counterclockwise](#involucri-clockwise-e-counterclockwise)
@@ -40,8 +39,8 @@ header-includes: |
     - [Ricerca del percorso convesso](#ricerca-del-percorso-convesso)
     - [Costruzione di H](#costruzione-di-h-1)
     - [Complessità complessiva](#complessità-complessiva-1)
-- [Benchmark](#benchmark)
-- [Algoritmo di approssimazione di Bentley Faust e Preparata](#algoritmo-di-approssimazione-di-bentley-faust-e-preparata)
+- [Benchmark degli algoritmi per il calcolo dell'involucro convesso](#benchmark-degli-algoritmi-per-il-calcolo-dellinvolucro-convesso)
+- [Algoritmo di approssimazione di Bentley, Faust e Preparata](#algoritmo-di-approssimazione-di-bentley-faust-e-preparata)
   - [Idea](#idea-3)
   - [Complessità temporale](#complessità-temporale-3)
   - [Calcolo di S'](#calcolo-di-s)
@@ -58,8 +57,6 @@ header-includes: |
 
 **Output**: Poligono convesso $H$ di area minima che contiene tutti i punti di $S$.
 
-**Notazione**
-
 Denotiamo con:
 
 - $P(H)$ l'insieme di vertici di $H$.
@@ -70,7 +67,7 @@ Denotiamo con:
 
 **Corollario**: $d \le n$
 
-**Rappresentare H**
+## Rappresentare H
 
 Rappresentiamo $H$ usando una lista ordinata di punti di $P(H)$:
 
@@ -388,19 +385,19 @@ Per costruire $H$ è sufficiente scandire i percorsi convessi trovati $\rightarr
 
 Di conseguenza, la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.
 
-# Benchmark
+# Benchmark degli algoritmi per il calcolo dell'involucro convesso
 
 <canvas id="canvas" width="600" height="400"></canvas>
 
-# Algoritmo di approssimazione di Bentley Faust e Preparata
+# Algoritmo di approssimazione di Bentley, Faust e Preparata
 
-Un algoritmo di approssimazione, al contrario dei classici algoritmi che più comunemente si studiano, non da garanzie di trovare la (o una) soluzione corretta, bensì ne trova una che, in generale, sarà "abbastanza buona".
+Un algoritmo di approssimazione, al contrario dei classici algoritmi che più comunemente si studiano, non da garanzie di trovare la soluzione corretta, bensì ne trova una che, in generale, sarà "abbastanza buona".
 
 Con "abbastanza buona" si intende che la distanza tra la soluzione e quella corretta è minore di un dato valore di soglia. La funzione distanza tra le due soluzioni, di norma, emerge naturalmente dalla natura del problema trattato, e dalle sue soluzioni.
 
-Usiamo un algoritmo di approssimazione quando per noi non è strettamente necessario trovare la (o una) soluzione esatta.
+Usiamo un algoritmo di approssimazione quando per noi non è strettamente necessario trovare la soluzione esatta.
 
-Ha senso pratico usare un algoritmo di approssimazione solo nel caso in cui il suo tempo di esecuzione sia inferiore al tempo di esecuzione di un qualsiasi algoritmo esatto per il problema. Se questo non fosse il caso, potremmo direttamente trovare la (o una) soluzione esatta in un tempo inferiore rispetto a quella approssimata
+Ha senso pratico usare un algoritmo di approssimazione solo nel caso in cui il suo tempo di esecuzione sia inferiore al tempo di esecuzione di un qualsiasi algoritmo esatto per il problema. Se questo non fosse il caso, potremmo direttamente trovare la soluzione esatta in un tempo inferiore rispetto a quella approssimata.
 
 ## Idea
 
@@ -447,7 +444,7 @@ Sia $R$ il rettangolo con diagonale il segmento di estremi $(\textrm{XMIN}_x, \t
 
 Un qualsiasi punto $p \in S$ che cade al di fuori del quadrilatero deve essere in una delle quattro regioni $A, B, C \hhquad o \hhquad D$ sotto riportate.
 
-<!-- TODO: aggiungere immagine quadrilatero. -->
+![](./q_and_r.svg){ style="height: 350px; display: block; margin: auto;" }
 
 Prendiamo, senza perdita di generalità, un generico punto $p \in S$ che cade nella regione $A$. Naturalmente, la distanza $\delta$ tra $p$ e $Q$ è data dalla distanza tra $p$ e il segmento $\textrm{XMIN}, \textrm{YMAX}$.
 
@@ -456,28 +453,35 @@ Denotiamo con $\delta x$, la lunghezza del segmento con estremi:
 - $p$, e
 - il punto di intersezione tra il segmento $\textrm{XMIN}, \textrm{YMAX}$ e la retta parallela all'asse delle $x$ passante per $p$.
 
-<!-- TODO: aggiungere immagine segmento XMIN, YMAX. -->
+![](./distance_and_dx_quad.svg){ style="height: 350px; display: block; margin: auto;" }
 
 È facile osservare come $\delta \le \delta x \le \Delta X$. $\square$
 
 Possiamo immaginare di aver calcolato $S'$ nel modo seguente:
 
 - Aggiungiamo a $S'$ il punto $\textrm{XMIN}$.
+
 - Aggiungiamo a $S'$ il punto $\textrm{XMAX}$.
+
 - Consideriamo l'intervallo $[\textrm{XMIN}_x, \textrm{XMAX}_x]$. Questo può essere visto come una striscia verticale sul piano. Tutti i punti di $S$ cadono all'interno di questa striscia. Cerchiamo i due punti della striscia con $y$ minima e $y$ massima e li aggiungiamo a $S'$.
 
 Possiamo estendere la costruzione esposta sopra ad un generico numero $k$ di strisce di larghezza uniforme:
 
 - Aggiungiamo a $S'$ il punto $\textrm{XMIN}$.
+
 - Aggiungiamo a $S'$ il punto $\textrm{XMAX}$.
+
 - Consideriamo l'intervallo $[\textrm{XMIN}_x, \textrm{XMAX}_x]$ e lo partizioniamo in $k$ sotto intervalli (strisce), ognuno di ampiezza $\dfrac{\Delta X}{k}$.
+
 - Per ogni sotto intervallo (striscia), cerchiamo, tra i punti di $S$ che cadono nella striscia, i due che hanno $y$ minima e $y$ massima, e li aggiungiamo a $S'$.
 
 **Osservazione:** Possiamo osservare che, per costruzione di $S'$ si ha che $P(H') \subseteq P(H)$.
 
 ### Proprietà
 
-Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ allora la distanza tra $p$ e $H'$ è al più $\dfrac{\Delta X}{k}$.
+Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ [^2] allora la distanza tra $p$ e $H'$ è al più $\dfrac{\Delta X}{k}$.
+
+[^2]: Questo significa che $p$ non è stato preso dal campionamento.
 
 #### Dimostrazione
 
@@ -490,7 +494,7 @@ Denotiamo con $\delta x$ la lunghezza del segmento che ha come estremi:
 - $p$, e
 - l'intersezione tra il suddetto lato di $H'$ e la retta parallela all'asse $x$ passante per $p$.
 
-<!-- TODO: aggiungere immagine quadrilatero tratteggiato. -->
+![](./distance_and_dx_strip.svg){ style="height: 350px; display: block; margin: auto;" }
 
 Possiamo vedere che $\delta \le \delta x \le \dfrac{\Delta X}{k}$. $\square$
 
