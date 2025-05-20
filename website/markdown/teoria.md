@@ -9,6 +9,7 @@ header-includes: |
 
 - [Involucro convesso](#involucro-convesso)
   - [Rappresentare H](#rappresentare-h)
+  - [Assunzioni sull'insieme di punti](#assunzioni-sullinsieme-di-punti)
   - [Lower bound della complessità del problema](#lower-bound-della-complessità-del-problema)
     - [Dimostrazione](#dimostrazione)
 - [Involucri clockwise e counterclockwise](#involucri-clockwise-e-counterclockwise)
@@ -53,7 +54,9 @@ header-includes: |
 
 # Involucro convesso
 
-**Input**: Insieme finito $S \subseteq R^2$.
+![](./convex_hull_io.svg){ style="height: 190px; display: block; margin: auto;" }
+
+**Input**: Insieme finito $S \subseteq \mathbb{R}^2$.
 
 **Output**: Poligono convesso $H$ di area minima che contiene tutti i punti di $S$.
 
@@ -77,6 +80,18 @@ Tale che:
 
 - $\forall i = 1, ..., d - 1$ il segmento di estremi $P_i$ e $P_{i+1}$ è un lato di $H$.
 - Il segmento di estremi $P_d$ e $P_1$ è un lato di $H$.
+
+## Assunzioni sull'insieme di punti
+
+Nella nostra trattazione assumiamo che l'insieme di punti $S$ soddisfi le seguenti condizioni:
+
+1. **Non collinearità.** Non esistono tre punti di $S$ che giacciono sulla stessa retta.
+
+2. **Distanza minima.** Per ogni coppia di punti $a,b\in S$, imponiamo
+   $$\Delta X \ge 1 \quad \textrm{e} \quad \Delta Y \ge 1$$
+   Dove
+   $$\Delta X = |a_x - b_x| \quad \textrm{e} \quad \Delta Y = |a_y - b_y|$$
+   In tal modo due punti non possono trovarsi "troppo" vicini tra loro.
 
 ## Lower bound della complessità del problema
 
@@ -130,7 +145,7 @@ Di rado può accadere di dover controllare se un involucro convesso è espresso 
 
   - Se $det\begin{pmatrix} \vec{v}_x - \vec{u}_x & \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} & \vec{w_y} - \vec{v_y} \end{pmatrix} < 0$, allora siamo in senso orario.
 
-  - Se il determinante è uguale a zero allora i tre punti hanno la stessa direzione e dunque sono colineari. Ricordiamo che non consideriamo punti colineari.
+  - Se il determinante è uguale a zero allora i tre punti hanno la stessa direzione e dunque sono collineari. Ricordiamo che non consideriamo punti collineari.
 
 Se l'involucro è espresso in un senso, per esprimerlo nell'altro bisogna semplicemente invertire l'ordine della lista.
 

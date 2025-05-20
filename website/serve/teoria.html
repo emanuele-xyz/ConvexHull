@@ -48,6 +48,8 @@
 <li><a href="#involucro-convesso">Involucro convesso</a>
 <ul>
 <li><a href="#rappresentare-h">Rappresentare H</a></li>
+<li><a href="#assunzioni-sullinsieme-di-punti">Assunzioni sull’insieme
+di punti</a></li>
 <li><a href="#lower-bound-della-complessità-del-problema">Lower bound
 della complessità del problema</a>
 <ul>
@@ -133,8 +135,10 @@ di approssimazione di Bentley, Faust e Preparata</a>
 </ul></li>
 </ul>
 <h1 id="involucro-convesso">Involucro convesso</h1>
+<p><img src="./convex_hull_io.svg"
+style="height: 190px; display: block; margin: auto;" /></p>
 <p><strong>Input</strong>: Insieme finito <span class="math inline">\(S
-\subseteq R^2\)</span>.</p>
+\subseteq \mathbb{R}^2\)</span>.</p>
 <p><strong>Output</strong>: Poligono convesso <span
 class="math inline">\(H\)</span> di area minima che contiene tutti i
 punti di <span class="math inline">\(S\)</span>.</p>
@@ -167,6 +171,21 @@ class="math inline">\(H\)</span>.</li>
 <span class="math inline">\(P_1\)</span> è un lato di <span
 class="math inline">\(H\)</span>.</li>
 </ul>
+<h2 id="assunzioni-sullinsieme-di-punti">Assunzioni sull’insieme di
+punti</h2>
+<p>Nella nostra trattazione assumiamo che l’insieme di punti <span
+class="math inline">\(S\)</span> soddisfi le seguenti condizioni:</p>
+<ol type="1">
+<li><p><strong>Non collinearità.</strong> Non esistono tre punti di
+<span class="math inline">\(S\)</span> che giacciono sulla stessa
+retta.</p></li>
+<li><p><strong>Distanza minima.</strong> Per ogni coppia di punti <span
+class="math inline">\(a,b\in S\)</span>, imponiamo <span
+class="math display">\[\Delta X \ge 1 \quad \textrm{e} \quad \Delta Y
+\ge 1\]</span> Dove <span class="math display">\[\Delta X = |a_x - b_x|
+\quad \textrm{e} \quad \Delta Y = |a_y - b_y|\]</span> In tal modo due
+punti non possono trovarsi “troppo” vicini tra loro.</p></li>
+</ol>
 <h2 id="lower-bound-della-complessità-del-problema">Lower bound della
 complessità del problema</h2>
 <p>Il lower bound del problema è <span class="math inline">\(\Omega(n
@@ -239,8 +258,8 @@ senso antiorario.</p></li>
 \vec{w_y} - \vec{v_y} \end{pmatrix} &lt; 0\)</span>, allora siamo in
 senso orario.</p></li>
 <li><p>Se il determinante è uguale a zero allora i tre punti hanno la
-stessa direzione e dunque sono colineari. Ricordiamo che non
-consideriamo punti colineari.</p></li>
+stessa direzione e dunque sono collineari. Ricordiamo che non
+consideriamo punti collineari.</p></li>
 </ul></li>
 </ul>
 <p>Se l’involucro è espresso in un senso, per esprimerlo nell’altro
@@ -334,7 +353,7 @@ dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
 <h1 id="algoritmo-divide-and-conquer">Algoritmo Divide and Conquer</h1>
 <h2 id="idea-1">Idea</h2>
 <p>Sia <span class="math inline">\(P\)</span> la lista dei punti di
-<span class="math inline">\(S\)</span>, ordinata in ordine non crescente
+<span class="math inline">\(S\)</span>, ordinata in ordine decrescente
 della loro componente <span class="math inline">\(x\)</span>.</p>
 <p>Dividiamo <span class="math inline">\(P\)</span> a metà, ottenendo
 così le liste <span class="math inline">\(A\)</span> e <span
@@ -575,11 +594,11 @@ un percorso convesso di una data regione</h2>
 cadono nella regione (compresi gli estremi del lato su cui soggiace la
 regione).</p>
 <p>Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di
-<span class="math inline">\(R\)</span> in ordine non decrescente di
-<span class="math inline">\(x\)</span>, risultando nella lista di punti
-<span class="math inline">\(P\)</span>.</p>
+<span class="math inline">\(R\)</span> in ordine crescente di <span
+class="math inline">\(x\)</span>, risultando nella lista di punti <span
+class="math inline">\(P\)</span>.</p>
 <p>Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di
-<span class="math inline">\(R\)</span> in ordine non crescente di <span
+<span class="math inline">\(R\)</span> in ordine decrescente di <span
 class="math inline">\(x\)</span>, risultando nella lista di punti <span
 class="math inline">\(P\)</span>.</p>
 <ol type="1">
