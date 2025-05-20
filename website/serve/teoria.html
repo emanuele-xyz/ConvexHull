@@ -115,8 +115,10 @@ degli algoritmi per il calcolo dell’involucro convesso</a></li>
 href="#algoritmo-di-approssimazione-di-bentley-faust-e-preparata">Algoritmo
 di approssimazione di Bentley, Faust e Preparata</a>
 <ul>
-<li><a href="#idea-3">Idea</a></li>
+<li><a href="#idea-3">Idea</a>
+<ul>
 <li><a href="#complessità-temporale-3">Complessità temporale</a></li>
+</ul></li>
 <li><a href="#calcolo-di-s">Calcolo di S’</a>
 <ul>
 <li><a href="#proprietà">Proprietà</a>
@@ -131,6 +133,7 @@ di approssimazione di Bentley, Faust e Preparata</a>
 <ul>
 <li><a href="#dimostrazione-3">Dimostrazione</a></li>
 </ul></li>
+<li><a href="#complessità-temporale-4">Complessità temporale</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -180,11 +183,14 @@ class="math inline">\(S\)</span> soddisfi le seguenti condizioni:</p>
 <span class="math inline">\(S\)</span> che giacciono sulla stessa
 retta.</p></li>
 <li><p><strong>Distanza minima.</strong> Per ogni coppia di punti <span
-class="math inline">\(a,b\in S\)</span>, imponiamo <span
-class="math display">\[\Delta X \ge 1 \quad \textrm{e} \quad \Delta Y
-\ge 1\]</span> Dove <span class="math display">\[\Delta X = |a_x - b_x|
-\quad \textrm{e} \quad \Delta Y = |a_y - b_y|\]</span> In tal modo due
-punti non possono trovarsi “troppo” vicini tra loro.</p></li>
+class="math inline">\(a,b\in S\)</span>, imponiamo</p></li>
+<li><p><span class="math display">\[\Delta X \ge 1 \quad \textrm{e}
+\quad \Delta Y \ge 1\]</span></p>
+<p>Dove</p>
+<p><span class="math display">\[\Delta X = |a_x - b_x| \quad \textrm{e}
+\quad \Delta Y = |a_y - b_y|\]</span></p>
+<p>In tal modo due punti non possono trovarsi “troppo” vicini tra
+loro.</p></li>
 </ol>
 <h2 id="lower-bound-della-complessità-del-problema">Lower bound della
 complessità del problema</h2>
@@ -694,7 +700,7 @@ class="math inline">\(S&#39;\)</span>.</li>
 <li>Usiamo <span class="math inline">\(H&#39;\)</span> come soluzione
 approssimata per <span class="math inline">\(H\)</span>.</li>
 </ol>
-<h2 id="complessità-temporale-3">Complessità temporale</h2>
+<h3 id="complessità-temporale-3">Complessità temporale</h3>
 <p>Sia:</p>
 <ul>
 <li><span class="math inline">\(T_{s&#39;}\)</span> la funzione che
@@ -886,5 +892,20 @@ class="math inline">\(S\)</span>.</p>
 class="math inline">\(\Delta X \le D\)</span>. Questo assieme a quanto
 dimostrato precedentemente è sufficiente a provare il corollario. <span
 class="math inline">\(\square\)</span></p>
+<h3 id="complessità-temporale-4">Complessità temporale</h3>
+<ol type="1">
+<li>Ricerca di <span class="math inline">\(\textrm{XMIN}\)</span> e
+<span class="math inline">\(\textrm{XMAX}\)</span> <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
+<li>Partizionamento dell’intervallo <span
+class="math inline">\([\textrm{XMIN}_x, \textrm{XMAX}_x]\)</span> in
+<span class="math inline">\(k\)</span> sotto intervalli <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
+<li>Ricerca dei punti di <span class="math inline">\(y\)</span> minima e
+<span class="math inline">\(y\)</span> massima per ogni striscia <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
+</ol>
+<p>Dunque, la complessità dell’algoritmo è <span
+class="math inline">\(O(n)\)</span>.</p>
 </body>
 </html>

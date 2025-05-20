@@ -43,7 +43,7 @@ header-includes: |
 - [Benchmark degli algoritmi per il calcolo dell'involucro convesso](#benchmark-degli-algoritmi-per-il-calcolo-dellinvolucro-convesso)
 - [Algoritmo di approssimazione di Bentley, Faust e Preparata](#algoritmo-di-approssimazione-di-bentley-faust-e-preparata)
   - [Idea](#idea-3)
-  - [Complessità temporale](#complessità-temporale-3)
+    - [Complessità temporale](#complessità-temporale-3)
   - [Calcolo di S'](#calcolo-di-s)
     - [Proprietà](#proprietà)
       - [Dimostrazione](#dimostrazione-1)
@@ -51,6 +51,7 @@ header-includes: |
       - [Dimostrazione](#dimostrazione-2)
     - [Corollario](#corollario)
       - [Dimostrazione](#dimostrazione-3)
+    - [Complessità temporale](#complessità-temporale-4)
 
 # Involucro convesso
 
@@ -422,7 +423,7 @@ Presentiamo ora uno schema generale per la definizione di algoritmi di approssim
 2. Determiniamo $H'$, l'involucro convesso di $S'$, eseguendo un algoritmo per la ricerca dell'involucro convesso su $S'$.
 3. Usiamo $H'$ come soluzione approssimata per $H$.
 
-## Complessità temporale
+### Complessità temporale
 
 Sia:
 
@@ -520,3 +521,11 @@ Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ allora la distanza tra
 #### Dimostrazione
 
 Per definizione di $D$, $\Delta X \le D$. Questo assieme a quanto dimostrato precedentemente è sufficiente a provare il corollario. $\square$
+
+### Complessità temporale
+
+1. Ricerca di $\textrm{XMIN}$ e $\textrm{XMAX}$ $\rightarrow O(n)$
+2. Partizionamento dell'intervallo $[\textrm{XMIN}_x, \textrm{XMAX}_x]$ in $k$ sotto intervalli $\rightarrow O(n)$
+3. Ricerca dei punti di $y$ minima e $y$ massima per ogni sotto intervallo $\rightarrow O(n)$
+
+Dunque, la complessità dell'algoritmo è $O(n)$.
