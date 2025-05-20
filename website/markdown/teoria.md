@@ -40,9 +40,14 @@ header-includes: |
     - [Ricerca del percorso convesso](#ricerca-del-percorso-convesso)
     - [Costruzione di H](#costruzione-di-h-1)
     - [Complessità complessiva](#complessità-complessiva-1)
+- [TORCH: Total Order Heuristic Based Convex Hull](#torch-total-order-heuristic-based-convex-hull)
+  - [Idea](#idea-3)
+  - [Ordinamento di S](#ordinamento-di-s)
+  - [Costruzione di H'](#costruzione-di-h-2)
+    - [Costruzione dell'involucro laterale NW](#costruzione-dellinvolucro-laterale-nw)
 - [Benchmark degli algoritmi per il calcolo dell'involucro convesso](#benchmark-degli-algoritmi-per-il-calcolo-dellinvolucro-convesso)
 - [Algoritmo di approssimazione di Bentley, Faust e Preparata](#algoritmo-di-approssimazione-di-bentley-faust-e-preparata)
-  - [Idea](#idea-3)
+  - [Idea](#idea-4)
     - [Complessità temporale](#complessità-temporale-3)
   - [Calcolo di S'](#calcolo-di-s)
     - [Proprietà](#proprietà)
@@ -400,6 +405,54 @@ Per costruire $H$ è sufficiente scandire i percorsi convessi trovati $\rightarr
 ### Complessità complessiva
 
 Di conseguenza, la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.
+
+# TORCH: Total Order Heuristic Based Convex Hull
+
+## Idea
+
+A grandi linee TORCH:
+
+1. Ordina $S$.
+2. Costruisce un involucro approssimate **non** convesso $H'$.
+3. Costruisce $H$ a partire da $H'$ usando un processo di **convessificazione**.
+
+## Ordinamento di S
+
+Ordiniamo i punti di $S$ in ordine crescente di $x$, risultando nella lista di punti $P$.
+
+## Costruzione di H'
+
+Siano:
+
+- $W$, il punto di $P$ con $x$ minima.
+- $E$, il punto di $P$ con $x$ massima.
+- $S$, il punto di $P$ con $y$ minima.
+- $N$, il punto di $P$ con $y$ massima.
+
+Troviamo i quattro percorsi seguenti, detti "involucri laterali":
+
+- $\Pi_{nw}$, da $W$ a $N$
+- $\Pi_{ne}$, da $E$ a $N$
+- $\Pi_{sw}$, da $W$ a $S$
+- $\Pi_{se}$, da $E$ a $S$
+
+Costruiamo $H'$ concatenando $\Pi_{nw}, \Pi_{ne}, \Pi_{sw} \hquad \textrm{e} \hquad \Pi_{se}$ in modo appropriato.
+
+### Costruzione dell'involucro laterale NW
+
+Costruiamo $\Pi_{nw}$ nel modo seguente:
+
+- All'inizio $\Pi_{nw} = W$.
+- Scandiamo $P$, andando da $W$ a $N$, e ogni volta che incontriamo un punto $p$, con coordinata $y$ maggiore della massima $y$ incontrata durante la scansione di $P$, da $W$ fino a $p$, aggiungiamo $p$ in coda a $\Pi_{nw}$.
+
+Possiamo osservare che, alla fine della sua costruzione, $\Pi_{nw}$ avrà la struttura seguente:
+
+$$\Pi_{nw} : W = p_0, p_1, p_2, ..., p_{k_{nw}} = N$$
+
+Dove
+
+- $\forall i = 1, ..., k_{nw} \quad (p_{i-1})_x < (p_i)_x$
+- $\forall i = 1, ..., k_{nw} \quad (p_{i-1})_y < (p_i)_y$
 
 # Benchmark degli algoritmi per il calcolo dell'involucro convesso
 
