@@ -12,3 +12,4 @@ TODO:
 - (Lore) Ricerca tangente superiore & inferiore - Aggiungi al titolo Two Fingers Method
 - Complessità temporale Divide et Impera - Svolgi relazione di ricorrenza
 - Akl-Toussaint - Complessità temporale - Ricerca del percorso convesso - Dimostra che quel while true è lineare.
+- Aggiungere all'inizio della teoria una parte dove spieghiamo le assunzioni che abbiamo fatto sui punti (non collineari, non con stessa x e non con stessa y)
