@@ -332,9 +332,33 @@ Possiamo vedere che:
 
 La complessità temporale dell'applicazione ricorsiva dell'algoritmo è espressa dalla seguente relazione di ricorrenza:
 
-$$T(n) = 2T(\dfrac{n}{2}) + n$$
+<!-- prettier-ignore -->
+\begin{align*}
+T(n) &= 2T\left(\dfrac{n}{2}\right) + n && \textrm{1 espansione} \\[8pt]
+     &= 2\left(2T\left(\dfrac{n}{4}\right) + \dfrac{n}{2}\right) + n \\[8pt]
+     &= 4T\left(\dfrac{n}{4}\right) + 2n && \textrm{2 espansioni} \\[8pt]
+     &= 4\left(2T\left(\dfrac{n}{8}\right) + \dfrac{n}{4}\right) + 2n \\[8pt]
+     &= 8T\left(\dfrac{n}{8}\right) + 3n && \textrm{3 espansioni} \\[8pt]
+     &\quad \vdots \\[8pt]
+     &= 2^k T\left(\dfrac{n}{2^k}\right) + kn && \textrm{k espansioni}
+\end{align*}
 
-È facile vedere che $T(n) = O(n \hhquad log \hhquad n)$.
+Cerchiamo $k$ tale che $\dfrac{n}{2^k} = 1$. Dunque $k = \log_2 n$.
+
+<!-- prettier-ignore -->
+\begin{align*}
+T(n) &= 2^{\log_2 n} T\left(\dfrac{n}{2^{\log_2 n}}\right) + (\log_2 n) n \\[8pt]
+     &= n T\left(\dfrac{n}{n}\right) + n \log_2 n \\[8pt]
+     &= n T(1) + n \log_2 n
+\end{align*}
+
+Per input di taglia 1, divide et impera non esegue operazioni, e dunque possiamo dire che $T(1) = 1$.
+
+<!-- prettier-ignore -->
+\begin{align*}
+T(n) &= n + n \log_2 n \\[5pt]
+     &= O(n \hhquad log \hhquad n)
+\end{align*}
 
 ### Complessità complessiva
 
