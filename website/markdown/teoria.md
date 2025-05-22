@@ -105,6 +105,8 @@ Il lower bound del problema è $\Omega(n \hhquad log \hhquad n)$.
 
 ### Dimostrazione
 
+![](./lower_bound.svg){ style="height: 300px; display: block; margin: auto;" }
+
 Supponiamo di avere il seguente insieme finito di numeri
 
 $$I = \{ x_1, x_2, x_3, ..., x_n \} \subseteq \mathbb{R} \quad \textrm{dove} \quad x_1 < x_2 < x_3 < ... < x_n$$
@@ -188,6 +190,8 @@ Dato un qualsiasi punto $\vec{p}$:
    Se $\vec{n} \cdot (\vec{p} - \vec{u}) < 0$, allora siamo in $\Pi^-$.
 
 ## Come trovare un vettore perpendicolare ad un altro?
+
+![](./vettori_perpendicolari.svg){ style="height: 250px; display: block; margin: auto;" }
 
 Consideriamo il vettore $\vec{v} \leftrightarrow \begin{bmatrix} v_x \\ v_y \end{bmatrix}$.
 
