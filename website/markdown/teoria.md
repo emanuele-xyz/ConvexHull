@@ -45,10 +45,16 @@ header-includes: |
   - [Ordinamento di S](#ordinamento-di-s)
   - [Costruzione di H'](#costruzione-di-h-2)
     - [Costruzione dell'involucro laterale NW](#costruzione-dellinvolucro-laterale-nw)
+    - [Costruzione dell'involucro laterale NE](#costruzione-dellinvolucro-laterale-ne)
+    - [Costruzione dell'involucro laterale SW](#costruzione-dellinvolucro-laterale-sw)
+    - [Costruzione dell'involucro laterale SE](#costruzione-dellinvolucro-laterale-se)
+    - [Concatenazione degli involucri laterali](#concatenazione-degli-involucri-laterali)
+    - [Convessificazione di H'](#convessificazione-di-h)
+    - [Complessità temporale](#complessità-temporale-3)
 - [Benchmark degli algoritmi per il calcolo dell'involucro convesso](#benchmark-degli-algoritmi-per-il-calcolo-dellinvolucro-convesso)
 - [Algoritmo di approssimazione di Bentley, Faust e Preparata](#algoritmo-di-approssimazione-di-bentley-faust-e-preparata)
   - [Idea](#idea-4)
-    - [Complessità temporale](#complessità-temporale-3)
+    - [Complessità temporale](#complessità-temporale-4)
   - [Calcolo di S'](#calcolo-di-s)
     - [Proprietà](#proprietà)
       - [Dimostrazione](#dimostrazione-1)
@@ -56,7 +62,7 @@ header-includes: |
       - [Dimostrazione](#dimostrazione-2)
     - [Corollario](#corollario)
       - [Dimostrazione](#dimostrazione-3)
-    - [Complessità temporale](#complessità-temporale-4)
+    - [Complessità temporale](#complessità-temporale-5)
 
 # Involucro convesso
 
@@ -95,7 +101,7 @@ Nella nostra trattazione assumiamo che l'insieme di punti $S$ soddisfi le seguen
 
 2. **Distanza minima.** Per ogni coppia di punti $a,b\in S$, imponiamo
    $$\Delta X \ge 1 \quad \textrm{e} \quad \Delta Y \ge 1$$
-   Dove
+   dove
    $$\Delta X = |a_x - b_x| \quad \textrm{e} \quad \Delta Y = |a_y - b_y|$$
    In tal modo due punti non possono trovarsi "troppo" vicini tra loro.
 
@@ -477,10 +483,64 @@ Possiamo osservare che, alla fine della sua costruzione, $\Pi_{nw}$ avrà la str
 
 $$\Pi_{nw} : W = p_0, p_1, p_2, ..., p_{k_{nw}} = N$$
 
-Dove
+dove
 
 - $\forall i = 1, ..., k_{nw} \quad (p_{i-1})_x < (p_i)_x$
 - $\forall i = 1, ..., k_{nw} \quad (p_{i-1})_y < (p_i)_y$
+
+### Costruzione dell'involucro laterale NE
+
+Costruiamo $\Pi_{ne}$ in modo molto simile a come abbiamo costruito $\Pi_{nw}$. L'unica differenza è che partiamo da $E$, invece che da $W$, e che scandiamo $P$ da $E$ a $N$, invece che da $W$ a $N$.
+
+Possiamo osservare che alla fine della sua costruzione, $\Pi_{ne}$ avrà la struttura seguente:
+
+$$\Pi_{ne} : E = p_0, p_1, p_2, ..., p_{k_{ne}} = N$$
+
+dove
+
+- $\forall i = 1, ..., k_{ne} \quad (p_{i-1})_x > (p_i)_x$
+- $\forall i = 1, ..., k_{ne} \quad (p_{i-1})_y < (p_i)_y$
+
+### Costruzione dell'involucro laterale SW
+
+Costruiamo $\Pi_{sw}$ nel modo seguente:
+
+- All'inizio $\Pi_{sw} = W$.
+- Scandiamo $P$, andando da $W$ a $S$, e ogni volta che incontriamo un punto $p$, con coordinata $y$ minore della minima $y$ incontrata durante la scansione di $P$, da $W$ fino a $p$, aggiungiamo $p$ in coda a $\Pi_{sw}$.
+
+Possiamo osservare che, alla fine della sua costruzione, $\Pi_{sw}$ avrà la struttura seguente:
+
+$$\Pi_{sw} : W = p_0, p_1, p_2, ..., p_{k_{sw}} = S$$
+
+dove
+
+- $\forall i = 1, ..., k_{sw} \quad (p_{i-1})_x < (p_i)_x$
+- $\forall i = 1, ..., k_{sw} \quad (p_{i-1})_y > (p_i)_y$
+
+### Costruzione dell'involucro laterale SE
+
+Costruiamo $\Pi_{se}$ in modo molto simile a come abbiamo costruito $\Pi_{sw}$. L'unica differenza è che partiamo da $E$, invece che da $W$, e che scandiamo $P$ da $E$ a $S$, invece che da $W$ a $S$.
+
+Possiamo osservare che alla fine della sua costruzione, $\Pi_{se}$ avrà la struttura seguente:
+
+$$\Pi_{se} : E = p_0, p_1, p_2, ..., p_{k_{se}} = S$$
+
+dove
+
+- $\forall i = 1, ..., k_{se} \quad (p_{i-1})_x > (p_i)_x$
+- $\forall i = 1, ..., k_{se} \quad (p_{i-1})_y > (p_i)_y$
+
+### Concatenazione degli involucri laterali
+
+<!-- TODO -->
+
+### Convessificazione di H'
+
+<!-- TODO -->
+
+### Complessità temporale
+
+<!-- TODO -->
 
 # Benchmark degli algoritmi per il calcolo dell'involucro convesso
 

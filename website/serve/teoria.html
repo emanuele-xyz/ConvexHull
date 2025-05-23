@@ -117,6 +117,16 @@ Total Order Heuristic Based Convex Hull</a>
 <ul>
 <li><a href="#costruzione-dellinvolucro-laterale-nw">Costruzione
 dell’involucro laterale NW</a></li>
+<li><a href="#costruzione-dellinvolucro-laterale-ne">Costruzione
+dell’involucro laterale NE</a></li>
+<li><a href="#costruzione-dellinvolucro-laterale-sw">Costruzione
+dell’involucro laterale SW</a></li>
+<li><a href="#costruzione-dellinvolucro-laterale-se">Costruzione
+dell’involucro laterale SE</a></li>
+<li><a href="#concatenazione-degli-involucri-laterali">Concatenazione
+degli involucri laterali</a></li>
+<li><a href="#convessificazione-di-h">Convessificazione di H’</a></li>
+<li><a href="#complessità-temporale-3">Complessità temporale</a></li>
 </ul></li>
 </ul></li>
 <li><a
@@ -128,7 +138,7 @@ di approssimazione di Bentley, Faust e Preparata</a>
 <ul>
 <li><a href="#idea-4">Idea</a>
 <ul>
-<li><a href="#complessità-temporale-3">Complessità temporale</a></li>
+<li><a href="#complessità-temporale-4">Complessità temporale</a></li>
 </ul></li>
 <li><a href="#calcolo-di-s">Calcolo di S’</a>
 <ul>
@@ -144,7 +154,7 @@ di approssimazione di Bentley, Faust e Preparata</a>
 <ul>
 <li><a href="#dimostrazione-3">Dimostrazione</a></li>
 </ul></li>
-<li><a href="#complessità-temporale-4">Complessità temporale</a></li>
+<li><a href="#complessità-temporale-5">Complessità temporale</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -196,7 +206,7 @@ retta.</p></li>
 <li><p><strong>Distanza minima.</strong> Per ogni coppia di punti <span
 class="math inline">\(a,b\in S\)</span>, imponiamo <span
 class="math display">\[\Delta X \ge 1 \quad \textrm{e} \quad \Delta Y
-\ge 1\]</span> Dove <span class="math display">\[\Delta X = |a_x - b_x|
+\ge 1\]</span> dove <span class="math display">\[\Delta X = |a_x - b_x|
 \quad \textrm{e} \quad \Delta Y = |a_y - b_y|\]</span> In tal modo due
 punti non possono trovarsi “troppo” vicini tra loro.</p></li>
 </ol>
@@ -780,13 +790,95 @@ class="math inline">\(\Pi_{nw}\)</span>.</li>
 class="math inline">\(\Pi_{nw}\)</span> avrà la struttura seguente:</p>
 <p><span class="math display">\[\Pi_{nw} : W = p_0, p_1, p_2, ...,
 p_{k_{nw}} = N\]</span></p>
-<p>Dove</p>
+<p>dove</p>
 <ul>
 <li><span class="math inline">\(\forall i = 1, ..., k_{nw} \quad
 (p_{i-1})_x &lt; (p_i)_x\)</span></li>
 <li><span class="math inline">\(\forall i = 1, ..., k_{nw} \quad
 (p_{i-1})_y &lt; (p_i)_y\)</span></li>
 </ul>
+<h3 id="costruzione-dellinvolucro-laterale-ne">Costruzione
+dell’involucro laterale NE</h3>
+<p>Costruiamo <span class="math inline">\(\Pi_{ne}\)</span> in modo
+molto simile a come abbiamo costruito <span
+class="math inline">\(\Pi_{nw}\)</span>. L’unica differenza è che
+partiamo da <span class="math inline">\(E\)</span>, invece che da <span
+class="math inline">\(W\)</span>, e che scandiamo <span
+class="math inline">\(P\)</span> da <span
+class="math inline">\(E\)</span> a <span
+class="math inline">\(N\)</span>, invece che da <span
+class="math inline">\(W\)</span> a <span
+class="math inline">\(N\)</span>.</p>
+<p>Possiamo osservare che alla fine della sua costruzione, <span
+class="math inline">\(\Pi_{ne}\)</span> avrà la struttura seguente:</p>
+<p><span class="math display">\[\Pi_{ne} : E = p_0, p_1, p_2, ...,
+p_{k_{ne}} = N\]</span></p>
+<p>dove</p>
+<ul>
+<li><span class="math inline">\(\forall i = 1, ..., k_{ne} \quad
+(p_{i-1})_x &gt; (p_i)_x\)</span></li>
+<li><span class="math inline">\(\forall i = 1, ..., k_{ne} \quad
+(p_{i-1})_y &lt; (p_i)_y\)</span></li>
+</ul>
+<h3 id="costruzione-dellinvolucro-laterale-sw">Costruzione
+dell’involucro laterale SW</h3>
+<p>Costruiamo <span class="math inline">\(\Pi_{sw}\)</span> nel modo
+seguente:</p>
+<ul>
+<li>All’inizio <span class="math inline">\(\Pi_{sw} = W\)</span>.</li>
+<li>Scandiamo <span class="math inline">\(P\)</span>, andando da <span
+class="math inline">\(W\)</span> a <span
+class="math inline">\(S\)</span>, e ogni volta che incontriamo un punto
+<span class="math inline">\(p\)</span>, con coordinata <span
+class="math inline">\(y\)</span> minore della minima <span
+class="math inline">\(y\)</span> incontrata durante la scansione di
+<span class="math inline">\(P\)</span>, da <span
+class="math inline">\(W\)</span> fino a <span
+class="math inline">\(p\)</span>, aggiungiamo <span
+class="math inline">\(p\)</span> in coda a <span
+class="math inline">\(\Pi_{sw}\)</span>.</li>
+</ul>
+<p>Possiamo osservare che, alla fine della sua costruzione, <span
+class="math inline">\(\Pi_{sw}\)</span> avrà la struttura seguente:</p>
+<p><span class="math display">\[\Pi_{sw} : W = p_0, p_1, p_2, ...,
+p_{k_{sw}} = S\]</span></p>
+<p>dove</p>
+<ul>
+<li><span class="math inline">\(\forall i = 1, ..., k_{sw} \quad
+(p_{i-1})_x &lt; (p_i)_x\)</span></li>
+<li><span class="math inline">\(\forall i = 1, ..., k_{sw} \quad
+(p_{i-1})_y &gt; (p_i)_y\)</span></li>
+</ul>
+<h3 id="costruzione-dellinvolucro-laterale-se">Costruzione
+dell’involucro laterale SE</h3>
+<p>Costruiamo <span class="math inline">\(\Pi_{se}\)</span> in modo
+molto simile a come abbiamo costruito <span
+class="math inline">\(\Pi_{sw}\)</span>. L’unica differenza è che
+partiamo da <span class="math inline">\(E\)</span>, invece che da <span
+class="math inline">\(W\)</span>, e che scandiamo <span
+class="math inline">\(P\)</span> da <span
+class="math inline">\(E\)</span> a <span
+class="math inline">\(S\)</span>, invece che da <span
+class="math inline">\(W\)</span> a <span
+class="math inline">\(S\)</span>.</p>
+<p>Possiamo osservare che alla fine della sua costruzione, <span
+class="math inline">\(\Pi_{se}\)</span> avrà la struttura seguente:</p>
+<p><span class="math display">\[\Pi_{se} : E = p_0, p_1, p_2, ...,
+p_{k_{se}} = S\]</span></p>
+<p>dove</p>
+<ul>
+<li><span class="math inline">\(\forall i = 1, ..., k_{se} \quad
+(p_{i-1})_x &gt; (p_i)_x\)</span></li>
+<li><span class="math inline">\(\forall i = 1, ..., k_{se} \quad
+(p_{i-1})_y &gt; (p_i)_y\)</span></li>
+</ul>
+<h3 id="concatenazione-degli-involucri-laterali">Concatenazione degli
+involucri laterali</h3>
+<!-- TODO -->
+<h3 id="convessificazione-di-h">Convessificazione di H’</h3>
+<!-- TODO -->
+<h3 id="complessità-temporale-3">Complessità temporale</h3>
+<!-- TODO -->
 <h1
 id="benchmark-degli-algoritmi-per-il-calcolo-dellinvolucro-convesso">Benchmark
 degli algoritmi per il calcolo dell’involucro convesso</h1>
@@ -823,7 +915,7 @@ class="math inline">\(S&#39;\)</span>.</li>
 <li>Usiamo <span class="math inline">\(H&#39;\)</span> come soluzione
 approssimata per <span class="math inline">\(H\)</span>.</li>
 </ol>
-<h3 id="complessità-temporale-3">Complessità temporale</h3>
+<h3 id="complessità-temporale-4">Complessità temporale</h3>
 <p>Sia:</p>
 <ul>
 <li><span class="math inline">\(T_{s&#39;}\)</span> la funzione che
@@ -1015,7 +1107,7 @@ class="math inline">\(S\)</span>.</p>
 class="math inline">\(\Delta X \le D\)</span>. Questo assieme a quanto
 dimostrato precedentemente è sufficiente a provare il corollario. <span
 class="math inline">\(\square\)</span></p>
-<h3 id="complessità-temporale-4">Complessità temporale</h3>
+<h3 id="complessità-temporale-5">Complessità temporale</h3>
 <ol type="1">
 <li>Ricerca di <span class="math inline">\(\textrm{XMIN}\)</span> e
 <span class="math inline">\(\textrm{XMAX}\)</span> <span
