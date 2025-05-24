@@ -247,6 +247,8 @@ Dato un qualsiasi punto $\vec{p}$:
 2. Se $\vec{n} \cdot (\vec{p} - \vec{u}) > 0$, allora siamo in $\Pi^+$. <br />
    Se $\vec{n} \cdot (\vec{p} - \vec{u}) < 0$, allora siamo in $\Pi^-$.
 
+Nell'immagine d'esempio $\vec{n} \cdot (\vec{p} - \vec{u})$ è positivo perché $0 < \theta < \dfrac{\pi}{2} \hquad \textrm{invece} \hquad \vec{n} \cdot (\vec{q} - \vec{u})$ è negativo perché $\dfrac{\pi}{2} < \phi < \pi$.
+
 ## Come trovare un vettore perpendicolare ad un altro?
 
 ![](./vettori_perpendicolari.svg){ style="height: 250px; display: block; margin: auto;" }
