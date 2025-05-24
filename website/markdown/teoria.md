@@ -430,7 +430,21 @@ Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orar
 
 ### Ricerca del percorso convesso
 
-L'articolo di riferimento afferma che tale ricerca impieghi tempo $O(n \hhquad log \hhquad n)$, dovuto all'ordinamento dei punti appartenenti alle varie regioni.
+- Ordinamento dei punti della regione $\rightarrow O(n \hhquad log \hhquad n)$
+
+- Convessificazione $\rightarrow O(n)$
+
+  Il processo di convessificazione di $P$ è una scansione di $P$, nella quale possiamo procedere effettuando sia passi avanti (andando alla tripla di punti successiva) che passi indietro (andando alla tripla di punti precedente).
+
+  Un modo per determinare la complessità temporale della scansione è quello di contare il numero di passi da essa effettuati.
+
+  - Siccome in $P$ vi sono al più $n$ punti, il numero di passi in avanti che possiamo fare è $\le n$.
+
+  - Ogniqualvolta esaminiamo una tripla di punti consecutivi in $P$, c'è la possibilità di effettuare un passo indietro. Osserviamo come, quando effettuiamo un passo indietro, andiamo anche a rimuovere un punto da $P$. Siccome in $P$ vi sono al più $n$ punti, il numero totale di passi indietro che possiamo fare è $\le n$.
+
+In conclusione, il numero totale di passi che possiamo fare è $\le n + n$, ovvero $\le 2n$.
+
+Dunque, la complessità della ricerca del percorso convesso è $O(n \hhquad log \hhquad n)$.
 
 ### Costruzione di H
 

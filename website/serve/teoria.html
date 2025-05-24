@@ -705,10 +705,41 @@ class="math inline">\(\rightarrow O(n)\)</span></li>
 </ol>
 <h3 id="ricerca-del-percorso-convesso">Ricerca del percorso
 convesso</h3>
-<p>L’articolo di riferimento afferma che tale ricerca impieghi tempo
-<span class="math inline">\(O(n \hspace{0.25em}log
-\hspace{0.25em}n)\)</span>, dovuto all’ordinamento dei punti
-appartenenti alle varie regioni.</p>
+<ul>
+<li><p>Ordinamento dei punti della regione <span
+class="math inline">\(\rightarrow O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span></p></li>
+<li><p>Convessificazione <span class="math inline">\(\rightarrow
+O(n)\)</span></p>
+<p>Il processo di convessificazione di <span
+class="math inline">\(P\)</span> è una scansione di <span
+class="math inline">\(P\)</span>, nella quale possiamo procedere
+effettuando sia passi avanti (andando alla tripla di punti successiva)
+che passi indietro (andando alla tripla di punti precedente).</p>
+<p>Un modo per determinare la complessità temporale della scansione è
+quello di contare il numero di passi da essa effettuati.</p>
+<ul>
+<li><p>Siccome in <span class="math inline">\(P\)</span> vi sono al più
+<span class="math inline">\(n\)</span> punti, il numero di passi in
+avanti che possiamo fare è <span class="math inline">\(\le
+n\)</span>.</p></li>
+<li><p>Ogniqualvolta esaminiamo una tripla di punti consecutivi in <span
+class="math inline">\(P\)</span>, c’è la possibilità di effettuare un
+passo indietro. Osserviamo come, quando effettuiamo un passo indietro,
+andiamo anche a rimuovere un punto da <span
+class="math inline">\(P\)</span>. Siccome in <span
+class="math inline">\(P\)</span> vi sono al più <span
+class="math inline">\(n\)</span> punti, il numero totale di passi
+indietro che possiamo fare è <span class="math inline">\(\le
+n\)</span>.</p></li>
+</ul></li>
+</ul>
+<p>In conclusione, il numero totale di passi che possiamo fare è <span
+class="math inline">\(\le n + n\)</span>, ovvero <span
+class="math inline">\(\le 2n\)</span>.</p>
+<p>Dunque, la complessità della ricerca del percorso convesso è <span
+class="math inline">\(O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>.</p>
 <h3 id="costruzione-di-h-1">Costruzione di H</h3>
 <p>Per costruire <span class="math inline">\(H\)</span> è sufficiente
 scandire i percorsi convessi trovati <span
