@@ -57,7 +57,10 @@ della complessità del problema</a>
 </ul></li>
 </ul></li>
 <li><a href="#involucri-clockwise-e-counterclockwise">Involucri
-clockwise e counterclockwise</a></li>
+clockwise e counterclockwise</a>
+<ul>
+<li><a href="#spiegazione">Spiegazione</a></li>
+</ul></li>
 <li><a href="#algoritmo-naive">Algoritmo Naive</a>
 <ul>
 <li><a href="#idea">Idea</a></li>
@@ -255,8 +258,8 @@ class="math inline">\(H\)</span>:</p>
 style="height: 170px; display: block; margin: auto;" /></p>
 <p>Possiamo rappresentare <span class="math inline">\(H\)</span> usando
 entrambe queste liste:</p>
-<p><span class="math display">\[\vec{u}, \vec{v}, \vec{w} \quad
-\textrm{e} \quad \vec{u}, \vec{w}, \vec{v}\]</span></p>
+<p><span class="math display">\[A, B, C \quad \textrm{e} \quad A, C,
+B\]</span></p>
 <p>Osserviamo come la prima lista elencai punti di <span
 class="math inline">\(H\)</span> in senso antiorario. La seconda lista
 invece elenca i punti in senso orario <a href="#fn1"
@@ -283,13 +286,68 @@ senso antiorario.</p></li>
 \vec{u}_x &amp; \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} &amp;
 \vec{w_y} - \vec{v_y} \end{pmatrix} &lt; 0\)</span>, allora siamo in
 senso orario.</p></li>
-<li><p>Se il determinante è uguale a zero allora i tre punti hanno la
-stessa direzione e dunque sono collineari. Ricordiamo che non
-consideriamo punti collineari.</p></li>
+<li><p>Se il determinante è uguale a zero allora i tre punti sono
+collineari.</p></li>
 </ul></li>
 </ul>
 <p>Se l’involucro è espresso in un senso, per esprimerlo nell’altro
 bisogna semplicemente invertire l’ordine della lista.</p>
+<h2 id="spiegazione">Spiegazione</h2>
+<p>Possiamo osservare che</p>
+<p><span class="math display">\[
+\begin{aligned}
+\det\begin{pmatrix}
+\vec{v}_x - \vec{u}_x &amp; \vec{w}_x - \vec{v}_x \\
+\vec{v}_y - \vec{u}_y &amp; \vec{w}_y - \vec{v}_y
+\end{pmatrix}
+&amp;= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) - (\vec{v}_y -
+\vec{u}_y)(\vec{w}_x - \vec{v}_x) \\[8pt]
+&amp;= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) + (-(\vec{v}_y -
+\vec{u}_y))(\vec{w}_x - \vec{v}_x) \\[8pt]
+&amp;=
+\begin{bmatrix}
+-(\vec{v}_y - \vec{u}_y) \\
+\vec{v}_x - \vec{u}_x
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\vec{w}_x - \vec{v}_x \\
+\vec{w}_y - \vec{v}_y
+\end{bmatrix} \\[8pt]
+&amp;=
+\left\lVert
+\begin{bmatrix}
+-(\vec{v}_y - \vec{u}_y) \\
+\vec{v}_x - \vec{u}_x
+\end{bmatrix}
+\right\rVert
+\hspace{0.5em}
+\left\lVert
+\begin{bmatrix}
+\vec{w}_x - \vec{v}_x \\
+\vec{w}_y - \vec{v}_y
+\end{bmatrix}
+\right\rVert
+\hspace{0.5em}
+\cos\theta
+\end{aligned}
+\]</span></p>
+<p>con <span class="math inline">\(\theta\)</span> angolo tra <span
+class="math inline">\(\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\
+\vec{v}_x - \vec{u}_x \end{bmatrix} \quad \text{e} \quad \begin{bmatrix}
+\vec{w}_x - \vec{v}_x \\ \vec{w}_y - \vec{v}_y
+\end{bmatrix}\)</span>.</p>
+<p>Notiamo come <span class="math inline">\(\begin{bmatrix} -(\vec{v}_y
+- \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}\)</span> è
+perpendicolare a <span class="math inline">\(\begin{bmatrix} \vec{v}_x -
+\vec{u}_x \\ \vec{v}_y - \vec{u}_y \end{bmatrix}\)</span> e lo denotiamo
+con <span class="math inline">\((\vec{v} - \vec{u})_\perp\)</span>.</p>
+<p>Vediamo “in azione” il test sull’involucro mostrato sopra, sia per il
+caso orario che antiorario.</p>
+<p><img src="./ccw_test.svg"
+style="height: 200px; display: block; margin: auto;" /></p>
+<p><img src="./cw_test.svg"
+style="height: 300px; display: block; margin: auto;" /></p>
 <aside id="footnotes" class="footnotes footnotes-end-of-section"
 role="doc-footnote">
 <hr />

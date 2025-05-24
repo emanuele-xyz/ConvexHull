@@ -13,6 +13,7 @@ header-includes: |
   - [Lower bound della complessità del problema](#lower-bound-della-complessità-del-problema)
     - [Dimostrazione](#dimostrazione)
 - [Involucri clockwise e counterclockwise](#involucri-clockwise-e-counterclockwise)
+  - [Spiegazione](#spiegazione)
 - [Algoritmo Naive](#algoritmo-naive)
   - [Idea](#idea)
   - [Half-plane test](#half-plane-test)
@@ -141,7 +142,7 @@ Consideriamo il seguente involucro convesso $H$:
 
 Possiamo rappresentare $H$ usando entrambe queste liste:
 
-$$\vec{u}, \vec{v}, \vec{w} \quad \textrm{e} \quad \vec{u}, \vec{w}, \vec{v}$$
+$$A, B, C \quad \textrm{e} \quad A, C, B$$
 
 Osserviamo come la prima lista elencai punti di $H$ in senso antiorario. La seconda lista invece elenca i punti in senso orario [^1].
 
@@ -159,9 +160,60 @@ Di rado può accadere di dover controllare se un involucro convesso è espresso 
 
   - Se $det\begin{pmatrix} \vec{v}_x - \vec{u}_x & \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} & \vec{w_y} - \vec{v_y} \end{pmatrix} < 0$, allora siamo in senso orario.
 
-  - Se il determinante è uguale a zero allora i tre punti hanno la stessa direzione e dunque sono collineari. Ricordiamo che non consideriamo punti collineari.
+  - Se il determinante è uguale a zero allora i tre punti sono collineari.
 
 Se l'involucro è espresso in un senso, per esprimerlo nell'altro bisogna semplicemente invertire l'ordine della lista.
+
+## Spiegazione
+
+Possiamo osservare che
+
+$$
+\begin{aligned}
+\det\begin{pmatrix}
+\vec{v}_x - \vec{u}_x & \vec{w}_x - \vec{v}_x \\
+\vec{v}_y - \vec{u}_y & \vec{w}_y - \vec{v}_y
+\end{pmatrix}
+&= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) - (\vec{v}_y - \vec{u}_y)(\vec{w}_x - \vec{v}_x) \\[8pt]
+&= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) + (-(\vec{v}_y - \vec{u}_y))(\vec{w}_x - \vec{v}_x) \\[8pt]
+&=
+\begin{bmatrix}
+-(\vec{v}_y - \vec{u}_y) \\
+\vec{v}_x - \vec{u}_x
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\vec{w}_x - \vec{v}_x \\
+\vec{w}_y - \vec{v}_y
+\end{bmatrix} \\[8pt]
+&=
+\left\lVert
+\begin{bmatrix}
+-(\vec{v}_y - \vec{u}_y) \\
+\vec{v}_x - \vec{u}_x
+\end{bmatrix}
+\right\rVert
+\hquad
+\left\lVert
+\begin{bmatrix}
+\vec{w}_x - \vec{v}_x \\
+\vec{w}_y - \vec{v}_y
+\end{bmatrix}
+\right\rVert
+\hquad
+\cos\theta
+\end{aligned}
+$$
+
+con $\theta$ angolo tra $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix} \quad \text{e} \quad \begin{bmatrix} \vec{w}_x - \vec{v}_x \\ \vec{w}_y - \vec{v}_y \end{bmatrix}$.
+
+Notiamo come $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}$ è perpendicolare a $\begin{bmatrix} \vec{v}_x - \vec{u}_x \\ \vec{v}_y - \vec{u}_y \end{bmatrix}$ e lo denotiamo con $(\vec{v} - \vec{u})_\perp$.
+
+Vediamo "in azione" il test sull'involucro mostrato sopra, sia per il caso orario che antiorario.
+
+![](./ccw_test.svg){ style="height: 200px; display: block; margin: auto;" }
+
+![](./cw_test.svg){ style="height: 300px; display: block; margin: auto;" }
 
 # Algoritmo Naive
 
