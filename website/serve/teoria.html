@@ -874,11 +874,78 @@ p_{k_{se}} = S\]</span></p>
 </ul>
 <h3 id="concatenazione-degli-involucri-laterali">Concatenazione degli
 involucri laterali</h3>
-<!-- TODO -->
+<p>Costruiamo <span class="math inline">\(H&#39;\)</span> nel modo
+seguente:</p>
+<ul>
+<li>Percorriamo <span class="math inline">\(\Pi_{nw}\)</span> da <span
+class="math inline">\(W\)</span> a <span
+class="math inline">\(N\)</span> e aggiungiamo in coda ad <span
+class="math inline">\(H&#39;\)</span> ogni punto che incontriamo (tranne
+<span class="math inline">\(N\)</span>).</li>
+<li>Percorriamo <span class="math inline">\(\Pi_{ne}\)</span> da <span
+class="math inline">\(N\)</span> a <span
+class="math inline">\(E\)</span> e aggiungiamo in coda ad <span
+class="math inline">\(H&#39;\)</span> ogni punto che incontriamo (tranne
+<span class="math inline">\(E\)</span>).</li>
+<li>Percorriamo <span class="math inline">\(\Pi_{se}\)</span> da <span
+class="math inline">\(E\)</span> a <span
+class="math inline">\(S\)</span> e aggiungiamo in coda ad <span
+class="math inline">\(H&#39;\)</span> ogni punto che incontriamo (tranne
+<span class="math inline">\(S\)</span>).</li>
+<li>Percorriamo <span class="math inline">\(\Pi_{sw}\)</span> da <span
+class="math inline">\(S\)</span> a <span
+class="math inline">\(W\)</span> e aggiungiamo in coda ad <span
+class="math inline">\(H&#39;\)</span> ogni punto che incontriamo (tranne
+<span class="math inline">\(W\)</span>).</li>
+</ul>
 <h3 id="convessificazione-di-h">Convessificazione di H’</h3>
-<!-- TODO -->
+<p>Possiamo notare come, per costruzione di <span
+class="math inline">\(H&#39;\)</span> si ha che <span
+class="math inline">\(P(H) \subseteq P(H&#39;)\)</span>. In particolare,
+<span class="math inline">\(H&#39;\)</span> contiene già tutti i punti
+di <span class="math inline">\(H\)</span>, possibilmente assieme ad
+alcuni punti aggiuntivi che rendono <span
+class="math inline">\(H&#39;\)</span> concavo. Convessificare <span
+class="math inline">\(H&#39;\)</span> significa dunque rimuovere quei
+punti di <span class="math inline">\(H&#39;\)</span> che lo rendono
+concavo.</p>
+<p>Per convessificare <span class="math inline">\(H&#39;\)</span>
+possiamo usare lo stesso procedimento che abbiamo presentato durante la
+trattazione di Akl-Toussaint, in merito alla ricerca di un percorso
+convesso.</p>
+<p>Facciamo notare come in questo caso non è necessario ordinare <span
+class="math inline">\(H&#39;\)</span>, siccome, per costruzione questo è
+già nell’ordine desiderato.</p>
 <h3 id="complessità-temporale-3">Complessità temporale</h3>
-<!-- TODO -->
+<ul>
+<li><p>Ordinamento di S <span class="math inline">\(\rightarrow O(n
+\hspace{0.25em}log \hspace{0.25em}n)\)</span></p></li>
+<li><p>Costruzione di <span class="math inline">\(H&#39;\)</span> <span
+class="math inline">\(\rightarrow O(n)\)</span></p>
+<ul>
+<li><p>Ricerca di <span class="math inline">\(W\)</span> e <span
+class="math inline">\(E\)</span> <span class="math inline">\(\rightarrow
+O(1)\)</span></p></li>
+<li><p>Ricerca di <span class="math inline">\(N\)</span> e <span
+class="math inline">\(S\)</span> <span class="math inline">\(\rightarrow
+O(n)\)</span></p></li>
+<li><p>Costruzione di <span class="math inline">\(\Pi_{nw}\)</span>
+<span class="math inline">\(\rightarrow O(n)\)</span></p></li>
+<li><p>Costruzione di <span class="math inline">\(\Pi_{ne}\)</span>
+<span class="math inline">\(\rightarrow O(n)\)</span></p></li>
+<li><p>Costruzione di <span class="math inline">\(\Pi_{sw}\)</span>
+<span class="math inline">\(\rightarrow O(n)\)</span></p></li>
+<li><p>Costruzione di <span class="math inline">\(\Pi_{se}\)</span>
+<span class="math inline">\(\rightarrow O(n)\)</span></p></li>
+<li><p>Concatenazione di <span class="math inline">\(\Pi_{nw}, \Pi_{ne},
+\Pi_{sw}, \Pi_{se} \rightarrow O(n)\)</span></p></li>
+</ul></li>
+<li><p>Convessificazione <span class="math inline">\(\rightarrow
+O(n)\)</span></p></li>
+</ul>
+<p>Dunque, la complessità temporale dell’algoritmo è <span
+class="math inline">\(O(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>.</p>
 <h1
 id="benchmark-degli-algoritmi-per-il-calcolo-dellinvolucro-convesso">Benchmark
 degli algoritmi per il calcolo dell’involucro convesso</h1>

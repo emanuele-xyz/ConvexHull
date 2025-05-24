@@ -532,15 +532,44 @@ dove
 
 ### Concatenazione degli involucri laterali
 
-<!-- TODO -->
+Costruiamo $H'$ nel modo seguente:
+
+- Percorriamo $\Pi_{nw}$ da $W$ a $N$ e aggiungiamo in coda ad $H'$ ogni punto che incontriamo (tranne $N$).
+- Percorriamo $\Pi_{ne}$ da $N$ a $E$ e aggiungiamo in coda ad $H'$ ogni punto che incontriamo (tranne $E$).
+- Percorriamo $\Pi_{se}$ da $E$ a $S$ e aggiungiamo in coda ad $H'$ ogni punto che incontriamo (tranne $S$).
+- Percorriamo $\Pi_{sw}$ da $S$ a $W$ e aggiungiamo in coda ad $H'$ ogni punto che incontriamo (tranne $W$).
 
 ### Convessificazione di H'
 
-<!-- TODO -->
+Possiamo notare come, per costruzione di $H'$ si ha che $P(H) \subseteq P(H')$. In particolare, $H'$ contiene già tutti i punti di $H$, possibilmente assieme ad alcuni punti aggiuntivi che rendono $H'$ concavo. Convessificare $H'$ significa dunque rimuovere quei punti di $H'$ che lo rendono concavo.
+
+Per convessificare $H'$ possiamo usare lo stesso procedimento che abbiamo presentato durante la trattazione di Akl-Toussaint, in merito alla ricerca di un percorso convesso.
+
+Facciamo notare come in questo caso non è necessario ordinare $H'$, siccome, per costruzione questo è già nell'ordine desiderato.
 
 ### Complessità temporale
 
-<!-- TODO -->
+- Ordinamento di S $\rightarrow O(n \hhquad log \hhquad n)$
+
+- Costruzione di $H'$ $\rightarrow O(n)$
+
+  - Ricerca di $W$ e $E$ $\rightarrow O(1)$
+
+  - Ricerca di $N$ e $S$ $\rightarrow O(n)$
+
+  - Costruzione di $\Pi_{nw}$ $\rightarrow O(n)$
+
+  - Costruzione di $\Pi_{ne}$ $\rightarrow O(n)$
+
+  - Costruzione di $\Pi_{sw}$ $\rightarrow O(n)$
+
+  - Costruzione di $\Pi_{se}$ $\rightarrow O(n)$
+
+  - Concatenazione di $\Pi_{nw}, \Pi_{ne}, \Pi_{sw}, \Pi_{se} \rightarrow O(n)$
+
+- Convessificazione $\rightarrow O(n)$
+
+Dunque, la complessità temporale dell'algoritmo è $O(n \hhquad log \hhquad n)$.
 
 # Benchmark degli algoritmi per il calcolo dell'involucro convesso
 
