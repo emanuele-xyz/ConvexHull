@@ -32,6 +32,9 @@
   />
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script defer src="benchmark.js"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 </head>
 <body>
 <nav>
@@ -40,6 +43,68 @@
   <a href="/manuale.html">manuale</a>
   <a href="/applicazione.html">applicazione</a>
 </nav>
-
+<p>L’<a href="/applicazione.html">applicazione JavaScript</a> permette
+di visualizzare l’esecuzione degli algoritmi trattati, passo dopo
+passo.</p>
+<p>È possibile cliccare sulla canvas per aggiungere un punto all’insieme
+di punti di input. Sopra a ciascun punto vengono visualizzate le sue
+coordinate. È importante notare che l’origine della canvas si trova in
+alto a sinistra, il che significa che l’asse delle ordinate cresce verso
+il basso.</p>
+<p>L’esecuzione di un algoritmo può essere controllata tramite i
+seguenti pulsanti:</p>
+<ul>
+<li><strong>Step</strong>: esegue un passo dell’algoritmo.</li>
+<li><strong>Continue</strong>: esegue l’algoritmo fino alla fine.</li>
+<li><strong>Reset</strong>: rimuove tutti i punti.</li>
+<li><strong>Undo</strong>: rimuove l’ultimo punto inserito.</li>
+</ul>
+<p>Per poter eseguire un algoritmo è necessario inserire almeno 3 punti.
+Inoltre, se si prova ad aggiungere un punto troppo vicino a uno
+esistente, viene mostrato un avviso.</p>
+<p>È possibile selezionare l’algoritmo da eseguire tramite un menù a
+tendina che offre le seguenti opzioni:</p>
+<ul>
+<li><p><strong>Naive</strong>, l’algoritmo presentato durante il corso,
+di complessità <span class="math inline">\(O(n^3)\)</span>. Vengono
+visualizzati gli half-plane test eseguiti per ogni coppia di
+punti.</p></li>
+<li><p><strong>Divide and Conquer</strong>, di complessità <span
+class="math inline">\(O(n \hspace{0.25em}log \hspace{0.25em}n)\)</span>.
+Vengono visualizzate le chiamate ricorsive, la costruzione dei
+“sottoinvolucri” e la loro fusione.</p>
+<ul>
+<li><strong>Divide and Conquer: Upper Tangent</strong>, viene
+visualizzata la ricerca della tangente superiore durante il processo di
+fusione di due sottoinvolucri.</li>
+</ul></li>
+<li><p><strong>Akl-Toussaint</strong>, di complessità <span
+class="math inline">\(O(n \hspace{0.25em}log \hspace{0.25em}n)\)</span>.
+Vengono visualizzate la costruzione del quadrilatero (detto anche “kill
+zone”) e l’eliminazione dei punti al suo interno.</p>
+<ul>
+<li><strong>Akl-Toussaint: Convex Path</strong>, viene isolata una
+regione del quadrilatero e visualizzata la ricerca del percorso
+convesso.</li>
+</ul></li>
+<li><p><strong>TORCH</strong>, di complessità <span
+class="math inline">\(O(n \hspace{0.25em}log \hspace{0.25em}n)\)</span>.
+Vengono visualizzati i punti <span class="math inline">\(W, E, S,
+N\)</span>, la ricerca degli involucri laterali e la
+convessificazione.</p>
+<ul>
+<li><strong>TORCH: South West Hull</strong>, viene visualizzata la
+costruzione dell’involucro <span class="math inline">\(SW\)</span>.</li>
+</ul></li>
+<li><p><strong>Bentley-Faust-Preparata Approximation</strong>, di
+complessità <span class="math inline">\(O(n)\)</span>. Vengono
+visualizzate le <span class="math inline">\(k\)</span> strisce verticali
+(con <span class="math inline">\(k\)</span> selezionabile tramite uno
+slider); per ogni striscia, i punti di <span
+class="math inline">\(y\)</span> minima e <span
+class="math inline">\(y\)</span> massima, l’involucro approssimato, e
+infine l’involucro reale calcolato con uno degli algoritmi
+sopracitati.</p></li>
+</ul>
 </body>
 </html>

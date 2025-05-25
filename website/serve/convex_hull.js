@@ -1628,7 +1628,7 @@ kSlider.addEventListener("input", function () {
 // "Step" button: execute a single step of the algorithm.
 stepBtn.addEventListener("click", function () {
   if (globalPoints.length < algoCtx.minRequiredPoints) {
-    alert("At least " + algoCtx.minRequiredPoints + " points are needed.");
+    alert("Bisogna inserire almeno " + algoCtx.minRequiredPoints + " punti.");
     return;
   }
 
@@ -1639,7 +1639,7 @@ stepBtn.addEventListener("click", function () {
 // "Continue" button: draw the complete hull.
 continueBtn.addEventListener("click", function () {
   if (globalPoints.length < algoCtx.minRequiredPoints) {
-    alert("At least " + algoCtx.minRequiredPoints + " points are needed.");
+    alert("Bisogna inserire almeno " + algoCtx.minRequiredPoints + " punti.");
     return;
   }
 

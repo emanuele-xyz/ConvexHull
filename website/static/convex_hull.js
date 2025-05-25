@@ -1187,7 +1187,12 @@ class TORCHSouthWestHull {
         if (this.south_west.length > 1) {
           drawPolyLine(this.south_west, "green");
         }
-        drawLine({ x: this.points[this.i].x, y: 0 }, { x: this.points[this.i].x, y: canvas.height }, "lightgreen", true);
+        drawLine(
+          { x: this.points[this.i].x, y: 0 },
+          { x: this.points[this.i].x, y: canvas.height },
+          "lightgreen",
+          true
+        );
         drawPoints(this.points);
         drawPoint(this.points[this.west_idx], "lightgreen");
         drawPoint(this.points[this.south_idx], "red");
@@ -1628,7 +1633,7 @@ kSlider.addEventListener("input", function () {
 // "Step" button: execute a single step of the algorithm.
 stepBtn.addEventListener("click", function () {
   if (globalPoints.length < algoCtx.minRequiredPoints) {
-    alert("At least " + algoCtx.minRequiredPoints + " points are needed.");
+    alert("Bisogna inserire almeno " + algoCtx.minRequiredPoints + " punti.");
     return;
   }
 
@@ -1639,7 +1644,7 @@ stepBtn.addEventListener("click", function () {
 // "Continue" button: draw the complete hull.
 continueBtn.addEventListener("click", function () {
   if (globalPoints.length < algoCtx.minRequiredPoints) {
-    alert("At least " + algoCtx.minRequiredPoints + " points are needed.");
+    alert("Bisogna inserire almeno " + algoCtx.minRequiredPoints + " punti.");
     return;
   }
 
