@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cassert>
-#include <set> // TODO: I can probably remove this alongside has_duplicates
 #include <unordered_map>
 #include <unordered_set>
 
@@ -19,12 +18,6 @@ struct std::hash<ch::v2>
 
 namespace ch
 {
-    enum class Direction
-    {
-        CLOCKWISE,
-        COUNTER_CLOCKWISE,
-    };
-
     static bool is_hull_clockwise(const std::vector<v2> hull)
     {
         assert(hull.size() >= 3);
@@ -36,8 +29,6 @@ namespace ch
         v2 a_to_b{ b - a };
         v2 b_to_c{ c - b };
         return determinant(a_to_b, b_to_c) <= 0;
-
-        //return (i.x - i_prev.x) * (i_next.y - i.y) - (i.y - i_prev.y) * (i_next.x - i.x) <= 0;
     }
 
     std::vector<v2> naive(const std::vector<v2>& points)
@@ -437,74 +428,6 @@ namespace ch
         }
     }
 
-
-    bool has_duplicates(const std::vector<v2>& points)
-    {
-        auto cmp = [](const v2& a, const v2& b) {
-            return (a.x < b.x) || (a.x == b.x && a.y < b.y);
-            };
-        std::set<v2, decltype(cmp)> unique_points(cmp);
-        for (const auto& p : points)
-        {
-            if (!unique_points.insert(p).second)
-                return true; // Duplicate found
-        }
-        return false; // All unique
-    }
-
-    // Inflate the approximate hull in-place, iterating until no more points are removed.
-    void torch_inflate(std::vector<v2>& approximate_hull)
-    {
-        int N{ static_cast<int>(approximate_hull.size()) };
-        if (N < 3) return;
-
-        std::vector<bool> flag(N);
-        bool changed;
-
-        do
-        {
-            N = static_cast<int>(approximate_hull.size());
-            flag.assign(N, false);
-            int count{};
-
-            // 1) Mark convex vertices in flag[]
-            for (int i{}; i < N; i++)
-            {
-                assert((i - count) >= 0);
-                v2 a{ approximate_hull[(i - count) % N] };
-                v2 b{ approximate_hull[(i + 1) % N] };
-                v2 c{ approximate_hull[(i + 2) % N] };
-
-                double det{ determinant(b - a, c - a) };
-                if (det <= 0)
-                {
-                    // b is concave -> skip it in this pass
-                    count++;
-                }
-                else
-                {
-                    // b is convex -> mark it
-                    count = 0;
-                    flag[(i + 1) % N] = true;
-                }
-            }
-
-            // 2) Compact cycle down to only flagged points
-            std::vector<v2> new_hull;
-            new_hull.reserve(N);
-            for (int i{}; i < N; i++)
-            {
-                if (flag[i])
-                {
-                    new_hull.push_back(approximate_hull[i]);
-                }
-            }
-
-            changed = (static_cast<int>(new_hull.size()) != N);
-            approximate_hull.swap(new_hull);
-        } while (changed && approximate_hull.size() >= 3);
-    }
-
     std::vector<v2> torch(const std::vector<v2>& points)
     {
         assert(points.size() > 3);
@@ -611,8 +534,6 @@ namespace ch
             }
         }
 
-        assert(!has_duplicates(hull));
-
         // convexification
         while (true)
         {
@@ -643,8 +564,6 @@ namespace ch
                 break;
             }
         }
-
-        assert(is_hull_clockwise(hull));
 
         return hull;
     }
