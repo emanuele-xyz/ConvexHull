@@ -1103,7 +1103,7 @@ class TORCH {
 
 class TORCHSouthWestHull {
   constructor(points) {
-    // n states: start, ..., done
+    // 5 states: start, west, south, south-west-hull, done
     this.minRequiredPoints = 3;
     this.state = "start";
     this.points = [...points];
