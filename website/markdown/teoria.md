@@ -124,13 +124,13 @@ $$S = \{ (x_i, x_i^2) \mid x_i \in I \} \subseteq \mathbb{R}^2$$
 
 Notiamo come i punti di $S$ giacciono su una parabola. Proprio per questo, è facile vedere che un possibile involucro convesso di $S$ è dato dalla lista $(x_1, x_1^2), (x_2, x_2^2), ..., (x_n, x_n^2)$.
 
-Se ottenessimo una qualsiasi altra lista, potremmo ottenere quella mostrata sopra in tempo $O(d)$ e dunque $O(n)$.
+Se ottenessimo una qualsiasi altra lista, potremmo ottenere quella mostrata sopra in tempo $O(d)$ e dunque $O(n)$, trattandosi di una ricerca dell'elemento minimo.
 
 Supponiamo ora, per assurdo, di essere in grado di trovare l'involucro convesso di $S$ in tempo inferiore a $O(n \hhquad log \hhquad n)$.
 
 Se questo fosse il caso, prendendo la prima proiezione della lista $(x_1, x_1^2), (x_2, x_2^2), ..., (x_n, x_n^2)$. otterremo la lista $x_1, x_2, ..., x_n$. Dunque saremmo in grado di ordinare l'insieme $I$ in tempo inferiore a $O(n \hhquad log \hhquad n)$.
 
-Questo è assurdo. $\square$
+Questo è assurdo perché il lower bound del problema dell'ordinamento è $\Omega(n \hhquad log \hhquad n)$. $\square$
 
 # Involucri clockwise e counterclockwise
 
@@ -144,7 +144,7 @@ Possiamo rappresentare $H$ usando entrambe queste liste:
 
 $$A, B, C \quad \textrm{e} \quad A, C, B$$
 
-Osserviamo come la prima lista elencai punti di $H$ in senso antiorario. La seconda lista invece elenca i punti in senso orario [^1].
+Osserviamo come la prima lista elenca i punti di $H$ in senso antiorario. La seconda lista invece elenca i punti in senso orario [^1].
 
 [^1]: Non vi sono altre orientazioni possibili.
 
@@ -152,7 +152,7 @@ Nella nostra trattazione, per convenzione e per facilitare l'implementazione deg
 
 Di rado può accadere di dover controllare se un involucro convesso è espresso in senso orario o antiorario. Per fare questo:
 
-- Prendiamo tre punti qualsiasi $\vec{u}, \vec{v}, \vec{w}$ **consecutivi**.
+- Prendiamo tre punti qualsiasi di $H$ $\vec{u}, \vec{v}, \vec{w}$ **consecutivi**.
 
 - Consideriamo i due vettori $\vec{v} - \vec{u} \hquad \textrm{e} \hquad \vec{w} - \vec{v}$.
 
@@ -160,7 +160,7 @@ Di rado può accadere di dover controllare se un involucro convesso è espresso 
 
   - Se $det\begin{pmatrix} \vec{v}_x - \vec{u}_x & \vec{w}_x - \vec{v}_x \\ \vec{v_y} - \vec{u_y} & \vec{w_y} - \vec{v_y} \end{pmatrix} < 0$, allora siamo in senso orario.
 
-  - Se il determinante è uguale a zero allora i tre punti sono collineari.
+  - Se il determinante è uguale a zero allora i tre punti sono collineari. Ricordiamo che, per costruzione, $S$ non contiene terne di punti collineari.
 
 Se l'involucro è espresso in un senso, per esprimerlo nell'altro bisogna semplicemente invertire l'ordine della lista.
 
@@ -174,8 +174,8 @@ $$
 \vec{v}_x - \vec{u}_x & \vec{w}_x - \vec{v}_x \\
 \vec{v}_y - \vec{u}_y & \vec{w}_y - \vec{v}_y
 \end{pmatrix}
-&= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) - (\vec{v}_y - \vec{u}_y)(\vec{w}_x - \vec{v}_x) \\[8pt]
-&= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) + (-(\vec{v}_y - \vec{u}_y))(\vec{w}_x - \vec{v}_x) \\[8pt]
+&= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) - (\vec{v}_y - \vec{u}_y)(\vec{w}_x - \vec{v}_x) && \textrm{Definizione di determinante} \\[8pt]
+&= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) + (-(\vec{v}_y - \vec{u}_y))(\vec{w}_x - \vec{v}_x) && \textrm{Portiamo dentro il "-"} \\[8pt]
 &=
 \begin{bmatrix}
 -(\vec{v}_y - \vec{u}_y) \\
@@ -185,7 +185,7 @@ $$
 \begin{bmatrix}
 \vec{w}_x - \vec{v}_x \\
 \vec{w}_y - \vec{v}_y
-\end{bmatrix} \\[8pt]
+\end{bmatrix} && \textrm{Definizione del dot product} \\[8pt]
 &=
 \left\lVert
 \begin{bmatrix}
@@ -202,6 +202,7 @@ $$
 \right\rVert
 \hquad
 \cos\theta
+&& \textrm{Definizione del dot product}
 \end{aligned}
 $$
 
@@ -275,17 +276,17 @@ Fissando $u_y = v_x$, abbiamo che $u_x = - \dfrac{v_x v_y}{v_x} = -v_y$
 
 ## Idea
 
-Sia $P$ la lista dei punti di $S$, ordinata in ordine decrescente della loro componente $x$.
+Sia $P$ la lista dei punti di $S$, ordinata in ordine crescente della loro componente $x$.
 
 Dividiamo $P$ a metà, ottenendo così le liste $A$ e $B$.
 
-Applichiamo ricorsivamente l'algoritmo "Divide et Impera" su $A$ e su $B$, ottenendo così gli involucri convessi $H_a$ e $H_b$ rispettivamente, degli insieme di punti dati dalle liste $A$ e $B$.
+Applichiamo ricorsivamente l'algoritmo "Divide et Impera" su $A$ e su $B$, ottenendo così gli involucri convessi $H_a$ e $H_b$ rispettivamente, degli insiemi di punti dati dalle liste $A$ e $B$.
 
 Fondiamo $H_a$ e $H_b$, ottenendo così l'involucro $H$.
 
 ## Fusione
 
-Dati due involucri convessi $H_a$ e $H_b$, vogliamo trovare l'involucro convesso $H$ dell'uniione dei vertici di $H_a$ e $H_b$.
+Dati due involucri convessi $H_a$ e $H_b$, vogliamo trovare l'involucro convesso $H$ dell'unione dei vertici di $H_a$ e $H_b$.
 
 Possiamo fare questo sfruttando il fatto che:
 
@@ -308,12 +309,12 @@ Sia $l_b$ il punto più a sinistra di $H_b$.
 
 Consideriamo la retta $r: x = m, \hquad \textrm{dove} \hquad m = \dfrac{(r_a)_x + (l_b)_x}{2}$
 
-Percorriamo simultaneamente:
+Percorriamo simultaneamente, in modo alternato:
 
 - $H_a$ in senso **antiorario**, partendo da $r_a$.
 - $H_b$ in senso **orario**, partendo da $l_b$.
 
-Cercando il segmento il segmento di estremi $p$ e $q$, con $p$ vertice di $H_a$ e $q$ vertice di $H_b$, tale per cui la sua intersezione con $r$ abbia componente $y$ massima.
+Cercando il segmento di estremi $p$ e $q$, con $p$ vertice di $H_a$ e $q$ vertice di $H_b$, tale per cui la sua intersezione con $r$ abbia componente $y$ massima.
 
 Il segmento $pq$ è la tangente superiore.
 
@@ -330,7 +331,7 @@ Percorriamo simultaneamente, in modo alternato:
 - $H_a$ in senso **orario**, partendo da $r_a$.
 - $H_b$ in senso **antiorario**, partendo da $l_b$.
 
-Cercando il segmento il segmento di estremi $p$ e $q$, con $p$ vertice di $H_a$ e $q$ vertice di $H_b$, tale per cui la sua intersezione con $r$ abbia componente $y$ minima.
+Cercando il segmento di estremi $p$ e $q$, con $p$ vertice di $H_a$ e $q$ vertice di $H_b$, tale per cui la sua intersezione con $r$ abbia componente $y$ minima.
 
 Il segmento $pq$ è la tangente inferiore.
 
@@ -346,11 +347,9 @@ Per costruire $H$, percorriamo:
 
 ### Ricerca delle tangenti
 
-Usando un approccio naive, possiamo cercare una tangente andando ad esaminare tutte le coppie di punti $(p, q) \in P(H_a) \times P(H_b)$ ed usare il "two fingers method" per trovare la tangente cercata.
+Usando un approccio naive, possiamo cercare una tangente andando ad esaminare tutte le coppie di punti $(p, q) \in P(H_a) \times P(H_b)$ ed usare il two fingers method per trovare la tangente cercata.
 
 Siccome $\left| P(H_a) \right| \hquad \textrm{e} \hquad \left| P(H_b) \right|$ sono $O(n)$, questo metodo naive richiederebbe un tempo $O(n^2)$.
-
-<!-- TODO: forse sarebbe meglio utilizzare la spiegazione del two fingers method del blog post? -->
 
 Tuttavia possiamo fare di meglio se sfruttiamo il fatto che sia $H_a$ che $H_b$ sono poligoni convessi.
 
@@ -360,12 +359,12 @@ Percorriamo simultaneamente, in modo alternato, $H_a$ e $H_b$. Ad ogni iterazion
 2. Il segmento tra il vertice corrente di $H_a$ e il vertice successivo di $H_b$.
 3. Il segmento tra il vertice successivo di $H_a$ e il vertice corrente di $H_b$.
 
-Se 2. è "migliore" di 1., allora avanziamo il vertice corrente di $H_b$. Se 3. migliore di 1., allora avanziamo il vertice corrente di $H_a$. Altrimenti terminiamo la visita.
+Se 2. è "migliore" di 1., allora avanziamo il vertice corrente di $H_b$. Se 3. è migliore di 1., allora avanziamo il vertice corrente di $H_a$. Altrimenti terminiamo la visita.
 
 Guardando come visitiamo i vertici di $H_a$ e $H_b$, vediamo che:
 
 - Ad ogni iterazione, consideriamo sempre un nuovo vertice.
-- Possiamo all'iterazione successiva solo se abbiamo trovato un miglior candidato come tangente.
+- Passiamo all'iterazione successiva solo se abbiamo trovato un miglior candidato come tangente.
 
 Dunque, per trovare la tangente, ogni vertice di $H_a$ e $H_b$ sarà visitato al più un volta.
 

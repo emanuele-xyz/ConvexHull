@@ -234,7 +234,8 @@ dato dalla lista <span class="math inline">\((x_1, x_1^2), (x_2, x_2^2),
 ..., (x_n, x_n^2)\)</span>.</p>
 <p>Se ottenessimo una qualsiasi altra lista, potremmo ottenere quella
 mostrata sopra in tempo <span class="math inline">\(O(d)\)</span> e
-dunque <span class="math inline">\(O(n)\)</span>.</p>
+dunque <span class="math inline">\(O(n)\)</span>, trattandosi di una
+ricerca dell’elemento minimo.</p>
 <p>Supponiamo ora, per assurdo, di essere in grado di trovare
 l’involucro convesso di <span class="math inline">\(S\)</span> in tempo
 inferiore a <span class="math inline">\(O(n \hspace{0.25em}log
@@ -246,7 +247,10 @@ x_2, ..., x_n\)</span>. Dunque saremmo in grado di ordinare l’insieme
 <span class="math inline">\(I\)</span> in tempo inferiore a <span
 class="math inline">\(O(n \hspace{0.25em}log
 \hspace{0.25em}n)\)</span>.</p>
-<p>Questo è assurdo. <span class="math inline">\(\square\)</span></p>
+<p>Questo è assurdo perché il lower bound del problema dell’ordinamento
+è <span class="math inline">\(\Omega(n \hspace{0.25em}log
+\hspace{0.25em}n)\)</span>. <span
+class="math inline">\(\square\)</span></p>
 <h1 id="involucri-clockwise-e-counterclockwise">Involucri clockwise e
 counterclockwise</h1>
 <p>Come abbiamo già detto, rappresentiamo l’involucro convesso <span
@@ -260,7 +264,7 @@ style="height: 170px; display: block; margin: auto;" /></p>
 entrambe queste liste:</p>
 <p><span class="math display">\[A, B, C \quad \textrm{e} \quad A, C,
 B\]</span></p>
-<p>Osserviamo come la prima lista elencai punti di <span
+<p>Osserviamo come la prima lista elenca i punti di <span
 class="math inline">\(H\)</span> in senso antiorario. La seconda lista
 invece elenca i punti in senso orario <a href="#fn1"
 class="footnote-ref" id="fnref1"
@@ -271,9 +275,9 @@ che elencano i punti dell’involucro convesso in senso orario.</p>
 <p>Di rado può accadere di dover controllare se un involucro convesso è
 espresso in senso orario o antiorario. Per fare questo:</p>
 <ul>
-<li><p>Prendiamo tre punti qualsiasi <span
-class="math inline">\(\vec{u}, \vec{v}, \vec{w}\)</span>
-<strong>consecutivi</strong>.</p></li>
+<li><p>Prendiamo tre punti qualsiasi di <span
+class="math inline">\(H\)</span> <span class="math inline">\(\vec{u},
+\vec{v}, \vec{w}\)</span> <strong>consecutivi</strong>.</p></li>
 <li><p>Consideriamo i due vettori <span class="math inline">\(\vec{v} -
 \vec{u} \hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{w} -
 \vec{v}\)</span>.</p>
@@ -287,6 +291,8 @@ senso antiorario.</p></li>
 \vec{w_y} - \vec{v_y} \end{pmatrix} &lt; 0\)</span>, allora siamo in
 senso orario.</p></li>
 <li><p>Se il determinante è uguale a zero allora i tre punti sono
+collineari. Ricordiamo che per costruzione di <span
+class="math inline">\(S\)</span> non esistono triple di punti
 collineari.</p></li>
 </ul></li>
 </ul>
@@ -301,9 +307,11 @@ bisogna semplicemente invertire l’ordine della lista.</p>
 \vec{v}_y - \vec{u}_y &amp; \vec{w}_y - \vec{v}_y
 \end{pmatrix}
 &amp;= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) - (\vec{v}_y -
-\vec{u}_y)(\vec{w}_x - \vec{v}_x) \\[8pt]
+\vec{u}_y)(\vec{w}_x - \vec{v}_x) &amp;&amp; \textrm{Definizione di
+determinante} \\[8pt]
 &amp;= (\vec{v}_x - \vec{u}_x)(\vec{w}_y - \vec{v}_y) + (-(\vec{v}_y -
-\vec{u}_y))(\vec{w}_x - \vec{v}_x) \\[8pt]
+\vec{u}_y))(\vec{w}_x - \vec{v}_x) &amp;&amp; \textrm{Portiamo dentro il
+&quot;-&quot;} \\[8pt]
 &amp;=
 \begin{bmatrix}
 -(\vec{v}_y - \vec{u}_y) \\
@@ -313,7 +321,7 @@ bisogna semplicemente invertire l’ordine della lista.</p>
 \begin{bmatrix}
 \vec{w}_x - \vec{v}_x \\
 \vec{w}_y - \vec{v}_y
-\end{bmatrix} \\[8pt]
+\end{bmatrix} &amp;&amp; \textrm{Definizione del dot product} \\[8pt]
 &amp;=
 \left\lVert
 \begin{bmatrix}
@@ -330,6 +338,7 @@ bisogna semplicemente invertire l’ordine della lista.</p>
 \right\rVert
 \hspace{0.5em}
 \cos\theta
+&amp;&amp; \textrm{Definizione del dot product}
 \end{aligned}
 \]</span></p>
 <p>con <span class="math inline">\(\theta\)</span> angolo tra <span

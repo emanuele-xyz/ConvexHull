@@ -1103,7 +1103,7 @@ class TORCH {
 
 class TORCHSouthWestHull {
   constructor(points) {
-    // n states: start, ..., done
+    // 5 states: start, west, south, south-west-hull, done
     this.minRequiredPoints = 3;
     this.state = "start";
     this.points = [...points];
@@ -1187,7 +1187,12 @@ class TORCHSouthWestHull {
         if (this.south_west.length > 1) {
           drawPolyLine(this.south_west, "green");
         }
-        drawLine({ x: this.points[this.i].x, y: 0 }, { x: this.points[this.i].x, y: canvas.height }, "lightgreen", true);
+        drawLine(
+          { x: this.points[this.i].x, y: 0 },
+          { x: this.points[this.i].x, y: canvas.height },
+          "lightgreen",
+          true
+        );
         drawPoints(this.points);
         drawPoint(this.points[this.west_idx], "lightgreen");
         drawPoint(this.points[this.south_idx], "red");
