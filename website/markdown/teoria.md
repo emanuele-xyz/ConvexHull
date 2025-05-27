@@ -427,6 +427,13 @@ Dunque, per quanto detto sopra la complessità temporale complessiva è $O(n \hh
 
 ## Idea
 
+L'idea dell'algoritmo di Akl-Toussaint è la seguente:
+
+- Determiniamo il quadrilatero definito dai quattro punti estremi di $S$.
+- Tutti i punti che cadono all'interno di questo quadrilatero non possono essere vertici dell'involucro convesso, quindi possono essere scartati.
+- Per ciascun lato del quadrilatero, cerchiamo un percorso convesso tra i punti della regione sottesa da quel lato.
+- L'unione di questi percorsi convessi costituisce l'involucro convesso.
+
 ### Euristica
 
 Determiniamo i seguenti punti di $S$:
@@ -487,7 +494,7 @@ Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orar
 
 - Convessificazione $\rightarrow O(n)$
 
-  Il processo di convessificazione di $P$ è una scansione di $P$, nella quale possiamo procedere effettuando sia passi avanti (andando alla tripla di punti successiva) che passi indietro (andando alla tripla di punti precedente).
+  Il processo di convessificazione di $P$ è una scansione di $P$, nella quale possiamo procedere effettuando sia passi in avanti (andando alla tripla di punti successiva) che passi indietro (andando alla tripla di punti precedente).
 
   Un modo per determinare la complessità temporale della scansione è quello di contare il numero di passi da essa effettuati.
 
@@ -514,7 +521,7 @@ Di conseguenza, la complessità temporale complessiva è $O(n \hhquad log \hhqua
 A grandi linee TORCH:
 
 1. Ordina $S$.
-2. Costruisce un involucro approssimate **non** convesso $H'$.
+2. Costruisce un involucro approssimato **non** convesso $H'$.
 3. Costruisce $H$ a partire da $H'$ usando un processo di **convessificazione**.
 
 ## Ordinamento di S
