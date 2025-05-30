@@ -747,7 +747,7 @@ Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ [^2] allora la distanz
 
 Consideriamo un qualsiasi punto $p \in S$ che cade al di fuori di $H'$. Per costruzione, $p$ deve cadere all'interno di una data striscia.
 
-Siccome $p$ cade al di fuori di $H'$, $p$ non può né avere $y$ minima né $y$ massima nella striscia. Dunque, $p_y$ deve essere compreso tra questi due valori, esclusi. Perciò, nella striscia in cui cade $p$, devono cadere almeno altri due punti. Oltretutto, almeno un punto $h$ tra questi due deve appartenere a $P(H')$. Dunque, la distanza $\delta$ tra $p$ e $H'$ è data dalla distanza tra uno dei due lati di $H'$ che ha $h$ come uno dei due estremi.
+Siccome $p$ cade al di fuori di $H'$, $p$ non è stato preso dal campionamento, e dunque $p$ non può né avere $y$ minima né $y$ massima nella striscia in cui cade. Dunque, $p_y$ deve essere compreso tra questi due valori, esclusi. Perciò, nella striscia in cui cade $p$, devono cadere almeno altri due punti. Oltretutto, almeno un punto $h$ tra questi due deve appartenere a $P(H')$. Dunque, la distanza $\delta$ tra $p$ e $H'$ è data dalla distanza tra uno dei due lati di $H'$ che ha $h$ come uno dei due estremi.
 
 Denotiamo con $\delta x$ la lunghezza del segmento che ha come estremi:
 
