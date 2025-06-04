@@ -276,6 +276,8 @@ Fissando $u_y = v_x$, abbiamo che $u_x = - \dfrac{v_x v_y}{v_x} = -v_y$
 
 ## Idea
 
+![](./dc_tangents.svg){ style="height: 250px; display: block; margin: auto;" }
+
 Sia $P$ la lista dei punti di $S$, ordinata in ordine crescente della loro componente $x$.
 
 Dividiamo $P$ a metà, ottenendo così le liste $A$ e $B$.
@@ -530,6 +532,8 @@ Ordiniamo i punti di $S$ in ordine crescente di $x$, risultando nella lista di p
 
 ## Costruzione di H'
 
+![](./torch_lateral_hulls.svg){ style="height: 300px; display: block; margin: auto;" }
+
 Siano:
 
 - $W$, il punto di $P$ con $x$ minima.
@@ -744,6 +748,8 @@ Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ [^2] allora la distanz
 [^2]: Questo significa che $p$ non è stato preso dal campionamento.
 
 #### Dimostrazione
+
+![](./bfp_example.svg){ style="height: 350px; display: block; margin: auto;" }
 
 Consideriamo un qualsiasi punto $p \in S$ che cade al di fuori di $H'$. Per costruzione, $p$ deve cadere all'interno di una data striscia.
 

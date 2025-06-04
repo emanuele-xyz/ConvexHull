@@ -291,8 +291,8 @@ senso antiorario.</p></li>
 \vec{w_y} - \vec{v_y} \end{pmatrix} &lt; 0\)</span>, allora siamo in
 senso orario.</p></li>
 <li><p>Se il determinante è uguale a zero allora i tre punti sono
-collineari. Ricordiamo che per costruzione di <span
-class="math inline">\(S\)</span> non esistono triple di punti
+collineari. Ricordiamo che, per costruzione, <span
+class="math inline">\(S\)</span> non contiene terne di punti
 collineari.</p></li>
 </ul></li>
 </ul>
@@ -453,8 +453,10 @@ dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
 </ul>
 <h1 id="algoritmo-divide-and-conquer">Algoritmo Divide and Conquer</h1>
 <h2 id="idea-1">Idea</h2>
+<p><img src="./dc_tangents.svg"
+style="height: 250px; display: block; margin: auto;" /></p>
 <p>Sia <span class="math inline">\(P\)</span> la lista dei punti di
-<span class="math inline">\(S\)</span>, ordinata in ordine decrescente
+<span class="math inline">\(S\)</span>, ordinata in ordine crescente
 della loro componente <span class="math inline">\(x\)</span>.</p>
 <p>Dividiamo <span class="math inline">\(P\)</span> a metà, ottenendo
 così le liste <span class="math inline">\(A\)</span> e <span
@@ -463,7 +465,7 @@ class="math inline">\(B\)</span>.</p>
 class="math inline">\(A\)</span> e su <span
 class="math inline">\(B\)</span>, ottenendo così gli involucri convessi
 <span class="math inline">\(H_a\)</span> e <span
-class="math inline">\(H_b\)</span> rispettivamente, degli insieme di
+class="math inline">\(H_b\)</span> rispettivamente, degli insiemi di
 punti dati dalle liste <span class="math inline">\(A\)</span> e <span
 class="math inline">\(B\)</span>.</p>
 <p>Fondiamo <span class="math inline">\(H_a\)</span> e <span
@@ -472,7 +474,7 @@ class="math inline">\(H\)</span>.</p>
 <h2 id="fusione">Fusione</h2>
 <p>Dati due involucri convessi <span class="math inline">\(H_a\)</span>
 e <span class="math inline">\(H_b\)</span>, vogliamo trovare l’involucro
-convesso <span class="math inline">\(H\)</span> dell’uniione dei vertici
+convesso <span class="math inline">\(H\)</span> dell’unione dei vertici
 di <span class="math inline">\(H_a\)</span> e <span
 class="math inline">\(H_b\)</span>.</p>
 <p>Possiamo fare questo sfruttando il fatto che:</p>
@@ -507,7 +509,7 @@ di <span class="math inline">\(H_b\)</span>.</p>
 <p>Consideriamo la retta <span class="math inline">\(r: x = m,
 \hspace{0.5em}\textrm{dove} \hspace{0.5em}m = \dfrac{(r_a)_x +
 (l_b)_x}{2}\)</span></p>
-<p>Percorriamo simultaneamente:</p>
+<p>Percorriamo simultaneamente, in modo alternato:</p>
 <ul>
 <li><span class="math inline">\(H_a\)</span> in senso
 <strong>antiorario</strong>, partendo da <span
@@ -516,7 +518,7 @@ class="math inline">\(r_a\)</span>.</li>
 <strong>orario</strong>, partendo da <span
 class="math inline">\(l_b\)</span>.</li>
 </ul>
-<p>Cercando il segmento il segmento di estremi <span
+<p>Cercando il segmento di estremi <span
 class="math inline">\(p\)</span> e <span
 class="math inline">\(q\)</span>, con <span
 class="math inline">\(p\)</span> vertice di <span
@@ -544,7 +546,7 @@ class="math inline">\(r_a\)</span>.</li>
 <strong>antiorario</strong>, partendo da <span
 class="math inline">\(l_b\)</span>.</li>
 </ul>
-<p>Cercando il segmento il segmento di estremi <span
+<p>Cercando il segmento di estremi <span
 class="math inline">\(p\)</span> e <span
 class="math inline">\(q\)</span>, con <span
 class="math inline">\(p\)</span> vertice di <span
@@ -570,13 +572,12 @@ tangente inferiore, procedendo in senso orario.</p></li>
 <h3 id="ricerca-delle-tangenti">Ricerca delle tangenti</h3>
 <p>Usando un approccio naive, possiamo cercare una tangente andando ad
 esaminare tutte le coppie di punti <span class="math inline">\((p, q)
-\in P(H_a) \times P(H_b)\)</span> ed usare il “two fingers method” per
+\in P(H_a) \times P(H_b)\)</span> ed usare il two fingers method per
 trovare la tangente cercata.</p>
 <p>Siccome <span class="math inline">\(\left| P(H_a) \right|
 \hspace{0.5em}\textrm{e} \hspace{0.5em}\left| P(H_b) \right|\)</span>
 sono <span class="math inline">\(O(n)\)</span>, questo metodo naive
 richiederebbe un tempo <span class="math inline">\(O(n^2)\)</span>.</p>
-<!-- TODO: forse sarebbe meglio utilizzare la spiegazione del two fingers method del blog post? -->
 <p>Tuttavia possiamo fare di meglio se sfruttiamo il fatto che sia <span
 class="math inline">\(H_a\)</span> che <span
 class="math inline">\(H_b\)</span> sono poligoni convessi.</p>
@@ -596,7 +597,7 @@ class="math inline">\(H_a\)</span> e il vertice corrente di <span
 class="math inline">\(H_b\)</span>.</li>
 </ol>
 <p>Se 2. è “migliore” di 1., allora avanziamo il vertice corrente di
-<span class="math inline">\(H_b\)</span>. Se 3. migliore di 1., allora
+<span class="math inline">\(H_b\)</span>. Se 3. è migliore di 1., allora
 avanziamo il vertice corrente di <span
 class="math inline">\(H_a\)</span>. Altrimenti terminiamo la visita.</p>
 <p>Guardando come visitiamo i vertici di <span
@@ -604,7 +605,7 @@ class="math inline">\(H_a\)</span> e <span
 class="math inline">\(H_b\)</span>, vediamo che:</p>
 <ul>
 <li>Ad ogni iterazione, consideriamo sempre un nuovo vertice.</li>
-<li>Possiamo all’iterazione successiva solo se abbiamo trovato un
+<li>Passiamo all’iterazione successiva solo se abbiamo trovato un
 miglior candidato come tangente.</li>
 </ul>
 <p>Dunque, per trovare la tangente, ogni vertice di <span
@@ -680,6 +681,18 @@ T(n) &amp;= n + n \log_2 n \\[5pt]
 \hspace{0.25em}n)\)</span>.</p>
 <h1 id="algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</h1>
 <h2 id="idea-2">Idea</h2>
+<p>L’idea dell’algoritmo di Akl-Toussaint è la seguente:</p>
+<ul>
+<li>Determiniamo il quadrilatero definito dai quattro punti estremi di
+<span class="math inline">\(S\)</span>.</li>
+<li>Tutti i punti che cadono all’interno di questo quadrilatero non
+possono essere vertici dell’involucro convesso, quindi possono essere
+scartati.</li>
+<li>Per ciascun lato del quadrilatero, cerchiamo un percorso convesso
+tra i punti della regione sottesa da quel lato.</li>
+<li>L’unione di questi percorsi convessi costituisce l’involucro
+convesso.</li>
+</ul>
 <h3 id="euristica">Euristica</h3>
 <p>Determiniamo i seguenti punti di <span
 class="math inline">\(S\)</span>:</p>
@@ -787,8 +800,9 @@ O(n)\)</span></p>
 <p>Il processo di convessificazione di <span
 class="math inline">\(P\)</span> è una scansione di <span
 class="math inline">\(P\)</span>, nella quale possiamo procedere
-effettuando sia passi avanti (andando alla tripla di punti successiva)
-che passi indietro (andando alla tripla di punti precedente).</p>
+effettuando sia passi in avanti (andando alla tripla di punti
+successiva) che passi indietro (andando alla tripla di punti
+precedente).</p>
 <p>Un modo per determinare la complessità temporale della scansione è
 quello di contare il numero di passi da essa effettuati.</p>
 <ul>
@@ -827,7 +841,7 @@ Order Heuristic Based Convex Hull</h1>
 <p>A grandi linee TORCH:</p>
 <ol type="1">
 <li>Ordina <span class="math inline">\(S\)</span>.</li>
-<li>Costruisce un involucro approssimate <strong>non</strong> convesso
+<li>Costruisce un involucro approssimato <strong>non</strong> convesso
 <span class="math inline">\(H&#39;\)</span>.</li>
 <li>Costruisce <span class="math inline">\(H\)</span> a partire da <span
 class="math inline">\(H&#39;\)</span> usando un processo di
@@ -838,6 +852,8 @@ class="math inline">\(H&#39;\)</span> usando un processo di
 crescente di <span class="math inline">\(x\)</span>, risultando nella
 lista di punti <span class="math inline">\(P\)</span>.</p>
 <h2 id="costruzione-di-h-2">Costruzione di H’</h2>
+<p><img src="./torch_lateral_hulls.svg"
+style="height: 300px; display: block; margin: auto;" /></p>
 <p>Siano:</p>
 <ul>
 <li><span class="math inline">\(W\)</span>, il punto di <span
@@ -1218,6 +1234,8 @@ allora la distanza tra <span class="math inline">\(p\)</span> e <span
 class="math inline">\(H&#39;\)</span> è al più <span
 class="math inline">\(\dfrac{\Delta X}{k}\)</span>.</p>
 <h4 id="dimostrazione-2">Dimostrazione</h4>
+<p><img src="./bfp_example.svg"
+style="height: 350px; display: block; margin: auto;" /></p>
 <p>Consideriamo un qualsiasi punto <span class="math inline">\(p \in
 S\)</span> che cade al di fuori di <span
 class="math inline">\(H&#39;\)</span>. Per costruzione, <span
@@ -1225,11 +1243,12 @@ class="math inline">\(p\)</span> deve cadere all’interno di una data
 striscia.</p>
 <p>Siccome <span class="math inline">\(p\)</span> cade al di fuori di
 <span class="math inline">\(H&#39;\)</span>, <span
-class="math inline">\(p\)</span> non può né avere <span
+class="math inline">\(p\)</span> non è stato preso dal campionamento, e
+dunque <span class="math inline">\(p\)</span> non può né avere <span
 class="math inline">\(y\)</span> minima né <span
-class="math inline">\(y\)</span> massima nella striscia. Dunque, <span
-class="math inline">\(p_y\)</span> deve essere compreso tra questi due
-valori, esclusi. Perciò, nella striscia in cui cade <span
+class="math inline">\(y\)</span> massima nella striscia in cui cade.
+Dunque, <span class="math inline">\(p_y\)</span> deve essere compreso
+tra questi due valori, esclusi. Perciò, nella striscia in cui cade <span
 class="math inline">\(p\)</span>, devono cadere almeno altri due punti.
 Oltretutto, almeno un punto <span class="math inline">\(h\)</span> tra
 questi due deve appartenere a <span
