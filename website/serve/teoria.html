@@ -50,8 +50,9 @@
 <li><a href="#rappresentare-h">Rappresentare H</a></li>
 <li><a href="#assunzioni-sullinsieme-di-punti">Assunzioni sull’insieme
 di punti</a></li>
-<li><a href="#lower-bound-della-complessità-del-problema">Lower bound
-della complessità del problema</a>
+<li><a
+href="#lower-bound-della-complessità-del-problema-in-dipendenza-da-n">Lower
+bound della complessità del problema (in dipendenza da n)</a>
 <ul>
 <li><a href="#dimostrazione">Dimostrazione</a></li>
 </ul></li>
@@ -83,7 +84,7 @@ inferiore</a></li>
 <ul>
 <li><a href="#ricerca-delle-tangenti">Ricerca delle tangenti</a></li>
 <li><a href="#fusione-1">Fusione</a></li>
-<li><a href="#divide-et-impera">Divide et Impera</a></li>
+<li><a href="#divide-and-conquer">Divide and Conquer</a></li>
 <li><a href="#complessità-complessiva">Complessità complessiva</a></li>
 </ul></li>
 </ul></li>
@@ -143,7 +144,7 @@ di approssimazione di Bentley, Faust e Preparata</a>
 <ul>
 <li><a href="#complessità-temporale-4">Complessità temporale</a></li>
 </ul></li>
-<li><a href="#calcolo-di-s">Calcolo di S’</a>
+<li><a href="#determinazione-di-s">Determinazione di S’</a>
 <ul>
 <li><a href="#proprietà">Proprietà</a>
 <ul>
@@ -213,8 +214,9 @@ class="math display">\[\Delta X \ge 1 \quad \textrm{e} \quad \Delta Y
 \quad \textrm{e} \quad \Delta Y = |a_y - b_y|\]</span> In tal modo due
 punti non possono trovarsi “troppo” vicini tra loro.</p></li>
 </ol>
-<h2 id="lower-bound-della-complessità-del-problema">Lower bound della
-complessità del problema</h2>
+<h2
+id="lower-bound-della-complessità-del-problema-in-dipendenza-da-n">Lower
+bound della complessità del problema (in dipendenza da n)</h2>
 <p>Il lower bound del problema è <span class="math inline">\(\Omega(n
 \hspace{0.25em}log \hspace{0.25em}n)\)</span>.</p>
 <h3 id="dimostrazione">Dimostrazione</h3>
@@ -270,10 +272,10 @@ invece elenca i punti in senso orario <a href="#fn1"
 class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Nella nostra trattazione, per convenzione e per facilitare
-l’implementazione degli algoritmi, useremo e ritorneremo sempre liste
-che elencano i punti dell’involucro convesso in senso orario.</p>
-<p>Di rado può accadere di dover controllare se un involucro convesso è
-espresso in senso orario o antiorario. Per fare questo:</p>
+l’implementazione degli algoritmi, useremo e otterremo sempre liste che
+elencano i punti dell’involucro convesso in senso orario.</p>
+<p>Può accadere di dover controllare se un involucro convesso è espresso
+in senso orario o antiorario. Per fare questo:</p>
 <ul>
 <li><p>Prendiamo tre punti qualsiasi di <span
 class="math inline">\(H\)</span> <span class="math inline">\(\vec{u},
@@ -384,8 +386,8 @@ controlliamo se <span class="math inline">\(\vec{p}\)</span> cade in
 \hspace{0.5em}\textrm{in} \hspace{0.5em}\Pi^-\)</span>.</p>
 <p>Se tutti i punti sono caduti esclusivamente in uno dei due semipiani,
 allora il segmento con estremi <span class="math inline">\(\vec{u}
-\hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{v}\)</span> è un lato
-dell’involucro convesso.</p>
+\hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{v} \hspace{0.25em}\)</span>
+è un lato dell’involucro convesso.</p>
 <h2 id="half-plane-test">Half-plane test</h2>
 <p><img src="./half_plane_test.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
@@ -439,7 +441,7 @@ conoscenza di <span class="math inline">\(v_x \hspace{0.5em}\textrm{e}
 v_y}{v_x}\)</span></p>
 <p>Fissando <span class="math inline">\(u_y = v_x\)</span>, abbiamo che
 <span class="math inline">\(u_x = - \dfrac{v_x v_y}{v_x} =
--v_y\)</span></p>
+-v_y\)</span>.</p>
 <h2 id="complessità-temporale">Complessità temporale</h2>
 <ul>
 <li>Iterare per ogni coppia di punti <span
@@ -457,11 +459,12 @@ dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
 style="height: 250px; display: block; margin: auto;" /></p>
 <p>Sia <span class="math inline">\(P\)</span> la lista dei punti di
 <span class="math inline">\(S\)</span>, ordinata in ordine crescente
-della loro componente <span class="math inline">\(x\)</span>.</p>
+rispetto alla loro componente <span
+class="math inline">\(x\)</span>.</p>
 <p>Dividiamo <span class="math inline">\(P\)</span> a metà, ottenendo
 così le liste <span class="math inline">\(A\)</span> e <span
 class="math inline">\(B\)</span>.</p>
-<p>Applichiamo ricorsivamente l’algoritmo “Divide et Impera” su <span
+<p>Applichiamo ricorsivamente l’algoritmo Divide and Conquer su <span
 class="math inline">\(A\)</span> e su <span
 class="math inline">\(B\)</span>, ottenendo così gli involucri convessi
 <span class="math inline">\(H_a\)</span> e <span
@@ -576,8 +579,9 @@ esaminare tutte le coppie di punti <span class="math inline">\((p, q)
 trovare la tangente cercata.</p>
 <p>Siccome <span class="math inline">\(\left| P(H_a) \right|
 \hspace{0.5em}\textrm{e} \hspace{0.5em}\left| P(H_b) \right|\)</span>
-sono <span class="math inline">\(O(n)\)</span>, questo metodo naive
-richiederebbe un tempo <span class="math inline">\(O(n^2)\)</span>.</p>
+sono di complessità <span class="math inline">\(O(n)\)</span>, questo
+metodo naive richiederebbe un tempo <span
+class="math inline">\(O(n^2)\)</span>.</p>
 <p>Tuttavia possiamo fare di meglio se sfruttiamo il fatto che sia <span
 class="math inline">\(H_a\)</span> che <span
 class="math inline">\(H_b\)</span> sono poligoni convessi.</p>
@@ -625,7 +629,7 @@ O(n)\)</span></li>
 </ol>
 <p>Perciò, il processo di fusione ha complessità temporale <span
 class="math inline">\(O(n)\)</span>.</p>
-<h3 id="divide-et-impera">Divide et Impera</h3>
+<h3 id="divide-and-conquer">Divide and Conquer</h3>
 <p>Possiamo vedere che:</p>
 <ul>
 <li>Ordinamento dei punti in input <span
@@ -634,9 +638,14 @@ class="math inline">\(\rightarrow O(n \hspace{0.25em}log
 <ul>
 <li>È necessario fare questo ordinamento una volta sola.</li>
 </ul></li>
-<li>Applichiamo Divide et Impera ricorsivamente sulle due metà
+<li>Applichiamo Divide and Conquer ricorsivamente sulle due metà
 dell’input <span class="math inline">\(\rightarrow
-2T(\dfrac{n}{2})\)</span>.</li>
+2T(\dfrac{n}{2})\)</span>.
+<ul>
+<li><span class="math inline">\(T(n)\)</span> è la funzione che
+caratterizza la complessità temporale della parte ricorsiva
+dell’algoritmo.</li>
+</ul></li>
 <li>Fusione <span class="math inline">\(\rightarrow O(n)\)</span>.</li>
 </ul>
 <p>La complessità temporale dell’applicazione ricorsiva dell’algoritmo è
@@ -667,7 +676,7 @@ n) n \\[8pt]
      &amp;= n T\left(\dfrac{n}{n}\right) + n \log_2 n \\[8pt]
      &amp;= n T(1) + n \log_2 n
 \end{align*}\]</span></p>
-<p>Per input di taglia 1, divide et impera non esegue operazioni, e
+<p>Per input di taglia 1, Divide and Conquer non esegue operazioni, e
 dunque possiamo dire che <span class="math inline">\(T(1) =
 1\)</span>.</p>
 <!-- prettier-ignore -->
@@ -678,7 +687,7 @@ T(n) &amp;= n + n \log_2 n \\[5pt]
 <h3 id="complessità-complessiva">Complessità complessiva</h3>
 <p>Dunque, per quanto detto sopra la complessità temporale complessiva è
 <span class="math inline">\(O(n \hspace{0.25em}log
-\hspace{0.25em}n)\)</span>.</p>
+\hspace{0.25em}n)\)</span> a causa dell’ordinamento.</p>
 <h1 id="algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</h1>
 <h2 id="idea-2">Idea</h2>
 <p>L’idea dell’algoritmo di Akl-Toussaint è la seguente:</p>
@@ -723,29 +732,30 @@ id="ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero">Ricerca
 dei percorsi convessi per ogni lato del quadrilatero</h3>
 <p><img src="./akl_toussaint_quadrilatero.svg"
 style="height: 400px; display: block; margin: auto;" /></p>
-<p>Osserviamo come su ogni lato del quadrilatero soggiace una regione.
-Quello che facciamo è percorrere il quadrilatero in senso orario e, per
-ogni regione, cercare il percorso convesso che ci porta da un estremo
-all’altro del lato su cui soggiace la suddetta regione.</p>
+<p>Osserviamo, sul disegno qui sopra, come ad ogni lato del quadrilatero
+corrisponde una regione. Quello che facciamo è percorrere il
+quadrilatero in senso orario e, per ogni regione, cercare il percorso
+convesso che ci porta da un estremo all’altro del lato corrispondente la
+suddetta regione.</p>
 <h3 id="costruzione-dellinvolucro-convesso-h">Costruzione dell’involucro
 convesso H</h3>
 <p>Una volta che abbiamo determinato i vari percorsi convessi per le
-relative regioni, andiamo a fonderli seguendo il senso orario di
-percorrenza dei lati del quadrilatero. La loro fusione risulta in <span
+relative regioni, andiamo a unirli seguendo il senso orario di
+percorrenza dei lati del quadrilatero. Dalla loro unione risulta <span
 class="math inline">\(H\)</span>.</p>
 <h2 id="ricerca-di-un-percorso-convesso-di-una-data-regione">Ricerca di
 un percorso convesso di una data regione</h2>
 <p>Sia <span class="math inline">\(R\)</span> l’insieme di punti che
-cadono nella regione (compresi gli estremi del lato su cui soggiace la
+cadono nella regione (compresi gli estremi del lato corrispondenti alla
 regione).</p>
 <p>Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di
 <span class="math inline">\(R\)</span> in ordine crescente di <span
-class="math inline">\(x\)</span>, risultando nella lista di punti <span
-class="math inline">\(P\)</span>.</p>
+class="math inline">\(x\)</span>, ottenendo così una lista di punti
+<span class="math inline">\(P\)</span>.</p>
 <p>Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di
 <span class="math inline">\(R\)</span> in ordine decrescente di <span
-class="math inline">\(x\)</span>, risultando nella lista di punti <span
-class="math inline">\(P\)</span>.</p>
+class="math inline">\(x\)</span>, ottenendo così una lista di punti
+<span class="math inline">\(P\)</span>.</p>
 <ol type="1">
 <li><p>Per ogni tripla di punti consecutivi <span
 class="math inline">\((P_k, P_{k+1}, P_{k+2})\)</span> in <span
@@ -771,8 +781,8 @@ consecutivi in <span class="math inline">\(P\)</span>.</p></li>
 ripetiamo (1).</p></li>
 </ol>
 <p>Quando ci fermeremo, la lista <span class="math inline">\(P\)</span>
-sarà proprio la lista di punti, in senso orario, del percorso convesso
-che stavamo cercando.</p>
+sarà proprio la lista di punti, in senso orario, del lato del poligono
+convesso che stavamo cercando.</p>
 <p><img src="./akl_toussaint_determinante.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
 <h2 id="complessità-temporale-2">Complessità temporale</h2>
@@ -782,12 +792,12 @@ style="height: 300px; display: block; margin: auto;" /></p>
 class="math inline">\(\textrm{YMAX}\)</span>, <span
 class="math inline">\(\textrm{XMAX}\)</span>, <span
 class="math inline">\(\textrm{YMIN}\)</span> richiede una semplice
-scansione di <span class="math inline">\(S\)</span> <span
-class="math inline">\(\rightarrow O(n)\)</span></li>
+scansione di <span class="math inline">\(S\)</span> quindi la
+complessità è <span class="math inline">\(O(n)\)</span></li>
 <li>Eliminare i punti di <span class="math inline">\(S\)</span> che
 cadono all’interno del quadrilatero richiede, per ciascun punto, fino a
-quattro half-plane test (uno per ogni lato del quadrilatero) <span
-class="math inline">\(\rightarrow O(n)\)</span></li>
+quattro half-plane test (uno per ogni lato del quadrilatero) la
+complessità è <span class="math inline">\(O(n)\)</span></li>
 </ol>
 <h3 id="ricerca-del-percorso-convesso">Ricerca del percorso
 convesso</h3>
@@ -829,7 +839,7 @@ class="math inline">\(O(n \hspace{0.25em}log
 \hspace{0.25em}n)\)</span>.</p>
 <h3 id="costruzione-di-h-1">Costruzione di H</h3>
 <p>Per costruire <span class="math inline">\(H\)</span> è sufficiente
-scandire i percorsi convessi trovati <span
+unire i percorsi convessi trovati <span
 class="math inline">\(\rightarrow O(n)\)</span></p>
 <h3 id="complessità-complessiva-1">Complessità complessiva</h3>
 <p>Di conseguenza, la complessità temporale complessiva è <span
@@ -849,8 +859,8 @@ class="math inline">\(H&#39;\)</span> usando un processo di
 </ol>
 <h2 id="ordinamento-di-s">Ordinamento di S</h2>
 <p>Ordiniamo i punti di <span class="math inline">\(S\)</span> in ordine
-crescente di <span class="math inline">\(x\)</span>, risultando nella
-lista di punti <span class="math inline">\(P\)</span>.</p>
+crescente di <span class="math inline">\(x\)</span>, ottenendo una lista
+di punti <span class="math inline">\(P\)</span>.</p>
 <h2 id="costruzione-di-h-2">Costruzione di H’</h2>
 <p><img src="./torch_lateral_hulls.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
@@ -894,8 +904,8 @@ dell’involucro laterale NW</h3>
 seguente:</p>
 <ul>
 <li>All’inizio <span class="math inline">\(\Pi_{nw} = W\)</span>.</li>
-<li>Scandiamo <span class="math inline">\(P\)</span>, andando da <span
-class="math inline">\(W\)</span> a <span
+<li>Effettuiamo una scansione di <span class="math inline">\(P\)</span>,
+andando da <span class="math inline">\(W\)</span> a <span
 class="math inline">\(N\)</span>, e ogni volta che incontriamo un punto
 <span class="math inline">\(p\)</span>, con coordinata <span
 class="math inline">\(y\)</span> maggiore della massima <span
@@ -923,7 +933,7 @@ dell’involucro laterale NE</h3>
 molto simile a come abbiamo costruito <span
 class="math inline">\(\Pi_{nw}\)</span>. L’unica differenza è che
 partiamo da <span class="math inline">\(E\)</span>, invece che da <span
-class="math inline">\(W\)</span>, e che scandiamo <span
+class="math inline">\(W\)</span>, e che facciamo la scansione di <span
 class="math inline">\(P\)</span> da <span
 class="math inline">\(E\)</span> a <span
 class="math inline">\(N\)</span>, invece che da <span
@@ -946,8 +956,8 @@ dell’involucro laterale SW</h3>
 seguente:</p>
 <ul>
 <li>All’inizio <span class="math inline">\(\Pi_{sw} = W\)</span>.</li>
-<li>Scandiamo <span class="math inline">\(P\)</span>, andando da <span
-class="math inline">\(W\)</span> a <span
+<li>Effettuiamo una scansione di <span class="math inline">\(P\)</span>,
+andando da <span class="math inline">\(W\)</span> a <span
 class="math inline">\(S\)</span>, e ogni volta che incontriamo un punto
 <span class="math inline">\(p\)</span>, con coordinata <span
 class="math inline">\(y\)</span> minore della minima <span
@@ -975,7 +985,7 @@ dell’involucro laterale SE</h3>
 molto simile a come abbiamo costruito <span
 class="math inline">\(\Pi_{sw}\)</span>. L’unica differenza è che
 partiamo da <span class="math inline">\(E\)</span>, invece che da <span
-class="math inline">\(W\)</span>, e che scandiamo <span
+class="math inline">\(W\)</span>, e che facciamo la scansione di <span
 class="math inline">\(P\)</span> da <span
 class="math inline">\(E\)</span> a <span
 class="math inline">\(S\)</span>, invece che da <span
@@ -1078,10 +1088,10 @@ di approssimazione di Bentley, Faust e Preparata</h1>
 che più comunemente si studiano, non da garanzie di trovare la soluzione
 corretta, bensì ne trova una che, in generale, sarà “abbastanza
 buona”.</p>
-<p>Con “abbastanza buona” si intende che la distanza tra la soluzione e
-quella corretta è minore di un dato valore di soglia. La funzione
-distanza tra le due soluzioni, di norma, emerge naturalmente dalla
-natura del problema trattato, e dalle sue soluzioni.</p>
+<p>Con “abbastanza buona” si intende che la distanza tra la soluzione
+approssimata e quella corretta è minore di un dato valore di soglia. La
+funzione distanza tra le due soluzioni, di norma, emerge naturalmente
+dalla natura del problema trattato, e dalle sue soluzioni.</p>
 <p>Usiamo un algoritmo di approssimazione quando per noi non è
 strettamente necessario trovare la soluzione esatta.</p>
 <p>Ha senso pratico usare un algoritmo di approssimazione solo nel caso
@@ -1094,7 +1104,7 @@ inferiore rispetto a quella approssimata.</p>
 di approssimazione per il problema dell’involucro convesso:</p>
 <ol type="1">
 <li>Sia <span class="math inline">\(S&#39;\)</span> un insieme di punti
-calcolato a partire da <span class="math inline">\(S\)</span>.</li>
+determinato a partire da <span class="math inline">\(S\)</span>.</li>
 <li>Determiniamo <span class="math inline">\(H&#39;\)</span>,
 l’involucro convesso di <span class="math inline">\(S&#39;\)</span>,
 eseguendo un algoritmo per la ricerca dell’involucro convesso su <span
@@ -1106,7 +1116,7 @@ approssimata per <span class="math inline">\(H\)</span>.</li>
 <p>Sia:</p>
 <ul>
 <li><span class="math inline">\(T_{s&#39;}\)</span> la funzione che
-caratterizza la complessità temporale del calcolo di <span
+caratterizza la complessità temporale del della determinazione di <span
 class="math inline">\(S&#39;\)</span>.</li>
 <li><span class="math inline">\(m = | S&#39; |\)</span></li>
 <li><span class="math inline">\(T\)</span> la funzione che caratterizza
@@ -1116,11 +1126,11 @@ class="math inline">\(H&#39;\)</span>.</li>
 <p>Dunque, è chiaro che la complessità temporale di un qualsiasi
 algoritmo di approssimazione che usa lo schema presentato sopra è:</p>
 <p><span class="math display">\[T_{s&#39;}(n) + T(m)\]</span></p>
-<h2 id="calcolo-di-s">Calcolo di S’</h2>
+<h2 id="determinazione-di-s">Determinazione di S’</h2>
 <p>L’aspetto più interessante dello schema generale per la definizione
-di algoritmi di approssimazione dell’involucro convesso è il calcolo di
-<span class="math inline">\(S&#39;\)</span>. Vi sono innumerevoli
-strategie che possiamo usare per calcolare <span
+di algoritmi di approssimazione per l’involucro convesso è la
+determinazione di <span class="math inline">\(S&#39;\)</span>. Vi sono
+innumerevoli strategie che possiamo usare per determinare <span
 class="math inline">\(S&#39;\)</span>. Quella che presenteremo è stata
 proposta da Bentley, Faust e Preparata nel 1988.</p>
 <p>Consideriamo i quattro punti seguenti di <span
@@ -1187,7 +1197,7 @@ style="height: 350px; display: block; margin: auto;" /></p>
 <p>È facile osservare come <span class="math inline">\(\delta \le \delta
 x \le \Delta X\)</span>. <span
 class="math inline">\(\square\)</span></p>
-<p>Possiamo immaginare di aver calcolato <span
+<p>Possiamo immaginare di aver determinato <span
 class="math inline">\(S&#39;\)</span> nel modo seguente:</p>
 <ul>
 <li><p>Aggiungiamo a <span class="math inline">\(S&#39;\)</span> il
@@ -1255,9 +1265,11 @@ questi due deve appartenere a <span
 class="math inline">\(P(H&#39;)\)</span>. Dunque, la distanza <span
 class="math inline">\(\delta\)</span> tra <span
 class="math inline">\(p\)</span> e <span
-class="math inline">\(H&#39;\)</span> è data dalla distanza tra uno dei
-due lati di <span class="math inline">\(H&#39;\)</span> che ha <span
-class="math inline">\(h\)</span> come uno dei due estremi.</p>
+class="math inline">\(H&#39;\)</span> è data dalla distanza di <span
+class="math inline">\(p\)</span> da uno dei due lati di <span
+class="math inline">\(H&#39; \cap \{ \textrm{striscia} \}\)</span>,
+quella che ha <span class="math inline">\(h\)</span> come uno dei due
+estremi.</p>
 <p>Denotiamo con <span class="math inline">\(\delta x\)</span> la
 lunghezza del segmento che ha come estremi:</p>
 <ul>

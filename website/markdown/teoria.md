@@ -10,7 +10,7 @@ header-includes: |
 - [Involucro convesso](#involucro-convesso)
   - [Rappresentare H](#rappresentare-h)
   - [Assunzioni sull'insieme di punti](#assunzioni-sullinsieme-di-punti)
-  - [Lower bound della complessità del problema](#lower-bound-della-complessità-del-problema)
+  - [Lower bound della complessità del problema (in dipendenza da n)](#lower-bound-della-complessità-del-problema-in-dipendenza-da-n)
     - [Dimostrazione](#dimostrazione)
 - [Involucri clockwise e counterclockwise](#involucri-clockwise-e-counterclockwise)
   - [Spiegazione](#spiegazione)
@@ -28,7 +28,7 @@ header-includes: |
   - [Complessità temporale](#complessità-temporale-1)
     - [Ricerca delle tangenti](#ricerca-delle-tangenti)
     - [Fusione](#fusione-1)
-    - [Divide et Impera](#divide-et-impera)
+    - [Divide and Conquer](#divide-and-conquer)
     - [Complessità complessiva](#complessità-complessiva)
 - [Algoritmo di Akl-Toussaint](#algoritmo-di-akl-toussaint)
   - [Idea](#idea-2)
@@ -56,7 +56,7 @@ header-includes: |
 - [Algoritmo di approssimazione di Bentley, Faust e Preparata](#algoritmo-di-approssimazione-di-bentley-faust-e-preparata)
   - [Idea](#idea-4)
     - [Complessità temporale](#complessità-temporale-4)
-  - [Calcolo di S'](#calcolo-di-s)
+  - [Determinazione di S'](#determinazione-di-s)
     - [Proprietà](#proprietà)
       - [Dimostrazione](#dimostrazione-1)
     - [Proprietà](#proprietà-1)
@@ -106,7 +106,7 @@ Nella nostra trattazione assumiamo che l'insieme di punti $S$ soddisfi le seguen
    $$\Delta X = |a_x - b_x| \quad \textrm{e} \quad \Delta Y = |a_y - b_y|$$
    In tal modo due punti non possono trovarsi "troppo" vicini tra loro.
 
-## Lower bound della complessità del problema
+## Lower bound della complessità del problema (in dipendenza da n)
 
 Il lower bound del problema è $\Omega(n \hhquad log \hhquad n)$.
 
@@ -148,9 +148,9 @@ Osserviamo come la prima lista elenca i punti di $H$ in senso antiorario. La sec
 
 [^1]: Non vi sono altre orientazioni possibili.
 
-Nella nostra trattazione, per convenzione e per facilitare l'implementazione degli algoritmi, useremo e ritorneremo sempre liste che elencano i punti dell'involucro convesso in senso orario.
+Nella nostra trattazione, per convenzione e per facilitare l'implementazione degli algoritmi, useremo e otterremo sempre liste che elencano i punti dell'involucro convesso in senso orario.
 
-Di rado può accadere di dover controllare se un involucro convesso è espresso in senso orario o antiorario. Per fare questo:
+Può accadere di dover controllare se un involucro convesso è espresso in senso orario o antiorario. Per fare questo:
 
 - Prendiamo tre punti qualsiasi di $H$ $\vec{u}, \vec{v}, \vec{w}$ **consecutivi**.
 
@@ -228,7 +228,7 @@ Questa divide il piano $\Pi$ in due semipiani, $\Pi^+ \hquad \textrm{e} \hquad \
 
 Per ogni punto $\vec{p} \in S$ con $\vec{p} \neq \vec{u} \hquad \textrm{e} \hquad \vec{p} \neq \vec{v}$ controlliamo se $\vec{p}$ cade in $\Pi^+ \hquad \textrm{o} \hquad \textrm{in} \hquad \Pi^-$.
 
-Se tutti i punti sono caduti esclusivamente in uno dei due semipiani, allora il segmento con estremi $\vec{u} \hquad \textrm{e} \hquad \vec{v}$ è un lato dell'involucro convesso.
+Se tutti i punti sono caduti esclusivamente in uno dei due semipiani, allora il segmento con estremi $\vec{u} \hquad \textrm{e} \hquad \vec{v} \hhquad$ è un lato dell'involucro convesso.
 
 ## Half-plane test
 
@@ -264,7 +264,7 @@ Sappiamo che $\vec{u} \cdot \vec{v} = 0$ se e solo se $u_x v_x + u_y v_y = 0$.
 
 Dunque $u_x = - \dfrac{u_y v_y}{v_x}$
 
-Fissando $u_y = v_x$, abbiamo che $u_x = - \dfrac{v_x v_y}{v_x} = -v_y$
+Fissando $u_y = v_x$, abbiamo che $u_x = - \dfrac{v_x v_y}{v_x} = -v_y$.
 
 ## Complessità temporale
 
@@ -278,11 +278,11 @@ Fissando $u_y = v_x$, abbiamo che $u_x = - \dfrac{v_x v_y}{v_x} = -v_y$
 
 ![](./dc_tangents.svg){ style="height: 250px; display: block; margin: auto;" }
 
-Sia $P$ la lista dei punti di $S$, ordinata in ordine crescente della loro componente $x$.
+Sia $P$ la lista dei punti di $S$, ordinata in ordine crescente rispetto alla loro componente $x$.
 
 Dividiamo $P$ a metà, ottenendo così le liste $A$ e $B$.
 
-Applichiamo ricorsivamente l'algoritmo "Divide et Impera" su $A$ e su $B$, ottenendo così gli involucri convessi $H_a$ e $H_b$ rispettivamente, degli insiemi di punti dati dalle liste $A$ e $B$.
+Applichiamo ricorsivamente l'algoritmo Divide and Conquer su $A$ e su $B$, ottenendo così gli involucri convessi $H_a$ e $H_b$ rispettivamente, degli insiemi di punti dati dalle liste $A$ e $B$.
 
 Fondiamo $H_a$ e $H_b$, ottenendo così l'involucro $H$.
 
@@ -351,7 +351,7 @@ Per costruire $H$, percorriamo:
 
 Usando un approccio naive, possiamo cercare una tangente andando ad esaminare tutte le coppie di punti $(p, q) \in P(H_a) \times P(H_b)$ ed usare il two fingers method per trovare la tangente cercata.
 
-Siccome $\left| P(H_a) \right| \hquad \textrm{e} \hquad \left| P(H_b) \right|$ sono $O(n)$, questo metodo naive richiederebbe un tempo $O(n^2)$.
+Siccome $\left| P(H_a) \right| \hquad \textrm{e} \hquad \left| P(H_b) \right|$ sono di complessità $O(n)$, questo metodo naive richiederebbe un tempo $O(n^2)$.
 
 Tuttavia possiamo fare di meglio se sfruttiamo il fatto che sia $H_a$ che $H_b$ sono poligoni convessi.
 
@@ -382,13 +382,14 @@ Il processo di fusione consiste in:
 
 Perciò, il processo di fusione ha complessità temporale $O(n)$.
 
-### Divide et Impera
+### Divide and Conquer
 
 Possiamo vedere che:
 
 - Ordinamento dei punti in input $\rightarrow O(n \hhquad log \hhquad n)$.
   - È necessario fare questo ordinamento una volta sola.
-- Applichiamo Divide et Impera ricorsivamente sulle due metà dell'input $\rightarrow 2T(\dfrac{n}{2})$.
+- Applichiamo Divide and Conquer ricorsivamente sulle due metà dell'input $\rightarrow 2T(\dfrac{n}{2})$.
+  - $T(n)$ è la funzione che caratterizza la complessità temporale della parte ricorsiva dell'algoritmo.
 - Fusione $\rightarrow O(n)$.
 
 La complessità temporale dell'applicazione ricorsiva dell'algoritmo è espressa dalla seguente relazione di ricorrenza:
@@ -413,7 +414,7 @@ T(n) &= 2^{\log_2 n} T\left(\dfrac{n}{2^{\log_2 n}}\right) + (\log_2 n) n \\[8pt
      &= n T(1) + n \log_2 n
 \end{align*}
 
-Per input di taglia 1, divide et impera non esegue operazioni, e dunque possiamo dire che $T(1) = 1$.
+Per input di taglia 1, Divide and Conquer non esegue operazioni, e dunque possiamo dire che $T(1) = 1$.
 
 <!-- prettier-ignore -->
 \begin{align*}
@@ -423,7 +424,7 @@ T(n) &= n + n \log_2 n \\[5pt]
 
 ### Complessità complessiva
 
-Dunque, per quanto detto sopra la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.
+Dunque, per quanto detto sopra la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$ a causa dell'ordinamento.
 
 # Algoritmo di Akl-Toussaint
 
@@ -453,19 +454,19 @@ Dunque possiamo eliminare tali punti da $S$.
 
 ![](./akl_toussaint_quadrilatero.svg){ style="height: 400px; display: block; margin: auto;" }
 
-Osserviamo come su ogni lato del quadrilatero soggiace una regione. Quello che facciamo è percorrere il quadrilatero in senso orario e, per ogni regione, cercare il percorso convesso che ci porta da un estremo all'altro del lato su cui soggiace la suddetta regione.
+Osserviamo, sul disegno qui sopra, come ad ogni lato del quadrilatero corrisponde una regione. Quello che facciamo è percorrere il quadrilatero in senso orario e, per ogni regione, cercare il percorso convesso che ci porta da un estremo all'altro del lato corrispondente alla suddetta regione.
 
 ### Costruzione dell'involucro convesso H
 
-Una volta che abbiamo determinato i vari percorsi convessi per le relative regioni, andiamo a fonderli seguendo il senso orario di percorrenza dei lati del quadrilatero. La loro fusione risulta in $H$.
+Una volta che abbiamo determinato i vari percorsi convessi per le relative regioni, andiamo a unirli seguendo il senso orario di percorrenza dei lati del quadrilatero. Dalla loro unione risulta $H$.
 
 ## Ricerca di un percorso convesso di una data regione
 
-Sia $R$ l'insieme di punti che cadono nella regione (compresi gli estremi del lato su cui soggiace la regione).
+Sia $R$ l'insieme di punti che cadono nella regione (compresi gli estremi del lato corrispondente alla regione).
 
-Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di $R$ in ordine crescente di $x$, risultando nella lista di punti $P$.
+Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di $R$ in ordine crescente di $x$, ottenendo così una lista di punti $P$.
 
-Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine decrescente di $x$, risultando nella lista di punti $P$.
+Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine decrescente di $x$, ottenendo così una lista di punti $P$.
 
 1. Per ogni tripla di punti consecutivi $(P_k, P_{k+1}, P_{k+2})$ in $P$:
 
@@ -479,7 +480,7 @@ Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine 
 
 2. Se abbiamo completato (1) senza avere rimosso nessun punto di $P$, allora ci fermiamo, altrimenti ripetiamo (1).
 
-Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orario, del percorso convesso che stavamo cercando.
+Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orario, del lato del poligono convesso che stavamo cercando.
 
 ![](./akl_toussaint_determinante.svg){ style="height: 300px; display: block; margin: auto;" }
 
@@ -487,8 +488,8 @@ Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orar
 
 ### Euristica
 
-1. Cercare $\textrm{XMIN}$, $\textrm{YMAX}$, $\textrm{XMAX}$, $\textrm{YMIN}$ richiede una semplice scansione di $S$ $\rightarrow O(n)$
-2. Eliminare i punti di $S$ che cadono all'interno del quadrilatero richiede, per ciascun punto, fino a quattro half-plane test (uno per ogni lato del quadrilatero) $\rightarrow O(n)$
+1. Cercare $\textrm{XMIN}$, $\textrm{YMAX}$, $\textrm{XMAX}$, $\textrm{YMIN}$ richiede una semplice scansione di $S$ quindi la complessità è $O(n)$
+2. Eliminare i punti di $S$ che cadono all'interno del quadrilatero richiede, per ciascun punto, fino a quattro half-plane test (uno per ogni lato del quadrilatero) quindi la complessità è $O(n)$
 
 ### Ricerca del percorso convesso
 
@@ -510,7 +511,7 @@ Dunque, la complessità della ricerca del percorso convesso è $O(n \hhquad log 
 
 ### Costruzione di H
 
-Per costruire $H$ è sufficiente scandire i percorsi convessi trovati $\rightarrow O(n)$
+Per costruire $H$ è sufficiente unire i percorsi convessi trovati $\rightarrow O(n)$
 
 ### Complessità complessiva
 
@@ -528,7 +529,7 @@ A grandi linee TORCH:
 
 ## Ordinamento di S
 
-Ordiniamo i punti di $S$ in ordine crescente di $x$, risultando nella lista di punti $P$.
+Ordiniamo i punti di $S$ in ordine crescente di $x$, ottenendo così una lista di punti $P$.
 
 ## Costruzione di H'
 
@@ -555,7 +556,7 @@ Costruiamo $H'$ concatenando $\Pi_{nw}, \Pi_{ne}, \Pi_{sw} \hquad \textrm{e} \hq
 Costruiamo $\Pi_{nw}$ nel modo seguente:
 
 - All'inizio $\Pi_{nw} = W$.
-- Scandiamo $P$, andando da $W$ a $N$, e ogni volta che incontriamo un punto $p$, con coordinata $y$ maggiore della massima $y$ incontrata durante la scansione di $P$, da $W$ fino a $p$, aggiungiamo $p$ in coda a $\Pi_{nw}$.
+- Effettuiamo una scansione di $P$, andando da $W$ a $N$, e ogni volta che incontriamo un punto $p$, con coordinata $y$ maggiore della massima $y$ incontrata durante la scansione di $P$, da $W$ fino a $p$, aggiungiamo $p$ in coda a $\Pi_{nw}$.
 
 Possiamo osservare che, alla fine della sua costruzione, $\Pi_{nw}$ avrà la struttura seguente:
 
@@ -568,7 +569,7 @@ dove
 
 ### Costruzione dell'involucro laterale NE
 
-Costruiamo $\Pi_{ne}$ in modo molto simile a come abbiamo costruito $\Pi_{nw}$. L'unica differenza è che partiamo da $E$, invece che da $W$, e che scandiamo $P$ da $E$ a $N$, invece che da $W$ a $N$.
+Costruiamo $\Pi_{ne}$ in modo molto simile a come abbiamo costruito $\Pi_{nw}$. L'unica differenza è che partiamo da $E$, invece che da $W$, e che facciamo la scansione di $P$ da $E$ a $N$, invece che da $W$ a $N$.
 
 Possiamo osservare che alla fine della sua costruzione, $\Pi_{ne}$ avrà la struttura seguente:
 
@@ -584,7 +585,7 @@ dove
 Costruiamo $\Pi_{sw}$ nel modo seguente:
 
 - All'inizio $\Pi_{sw} = W$.
-- Scandiamo $P$, andando da $W$ a $S$, e ogni volta che incontriamo un punto $p$, con coordinata $y$ minore della minima $y$ incontrata durante la scansione di $P$, da $W$ fino a $p$, aggiungiamo $p$ in coda a $\Pi_{sw}$.
+- Effettuiamo una scansione di $P$, andando da $W$ a $S$, e ogni volta che incontriamo un punto $p$, con coordinata $y$ minore della minima $y$ incontrata durante la scansione di $P$, da $W$ fino a $p$, aggiungiamo $p$ in coda a $\Pi_{sw}$.
 
 Possiamo osservare che, alla fine della sua costruzione, $\Pi_{sw}$ avrà la struttura seguente:
 
@@ -597,7 +598,7 @@ dove
 
 ### Costruzione dell'involucro laterale SE
 
-Costruiamo $\Pi_{se}$ in modo molto simile a come abbiamo costruito $\Pi_{sw}$. L'unica differenza è che partiamo da $E$, invece che da $W$, e che scandiamo $P$ da $E$ a $S$, invece che da $W$ a $S$.
+Costruiamo $\Pi_{se}$ in modo molto simile a come abbiamo costruito $\Pi_{sw}$. L'unica differenza è che partiamo da $E$, invece che da $W$, e che facciamo la scansione di $P$ da $E$ a $S$, invece che da $W$ a $S$.
 
 Possiamo osservare che alla fine della sua costruzione, $\Pi_{se}$ avrà la struttura seguente:
 
@@ -657,7 +658,7 @@ Dunque, la complessità temporale dell'algoritmo è $O(n \hhquad log \hhquad n)$
 
 Un algoritmo di approssimazione, al contrario dei classici algoritmi che più comunemente si studiano, non da garanzie di trovare la soluzione corretta, bensì ne trova una che, in generale, sarà "abbastanza buona".
 
-Con "abbastanza buona" si intende che la distanza tra la soluzione e quella corretta è minore di un dato valore di soglia. La funzione distanza tra le due soluzioni, di norma, emerge naturalmente dalla natura del problema trattato, e dalle sue soluzioni.
+Con "abbastanza buona" si intende che la distanza tra la soluzione approssimata e quella corretta è minore di un dato valore di soglia. La funzione distanza tra le due soluzioni, di norma, emerge naturalmente dalla natura del problema trattato, e dalle sue soluzioni.
 
 Usiamo un algoritmo di approssimazione quando per noi non è strettamente necessario trovare la soluzione esatta.
 
@@ -667,7 +668,7 @@ Ha senso pratico usare un algoritmo di approssimazione solo nel caso in cui il s
 
 Presentiamo ora uno schema generale per la definizione di algoritmi di approssimazione per il problema dell'involucro convesso:
 
-1. Sia $S'$ un insieme di punti calcolato a partire da $S$.
+1. Sia $S'$ un insieme di punti determinato a partire da $S$.
 2. Determiniamo $H'$, l'involucro convesso di $S'$, eseguendo un algoritmo per la ricerca dell'involucro convesso su $S'$.
 3. Usiamo $H'$ come soluzione approssimata per $H$.
 
@@ -675,7 +676,7 @@ Presentiamo ora uno schema generale per la definizione di algoritmi di approssim
 
 Sia:
 
-- $T_{s'}$ la funzione che caratterizza la complessità temporale del calcolo di $S'$.
+- $T_{s'}$ la funzione che caratterizza la complessità temporale della determinazione di $S'$.
 - $m = | S' |$
 - $T$ la funzione che caratterizza la complessità temporale dell'algoritmo usato per trovare $H'$.
 
@@ -683,9 +684,9 @@ Dunque, è chiaro che la complessità temporale di un qualsiasi algoritmo di app
 
 $$T_{s'}(n) + T(m)$$
 
-## Calcolo di S'
+## Determinazione di S'
 
-L'aspetto più interessante dello schema generale per la definizione di algoritmi di approssimazione dell'involucro convesso è il calcolo di $S'$. Vi sono innumerevoli strategie che possiamo usare per calcolare $S'$. Quella che presenteremo è stata proposta da Bentley, Faust e Preparata nel 1988.
+L'aspetto più interessante dello schema generale per la definizione di algoritmi di approssimazione per l'involucro convesso è la determinazione di $S'$. Vi sono innumerevoli strategie che possiamo usare per determinare $S'$. Quella che presenteremo è stata proposta da Bentley, Faust e Preparata nel 1988.
 
 Consideriamo i quattro punti seguenti di $S$:
 
@@ -721,7 +722,7 @@ Denotiamo con $\delta x$, la lunghezza del segmento con estremi:
 
 È facile osservare come $\delta \le \delta x \le \Delta X$. $\square$
 
-Possiamo immaginare di aver calcolato $S'$ nel modo seguente:
+Possiamo immaginare di aver determinato $S'$ nel modo seguente:
 
 - Aggiungiamo a $S'$ il punto $\textrm{XMIN}$.
 
@@ -753,7 +754,7 @@ Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ [^2] allora la distanz
 
 Consideriamo un qualsiasi punto $p \in S$ che cade al di fuori di $H'$. Per costruzione, $p$ deve cadere all'interno di una data striscia.
 
-Siccome $p$ cade al di fuori di $H'$, $p$ non è stato preso dal campionamento, e dunque $p$ non può né avere $y$ minima né $y$ massima nella striscia in cui cade. Dunque, $p_y$ deve essere compreso tra questi due valori, esclusi. Perciò, nella striscia in cui cade $p$, devono cadere almeno altri due punti. Oltretutto, almeno un punto $h$ tra questi due deve appartenere a $P(H')$. Dunque, la distanza $\delta$ tra $p$ e $H'$ è data dalla distanza tra uno dei due lati di $H'$ che ha $h$ come uno dei due estremi.
+Siccome $p$ cade al di fuori di $H'$, $p$ non è stato preso dal campionamento, e dunque $p$ non può né avere $y$ minima né $y$ massima nella striscia in cui cade. Dunque, $p_y$ deve essere compreso tra questi due valori, esclusi. Perciò, nella striscia in cui cade $p$, devono cadere almeno altri due punti. Oltretutto, almeno un punto $h$ tra questi due deve appartenere a $P(H')$. Dunque, la distanza $\delta$ tra $p$ e $H'$ è data dalla distanza di $p$ da uno dei due lati di $H' \cap \{ \textrm{striscia} \}$, quella che ha $h$ come uno dei due estremi.
 
 Denotiamo con $\delta x$ la lunghezza del segmento che ha come estremi:
 
