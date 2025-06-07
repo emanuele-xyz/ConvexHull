@@ -217,14 +217,14 @@ punti non possono trovarsi “troppo” vicini tra loro.</p></li>
 <h2
 id="lower-bound-della-complessità-del-problema-in-dipendenza-da-n">Lower
 bound della complessità del problema (in dipendenza da n)</h2>
-<p>Il lower bound del problema è <span class="math inline">\(\Omega(n
+<p>Il lower bound del problema è <span class="math inline">\(O(n
 \hspace{0.25em}log \hspace{0.25em}n)\)</span>.</p>
 <h3 id="dimostrazione">Dimostrazione</h3>
 <p><img src="./lower_bound.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
 <p>Supponiamo di avere il seguente insieme finito di numeri</p>
 <p><span class="math display">\[I = \{ x_1, x_2, x_3, ..., x_n \}
-\subseteq \mathbb{R} \quad \textrm{dove} \quad x_1 &lt; x_2 &lt; x_3
+\subseteq \mathbb{R} \quad \textrm{dove} \quad 0 = x_1 &lt; x_2 &lt; x_3
 &lt; ... &lt; x_n\]</span></p>
 <p>Definiamo il seguente insieme</p>
 <p><span class="math display">\[S = \{ (x_i, x_i^2) \mid x_i \in I \}
@@ -234,10 +234,10 @@ giacciono su una parabola. Proprio per questo, è facile vedere che un
 possibile involucro convesso di <span class="math inline">\(S\)</span> è
 dato dalla lista <span class="math inline">\((x_1, x_1^2), (x_2, x_2^2),
 ..., (x_n, x_n^2)\)</span>.</p>
-<p>Se ottenessimo una qualsiasi altra lista, potremmo ottenere quella
-mostrata sopra in tempo <span class="math inline">\(O(d)\)</span> e
-dunque <span class="math inline">\(O(n)\)</span>, trattandosi di una
-ricerca dell’elemento minimo.</p>
+<p>Se i numeri avessere un ordinamento casuale, potremmo ottenere
+l’ordinamento qui sopra in tempo <span
+class="math inline">\(O(n)\)</span>, trattandosi di una ricerca
+dell’elemento minimo.</p>
 <p>Supponiamo ora, per assurdo, di essere in grado di trovare
 l’involucro convesso di <span class="math inline">\(S\)</span> in tempo
 inferiore a <span class="math inline">\(O(n \hspace{0.25em}log
@@ -250,7 +250,7 @@ x_2, ..., x_n\)</span>. Dunque saremmo in grado di ordinare l’insieme
 class="math inline">\(O(n \hspace{0.25em}log
 \hspace{0.25em}n)\)</span>.</p>
 <p>Questo è assurdo perché il lower bound del problema dell’ordinamento
-è <span class="math inline">\(\Omega(n \hspace{0.25em}log
+è <span class="math inline">\(O(n \hspace{0.25em}log
 \hspace{0.25em}n)\)</span>. <span
 class="math inline">\(\square\)</span></p>
 <h1 id="involucri-clockwise-e-counterclockwise">Involucri clockwise e
@@ -349,10 +349,14 @@ class="math inline">\(\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\
 \vec{w}_x - \vec{v}_x \\ \vec{w}_y - \vec{v}_y
 \end{bmatrix}\)</span>.</p>
 <p>Notiamo come <span class="math inline">\(\begin{bmatrix} -(\vec{v}_y
-- \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}\)</span> è
-perpendicolare a <span class="math inline">\(\begin{bmatrix} \vec{v}_x -
-\vec{u}_x \\ \vec{v}_y - \vec{u}_y \end{bmatrix}\)</span> e lo denotiamo
-con <span class="math inline">\((\vec{v} - \vec{u})_\perp\)</span>.</p>
+- \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}\)</span> è il
+vettore perpendicolare a <span class="math inline">\(\begin{bmatrix}
+\vec{v}_x - \vec{u}_x \\ \vec{v}_y - \vec{u}_y \end{bmatrix}\)</span>,
+ottenuto da quest’ultimo mediante una rotazione di <span
+class="math inline">\(+\frac{\pi}{2}\)</span>.</p>
+<p>Denotiamo <span class="math inline">\(\begin{bmatrix} -(\vec{v}_y -
+\vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}\)</span> con <span
+class="math inline">\((\vec{v} - \vec{u})_\perp\)</span>.</p>
 <p>Vediamo “in azione” il test sull’involucro mostrato sopra, sia per il
 caso orario che antiorario.</p>
 <p><img src="./ccw_test.svg"
@@ -422,26 +426,20 @@ class="math inline">\(0 &lt; \theta &lt; \dfrac{\pi}{2}
 class="math inline">\(\dfrac{\pi}{2} &lt; \phi &lt; \pi\)</span>.</p>
 <h2 id="come-trovare-un-vettore-perpendicolare-ad-un-altro">Come trovare
 un vettore perpendicolare ad un altro?</h2>
+<p>Dato un vettore <span class="math inline">\(\vec{v}\)</span>,
+vogliamo trovare il vettore <span
+class="math inline">\(\vec{u}\)</span>, perpendicolare a <span
+class="math inline">\(\vec{v}\)</span>, ottenuto da quest’ultimo
+mediante una rotazione di <span
+class="math inline">\(+\frac{\pi}{2}\)</span>.</p>
 <p><img src="./vettori_perpendicolari.svg"
 style="height: 250px; display: block; margin: auto;" /></p>
-<p>Consideriamo il vettore <span class="math inline">\(\vec{v}
-\leftrightarrow \begin{bmatrix} v_x \\ v_y \end{bmatrix}\)</span>.</p>
-<p>Un vettore <span class="math inline">\(\vec{u} \leftrightarrow
-\begin{bmatrix} u_x \\ u_y \end{bmatrix}\)</span> è perpendicolare a
-<span class="math inline">\(\vec{v}\)</span> se e solo se <span
-class="math inline">\(\vec{u} \cdot \vec{v} = 0\)</span>.</p>
-<p>Vogliamo determinare <span class="math inline">\(u_x
-\hspace{0.5em}\textrm{e} \hspace{0.5em}u_y\)</span>, essendo a
-conoscenza di <span class="math inline">\(v_x \hspace{0.5em}\textrm{e}
-\hspace{0.5em}v_y\)</span>.</p>
-<p>Sappiamo che <span class="math inline">\(\vec{u} \cdot \vec{v} =
-0\)</span> se e solo se <span class="math inline">\(u_x v_x + u_y v_y =
-0\)</span>.</p>
-<p>Dunque <span class="math inline">\(u_x = - \dfrac{u_y
-v_y}{v_x}\)</span></p>
-<p>Fissando <span class="math inline">\(u_y = v_x\)</span>, abbiamo che
-<span class="math inline">\(u_x = - \dfrac{v_x v_y}{v_x} =
--v_y\)</span>.</p>
+<p>Date le coordinate <span class="math inline">\(\begin{bmatrix} v_x \\
+v_y \end{bmatrix}\)</span> di <span
+class="math inline">\(\vec{v}\)</span>, il vettore richiesto <span
+class="math inline">\(\vec{u}\)</span> ha coordinate <span
+class="math inline">\(\begin{bmatrix} -v_y \\ v_x
+\end{bmatrix}\)</span></p>
 <h2 id="complessità-temporale">Complessità temporale</h2>
 <ul>
 <li>Iterare per ogni coppia di punti <span
@@ -639,17 +637,33 @@ class="math inline">\(\rightarrow O(n \hspace{0.25em}log
 <li>È necessario fare questo ordinamento una volta sola.</li>
 </ul></li>
 <li>Applichiamo Divide and Conquer ricorsivamente sulle due metà
-dell’input <span class="math inline">\(\rightarrow
-2T(\dfrac{n}{2})\)</span>.
+dell’input.
 <ul>
-<li><span class="math inline">\(T(n)\)</span> è la funzione che
-caratterizza la complessità temporale della parte ricorsiva
-dell’algoritmo.</li>
+<li>Denotiamo <span class="math inline">\(T(n)\)</span> la complessità
+temporale dell’applicazione ricorsiva di divide and conquer, su input di
+taglia <span class="math inline">\(n\)</span>.</li>
 </ul></li>
-<li>Fusione <span class="math inline">\(\rightarrow O(n)\)</span>.</li>
 </ul>
-<p>La complessità temporale dell’applicazione ricorsiva dell’algoritmo è
-espressa dalla seguente relazione di ricorrenza:</p>
+<p>Per determinare la complessità temporale di divide and conquer,
+dobbiamo trovare l’ordine di grandezza di <span
+class="math inline">\(T(n)\)</span>. Per fare questo, osserviamo in cosa
+consite un passo dell’applicazione ricorsiva dell’algoritmo:</p>
+<ul>
+<li>Dividiamo l’input iniziale di taglia <span
+class="math inline">\(n\)</span> in due metà, ognuna di taglia <span
+class="math inline">\(\frac{n}{2}\)</span>.</li>
+<li>Applichiamo ricorsivamente divide and conquer (senza ordinamento),
+sulle due metà <span class="math inline">\(\rightarrow
+2T(\dfrac{n}{2})\)</span>.</li>
+<li>Fondiamo le due soluzioni ottenute dalle due applicazioni ricorsive
+<span class="math inline">\(\rightarrow O(n)\)</span>.</li>
+</ul>
+<p>Detto ciò, è facile vedere che vale la seguente relazione di
+ricorrenza.</p>
+<p><span class="math inline">\(T(n) = 2T(\dfrac{n}{2}) + n\)</span></p>
+<p>Per trovare l’ordine di grandezza di <span
+class="math inline">\(T(n)\)</span> è sufficiente risolvere tale
+relazione di ricorrenza. Procediamo nel modo seguente:</p>
 <!-- prettier-ignore -->
 <p><span class="math display">\[\begin{align*}
 T(n) &amp;= 2T\left(\dfrac{n}{2}\right) + n &amp;&amp; \textrm{1
@@ -687,7 +701,7 @@ T(n) &amp;= n + n \log_2 n \\[5pt]
 <h3 id="complessità-complessiva">Complessità complessiva</h3>
 <p>Dunque, per quanto detto sopra la complessità temporale complessiva è
 <span class="math inline">\(O(n \hspace{0.25em}log
-\hspace{0.25em}n)\)</span> a causa dell’ordinamento.</p>
+\hspace{0.25em}n)\)</span>.</p>
 <h1 id="algoritmo-di-akl-toussaint">Algoritmo di Akl-Toussaint</h1>
 <h2 id="idea-2">Idea</h2>
 <p>L’idea dell’algoritmo di Akl-Toussaint è la seguente:</p>
@@ -792,12 +806,12 @@ style="height: 300px; display: block; margin: auto;" /></p>
 class="math inline">\(\textrm{YMAX}\)</span>, <span
 class="math inline">\(\textrm{XMAX}\)</span>, <span
 class="math inline">\(\textrm{YMIN}\)</span> richiede una semplice
-scansione di <span class="math inline">\(S\)</span> quindi la
-complessità è <span class="math inline">\(O(n)\)</span></li>
+scansione di <span class="math inline">\(S\)</span> <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
 <li>Eliminare i punti di <span class="math inline">\(S\)</span> che
 cadono all’interno del quadrilatero richiede, per ciascun punto, fino a
-quattro half-plane test (uno per ogni lato del quadrilatero) quindi la
-complessità è <span class="math inline">\(O(n)\)</span></li>
+quattro half-plane test (uno per ogni lato del quadrilatero) <span
+class="math inline">\(\rightarrow O(n)\)</span></li>
 </ol>
 <h3 id="ricerca-del-percorso-convesso">Ricerca del percorso
 convesso</h3>

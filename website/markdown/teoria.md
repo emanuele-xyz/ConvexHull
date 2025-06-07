@@ -386,6 +386,7 @@ Possiamo vedere che:
   - Denotiamo $T(n)$ la complessità temporale dell'applicazione ricorsiva di divide and conquer, su input di taglia $n$.
 
 Per determinare la complessità temporale di divide and conquer, dobbiamo trovare l'ordine di grandezza di $T(n)$. Per fare questo, osserviamo in cosa consiste un passo dell'applicazione ricorsiva dell'algoritmo:
+
 - Dividiamo l'input iniziale di taglia $n$ in due metà, ognuna di taglia $\frac{n}{2}$.
 - Applichiamo ricorsivamente divide and conquer (senza ordinamento), sulle due metà $\rightarrow 2T(\dfrac{n}{2})$.
 - Fondiamo le due soluzioni ottenute dalle due applicazioni ricorsive $\rightarrow O(n)$.
@@ -490,8 +491,8 @@ Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orar
 
 ### Euristica
 
-1. Cercare $\textrm{XMIN}$, $\textrm{YMAX}$, $\textrm{XMAX}$, $\textrm{YMIN}$ richiede una semplice scansione di $S$ quindi la complessità è $O(n)$
-2. Eliminare i punti di $S$ che cadono all'interno del quadrilatero richiede, per ciascun punto, fino a quattro half-plane test (uno per ogni lato del quadrilatero) quindi la complessità è $O(n)$
+1. Cercare $\textrm{XMIN}$, $\textrm{YMAX}$, $\textrm{XMAX}$, $\textrm{YMIN}$ richiede una semplice scansione di $S$ $\rightarrow O(n)$
+2. Eliminare i punti di $S$ che cadono all'interno del quadrilatero richiede, per ciascun punto, fino a quattro half-plane test (uno per ogni lato del quadrilatero) $\rightarrow O(n)$
 
 ### Ricerca del percorso convesso
 
