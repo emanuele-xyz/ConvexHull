@@ -108,7 +108,7 @@ Nella nostra trattazione assumiamo che l'insieme di punti $S$ soddisfi le seguen
 
 ## Lower bound della complessità del problema (in dipendenza da n)
 
-Il lower bound del problema è $\Omega(n \hhquad log \hhquad n)$.
+Il lower bound del problema è $O(n \hhquad log \hhquad n)$.
 
 ### Dimostrazione
 
@@ -130,7 +130,7 @@ Supponiamo ora, per assurdo, di essere in grado di trovare l'involucro convesso 
 
 Se questo fosse il caso, prendendo la prima proiezione della lista $(x_1, x_1^2), (x_2, x_2^2), ..., (x_n, x_n^2)$. otterremo la lista $x_1, x_2, ..., x_n$. Dunque saremmo in grado di ordinare l'insieme $I$ in tempo inferiore a $O(n \hhquad log \hhquad n)$.
 
-Questo è assurdo perché il lower bound del problema dell'ordinamento è $\Omega(n \hhquad log \hhquad n)$. $\square$
+Questo è assurdo perché il lower bound del problema dell'ordinamento è $O(n \hhquad log \hhquad n)$. $\square$
 
 # Involucri clockwise e counterclockwise
 
