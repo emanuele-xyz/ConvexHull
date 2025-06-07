@@ -386,6 +386,7 @@ Possiamo vedere che:
   - Denotiamo $T(n)$ la complessità temporale dell'applicazione ricorsiva di divide and conquer, su input di taglia $n$.
 
 Per determinare la complessità temporale di divide and conquer, dobbiamo trovare l'ordine di grandezza di $T(n)$. Per fare questo, osserviamo in cosa consite un passo dell'applicazione ricorsiva dell'algoritmo:
+
 - Dividiamo l'input iniziale di taglia $n$ in due metà, ognuna di taglia $\frac{n}{2}$.
 - Applichiamo ricorsivamente divide and conquer (senza ordinamento), sulle due metà $\rightarrow 2T(\dfrac{n}{2})$.
 - Fondiamo le due soluzioni ottenute dalle due applicazioni ricorsive $\rightarrow O(n)$.
