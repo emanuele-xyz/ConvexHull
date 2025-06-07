@@ -382,11 +382,19 @@ Possiamo vedere che:
 
 - Ordinamento dei punti in input $\rightarrow O(n \hhquad log \hhquad n)$.
   - È necessario fare questo ordinamento una volta sola.
-- Applichiamo Divide and Conquer ricorsivamente sulle due metà dell'input $\rightarrow 2T(\dfrac{n}{2})$.
-  - $T(n)$ è la funzione che caratterizza la complessità temporale della parte ricorsiva dell'algoritmo.
-- Fusione $\rightarrow O(n)$.
+- Applichiamo Divide and Conquer ricorsivamente sulle due metà dell'input.
+  - Denotiamo $T(n)$ la complessità temporale dell'applicazione ricorsiva di divide and conquer, su input di taglia $n$.
 
-La complessità temporale dell'applicazione ricorsiva dell'algoritmo è espressa dalla seguente relazione di ricorrenza:
+Per determinare la complessità temporale di divide and conquer, dobbiamo trovare l'ordine di grandezza di $T(n)$. Per fare questo, osserviamo in cosa consite un passo dell'applicazione ricorsiva dell'algoritmo:
+- Dividiamo l'input iniziale di taglia $n$ in due metà, ognuna di taglia $\frac{n}{2}$.
+- Applichiamo ricorsivamente divide and conquer (senza ordinamento), sulle due metà $\rightarrow 2T(\dfrac{n}{2})$.
+- Fondiamo le due soluzioni ottenute dalle due applicazioni ricorsive $\rightarrow O(n)$.
+
+Detto ciò, è facile vedere che vale la seguente relazione di ricorrenza.
+
+$T(n) = 2T(\dfrac{n}{2}) + n$
+
+Per trovare l'ordine di grandezza di $T(n)$ è sufficiente risolvere tale relazione di ricorrenza. Procediamo nel modo seguente:
 
 <!-- prettier-ignore -->
 \begin{align*}
@@ -418,7 +426,7 @@ T(n) &= n + n \log_2 n \\[5pt]
 
 ### Complessità complessiva
 
-Dunque, per quanto detto sopra la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$ a causa dell'ordinamento.
+Dunque, per quanto detto sopra la complessità temporale complessiva è $O(n \hhquad log \hhquad n)$.
 
 # Algoritmo di Akl-Toussaint
 
