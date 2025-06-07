@@ -116,7 +116,7 @@ Il lower bound del problema è $O(n \hhquad log \hhquad n)$.
 
 Supponiamo di avere il seguente insieme finito di numeri
 
-$$I = \{ x_1, x_2, x_3, ..., x_n \} \subseteq \mathbb{R} \quad \textrm{dove} \quad x_1 < x_2 < x_3 < ... < x_n$$
+$$I = \{ x_1, x_2, x_3, ..., x_n \} \subseteq \mathbb{R} \quad \textrm{dove} \quad 0 = x_1 < x_2 < x_3 < ... < x_n$$
 
 Definiamo il seguente insieme
 
