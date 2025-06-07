@@ -124,7 +124,7 @@ $$S = \{ (x_i, x_i^2) \mid x_i \in I \} \subseteq \mathbb{R}^2$$
 
 Notiamo come i punti di $S$ giacciono su una parabola. Proprio per questo, è facile vedere che un possibile involucro convesso di $S$ è dato dalla lista $(x_1, x_1^2), (x_2, x_2^2), ..., (x_n, x_n^2)$.
 
-Se i numeri avessere un ordinamento casuale, potremmo ottenere l'ordinamento qui sopra in tempo $O(n)$, trattandosi di una ricerca dell'elemento minimo.
+Se i numeri avessero un ordinamento casuale, potremmo ottenere l'ordinamento qui sopra in tempo $O(n)$, trattandosi di una ricerca dell'elemento minimo.
 
 Supponiamo ora, per assurdo, di essere in grado di trovare l'involucro convesso di $S$ in tempo inferiore a $O(n \hhquad log \hhquad n)$.
 
@@ -385,7 +385,7 @@ Possiamo vedere che:
 - Applichiamo Divide and Conquer ricorsivamente sulle due metà dell'input.
   - Denotiamo $T(n)$ la complessità temporale dell'applicazione ricorsiva di divide and conquer, su input di taglia $n$.
 
-Per determinare la complessità temporale di divide and conquer, dobbiamo trovare l'ordine di grandezza di $T(n)$. Per fare questo, osserviamo in cosa consite un passo dell'applicazione ricorsiva dell'algoritmo:
+Per determinare la complessità temporale di divide and conquer, dobbiamo trovare l'ordine di grandezza di $T(n)$. Per fare questo, osserviamo in cosa consiste un passo dell'applicazione ricorsiva dell'algoritmo:
 - Dividiamo l'input iniziale di taglia $n$ in due metà, ognuna di taglia $\frac{n}{2}$.
 - Applichiamo ricorsivamente divide and conquer (senza ordinamento), sulle due metà $\rightarrow 2T(\dfrac{n}{2})$.
 - Fondiamo le due soluzioni ottenute dalle due applicazioni ricorsive $\rightarrow O(n)$.
