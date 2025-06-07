@@ -124,7 +124,7 @@ $$S = \{ (x_i, x_i^2) \mid x_i \in I \} \subseteq \mathbb{R}^2$$
 
 Notiamo come i punti di $S$ giacciono su una parabola. Proprio per questo, è facile vedere che un possibile involucro convesso di $S$ è dato dalla lista $(x_1, x_1^2), (x_2, x_2^2), ..., (x_n, x_n^2)$.
 
-Se ottenessimo una qualsiasi altra lista, potremmo ottenere quella mostrata sopra in tempo $O(d)$ e dunque $O(n)$, trattandosi di una ricerca dell'elemento minimo.
+Se i numeri avessere un ordinamento casuale, potremmo ottenere l'ordinamento qui sopra in tempo $O(n)$, trattandosi di una ricerca dell'elemento minimo.
 
 Supponiamo ora, per assurdo, di essere in grado di trovare l'involucro convesso di $S$ in tempo inferiore a $O(n \hhquad log \hhquad n)$.
 
@@ -208,7 +208,9 @@ $$
 
 con $\theta$ angolo tra $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix} \quad \text{e} \quad \begin{bmatrix} \vec{w}_x - \vec{v}_x \\ \vec{w}_y - \vec{v}_y \end{bmatrix}$.
 
-Notiamo come $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}$ è perpendicolare a $\begin{bmatrix} \vec{v}_x - \vec{u}_x \\ \vec{v}_y - \vec{u}_y \end{bmatrix}$ e lo denotiamo con $(\vec{v} - \vec{u})_\perp$.
+Notiamo come $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}$ è il vettore perpendicolare a $\begin{bmatrix} \vec{v}_x - \vec{u}_x \\ \vec{v}_y - \vec{u}_y \end{bmatrix}$, ottenuto rutoando quest'ultimo di $+\frac{\pi}{2}$.
+
+Denotiamo $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}$ con $(\vec{v} - \vec{u})_\perp$.
 
 Vediamo "in azione" il test sull'involucro mostrato sopra, sia per il caso orario che antiorario.
 
