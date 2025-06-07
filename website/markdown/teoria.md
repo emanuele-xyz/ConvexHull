@@ -208,7 +208,7 @@ $$
 
 con $\theta$ angolo tra $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix} \quad \text{e} \quad \begin{bmatrix} \vec{w}_x - \vec{v}_x \\ \vec{w}_y - \vec{v}_y \end{bmatrix}$.
 
-Notiamo come $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}$ è il vettore perpendicolare a $\begin{bmatrix} \vec{v}_x - \vec{u}_x \\ \vec{v}_y - \vec{u}_y \end{bmatrix}$, ottenuto rutoando quest'ultimo di $+\frac{\pi}{2}$.
+Notiamo come $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}$ è il vettore perpendicolare a $\begin{bmatrix} \vec{v}_x - \vec{u}_x \\ \vec{v}_y - \vec{u}_y \end{bmatrix}$, ottenuto da quest'ultimo mediante una rotazione di $+\frac{\pi}{2}$.
 
 Denotiamo $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \end{bmatrix}$ con $(\vec{v} - \vec{u})_\perp$.
 
@@ -254,19 +254,11 @@ Nell'immagine d'esempio $\vec{n} \cdot (\vec{p} - \vec{u})$ è positivo perché 
 
 ## Come trovare un vettore perpendicolare ad un altro?
 
+Dato un vettore $\vec{v}$, vogliamo trovare il vettore $\vec{u}$, perpendicolare a $\vec{v}$, ottenuto da quest'ultimo mediante una rotazione di $+\frac{\pi}{2}$.
+
 ![](./vettori_perpendicolari.svg){ style="height: 250px; display: block; margin: auto;" }
 
-Consideriamo il vettore $\vec{v} \leftrightarrow \begin{bmatrix} v_x \\ v_y \end{bmatrix}$.
-
-Un vettore $\vec{u} \leftrightarrow \begin{bmatrix} u_x \\ u_y \end{bmatrix}$ è perpendicolare a $\vec{v}$ se e solo se $\vec{u} \cdot \vec{v} = 0$.
-
-Vogliamo determinare $u_x \hquad \textrm{e} \hquad u_y$, essendo a conoscenza di $v_x \hquad \textrm{e} \hquad v_y$.
-
-Sappiamo che $\vec{u} \cdot \vec{v} = 0$ se e solo se $u_x v_x + u_y v_y = 0$.
-
-Dunque $u_x = - \dfrac{u_y v_y}{v_x}$
-
-Fissando $u_y = v_x$, abbiamo che $u_x = - \dfrac{v_x v_y}{v_x} = -v_y$.
+Date le coordinate $\begin{bmatrix} v_x \\ v_y \end{bmatrix}$ di $\vec{v}$, il vettore richiesto $\vec{u}$ ha coordinate $\begin{bmatrix} -v_y \\ v_x \end{bmatrix}$
 
 ## Complessità temporale
 
