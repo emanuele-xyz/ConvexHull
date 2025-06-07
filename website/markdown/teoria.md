@@ -383,17 +383,17 @@ Possiamo vedere che:
 - Ordinamento dei punti in input $\rightarrow O(n \hhquad log \hhquad n)$.
   - È necessario fare questo ordinamento una volta sola.
 - Applichiamo Divide and Conquer ricorsivamente sulle due metà dell'input.
-  - Denotiamo $T(n)$ la complessità temporale dell'applicazione ricorsiva di divide and conquer, su input di taglia $n$.
+  - Denotiamo $T(n)$ la complessità temporale dell'applicazione ricorsiva di Divide and Conquer, su input di taglia $n$.
 
-Per determinare la complessità temporale di divide and conquer, dobbiamo trovare l'ordine di grandezza di $T(n)$. Per fare questo, osserviamo in cosa consiste un passo dell'applicazione ricorsiva dell'algoritmo:
+Per determinare la complessità temporale di Divide and Conquer, dobbiamo trovare l'ordine di grandezza di $T(n)$. Per fare questo, osserviamo in cosa consiste un passo dell'applicazione ricorsiva dell'algoritmo:
 
 - Dividiamo l'input iniziale di taglia $n$ in due metà, ognuna di taglia $\frac{n}{2}$.
-- Applichiamo ricorsivamente divide and conquer (senza ordinamento), sulle due metà $\rightarrow 2T(\dfrac{n}{2})$.
+- Applichiamo ricorsivamente Divide and Conquer (senza ordinamento), sulle due metà $\rightarrow 2T(\dfrac{n}{2})$.
 - Fondiamo le due soluzioni ottenute dalle due applicazioni ricorsive $\rightarrow O(n)$.
 
 Detto ciò, è facile vedere che vale la seguente relazione di ricorrenza.
 
-$T(n) = 2T(\dfrac{n}{2}) + n$
+$$T(n) = 2T(\dfrac{n}{2}) + n$$
 
 Per trovare l'ordine di grandezza di $T(n)$ è sufficiente risolvere tale relazione di ricorrenza. Procediamo nel modo seguente:
 
