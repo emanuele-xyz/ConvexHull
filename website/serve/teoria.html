@@ -439,7 +439,7 @@ v_y \end{bmatrix}\)</span> di <span
 class="math inline">\(\vec{v}\)</span>, il vettore richiesto <span
 class="math inline">\(\vec{u}\)</span> ha coordinate <span
 class="math inline">\(\begin{bmatrix} -v_y \\ v_x
-\end{bmatrix}\)</span></p>
+\end{bmatrix}\)</span>.</p>
 <h2 id="complessità-temporale">Complessità temporale</h2>
 <ul>
 <li>Iterare per ogni coppia di punti <span
@@ -662,7 +662,7 @@ sulle due metà <span class="math inline">\(\rightarrow
 ricorrenza.</p>
 <p><span class="math display">\[T(n) = 2T(\dfrac{n}{2}) + n\]</span></p>
 <p>Per trovare l’ordine di grandezza di <span
-class="math inline">\(T(n)\)</span> è sufficiente risolvere tale
+class="math inline">\(T(n)\)</span> è sufficiente esplicitare tale
 relazione di ricorrenza. Procediamo nel modo seguente:</p>
 <!-- prettier-ignore -->
 <p><span class="math display">\[\begin{align*}
@@ -712,7 +712,8 @@ T(n) &amp;= n + n \log_2 n \\[5pt]
 possono essere vertici dell’involucro convesso, quindi possono essere
 scartati.</li>
 <li>Per ciascun lato del quadrilatero, cerchiamo un percorso convesso
-tra i punti della regione sottesa da quel lato.</li>
+tra i punti della regione sottesa da quel lato, rispetto al rettangolo
+nella <a href="#akl_toussaint_quadrilatero">figura seguente</a>.</li>
 <li>L’unione di questi percorsi convessi costituisce l’involucro
 convesso.</li>
 </ul>
@@ -744,6 +745,7 @@ class="math inline">\(S\)</span>.</p>
 <h3
 id="ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero">Ricerca
 dei percorsi convessi per ogni lato del quadrilatero</h3>
+<p><a name="akl_toussaint_quadrilatero"></a></p>
 <p><img src="./akl_toussaint_quadrilatero.svg"
 style="height: 400px; display: block; margin: auto;" /></p>
 <p>Osserviamo, sul disegno qui sopra, come ad ogni lato del quadrilatero
@@ -768,8 +770,8 @@ class="math inline">\(x\)</span>, ottenendo così una lista di punti
 <span class="math inline">\(P\)</span>.</p>
 <p>Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di
 <span class="math inline">\(R\)</span> in ordine decrescente di <span
-class="math inline">\(x\)</span>, ottenendo così una lista di punti
-<span class="math inline">\(P\)</span>.</p>
+class="math inline">\(x\)</span>, ottenendo così la seconda parte della
+lista di punti <span class="math inline">\(P\)</span>.</p>
 <ol type="1">
 <li><p>Per ogni tripla di punti consecutivi <span
 class="math inline">\((P_k, P_{k+1}, P_{k+2})\)</span> in <span
@@ -795,7 +797,7 @@ consecutivi in <span class="math inline">\(P\)</span>.</p></li>
 ripetiamo (1).</p></li>
 </ol>
 <p>Quando ci fermeremo, la lista <span class="math inline">\(P\)</span>
-sarà proprio la lista di punti, in senso orario, del lato del poligono
+sarà proprio la lista di punti, in senso orario, del bordo del poligono
 convesso che stavamo cercando.</p>
 <p><img src="./akl_toussaint_determinante.svg"
 style="height: 300px; display: block; margin: auto;" /></p>

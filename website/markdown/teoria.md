@@ -258,7 +258,7 @@ Dato un vettore $\vec{v}$, vogliamo trovare il vettore $\vec{u}$, perpendicolare
 
 ![](./vettori_perpendicolari.svg){ style="height: 250px; display: block; margin: auto;" }
 
-Date le coordinate $\begin{bmatrix} v_x \\ v_y \end{bmatrix}$ di $\vec{v}$, il vettore richiesto $\vec{u}$ ha coordinate $\begin{bmatrix} -v_y \\ v_x \end{bmatrix}$
+Date le coordinate $\begin{bmatrix} v_x \\ v_y \end{bmatrix}$ di $\vec{v}$, il vettore richiesto $\vec{u}$ ha coordinate $\begin{bmatrix} -v_y \\ v_x \end{bmatrix}$.
 
 ## Complessità temporale
 
@@ -395,7 +395,7 @@ Detto ciò, è facile vedere che vale la seguente relazione di ricorrenza.
 
 $$T(n) = 2T(\dfrac{n}{2}) + n$$
 
-Per trovare l'ordine di grandezza di $T(n)$ è sufficiente risolvere tale relazione di ricorrenza. Procediamo nel modo seguente:
+Per trovare l'ordine di grandezza di $T(n)$ è sufficiente esplicitare tale relazione di ricorrenza. Procediamo nel modo seguente:
 
 <!-- prettier-ignore -->
 \begin{align*}
@@ -437,7 +437,7 @@ L'idea dell'algoritmo di Akl-Toussaint è la seguente:
 
 - Determiniamo il quadrilatero definito dai quattro punti estremi di $S$.
 - Tutti i punti che cadono all'interno di questo quadrilatero non possono essere vertici dell'involucro convesso, quindi possono essere scartati.
-- Per ciascun lato del quadrilatero, cerchiamo un percorso convesso tra i punti della regione sottesa da quel lato.
+- Per ciascun lato del quadrilatero, cerchiamo un percorso convesso tra i punti della regione sottesa da quel lato, rispetto al rettangolo nella [figura seguente](#akl_toussaint_quadrilatero).
 - L'unione di questi percorsi convessi costituisce l'involucro convesso.
 
 ### Euristica
@@ -455,6 +455,8 @@ Dunque possiamo eliminare tali punti da $S$.
 
 ### Ricerca dei percorsi convessi per ogni lato del quadrilatero
 
+<a name="akl_toussaint_quadrilatero"></a>
+
 ![](./akl_toussaint_quadrilatero.svg){ style="height: 400px; display: block; margin: auto;" }
 
 Osserviamo, sul disegno qui sopra, come ad ogni lato del quadrilatero corrisponde una regione. Quello che facciamo è percorrere il quadrilatero in senso orario e, per ogni regione, cercare il percorso convesso che ci porta da un estremo all'altro del lato corrispondente alla suddetta regione.
@@ -469,7 +471,7 @@ Sia $R$ l'insieme di punti che cadono nella regione (compresi gli estremi del la
 
 Se siamo nella regione 1, o nella regione 2, ordiniamo i punti di $R$ in ordine crescente di $x$, ottenendo così una lista di punti $P$.
 
-Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine decrescente di $x$, ottenendo così una lista di punti $P$.
+Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine decrescente di $x$, ottenendo così la seconda parte della lista di punti $P$.
 
 1. Per ogni tripla di punti consecutivi $(P_k, P_{k+1}, P_{k+2})$ in $P$:
 
@@ -483,7 +485,7 @@ Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine 
 
 2. Se abbiamo completato (1) senza avere rimosso nessun punto di $P$, allora ci fermiamo, altrimenti ripetiamo (1).
 
-Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orario, del lato del poligono convesso che stavamo cercando.
+Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orario, del bordo del poligono convesso che stavamo cercando.
 
 ![](./akl_toussaint_determinante.svg){ style="height: 300px; display: block; margin: auto;" }
 
