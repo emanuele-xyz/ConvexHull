@@ -163,7 +163,7 @@ di approssimazione di Bentley, Faust e Preparata</a>
 </ul></li>
 </ul>
 <h1 id="involucro-convesso">Involucro convesso</h1>
-<p><img src="./convex_hull_io.svg"
+<p><img src="convex_hull_io.svg"
 style="height: 190px; display: block; margin: auto;" /></p>
 <p><strong>Input</strong>: Insieme finito <span class="math inline">\(S
 \subseteq \mathbb{R}^2\)</span>.</p>
@@ -220,7 +220,7 @@ bound della complessità del problema (in dipendenza da n)</h2>
 <p>Il lower bound del problema è <span class="math inline">\(O(n
 \hspace{0.25em}log \hspace{0.25em}n)\)</span>.</p>
 <h3 id="dimostrazione">Dimostrazione</h3>
-<p><img src="./lower_bound.svg"
+<p><img src="lower_bound.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
 <p>Supponiamo di avere il seguente insieme finito di numeri</p>
 <p><span class="math display">\[I = \{ x_1, x_2, x_3, ..., x_n \}
@@ -260,7 +260,7 @@ class="math inline">\(H\)</span> usando una lista dei punti di <span
 class="math inline">\(P(H)\)</span>.</p>
 <p>Consideriamo il seguente involucro convesso <span
 class="math inline">\(H\)</span>:</p>
-<p><img src="./involucro_triangolare.svg"
+<p><img src="involucro_triangolare.svg"
 style="height: 170px; display: block; margin: auto;" /></p>
 <p>Possiamo rappresentare <span class="math inline">\(H\)</span> usando
 entrambe queste liste:</p>
@@ -359,9 +359,9 @@ class="math inline">\(+\frac{\pi}{2}\)</span>.</p>
 class="math inline">\((\vec{v} - \vec{u})_\perp\)</span>.</p>
 <p>Vediamo “in azione” il test sull’involucro mostrato sopra, sia per il
 caso orario che antiorario.</p>
-<p><img src="./ccw_test.svg"
+<p><img src="ccw_test.svg"
 style="height: 200px; display: block; margin: auto;" /></p>
-<p><img src="./cw_test.svg"
+<p><img src="cw_test.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
 <aside id="footnotes" class="footnotes footnotes-end-of-section"
 role="doc-footnote">
@@ -393,7 +393,7 @@ allora il segmento con estremi <span class="math inline">\(\vec{u}
 \hspace{0.5em}\textrm{e} \hspace{0.5em}\vec{v} \hspace{0.25em}\)</span>
 è un lato dell’involucro convesso.</p>
 <h2 id="half-plane-test">Half-plane test</h2>
-<p><img src="./half_plane_test.svg"
+<p><img src="half_plane_test.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
 <p>Come possiamo controllare se un punto <span
 class="math inline">\(\vec{p}\)</span> cade in <span
@@ -432,7 +432,7 @@ class="math inline">\(\vec{u}\)</span>, perpendicolare a <span
 class="math inline">\(\vec{v}\)</span>, ottenuto da quest’ultimo
 mediante una rotazione di <span
 class="math inline">\(+\frac{\pi}{2}\)</span>.</p>
-<p><img src="./vettori_perpendicolari.svg"
+<p><img src="vettori_perpendicolari.svg"
 style="height: 250px; display: block; margin: auto;" /></p>
 <p>Date le coordinate <span class="math inline">\(\begin{bmatrix} v_x \\
 v_y \end{bmatrix}\)</span> di <span
@@ -453,7 +453,7 @@ dell’algoritmo è <span class="math inline">\(O(n^3)\)</span>.</li>
 </ul>
 <h1 id="algoritmo-divide-and-conquer">Algoritmo Divide and Conquer</h1>
 <h2 id="idea-1">Idea</h2>
-<p><img src="./dc_tangents.svg"
+<p><img src="dc_tangents.svg"
 style="height: 250px; display: block; margin: auto;" /></p>
 <p>Sia <span class="math inline">\(P\)</span> la lista dei punti di
 <span class="math inline">\(S\)</span>, ordinata in ordine crescente
@@ -746,7 +746,7 @@ class="math inline">\(S\)</span>.</p>
 id="ricerca-dei-percorsi-convessi-per-ogni-lato-del-quadrilatero">Ricerca
 dei percorsi convessi per ogni lato del quadrilatero</h3>
 <p><a name="akl_toussaint_quadrilatero"></a></p>
-<p><img src="./akl_toussaint_quadrilatero.svg"
+<p><img src="akl_toussaint_quadrilatero.svg"
 style="height: 400px; display: block; margin: auto;" /></p>
 <p>Osserviamo, sul disegno qui sopra, come ad ogni lato del quadrilatero
 corrisponde una regione. Quello che facciamo è percorrere il
@@ -799,7 +799,7 @@ ripetiamo (1).</p></li>
 <p>Quando ci fermeremo, la lista <span class="math inline">\(P\)</span>
 sarà proprio la lista di punti, in senso orario, del bordo del poligono
 convesso che stavamo cercando.</p>
-<p><img src="./akl_toussaint_determinante.svg"
+<p><img src="akl_toussaint_determinante.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
 <h2 id="complessità-temporale-2">Complessità temporale</h2>
 <h3 id="euristica-1">Euristica</h3>
@@ -878,7 +878,7 @@ class="math inline">\(H&#39;\)</span> usando un processo di
 crescente di <span class="math inline">\(x\)</span>, ottenendo così una
 lista di punti <span class="math inline">\(P\)</span>.</p>
 <h2 id="costruzione-di-h-2">Costruzione di H’</h2>
-<p><img src="./torch_lateral_hulls.svg"
+<p><img src="torch_lateral_hulls.svg"
 style="height: 300px; display: block; margin: auto;" /></p>
 <p>Siano:</p>
 <ul>
@@ -1189,7 +1189,7 @@ class="math inline">\(R\)</span>.</p>
 cade al di fuori del quadrilatero deve essere in una delle quattro
 regioni <span class="math inline">\(A, B, C \hspace{0.25em}o
 \hspace{0.25em}D\)</span> sotto riportate.</p>
-<p><img src="./q_and_r.svg"
+<p><img src="q_and_r.svg"
 style="height: 350px; display: block; margin: auto;" /></p>
 <p>Prendiamo, senza perdita di generalità, un generico punto <span
 class="math inline">\(p \in S\)</span> che cade nella regione <span
@@ -1208,7 +1208,7 @@ class="math inline">\(\textrm{XMIN}, \textrm{YMAX}\)</span> e la retta
 parallela all’asse delle <span class="math inline">\(x\)</span> passante
 per <span class="math inline">\(p\)</span>.</li>
 </ul>
-<p><img src="./distance_and_dx_quad.svg"
+<p><img src="distance_and_dx_quad.svg"
 style="height: 350px; display: block; margin: auto;" /></p>
 <p>È facile osservare come <span class="math inline">\(\delta \le \delta
 x \le \Delta X\)</span>. <span
@@ -1260,7 +1260,7 @@ allora la distanza tra <span class="math inline">\(p\)</span> e <span
 class="math inline">\(H&#39;\)</span> è al più <span
 class="math inline">\(\dfrac{\Delta X}{k}\)</span>.</p>
 <h4 id="dimostrazione-2">Dimostrazione</h4>
-<p><img src="./bfp_example.svg"
+<p><img src="bfp_example.svg"
 style="height: 350px; display: block; margin: auto;" /></p>
 <p>Consideriamo un qualsiasi punto <span class="math inline">\(p \in
 S\)</span> che cade al di fuori di <span
@@ -1295,7 +1295,7 @@ class="math inline">\(H&#39;\)</span> e la retta parallela all’asse
 <span class="math inline">\(x\)</span> passante per <span
 class="math inline">\(p\)</span>.</li>
 </ul>
-<p><img src="./distance_and_dx_strip.svg"
+<p><img src="distance_and_dx_strip.svg"
 style="height: 350px; display: block; margin: auto;" /></p>
 <p>Possiamo vedere che <span class="math inline">\(\delta \le \delta x
 \le \dfrac{\Delta X}{k}\)</span>. <span

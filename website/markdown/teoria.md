@@ -67,7 +67,7 @@ header-includes: |
 
 # Involucro convesso
 
-![](./convex_hull_io.svg){ style="height: 190px; display: block; margin: auto;" }
+![](convex_hull_io.svg){ style="height: 190px; display: block; margin: auto;" }
 
 **Input**: Insieme finito $S \subseteq \mathbb{R}^2$.
 
@@ -112,7 +112,7 @@ Il lower bound del problema è $O(n \hhquad log \hhquad n)$.
 
 ### Dimostrazione
 
-![](./lower_bound.svg){ style="height: 300px; display: block; margin: auto;" }
+![](lower_bound.svg){ style="height: 300px; display: block; margin: auto;" }
 
 Supponiamo di avere il seguente insieme finito di numeri
 
@@ -138,7 +138,7 @@ Come abbiamo già detto, rappresentiamo l'involucro convesso $H$ usando una list
 
 Consideriamo il seguente involucro convesso $H$:
 
-![](./involucro_triangolare.svg){ style="height: 170px; display: block; margin: auto;" }
+![](involucro_triangolare.svg){ style="height: 170px; display: block; margin: auto;" }
 
 Possiamo rappresentare $H$ usando entrambe queste liste:
 
@@ -214,9 +214,9 @@ Denotiamo $\begin{bmatrix} -(\vec{v}_y - \vec{u}_y) \\ \vec{v}_x - \vec{u}_x \en
 
 Vediamo "in azione" il test sull'involucro mostrato sopra, sia per il caso orario che antiorario.
 
-![](./ccw_test.svg){ style="height: 200px; display: block; margin: auto;" }
+![](ccw_test.svg){ style="height: 200px; display: block; margin: auto;" }
 
-![](./cw_test.svg){ style="height: 300px; display: block; margin: auto;" }
+![](cw_test.svg){ style="height: 300px; display: block; margin: auto;" }
 
 # Algoritmo Naive
 
@@ -234,7 +234,7 @@ Se tutti i punti sono caduti esclusivamente in uno dei due semipiani, allora il 
 
 ## Half-plane test
 
-![](./half_plane_test.svg){ style="height: 300px; display: block; margin: auto;" }
+![](half_plane_test.svg){ style="height: 300px; display: block; margin: auto;" }
 
 Come possiamo controllare se un punto $\vec{p}$ cade in $\Pi^+ \hquad \textrm{o} \hquad \Pi^-$?
 
@@ -256,7 +256,7 @@ Nell'immagine d'esempio $\vec{n} \cdot (\vec{p} - \vec{u})$ è positivo perché 
 
 Dato un vettore $\vec{v}$, vogliamo trovare il vettore $\vec{u}$, perpendicolare a $\vec{v}$, ottenuto da quest'ultimo mediante una rotazione di $+\frac{\pi}{2}$.
 
-![](./vettori_perpendicolari.svg){ style="height: 250px; display: block; margin: auto;" }
+![](vettori_perpendicolari.svg){ style="height: 250px; display: block; margin: auto;" }
 
 Date le coordinate $\begin{bmatrix} v_x \\ v_y \end{bmatrix}$ di $\vec{v}$, il vettore richiesto $\vec{u}$ ha coordinate $\begin{bmatrix} -v_y \\ v_x \end{bmatrix}$.
 
@@ -270,7 +270,7 @@ Date le coordinate $\begin{bmatrix} v_x \\ v_y \end{bmatrix}$ di $\vec{v}$, il v
 
 ## Idea
 
-![](./dc_tangents.svg){ style="height: 250px; display: block; margin: auto;" }
+![](dc_tangents.svg){ style="height: 250px; display: block; margin: auto;" }
 
 Sia $P$ la lista dei punti di $S$, ordinata in ordine crescente rispetto alla loro componente $x$.
 
@@ -457,7 +457,7 @@ Dunque possiamo eliminare tali punti da $S$.
 
 <a name="akl_toussaint_quadrilatero"></a>
 
-![](./akl_toussaint_quadrilatero.svg){ style="height: 400px; display: block; margin: auto;" }
+![](akl_toussaint_quadrilatero.svg){ style="height: 400px; display: block; margin: auto;" }
 
 Osserviamo, sul disegno qui sopra, come ad ogni lato del quadrilatero corrisponde una regione. Quello che facciamo è percorrere il quadrilatero in senso orario e, per ogni regione, cercare il percorso convesso che ci porta da un estremo all'altro del lato corrispondente alla suddetta regione.
 
@@ -487,7 +487,7 @@ Se siamo nella regione 3, o nella regione 4, ordiniamo i punti di $R$ in ordine 
 
 Quando ci fermeremo, la lista $P$ sarà proprio la lista di punti, in senso orario, del bordo del poligono convesso che stavamo cercando.
 
-![](./akl_toussaint_determinante.svg){ style="height: 300px; display: block; margin: auto;" }
+![](akl_toussaint_determinante.svg){ style="height: 300px; display: block; margin: auto;" }
 
 ## Complessità temporale
 
@@ -538,7 +538,7 @@ Ordiniamo i punti di $S$ in ordine crescente di $x$, ottenendo così una lista d
 
 ## Costruzione di H'
 
-![](./torch_lateral_hulls.svg){ style="height: 300px; display: block; margin: auto;" }
+![](torch_lateral_hulls.svg){ style="height: 300px; display: block; margin: auto;" }
 
 Siano:
 
@@ -714,7 +714,7 @@ Sia $R$ il rettangolo con diagonale il segmento di estremi $(\textrm{XMIN}_x, \t
 
 Un qualsiasi punto $p \in S$ che cade al di fuori del quadrilatero deve essere in una delle quattro regioni $A, B, C \hhquad o \hhquad D$ sotto riportate.
 
-![](./q_and_r.svg){ style="height: 350px; display: block; margin: auto;" }
+![](q_and_r.svg){ style="height: 350px; display: block; margin: auto;" }
 
 Prendiamo, senza perdita di generalità, un generico punto $p \in S$ che cade nella regione $A$. Naturalmente, la distanza $\delta$ tra $p$ e $Q$ è data dalla distanza tra $p$ e il segmento $\textrm{XMIN}, \textrm{YMAX}$.
 
@@ -723,7 +723,7 @@ Denotiamo con $\delta x$, la lunghezza del segmento con estremi:
 - $p$, e
 - il punto di intersezione tra il segmento $\textrm{XMIN}, \textrm{YMAX}$ e la retta parallela all'asse delle $x$ passante per $p$.
 
-![](./distance_and_dx_quad.svg){ style="height: 350px; display: block; margin: auto;" }
+![](distance_and_dx_quad.svg){ style="height: 350px; display: block; margin: auto;" }
 
 È facile osservare come $\delta \le \delta x \le \Delta X$. $\square$
 
@@ -755,7 +755,7 @@ Per ogni punto $p \in S$, se $p$ cade al di fuori di $H'$ [^2] allora la distanz
 
 #### Dimostrazione
 
-![](./bfp_example.svg){ style="height: 350px; display: block; margin: auto;" }
+![](bfp_example.svg){ style="height: 350px; display: block; margin: auto;" }
 
 Consideriamo un qualsiasi punto $p \in S$ che cade al di fuori di $H'$. Per costruzione, $p$ deve cadere all'interno di una data striscia.
 
@@ -766,7 +766,7 @@ Denotiamo con $\delta x$ la lunghezza del segmento che ha come estremi:
 - $p$, e
 - l'intersezione tra il suddetto lato di $H'$ e la retta parallela all'asse $x$ passante per $p$.
 
-![](./distance_and_dx_strip.svg){ style="height: 350px; display: block; margin: auto;" }
+![](distance_and_dx_strip.svg){ style="height: 350px; display: block; margin: auto;" }
 
 Possiamo vedere che $\delta \le \delta x \le \dfrac{\Delta X}{k}$. $\square$
 

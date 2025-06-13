@@ -36,4 +36,4 @@ Per poter eseguire un algoritmo è necessario inserire almeno 3 punti. Inoltre, 
 
 - **Bentley-Faust-Preparata Approximation**, di complessità $O(n)$. Vengono visualizzate le $k$ strisce verticali (con $k$ selezionabile tramite uno slider); per ogni striscia, i punti di $y$ minima e $y$ massima, l'involucro approssimato, e infine l'involucro reale calcolato con uno degli algoritmi sopracitati.
 
-![](./diagramma_manuale.png){ style="height: 500px; display: block; margin: 50px auto;" }
+![](diagramma_manuale.png){ style="height: 500px; display: block; margin: 50px auto;" }
