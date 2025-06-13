@@ -5,7 +5,7 @@ header-includes: |
   \newcommand{\hhquad}{\hspace{0.25em}}
 ---
 
-L'[applicazione JavaScript](/applicazione.html) permette di visualizzare l'esecuzione degli algoritmi trattati, passo dopo passo.
+L'[applicazione JavaScript](applicazione.html) permette di visualizzare l'esecuzione degli algoritmi trattati, passo dopo passo.
 
 È possibile cliccare sulla canvas per aggiungere un punto all'insieme di punti di input. Sopra a ciascun punto vengono visualizzate le sue coordinate. È importante notare che l'origine della canvas si trova in alto a sinistra, il che significa che l'asse delle ordinate cresce verso il basso.
 
